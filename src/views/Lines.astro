@@ -1,0 +1,694 @@
+---
+import Base from '../layouts/Base.astro';
+import Asset from '../components/Asset.astro';
+import Arrow from '../components/Arrow.astro';
+import SpecimenCard from '../components/SpecimenCard.astro';
+import ClosingCta from '../components/ClosingCta.astro';
+import { linesCopy } from '../i18n/lines';
+import { common } from '../i18n/common';
+import { pick, t, num, type Lang } from '../lib/i18n';
+import { href } from '../lib/routes';
+import { lines, fmtRange } from '../lib/data';
+import { dieDrawing, type DieKind } from '../lib/die';
+import manifest from '../generated/assets.json';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = pick(linesCopy, lang).overview;
+const cc = pick(common, lang);
+const cats = ['all', 'feed', 'pet', 'food'] as const;
+const counts = { all: lines.length, feed: lines.filter((l) => l.category === 'feed').length, pet: lines.filter((l) => l.category === 'pet').length, food: lines.filter((l) => l.category === 'food').length };
+const homeLabel = { tr: 'Anasayfa', en: 'Home', ar: 'الرئيسية' }[lang];
+
+// Hero: the extruder die of each family and the product it cuts (die plates: catalogue p.10–16, 20, 24).
+// Feed: round pellet inserts; pet food: kibble shapes; food: the crispy-snack rotary head (it turns, no knife).
+const sprite = (n: string) => (manifest as Record<string, { src: string; w: number }[]>)[n]?.find((v) => v.w >= 140)?.src;
+// size: a piece's longest side at the die face, in die radii (an opening is ~0.06–0.1).
+const FAMILIES: { key: 'feed' | 'pet' | 'food'; die: DieKind; rings: number[]; size: number; sprites: string[] }[] = [
+  { key: 'feed', die: 'round', rings: [70, 124, 176], size: 0.085, sprites: ['sp-fish-pellets-05', 'sp-fish-pellets-11', 'sp-fish-pellets-14', 'sp-livestock-03', 'sp-livestock-09', 'sp-livestock-11'] },
+  { key: 'pet', die: 'kibble', rings: [92, 164], size: 0.1, sprites: ['sp-kibble-01', 'sp-kibble-02', 'sp-kibble-03', 'sp-kibble-07', 'sp-kibble-09', 'sp-kibble-12', 'sp-treats-03', 'sp-treats-05'] },
+  { key: 'food', die: 'rotary', rings: [84, 124, 164, 190], size: 0.12, sprites: ['sp-puffs-01', 'sp-puffs-02', 'sp-puffs-05'] },
+];
+const fams = FAMILIES.map((f) => {
+  const d = dieDrawing(f.die);
+  const blades = (d.knife.match(/Q/g) ?? []).length / 2;
+  return { ...f, d, blades, urls: f.sprites.map(sprite).filter(Boolean) as string[] };
+});
+const streamData = Object.fromEntries(fams.map((f) => [f.key, { urls: f.urls, rings: f.rings, blades: f.blades, size: f.size }]));
+// The title surfaces word by word (as on the home page); <em> words keep their colour.
+const titleWords = [...c.title.matchAll(/<em>(.*?)<\/em>|([^<]+)/g)].flatMap((m) =>
+  (m[1] ?? m[2]).trim().split(/\s+/).filter(Boolean).map((w) => ({ w, em: m[1] != null })));
+const pk = c.compare.picker;
+const compareData = lines.map((l) => ({
+  slug: l.slug, name: t(l.shortName, lang), cat: l.category,
+  capacity: fmtRange(l.capacityRange, 'kg/saat', lang), power: fmtRange(l.installedPowerRange, 'kW', lang),
+  length: l.lineLengthRange ? `${num(l.lineLengthRange.min / 1000, lang)}–${num(l.lineLengthRange.max / 1000, lang)} m`.replace(/^(\S+)–\1/, '$1') : '—',
+  models: l.specs.models.join(' · '), components: String(l.components.length || '—'), img: (manifest as any)[l.asset]?.[0]?.src ?? '',
+}));
+---
+<Base lang={lang} title={c.meta.title} description={c.meta.description} route="lines" gaugeMax={140}>
+  <!-- HERO · the die: where powder becomes product -->
+  <section class="lh s-steel grain" data-surface="dark" aria-labelledby="lh-title" data-lh data-stream={JSON.stringify(streamData)}>
+    <div class="lh__die" data-lh-die aria-hidden="true">
+      {fams.map((f, i) => (
+        <div class:list={['lh__plate', { 'is-on': i === 0 }]} data-fam={f.key}>
+          <svg viewBox="0 0 600 600" fill="none">
+            <path class="d-guides" d={f.d.guides} />
+            <path class="d-plate" d={f.d.plate} />
+            <path class="d-solid" d={f.d.solid} />
+            {f.blades > 0 && <path class="d-holes" d={f.d.holes} />}
+          </svg>
+          {/* the turning part is its own <svg>, so the rotation is a composited transform, not an SVG repaint */}
+          <svg viewBox="0 0 600 600" fill="none" class="lh__turn" data-knife={f.blades > 0 ? '' : undefined}>
+            {f.blades > 0 ? <path class="d-knife" d={f.d.knife} /> : <path class="d-holes" d={f.d.holes} />}
+          </svg>
+        </div>
+      ))}
+    </div>
+    <canvas class="lh__stream" data-lh-stream aria-hidden="true"></canvas>
+    <div class="lh__veil" aria-hidden="true"></div>
+
+    <div class="wrap lh__inner">
+      <nav class="lh__crumbs label" aria-label="breadcrumb">
+        <a href={href('home', lang)}>{homeLabel}</a><span class="sep">/</span><a href={href('lines', lang)}>{cc.nav.solutions}</a>
+      </nav>
+      <p class="label lh__kicker"><span class="dot"></span>{c.kicker}</p>
+      <h1 id="lh-title" class="t-display lh__title">
+        {titleWords.map((t, i) => <><span class="lh__w" style={`--i:${i}`}>{t.em ? <em>{t.w}</em> : t.w}</span>{' '}</>)}
+      </h1>
+      <p class="t-lead lh__lead">{c.lead}</p>
+    </div>
+
+    <nav class="wrap lh__cats" aria-label={c.filterLabel}>
+      <ul role="list">
+        {fams.map((f, i) => (
+          <li style={`--i:${i}`}>
+            <a href="#hatlar" data-lh-cat={f.key} class:list={{ 'is-shown': i === 0 }}>
+              <span class="lh__no mono">{String(i + 1).padStart(2, '0')}</span>
+              <span class="lh__cat">{c.filters[f.key]}</span>
+              <span class="lh__count mono">{counts[f.key]} {c.count}</span>
+              <Arrow />
+            </a>
+          </li>
+        ))}
+        <li style="--i:3">
+          <a href="#karsilastir">
+            <span class="lh__no mono">04</span>
+            <span class="lh__cat">{c.compare.label}</span>
+            <span class="lh__count mono"></span>
+            <Arrow />
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </section>
+
+  <!-- selector -->
+  <section class="sel s-sand grain section" id="hatlar" data-surface="light" aria-labelledby="sel-title">
+    <div class="wrap">
+      <header class="sel__head">
+        <h2 id="sel-title" class="t-h2">{c.toc[0][1]} <span class="mono faint sel__count" data-count>{lines.length} {c.count}</span></h2>
+        <div class="sel__filters" role="group" aria-label={c.filterLabel}>
+          {cats.map((k) => (
+            <button type="button" class="sel__f" aria-pressed={k === 'all' ? 'true' : 'false'} data-filter={k}>
+              {c.filters[k]} <span class="mono">{counts[k]}</span>
+            </button>
+          ))}
+        </div>
+      </header>
+      <ol class="sel__grid" role="list" data-grid>
+        {lines.map((l) => (
+          <li data-cat={l.category} data-slug={l.slug}>
+            <SpecimenCard line={l} lang={lang} showMeta />
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- compare -->
+  <section class="cmp s-light section" id="karsilastir" data-surface="light" aria-labelledby="cmp-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="label">{c.compare.label}</p>
+        <h2 id="cmp-title" class="t-h2" set:html={c.compare.title} />
+        <p class="muted">{c.compare.hint}</p>
+      </header>
+      <div class="cmp__grid" data-cmp aria-live="polite">
+        <div class="cmp__corner" aria-hidden="true"></div>
+        {[0, 1, 2].map((i) => (
+          <div class="cmp__slot" data-slot={i}>
+            <button type="button" class="cmp__add" data-open={i} aria-haspopup="dialog" aria-label={`${pk.add} (${pk.slot} ${i + 1})`}>
+              <span class="cmp__no mono" aria-hidden="true">0{i + 1}</span>
+              <span class="cmp__plus" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg>
+              </span>
+              <span class="cmp__addtx label">{pk.add}</span>
+            </button>
+          </div>
+        ))}
+      </div>
+      <script type="application/json" id="cmp-data" set:html={JSON.stringify({ rows: c.compare.rows, lines: compareData, base: href('line', lang, '__'), t: pk })} />
+    </div>
+
+    <dialog class="pk" data-picker aria-labelledby="pk-title">
+      <div class="pk__panel">
+        <header class="pk__head">
+          <span class="pk__grab" aria-hidden="true"></span>
+          <h3 id="pk-title" class="pk__title">{pk.title} <span class="mono faint" data-pk-slot></span></h3>
+          <button type="button" class="pk__x" data-pk-close aria-label={pk.close}>
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg>
+          </button>
+        </header>
+        <div class="pk__tools">
+          <input type="search" class="pk__q" placeholder={pk.search} aria-label={pk.search} data-pk-q autocomplete="off" />
+          <div class="pk__chips" role="group" aria-label={c.filterLabel}>
+            {cats.map((k) => (
+              <button type="button" class="pk__chip" aria-pressed={k === 'all' ? 'true' : 'false'} data-pk-cat={k}>{c.filters[k]}</button>
+            ))}
+          </div>
+        </div>
+        <ul class="pk__list" role="list" data-pk-list>
+          {compareData.map((l) => (
+            <li data-cat={l.cat} data-q={`${l.name} ${l.models}`.toLocaleLowerCase(lang)}>
+              <button type="button" class="pk__item" data-pick={l.slug}>
+                <span class="pk__img">{l.img && <img src={l.img} alt="" loading="lazy" decoding="async" />}</span>
+                <span class="pk__name">{l.name}</span>
+                <span class="pk__meta mono">{l.capacity}</span>
+                <span class="pk__tag mono">{pk.chosen}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+        <p class="pk__none muted" data-pk-none hidden>{pk.none}</p>
+      </div>
+    </dialog>
+  </section>
+
+  <!-- what is extrusion -->
+  <section class="ext s-dark section" id="ekstruzyon" data-surface="dark" aria-labelledby="ext-title">
+    <div class="wrap ext__grid">
+      <div class="ext__words">
+        <p class="label">{c.extrusion.label}</p>
+        <h2 id="ext-title" class="t-h1" set:html={c.extrusion.title} />
+        {c.extrusion.paras.map((p) => <p class="muted">{p}</p>)}
+        <ul class="ext__kinds" role="list">
+          {c.extrusion.kinds.map((k, i) => (
+            <li>
+              <span class="ext__glass" aria-hidden="true"><i style={`--y:${[14, 48, 82][i]}%`}></i></span>
+              <span><strong>{k.t}</strong><span class="faint t-small">{k.d}</span></span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <figure class="ext__fig" aria-label={c.extrusion.title.replace(/<[^>]+>/g, '')}>
+        <svg viewBox="0 0 640 300" class="screw">
+          <defs>
+            <clipPath id="barrel"><rect x="80" y="110" width="440" height="80" rx="4" /></clipPath>
+            <linearGradient id="mat" x1="0" x2="1">
+              <stop offset="0" stop-color="#d9c29a" /><stop offset="0.55" stop-color="#b07a45" /><stop offset="1" stop-color="#6b3f1d" />
+            </linearGradient>
+          </defs>
+          <!-- hopper -->
+          <path d="M96 30h80l-22 80h-36z" fill="none" stroke="currentColor" stroke-width="1.2" />
+          <g class="screw__feed">{[0, 1, 2, 3, 4, 5].map((i) => <circle cx={128 + (i % 3) * 8} cy={44 + i * 9} r="2.2" fill="#d9c29a" />)}</g>
+          <!-- barrel -->
+          <rect x="80" y="110" width="440" height="80" rx="4" fill="none" stroke="currentColor" stroke-width="1.4" />
+          <rect x="80" y="110" width="440" height="80" fill="url(#mat)" opacity="0.28" />
+          <g clip-path="url(#barrel)">
+            <g class="screw__flights">
+              {Array.from({ length: 24 }).map((_, i) => <path d={`M${60 + i * 22} 112 l${16 - Math.min(i, 18) * 0.35} 76`} stroke="#c7cfd6" stroke-width="2.2" opacity="0.75" />)}
+            </g>
+            <rect x="80" y="146" width="440" height="8" fill="#9aa6b2" />
+          </g>
+          <!-- heating jackets -->
+          {[0, 1, 2, 3].map((i) => <rect x={120 + i * 100} y="100" width="70" height="10" fill="none" stroke="#b8742f" stroke-width="1" />)}
+          {[0, 1, 2, 3].map((i) => <rect x={120 + i * 100} y="190" width="70" height="10" fill="none" stroke="#b8742f" stroke-width="1" />)}
+          <!-- die + cutter -->
+          <rect x="520" y="118" width="16" height="64" fill="none" stroke="currentColor" stroke-width="1.4" />
+          <g class="screw__knife"><path d="M548 120v60" stroke="#82ccf0" stroke-width="2" /></g>
+          <g class="screw__out">{[0, 1, 2, 3, 4].map((i) => <ellipse cx={566 + i * 14} cy={150 + Math.sin(i) * 14} rx="6" ry="4.4" fill="#8a552a" style={`animation-delay:${i * 0.36}s`} />)}</g>
+          <!-- labels -->
+          {c.extrusion.parts.map((p, i) => {
+            const x = [136, 300, 528, 600][i];
+            return <g class="screw__lbl"><path d={`M${x} ${i === 0 ? 24 : 228} v${i === 0 ? -6 : 18}`} stroke="currentColor" stroke-width="0.8" /><text x={x} y={i === 0 ? 12 : 262} text-anchor="middle">{p}</text></g>;
+          })}
+          <path d="M80 240h440" stroke="currentColor" stroke-width="0.8" opacity="0.5" />
+          <path d="M80 236v8M520 236v8" stroke="currentColor" stroke-width="0.8" opacity="0.5" />
+        </svg>
+      </figure>
+    </div>
+  </section>
+
+  <!-- pilot -->
+  <section class="pilot s-light grain section" id="pilot" data-surface="light" aria-labelledby="pilot-title">
+    <div class="wrap pilot__grid">
+      <div class="pilot__art">
+        <Asset name="m-sp65-iii" alt="SP65-III" sizes="(max-width: 960px) 90vw, 44vw" />
+        <span class="pilot__dim mono" aria-hidden="true">Ø65 mm</span>
+      </div>
+      <div class="pilot__words">
+        <p class="label">{c.pilot.label}</p>
+        <h2 id="pilot-title" class="t-h1" set:html={c.pilot.title} />
+        <p class="t-lead">{c.pilot.text}</p>
+        <a class="btn" href={`${href('start', lang)}?alan=hat&olcek=pilot`}>{c.pilot.cta}<Arrow /></a>
+      </div>
+    </div>
+  </section>
+
+  <ClosingCta lang={lang} title={c.close} />
+</Base>
+
+<script>
+  import { mountDieStream, type DieFamily } from '../scripts/die-stream';
+
+  // Hero. The die and its product take turns by family (feed → pet food → food); pointing at or focusing a
+  // family in the row below shows that one. Choosing it opens the line grid already filtered.
+  const lh = document.querySelector<HTMLElement>('[data-lh]');
+  if (lh) {
+    const plates = [...lh.querySelectorAll<HTMLElement>('[data-fam]')];
+    const links = [...lh.querySelectorAll<HTMLAnchorElement>('[data-lh-cat]')];
+    const order = plates.map((p) => p.dataset.fam!);
+    const raw = JSON.parse(lh.dataset.stream!) as Record<string, Omit<DieFamily, 'knife'>>;
+    const fams: Record<string, DieFamily> = Object.fromEntries(order.map((k, i) => [k, { ...raw[k], knife: plates[i].querySelector('[data-knife]') }]));
+    const stream = mountDieStream(lh.querySelector<HTMLCanvasElement>('[data-lh-stream]')!, lh.querySelector<HTMLElement>('[data-lh-die]')!, fams, order[0]);
+    let cur = order[0], held = false, timer = 0, onScreen = true;
+    const show = (f: string) => {
+      if (f === cur) return;
+      cur = f;
+      plates.forEach((p) => p.classList.toggle('is-on', p.dataset.fam === f));
+      links.forEach((a) => a.classList.toggle('is-shown', a.dataset.lhCat === f));
+      stream?.set(f);
+    };
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const cycle = () => {
+      clearInterval(timer);
+      if (reduce) return;
+      timer = window.setInterval(() => { if (!held && onScreen && !document.hidden) show(order[(order.indexOf(cur) + 1) % order.length]); }, 6500);
+    };
+    new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; }).observe(lh);
+    links.forEach((a) => {
+      const f = a.dataset.lhCat!;
+      a.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') { held = true; show(f); } });
+      a.addEventListener('pointerleave', () => { held = false; cycle(); });
+      a.addEventListener('focus', () => { held = true; show(f); });
+      a.addEventListener('blur', () => { held = false; cycle(); });
+      a.addEventListener('click', () => document.querySelector<HTMLButtonElement>(`[data-filter="${f}"]`)?.click());
+    });
+    cycle();
+  }
+
+  // Filter with FLIP: cards drift to their new place like particles settling in water.
+  const grid = document.querySelector<HTMLElement>('[data-grid]')!;
+  const items = [...grid.children] as HTMLElement[];
+  const btns = [...document.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+  const count = document.querySelector<HTMLElement>('[data-count]')!;
+  const unit = count.textContent!.replace(/^\d+\s*/, '');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  btns.forEach((b) => b.addEventListener('click', () => {
+    const f = b.dataset.filter!;
+    btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    const first = new Map(items.map((el) => [el, el.getBoundingClientRect()]));
+    items.forEach((el) => { el.hidden = f !== 'all' && el.dataset.cat !== f; });
+    count.textContent = `${items.filter((el) => !el.hidden).length} ${unit}`;
+    if (reduce) return;
+    items.filter((el) => !el.hidden).forEach((el, i) => {
+      const a = first.get(el)!, z = el.getBoundingClientRect();
+      const dx = a.left - z.left, dy = a.top - z.top;
+      const appeared = a.width === 0;
+      el.animate(appeared
+        ? [{ opacity: 0, transform: 'translateY(-18px)' }, { opacity: 1, transform: 'none' }]
+        : [{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }],
+        { duration: 900, delay: i * 25, easing: 'cubic-bezier(0.22, 0.61, 0.24, 1)', fill: 'backwards' });
+    });
+  }));
+
+  // Compare: three slots, each filled from a picker (modal on desktop, bottom sheet on phones).
+  const data = JSON.parse(document.getElementById('cmp-data')!.textContent!);
+  const T = data.t;
+  const cmpGrid = document.querySelector<HTMLElement>('[data-cmp]')!;
+  const slotsEl = [...cmpGrid.querySelectorAll<HTMLElement>('[data-slot]')];
+  const addHTML = slotsEl.map((el) => el.innerHTML);
+  const dlg = document.querySelector<HTMLDialogElement>('[data-picker]')!;
+  const q = dlg.querySelector<HTMLInputElement>('[data-pk-q]')!;
+  const chips = [...dlg.querySelectorAll<HTMLButtonElement>('[data-pk-cat]')];
+  const rows = [...dlg.querySelectorAll<HTMLLIElement>('[data-pk-list] li')];
+  const none = dlg.querySelector<HTMLElement>('[data-pk-none]')!;
+  const slotLbl = dlg.querySelector<HTMLElement>('[data-pk-slot]')!;
+  const lang = document.documentElement.lang || 'tr';
+  const byslug = (s: string) => data.lines.find((l: any) => l.slug === s);
+  const esc = (v: string) => String(v).replace(/[&<>"]/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' } as any)[m]);
+  const state: (string | null)[] = [null, null, null];
+  let active = 0;
+  let cat = 'all';
+
+  const filter = () => {
+    const term = q.value.trim().toLocaleLowerCase(lang);
+    let shown = 0;
+    rows.forEach((li) => {
+      const ok = (cat === 'all' || li.dataset.cat === cat) && (!term || li.dataset.q!.includes(term));
+      li.hidden = !ok; if (ok) shown++;
+    });
+    none.hidden = shown > 0;
+  };
+  chips.forEach((b) => b.addEventListener('click', () => {
+    cat = b.dataset.pkCat!;
+    chips.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    filter();
+  }));
+  q.addEventListener('input', filter);
+
+  const open = (i: number) => {
+    active = i;
+    slotLbl.textContent = `· ${T.slot} ${i + 1}`;
+    rows.forEach((li) => {
+      const btn = li.querySelector<HTMLButtonElement>('[data-pick]')!;
+      const s = btn.dataset.pick!;
+      const elsewhere = state.some((v, j) => v === s && j !== i);
+      btn.disabled = elsewhere;
+      btn.classList.toggle('is-taken', elsewhere);
+      if (state[i] === s) btn.setAttribute('aria-current', 'true'); else btn.removeAttribute('aria-current');
+    });
+    dlg.showModal();
+    // On touch screens don't pop the keyboard; let people tap a card straight away.
+    if (matchMedia('(hover: hover) and (pointer: fine)').matches) q.focus({ preventScroll: true });
+    else (dlg.querySelector('[data-pk-close]') as HTMLElement).focus({ preventScroll: true });
+    dlg.querySelector('[data-pk-list]')!.scrollTop = 0;
+  };
+  const close = () => {
+    if (!dlg.open) return;
+    if (reduce) { dlg.close(); return; }
+    dlg.classList.add('is-closing');
+    setTimeout(() => { dlg.classList.remove('is-closing'); dlg.close(); }, 220);
+  };
+  dlg.querySelector('[data-pk-close]')!.addEventListener('click', close);
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) close(); });
+  dlg.addEventListener('cancel', (e) => { e.preventDefault(); close(); });
+  dlg.addEventListener('close', () => {
+    (slotsEl[active].querySelector('[data-open]') as HTMLElement | null)?.focus({ preventScroll: true });
+  });
+  rows.forEach((li) => li.querySelector('[data-pick]')!.addEventListener('click', (e) => {
+    state[active] = (e.currentTarget as HTMLElement).dataset.pick!;
+    render();
+    close();
+  }));
+
+  const render = () => {
+    slotsEl.forEach((el, i) => {
+      const l = state[i] && byslug(state[i]!);
+      if (!l) { el.innerHTML = addHTML[i]; el.classList.remove('is-full'); return; }
+      el.classList.add('is-full');
+      el.innerHTML = `
+        <button type="button" class="cmp__pic" data-open="${i}" aria-haspopup="dialog" aria-label="${esc(T.change)}: ${esc(l.name)}">
+          <span class="cmp__no mono" aria-hidden="true">0${i + 1}</span>
+          ${l.img ? `<img src="${l.img}" alt="" loading="lazy">` : ''}
+          <span class="cmp__swap label" aria-hidden="true">${esc(T.change)}</span>
+        </button>
+        <a class="cmp__name serif" href="${data.base.replace('__', l.slug)}">${esc(l.name)}</a>
+        <button type="button" class="cmp__rm" data-rm="${i}" aria-label="${esc(T.remove)}: ${esc(l.name)}">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>`;
+    });
+    cmpGrid.querySelectorAll('.cmp__row').forEach((n) => n.remove());
+    if (state.every((v) => !v)) return;
+    const keys = ['capacity', 'power', 'length', 'models', 'components'];
+    let html = '';
+    for (const k of keys) {
+      html += `<div class="cmp__row cmp__k label">${esc(data.rows[k])}</div>`;
+      html += state.map((s) => {
+        const l = s && byslug(s);
+        return `<div class="cmp__row cmp__v mono${l ? '' : ' is-empty'}">${l ? esc(l[k]) : ''}</div>`;
+      }).join('');
+    }
+    cmpGrid.insertAdjacentHTML('beforeend', html);
+  };
+  cmpGrid.addEventListener('click', (e) => {
+    const t = e.target as HTMLElement;
+    const rm = t.closest<HTMLElement>('[data-rm]');
+    if (rm) { const i = +rm.dataset.rm!; state[i] = null; render(); (slotsEl[i].querySelector('[data-open]') as HTMLElement).focus(); return; }
+    const op = t.closest<HTMLElement>('[data-open]');
+    if (op) open(+op.dataset.open!);
+  });
+</script>
+
+<style>
+  /* ---------------- HERO ----------------
+     Steel: a graphite room lit from the die. The die face (drawn) sits right, the product (canvas) leaves it,
+     the words sit on the dark side. Everything that moves is a composited transform/opacity or the canvas. */
+  .lh {
+    --die: min(96svh, 58vw, 1000px); /* die diameter */
+    --dx: 73%; --dy: 47%; /* die centre */
+    --ink: 20, 26, 33;
+    position: relative; isolation: isolate; overflow: clip;
+    min-height: max(100svh, 680px);
+    display: grid; grid-template-rows: 1fr auto;
+    background:
+      radial-gradient(calc(var(--die) * 0.6) calc(var(--die) * 0.6) at var(--dx) var(--dy), rgba(130, 204, 240, 0.08), transparent 72%),
+      radial-gradient(95% 85% at 72% 38%, #2b3541 0%, #1e262f 50%, #141a21 100%);
+  }
+  .lh.grain::before { opacity: 0.28; filter: invert(1); }
+
+  .lh__die { position: absolute; z-index: -2; left: var(--dx); top: var(--dy); width: var(--die); aspect-ratio: 1; translate: -50% -50%; color: var(--aegean); }
+  /* the plate catches the room's light: a faint steel sheen inside the flange */
+  .lh__die::before { content: ''; position: absolute; inset: 7%; border-radius: 50%; background: radial-gradient(circle at 36% 30%, rgba(199, 207, 214, 0.09), rgba(199, 207, 214, 0.025) 52%, transparent 71%); }
+  .lh__plate { position: absolute; inset: 0; opacity: 0; transition: opacity 1200ms var(--ease-water); }
+  .lh__plate.is-on { opacity: 1; }
+  .lh__plate svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; stroke: currentColor; stroke-linejoin: round; stroke-linecap: round; }
+  .lh__plate path { vector-effect: non-scaling-stroke; }
+  .d-guides { stroke-width: 1; stroke-dasharray: 14 5 2 5; opacity: 0.2; }
+  .d-plate { stroke-width: 1; opacity: 0.3; }
+  .d-holes { stroke-width: 1.1; opacity: 0.44; }
+  .d-solid { fill: currentColor; stroke: none; opacity: 0.13; }
+  .d-knife { stroke: var(--brass-2); stroke-width: 1.5; opacity: 0.9; }
+  .lh__turn { will-change: transform; animation: lh-turn 10s linear infinite; }
+  .lh__plate[data-fam='food'] .lh__turn { animation-duration: 40s; } /* the rotary head turns, slowly */
+  @keyframes lh-turn { to { transform: rotate(360deg); } }
+
+  /* the product thins out before it reaches the words and the menu bar */
+  .lh__stream {
+    position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1400ms var(--ease-water);
+    --fade-x: linear-gradient(90deg, transparent 26%, #000 52%);
+    --fade-y: linear-gradient(180deg, transparent calc(var(--header-h) - 12px), #000 calc(var(--header-h) + 90px));
+    -webkit-mask-image: var(--fade-x), var(--fade-y); mask-image: var(--fade-x), var(--fade-y);
+    -webkit-mask-composite: source-in; mask-composite: intersect;
+  }
+  :global(html[dir='rtl']) .lh__stream { --fade-x: linear-gradient(-90deg, transparent 26%, #000 52%); }
+  @media (min-width: 1600px) { .lh { --dx: 75%; } :global(html[dir='rtl']) .lh { --dx: 25%; } }
+  .lh__stream:global(.is-live) { opacity: 1; }
+  /* calm ground behind the words */
+  .lh__veil {
+    position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      linear-gradient(90deg, rgba(var(--ink), 0.9) 0%, rgba(var(--ink), 0.66) 30%, rgba(var(--ink), 0.16) 52%, rgba(var(--ink), 0) 64%),
+      linear-gradient(180deg, rgba(var(--ink), 0) 64%, rgba(var(--ink), 0.82) 100%);
+  }
+  :global(html[dir='rtl']) .lh { --dx: 27%; }
+  :global(html[dir='rtl']) .lh__veil {
+    background:
+      linear-gradient(-90deg, rgba(var(--ink), 0.9) 0%, rgba(var(--ink), 0.66) 30%, rgba(var(--ink), 0.16) 52%, rgba(var(--ink), 0) 64%),
+      linear-gradient(180deg, rgba(var(--ink), 0) 64%, rgba(var(--ink), 0.82) 100%);
+  }
+
+  .lh__inner { align-self: center; padding-top: calc(var(--header-h) + 4vh); display: grid; gap: clamp(1.1rem, 2vw, 1.8rem); justify-items: start; }
+  .lh__crumbs { gap: 0.55rem; color: var(--fg-3); }
+  .lh__crumbs a:hover { color: var(--fg); }
+  .lh__kicker { color: var(--aegean); }
+  .lh__title { max-width: 8.4em; color: #eef3f7; text-shadow: 0 2px 30px rgba(var(--ink), 0.5); }
+  .lh__title em { color: var(--aegean); }
+  .lh__w { display: inline-block; animation: lh-rise 1500ms var(--ease-water) both; animation-delay: calc(140ms + var(--i) * 110ms); }
+  .lh__lead { max-width: 44ch; color: rgba(233, 238, 242, 0.76); animation: lh-rise 1300ms 620ms var(--ease-water) both; }
+  @keyframes lh-rise { from { opacity: 0; transform: translateY(0.32em); filter: blur(8px); } 60% { filter: blur(1px); } to { opacity: 1; transform: none; filter: blur(0); } }
+
+  /* the three families + compare: the way into the grid, and a legend for the die on show */
+  .lh__cats { padding-bottom: clamp(1.6rem, 4.5vh, 3.2rem); animation: lh-rise 1300ms 860ms var(--ease-water) both; }
+  .lh__cats ul { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line-strong); }
+  .lh__cats li + li { border-inline-start: 1px solid var(--line); }
+  .lh__cats a { position: relative; display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 0.85rem; min-height: 76px; padding: 1.15rem 1.1rem 1.15rem 0; transition: background 500ms var(--ease-water); }
+  .lh__cats li + li a { padding-inline-start: 1.1rem; }
+  .lh__cats a::before { content: ''; position: absolute; inset-inline: 0; top: -1px; height: 2px; background: var(--brass-2); transform: scaleX(0); transform-origin: 0 50%; transition: transform 900ms var(--ease-water); }
+  :global(html[dir='rtl']) .lh__cats a::before { transform-origin: 100% 50%; }
+  .lh__cats a:global(.is-shown)::before { transform: scaleX(1); }
+  .lh__cats a:hover, .lh__cats a:focus-visible { background: linear-gradient(180deg, rgba(233, 238, 242, 0.06), transparent); }
+  .lh__no { font-size: var(--t-mono); color: var(--fg-3); transition: color 500ms; }
+  .lh__cats a:global(.is-shown) .lh__no { color: var(--brass-2); }
+  .lh__cat { font-size: 1.04rem; font-weight: 500; color: #eef3f7; }
+  .lh__count { font-size: 0.8rem; color: var(--fg-3); white-space: nowrap; }
+  .lh__cats :global(.arr) { opacity: 0.5; transition: transform 500ms var(--ease-water), opacity 300ms; }
+  .lh__cats a:hover :global(.arr), .lh__cats a:focus-visible :global(.arr) { opacity: 1; transform: translateX(4px); }
+  :global(html[dir='rtl']) .lh__cats :global(.arr) { transform: scaleX(-1); }
+  :global(html[dir='rtl']) .lh__cats a:hover :global(.arr) { transform: scaleX(-1) translateX(4px); }
+
+  /* leaving: the words rise away, the die comes a little closer and dims */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .lh__inner { animation: lh-out linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
+      .lh__cats { animation: lh-rise 1300ms 860ms var(--ease-water) both, lh-out linear both; animation-timeline: auto, view(); animation-range: normal, exit 0% exit 100%; }
+      .lh__die { animation: lh-die-out linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
+    }
+  }
+  @keyframes lh-out { to { transform: translateY(-10vh); opacity: 0; } }
+  @keyframes lh-die-out { to { transform: scale(1.08); opacity: 0.35; } }
+
+  /* tablets and phones: the die rises to the top right, the words settle at the bottom on a darker ground,
+     the product fades out before it reaches them */
+  @media (max-width: 960px) {
+    .lh { --die: min(124vw, 86svh); --dx: 70%; --dy: 25%; min-height: max(100svh, 620px); }
+    :global(html[dir='rtl']) .lh { --dx: 30%; }
+    .lh__inner { align-self: end; padding-top: calc(var(--header-h) + 22svh); padding-bottom: 1.6rem; gap: 0.9rem; }
+    .lh__veil, :global(html[dir='rtl']) .lh__veil { background: linear-gradient(180deg, rgba(var(--ink), 0) 16%, rgba(var(--ink), 0.5) 40%, rgba(var(--ink), 0.88) 58%, rgba(var(--ink), 0.95) 100%); }
+    .lh__stream, :global(html[dir='rtl']) .lh__stream { --fade-x: linear-gradient(180deg, transparent var(--header-h), #000 calc(var(--header-h) + 60px), #000 30%, transparent 56%); }
+    .lh__title { max-width: 9em; }
+    .lh__cats { padding-bottom: max(1.2rem, env(safe-area-inset-bottom)); }
+    /* phones: name over count, no index number; one tap target per family */
+    .lh__cats a { grid-template-columns: 1fr auto; grid-template-rows: auto auto; row-gap: 0.1rem; column-gap: 0.5rem; min-height: 62px; padding-block: 0.75rem; }
+    .lh__no { display: none; }
+    .lh__cat { font-size: 0.98rem; white-space: nowrap; }
+    .lh__count { grid-column: 1; grid-row: 2; font-size: 0.74rem; }
+    .lh__count:empty { display: none; }
+    .lh__cats :global(.arr) { grid-column: 2; grid-row: 1 / span 2; }
+  }
+  @media (max-width: 960px) and (min-width: 601px) {
+    .lh { --die: min(92vw, 70svh); --dy: 30%; }
+    .lh__inner { padding-top: calc(var(--header-h) + 40svh); }
+  }
+  @media (max-width: 600px) {
+    .lh__cats ul { grid-template-columns: 1fr 1fr; }
+    .lh__cats li + li:nth-child(3) { border-inline-start: 0; }
+    .lh__cats li + li:nth-child(n + 3) { border-top: 1px solid var(--line); }
+    .lh__cats li + li:nth-child(3) a { padding-inline-start: 0; }
+  }
+
+  .sel__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1.5rem; margin-bottom: 2rem; }
+  .sel__count { font-size: 0.9rem; vertical-align: middle; margin-inline-start: 0.6rem; }
+  .sel__filters { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .sel__f { min-height: 44px; padding: 0.5rem 1rem; border: 1px solid var(--rule-strong); border-radius: 99px; font-weight: 500; font-size: 0.95rem; display: inline-flex; gap: 0.5rem; align-items: center; transition: background 300ms, color 300ms; }
+  .sel__f .mono { font-size: 0.7rem; opacity: 0.6; }
+  .sel__f[aria-pressed='true'] { background: var(--navy); color: var(--foam); border-color: var(--navy); }
+  /* hairlines are the cells' own borders, so a filtered row never shows an empty grey block */
+  .sel__grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px solid var(--rule-strong); border-inline-start: 1px solid var(--rule-strong); }
+  .sel__grid li { position: relative; background: var(--foam); border-inline-end: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong); }
+  .sel__grid li[hidden] { display: none; }
+  @media (max-width: 1200px) { .sel__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .sel__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+  /* compare: label column + three slots; the slots are the table's header row */
+  .cmp__grid { display: grid; grid-template-columns: minmax(120px, 0.7fr) repeat(3, minmax(0, 1fr)); column-gap: clamp(10px, 1.6vw, 24px); border-top: 1px solid var(--rule-strong); padding-top: 1.5rem; }
+  .cmp__slot { position: relative; display: grid; align-content: start; gap: 0.7rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--rule-strong); min-width: 0; }
+  .cmp__corner { border-bottom: 1px solid var(--rule-strong); }
+  .cmp__add, .cmp__grid :global(.cmp__pic) { position: relative; width: 100%; aspect-ratio: 4 / 3; display: grid; place-items: center; align-content: center; gap: 0.7rem; border-radius: var(--radius); cursor: pointer; }
+  .cmp__add { border: 1px dashed var(--rule-strong); color: var(--ink-2);
+    background: repeating-linear-gradient(135deg, transparent 0 11px, rgba(13, 27, 44, 0.035) 11px 12px), var(--foam-2);
+    transition: border-color 300ms, background-color 300ms, color 300ms; }
+  .cmp__plus { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--rule-strong); background: var(--foam); color: var(--navy); transition: transform 420ms var(--ease-water), background 300ms, color 300ms, border-color 300ms; }
+  .cmp__add:hover, .cmp__add:focus-visible { border-color: var(--phyco); color: var(--navy); }
+  .cmp__add:hover .cmp__plus, .cmp__add:focus-visible .cmp__plus { background: var(--navy); color: var(--foam); border-color: var(--navy); transform: rotate(90deg); }
+  .cmp__grid :global(.cmp__no) { position: absolute; top: 0.6rem; inset-inline-start: 0.7rem; font-size: var(--t-mono-s); color: var(--ink-3); }
+  .cmp__grid :global(.cmp__pic) { background: var(--foam-2); border: 1px solid var(--rule); overflow: hidden; }
+  .cmp__grid :global(.cmp__pic img) { width: 82%; height: 82%; object-fit: contain; filter: drop-shadow(0 12px 12px rgba(60, 38, 14, 0.2)); transition: transform 600ms var(--ease-water); }
+  .cmp__grid :global(.cmp__swap) { position: absolute; inset-inline: 0; bottom: 0; padding: 0.5rem; background: rgba(0, 47, 99, 0.88); color: var(--foam); text-align: center; transform: translateY(100%); transition: transform 360ms var(--ease-water); }
+  .cmp__grid :global(.cmp__pic:hover .cmp__swap), .cmp__grid :global(.cmp__pic:focus-visible .cmp__swap) { transform: none; }
+  .cmp__grid :global(.cmp__pic:hover img) { transform: scale(1.04); }
+  .cmp__slot.is-full { animation: cmp-in 500ms var(--ease-water) both; }
+  .cmp__grid :global(.cmp__name) { font-size: 1.3rem; line-height: 1.1; text-decoration: none; }
+  .cmp__grid :global(.cmp__name:hover) { color: var(--phyco); }
+  .cmp__grid :global(.cmp__rm) { position: absolute; top: 0.45rem; inset-inline-end: 0.45rem; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--foam); border: 1px solid var(--rule); color: var(--ink-2); z-index: 1; }
+  .cmp__grid :global(.cmp__rm:hover), .cmp__grid :global(.cmp__rm:focus-visible) { background: var(--ink); color: var(--foam); }
+  .cmp__grid :global(.cmp__row) { padding: 0.9rem 0; border-bottom: 1px solid var(--rule); font-size: 0.95rem; animation: cmp-in 500ms var(--ease-water) both; min-width: 0; overflow-wrap: anywhere; }
+  .cmp__grid :global(.cmp__row.is-empty) { background: repeating-linear-gradient(90deg, var(--rule) 0 4px, transparent 4px 8px) left 50% / 2rem 1px no-repeat; }
+  @keyframes cmp-in { from { opacity: 0; transform: translateY(8px); } }
+  @media (hover: none) { .cmp__grid :global(.cmp__swap) { transform: none; padding: 0.35rem; font-size: 0.65rem; } }
+  @media (max-width: 640px) {
+    .cmp__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 8px; }
+    .cmp__corner { display: none; }
+    .cmp__slot { padding-bottom: 0.9rem; gap: 0.5rem; }
+    .cmp__plus { width: 40px; height: 40px; }
+    .cmp__add, .cmp__grid :global(.cmp__pic) { aspect-ratio: 1; }
+    .cmp__grid :global(.cmp__pic img) { width: 86%; height: 70%; margin-bottom: 1rem; }
+    .cmp__grid :global(.cmp__swap) { padding: 0.2rem; font-size: 0.6rem; }
+    .cmp__addtx { font-size: 0.62rem; }
+    .cmp__grid :global(.cmp__name) { font-size: 1rem; }
+    .cmp__grid :global(.cmp__rm) { width: 28px; height: 28px; top: 0.3rem; inset-inline-end: 0.3rem; }
+    .cmp__grid :global(.cmp__k) { grid-column: 1 / -1; padding: 1rem 0 0; border-bottom: 0; }
+    .cmp__grid :global(.cmp__v) { padding: 0.35rem 0 0.8rem; font-size: 0.82rem; }
+  }
+
+  /* picker: centred sheet on desktop, bottom sheet on phones */
+  .pk { padding: 0; border: 0; background: transparent; max-width: none; max-height: none; width: 100%; height: 100%; color: var(--ink); }
+  .pk::backdrop { background: rgba(6, 26, 51, 0.55); backdrop-filter: blur(3px); animation: pk-fade 260ms ease both; }
+  .pk[open] { display: grid; place-items: center; }
+  .pk__panel { width: min(920px, calc(100vw - 2 * var(--gutter))); max-height: min(760px, 86dvh); display: grid; grid-template-rows: auto auto 1fr auto; background: var(--foam); border-radius: 6px; box-shadow: 0 40px 80px rgba(6, 26, 51, 0.35); overflow: hidden; animation: pk-in 380ms var(--ease-water) both; }
+  .pk.is-closing .pk__panel { animation: pk-out 220ms ease-in both; }
+  .pk.is-closing::backdrop { animation: pk-fade 220ms ease-in reverse both; }
+  .pk__head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.1rem 1.4rem 0.6rem; }
+  .pk__grab { display: none; }
+  .pk__title { font-family: var(--f-serif); font-size: var(--t-h3); font-weight: 500; }
+  .pk__title .mono { font-size: 0.9rem; margin-inline-start: 0.3rem; }
+  .pk__x { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; flex: none; }
+  .pk__x:hover, .pk__x:focus-visible { background: var(--foam-2); }
+  .pk__tools { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; padding: 0.2rem 1.4rem 1rem; border-bottom: 1px solid var(--rule); }
+  .pk__q { flex: 1 1 260px; min-height: 44px; padding: 0.55rem 1rem; border: 1px solid var(--rule-strong); border-radius: 99px; background: #fff; font: inherit; font-size: 1rem; color: var(--ink); }
+  .pk__q:focus-visible { outline: 2px solid var(--phyco); outline-offset: 1px; }
+  .pk__chips { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+  .pk__chip { min-height: 40px; padding: 0.4rem 0.95rem; border: 1px solid var(--rule-strong); border-radius: 99px; font-weight: 500; font-size: 0.9rem; transition: background 250ms, color 250ms; }
+  .pk__chip[aria-pressed='true'] { background: var(--navy); color: var(--foam); border-color: var(--navy); }
+  .pk__list { overflow-y: auto; overscroll-behavior: contain; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 0.7rem; padding: 1rem 1.4rem 1.4rem; align-content: start; }
+  .pk__list li[hidden] { display: none; }
+  .pk__item { position: relative; width: 100%; height: 100%; display: grid; grid-template-rows: auto 1fr auto; gap: 0.25rem; text-align: start; padding: 0.6rem 0.7rem 0.75rem; border: 1px solid var(--rule); border-radius: 4px; background: #fff; transition: border-color 250ms, transform 300ms var(--ease-water), box-shadow 300ms; cursor: pointer; }
+  .pk__item:hover:not(:disabled), .pk__item:focus-visible { border-color: var(--phyco); transform: translateY(-2px); box-shadow: 0 10px 22px rgba(13, 27, 44, 0.1); }
+  .pk__item[aria-current='true'] { border-color: var(--navy); box-shadow: inset 0 0 0 1px var(--navy); }
+  .pk__img { aspect-ratio: 16 / 10; display: grid; place-items: center; background: var(--foam-2); border-radius: 2px; margin-bottom: 0.35rem; }
+  .pk__img img { width: 78%; height: 84%; object-fit: contain; filter: drop-shadow(0 8px 8px rgba(60, 38, 14, 0.18)); }
+  .pk__name { font-family: var(--f-serif); font-size: 1.12rem; line-height: 1.12; }
+  .pk__meta { font-size: var(--t-mono-s); color: var(--ink-3); }
+  .pk__tag { display: none; position: absolute; top: 0.9rem; inset-inline-end: 1rem; font-size: var(--t-mono-s); padding: 0.15rem 0.45rem; border-radius: 99px; background: var(--ink); color: var(--foam); }
+  .pk__item.is-taken { opacity: 0.45; cursor: not-allowed; }
+  .pk__item.is-taken .pk__tag { display: block; }
+  .pk__none { padding: 0 1.4rem 1.6rem; }
+  @keyframes pk-in { from { opacity: 0; transform: translateY(14px) scale(0.98); } }
+  @keyframes pk-out { to { opacity: 0; transform: translateY(10px) scale(0.98); } }
+  @keyframes pk-up { from { transform: translateY(100%); } }
+  @keyframes pk-down { to { transform: translateY(100%); } }
+  @keyframes pk-fade { from { opacity: 0; } }
+  :global(html:has(.pk[open])) { overflow: hidden; }
+  @media (max-width: 640px) {
+    .pk[open] { place-items: end stretch; }
+    .pk__panel { width: 100%; max-height: 88dvh; border-radius: 16px 16px 0 0; animation-name: pk-up; padding-bottom: env(safe-area-inset-bottom); }
+    .pk.is-closing .pk__panel { animation-name: pk-down; }
+    .pk__head { position: relative; padding: 1.2rem 1rem 0.4rem; }
+    .pk__grab { display: block; position: absolute; top: 0.5rem; left: 50%; width: 40px; height: 4px; margin-left: -20px; border-radius: 4px; background: var(--rule-strong); }
+    .pk__tools { padding: 0.2rem 1rem 0.8rem; }
+    .pk__q { flex-basis: 100%; }
+    .pk__chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+    .pk__list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; padding: 0.8rem 1rem 1.2rem; }
+    .pk__name { font-size: 1rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .pk__panel, .pk::backdrop, .cmp__slot.is-full, .cmp__grid :global(.cmp__row) { animation: none; } }
+
+  .ext__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); align-items: center; }
+  .ext__words { grid-column: 1 / span 5; display: grid; gap: 1.2rem; }
+  .ext__fig { grid-column: 7 / -1; color: var(--steel-2); }
+  .screw { width: 100%; height: auto; overflow: visible; }
+  .screw text { font-family: var(--f-mono); font-size: 11px; fill: currentColor; letter-spacing: 0.06em; text-transform: uppercase; }
+  .screw__flights { animation: screw-turn 2.4s linear infinite; }
+  @keyframes screw-turn { to { transform: translateX(22px); } }
+  .screw__feed circle { animation: screw-fall 2.4s linear infinite; }
+  .screw__feed circle:nth-child(2n) { animation-delay: -1.2s; }
+  @keyframes screw-fall { from { transform: translateY(-14px); opacity: 0; } 30% { opacity: 1; } to { transform: translateY(40px); opacity: 0; } }
+  .screw__knife { transform-origin: 548px 150px; animation: screw-knife 0.72s steps(2) infinite; }
+  @keyframes screw-knife { 50% { transform: rotate(40deg); } }
+  .screw__out ellipse { animation: screw-pop 1.8s var(--ease-water) infinite; }
+  @keyframes screw-pop { from { transform: translateX(-24px) scale(0.6); opacity: 0; } 30% { opacity: 1; } to { transform: translateX(40px) translateY(18px) scale(1); opacity: 0; } }
+  .ext__kinds { display: grid; gap: 0.9rem; margin-top: 0.6rem; }
+  .ext__kinds li { display: flex; gap: 1rem; align-items: center; }
+  .ext__kinds li > span:last-child { display: grid; }
+  .ext__glass { width: 34px; height: 46px; border: 1px solid var(--line-strong); border-top: 0; position: relative; flex: none; background: linear-gradient(180deg, transparent 10%, rgba(130, 204, 240, 0.12) 10%); }
+  .ext__glass i { position: absolute; left: 50%; top: var(--y); width: 10px; height: 7px; margin-left: -5px; border-radius: 4px; background: var(--brass-2); }
+  @media (max-width: 960px) { .ext__words, .ext__fig { grid-column: 1 / -1; } }
+
+  .pilot__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); align-items: center; }
+  .pilot__art { grid-column: 1 / span 6; position: relative; }
+  .pilot__art :global(img) { filter: drop-shadow(0 30px 30px rgba(13, 27, 44, 0.25)); }
+  .pilot__dim { position: absolute; top: -1rem; inset-inline-start: 10%; color: var(--brass); font-size: 0.8rem; }
+  .pilot__words { grid-column: 8 / -1; display: grid; gap: 1.4rem; justify-items: start; }
+  @media (max-width: 960px) { .pilot__art, .pilot__words { grid-column: 1 / -1; } }
+</style>

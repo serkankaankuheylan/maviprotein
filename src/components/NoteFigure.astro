@@ -1,0 +1,256 @@
+---
+/**
+ * A note's plate: a precise line figure drawn from what the note is actually about, set like a
+ * plate in a technical journal. No stock texture, no decorative letter.
+ *   die     → extruder die plate, front view + section (note 64, extruded feed)
+ *   helix   → Arthrospira trichome, the spirulina filament (note 65, blue-green algae)
+ *   ternary → ration triangle, where a formulation sits (note 67, pet food formulation)
+ *   globe   → orthographic graticule with the fair city marked (field notes: Dubai, İzmir)
+ * Lines draw in once on view; hover/focus on the parent card sets each figure in slow motion.
+ */
+import type { Post } from '../lib/data';
+interface Props { post: Post; class?: string; fit?: 'slice' | 'meet' }
+const { post, class: cls = '', fit = 'slice' } = Astro.props;
+
+type Kind = 'die' | 'helix' | 'ternary' | 'globe';
+const byCat: Record<string, Kind> = { teknik: 'die', biyoloji: 'helix', firma: 'ternary', saha: 'globe' };
+const kind: Kind = byCat[post.category] ?? 'ternary';
+const uid = `nf${post.id}`;
+const f = (n: number) => +n.toFixed(2);
+const W = 400, H = 250;
+
+/* ---------- die plate ---------- */
+const die = (() => {
+  const cx = 256, cy = 128, R = 98;
+  const rings = [{ r: 0, n: 1 }, { r: 21, n: 6 }, { r: 41, n: 12 }, { r: 61, n: 18 }];
+  const holes = rings.flatMap(({ r, n }, k) => Array.from({ length: n }, (_, i) => {
+    const a = (i / n) * Math.PI * 2 + k * 0.26;
+    return { x: f(cx + r * Math.cos(a)), y: f(cy + r * Math.sin(a)) };
+  }));
+  const bolts = Array.from({ length: 8 }, (_, i) => {
+    const a = (i / 8) * Math.PI * 2 + Math.PI / 8;
+    return { x: f(cx + 89 * Math.cos(a)), y: f(cy + 89 * Math.sin(a)) };
+  });
+  // Section A–A: plate thickness seen from the side, hatched, with the die channels as gaps.
+  const sx = 76, sw = 24, top = cy - R, bot = cy + R;
+  const channels = [0, -21, 21, -41, 41, -61, 61].map((d) => cy + d);
+  const hatch: string[] = [];
+  for (let k = -sw; k < 2 * R + sw; k += 7) hatch.push(`M${sx} ${f(top + k)}l${sw} ${-sw}`);
+  return { cx, cy, R, holes, bolts, sx, sw, top, bot, channels, hatch: hatch.join('') };
+})();
+
+/* ---------- spirulina helix ---------- */
+const helix = (() => {
+  const A = 28, P = 84, k = (2 * Math.PI) / P, w = 9, x0 = -330, x1 = 330;
+  const y = (x: number) => A * Math.sin(k * x);
+  const front: string[] = [], back: string[] = [], walls: string[] = [];
+  // split at the helix's crossing points: z = A·cos(kx) changes sign every half period
+  for (let s = x0; s < x1; s += P / 2) {
+    const mid = s + P / 4;
+    const isFront = Math.cos(k * mid) > 0;
+    let d = '';
+    for (let x = s; x <= s + P / 2 + 0.01; x += 2) d += `${d ? 'L' : 'M'}${f(x)} ${f(y(x))}`;
+    (isFront ? front : back).push(d);
+    if (isFront) for (let x = s + 4; x < s + P / 2 - 2; x += 4.5) {
+      const dy = A * k * Math.cos(k * x), n = Math.hypot(1, dy);
+      const nx = (-dy / n) * (w / 2 - 0.5), ny = (1 / n) * (w / 2 - 0.5);
+      walls.push(`M${f(x - nx)} ${f(y(x) - ny)}L${f(x + nx)} ${f(y(x) + ny)}`);
+    }
+  }
+  return { P, w, front, back, walls: walls.join('') };
+})();
+
+/* ---------- ration triangle ---------- */
+const tern = (() => {
+  const s = 196, h = (s * Math.sqrt(3)) / 2, ax = 212, ay = 26;
+  const A = [ax, ay], B = [ax - s / 2, ay + h], C = [ax + s / 2, ay + h];
+  const lerp = (p: number[], q: number[], t: number) => [p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t];
+  const grid: string[] = [];
+  for (let i = 1; i < 10; i++) {
+    const t = i / 10;
+    for (const [p, q, r] of [[A, B, C], [B, C, A], [C, A, B]]) {
+      const u = lerp(p, q, t), v = lerp(p, r, t);
+      grid.push(`M${f(u[0])} ${f(u[1])}L${f(v[0])} ${f(v[1])}`);
+    }
+  }
+  const bary = (a: number, b: number, c: number) => [a * A[0] + b * B[0] + c * C[0], a * A[1] + b * B[1] + c * C[1]];
+  const pt = bary(0.34, 0.44, 0.22).map(f);
+  return { A, B, C, grid: grid.join(''), pt };
+})();
+
+/* ---------- orthographic graticule ---------- */
+const globe = (() => {
+  const R = 104, cx = 222, cy = 125, lat0 = 31 * (Math.PI / 180), lon0 = 41 * (Math.PI / 180);
+  const proj = (latD: number, lonD: number) => {
+    const p = latD * (Math.PI / 180), l = lonD * (Math.PI / 180);
+    const cosc = Math.sin(lat0) * Math.sin(p) + Math.cos(lat0) * Math.cos(p) * Math.cos(l - lon0);
+    return { x: cx + R * Math.cos(p) * Math.sin(l - lon0), y: cy - R * (Math.cos(lat0) * Math.sin(p) - Math.sin(lat0) * Math.cos(p) * Math.cos(l - lon0)), v: cosc >= 0 };
+  };
+  const line = (pts: { x: number; y: number; v: boolean }[]) => {
+    let d = '', pen = false;
+    for (const q of pts) { if (!q.v) { pen = false; continue; } d += `${pen ? 'L' : 'M'}${f(q.x)} ${f(q.y)}`; pen = true; }
+    return d;
+  };
+  const lines: string[] = [];
+  for (let la = -75; la <= 75; la += 15) lines.push(line(Array.from({ length: 121 }, (_, i) => proj(la, -180 + i * 3))));
+  for (let lo = -180; lo < 180; lo += 15) lines.push(line(Array.from({ length: 51 }, (_, i) => proj(-75 + i * 3, lo))));
+  const izmir = proj(38.42, 27.14), dubai = proj(25.2, 55.27);
+  // great-circle arc İzmir → Dubai (slerp on the unit sphere)
+  const v3 = (la: number, lo: number) => { const p = la * (Math.PI / 180), l = lo * (Math.PI / 180); return [Math.cos(p) * Math.cos(l), Math.cos(p) * Math.sin(l), Math.sin(p)]; };
+  const a = v3(38.42, 27.14), b = v3(25.2, 55.27), om = Math.acos(a[0] * b[0] + a[1] * b[1] + a[2] * b[2]);
+  const arc = line(Array.from({ length: 41 }, (_, i) => {
+    const t = i / 40, s1 = Math.sin((1 - t) * om) / Math.sin(om), s2 = Math.sin(t * om) / Math.sin(om);
+    const q = [s1 * a[0] + s2 * b[0], s1 * a[1] + s2 * b[1], s1 * a[2] + s2 * b[2]];
+    return proj(Math.asin(q[2]) * (180 / Math.PI), Math.atan2(q[1], q[0]) * (180 / Math.PI));
+  }));
+  const here = [55, 61].includes(post.id) ? 'dubai' : 'izmir';
+  return { R, cx, cy, grid: lines.filter(Boolean).join(''), izmir, dubai, arc, here };
+})();
+---
+<span class:list={['nfig', `nfig--${kind}`, cls]} data-nfig aria-hidden="true">
+  <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio={`xMidYMid ${fit}`} focusable="false">
+    {kind === 'die' && (
+      <g class="nfig__g">
+        <path class="c-line" d={`M${die.cx - die.R - 18} ${die.cy}H${die.cx + die.R + 18}M${die.cx} ${die.cy - die.R - 14}V${die.cy + die.R + 14}`} />
+        <path class="c-line" d={`M${die.sx - 14} ${die.cy}H${die.sx + die.sw + 14}`} />
+        <circle class="d d--strong" cx={die.cx} cy={die.cy} r={die.R} pathLength="1" />
+        <circle class="d d--thin" cx={die.cx} cy={die.cy} r={die.R - 17} pathLength="1" />
+        <circle class="d d--hair" cx={die.cx} cy={die.cy} r={89} pathLength="1" />
+        <g class="nfig__spin" style={`transform-origin:${die.cx}px ${die.cy}px`}>
+          {die.bolts.map((b) => <circle class="d d--thin" cx={b.x} cy={b.y} r="3" pathLength="1" />)}
+          {die.holes.map((h, i) => <circle class:list={['d', i % 5 === 2 ? 'd--acc' : 'd--mid']} cx={h.x} cy={h.y} r="4.3" pathLength="1" />)}
+        </g>
+        <clipPath id={`${uid}-sec`}><rect x={die.sx} y={die.top} width={die.sw} height={die.R * 2} /></clipPath>
+        <g clip-path={`url(#${uid}-sec)`}>
+          <path class="d d--hair" d={die.hatch} pathLength="1" />
+          {die.channels.map((y) => <path class="gap" d={`M${die.sx - 1} ${y - 6.5}L${die.sx + die.sw * 0.45} ${y - 2.6}H${die.sx + die.sw + 1}V${y + 2.6}H${die.sx + die.sw * 0.45}L${die.sx - 1} ${y + 6.5}Z`} />)}
+        </g>
+        <rect class="d d--strong" x={die.sx} y={die.top} width={die.sw} height={die.R * 2} pathLength="1" />
+        <path class="d d--hair" d={`M${die.sx + die.sw} ${die.top}H${die.cx}M${die.sx + die.sw} ${die.bot}H${die.cx}`} pathLength="1" />
+      </g>
+    )}
+
+    {kind === 'helix' && (
+      <g class="nfig__g">
+        <defs>
+          <linearGradient id={`${uid}-fade`} x1="0" x2="1">
+            <stop offset="0" stop-color="#fff" stop-opacity="0" /><stop offset="0.16" stop-color="#fff" />
+            <stop offset="0.84" stop-color="#fff" /><stop offset="1" stop-color="#fff" stop-opacity="0" />
+          </linearGradient>
+          <mask id={`${uid}-m`} maskUnits="userSpaceOnUse" x="-200" y="-60" width="400" height="120"><rect x="-200" y="-60" width="400" height="120" style={`fill:url(#${uid}-fade)`} /></mask>
+        </defs>
+        <g transform="translate(205 128) rotate(-17)">
+          <g mask={`url(#${uid}-m)`}>
+            <g class="nfig__slide" style={`--p:${helix.P}px`}>
+              {helix.back.map((d) => <path class="h-back" d={d} style={`stroke-width:${helix.w - 3}`} />)}
+              {helix.front.map((d) => <path class="h-edge" d={d} style={`stroke-width:${helix.w + 1.4}`} />)}
+              {helix.front.map((d) => <path class="h-front" d={d} style={`stroke-width:${helix.w}`} />)}
+              <path class="h-wall" d={helix.walls} />
+            </g>
+          </g>
+        </g>
+        <g transform="translate(262 200) rotate(8) scale(0.42)" opacity="0.32">
+          <g mask={`url(#${uid}-m)`}>
+            <g class="nfig__slide nfig__slide--slow" style={`--p:${helix.P}px`}>
+              {helix.back.map((d) => <path class="h-back" d={d} style={`stroke-width:${helix.w - 3}`} />)}
+              {helix.front.map((d) => <path class="h-front" d={d} style={`stroke-width:${helix.w}`} />)}
+            </g>
+          </g>
+        </g>
+      </g>
+    )}
+
+    {kind === 'ternary' && (
+      <g class="nfig__g">
+        <path class="d d--hair" d={tern.grid} pathLength="1" />
+        <path class="d d--strong" d={`M${tern.A.join(' ')}L${tern.B.join(' ')}L${tern.C.join(' ')}Z`} pathLength="1" />
+        <ellipse class="d d--acc d--dash" cx={tern.pt[0]} cy={tern.pt[1]} rx="30" ry="17" transform={`rotate(-24 ${tern.pt[0]} ${tern.pt[1]})`} pathLength="1" />
+        <ellipse class="d d--acc" cx={tern.pt[0]} cy={tern.pt[1]} rx="15" ry="8.5" transform={`rotate(-24 ${tern.pt[0]} ${tern.pt[1]})`} pathLength="1" />
+        <circle class="dot" cx={tern.pt[0]} cy={tern.pt[1]} r="3.4" />
+        <circle class="pulse" cx={tern.pt[0]} cy={tern.pt[1]} r="3.4" style={`transform-origin:${tern.pt[0]}px ${tern.pt[1]}px`} />
+        {[tern.A, tern.B, tern.C].map((p) => <circle class="vtx" cx={p[0]} cy={p[1]} r="2.6" />)}
+      </g>
+    )}
+
+    {kind === 'globe' && (
+      <g class="nfig__g">
+        <path class="d d--hair" d={globe.grid} pathLength="1" />
+        <circle class="d d--strong" cx={globe.cx} cy={globe.cy} r={globe.R} pathLength="1" />
+        <path class="d d--acc d--dash" d={globe.arc} pathLength="1" />
+        {(['izmir', 'dubai'] as const).map((c) => {
+          const p = globe[c];
+          return c === globe.here
+            ? <g><circle class="dot" cx={f(p.x)} cy={f(p.y)} r="3.6" /><circle class="pulse" cx={f(p.x)} cy={f(p.y)} r="3.6" style={`transform-origin:${f(p.x)}px ${f(p.y)}px`} /></g>
+            : <circle class="vtx" cx={f(p.x)} cy={f(p.y)} r="2.4" />;
+        })}
+      </g>
+    )}
+  </svg>
+</span>
+
+<script>
+  // Draw the lines in once the plate is on screen. Without JS (or with reduced motion) they are simply there.
+  const figs = document.querySelectorAll<HTMLElement>('[data-nfig]:not([data-armed])');
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const io = new IntersectionObserver((es) => {
+      for (const e of es) if (e.isIntersecting) { e.target.classList.add('is-drawn'); io.unobserve(e.target); }
+    }, { threshold: 0.35 });
+    // Arm without a transition (a figure already on screen would otherwise fade out before drawing in),
+    // then let the observer draw it, so a plate in the first screen draws in just like one scrolled to.
+    figs.forEach((el) => { el.classList.add('nfig--prep'); el.setAttribute('data-armed', ''); });
+    void document.body.offsetHeight;
+    figs.forEach((el) => { el.classList.remove('nfig--prep'); io.observe(el); });
+  }
+</script>
+
+<style>
+  .nfig { display: block; position: relative; width: 100%; height: 100%; color: var(--ink); --acc: var(--brass); }
+  .nfig--helix, .nfig--globe { --acc: var(--phyco); }
+  .nfig svg { display: block; width: 100%; height: 100%; overflow: hidden; }
+  .nfig path, .nfig circle, .nfig ellipse, .nfig rect { fill: none; }
+
+  .d { stroke: currentColor; stroke-linecap: round; stroke-dasharray: 1 0; stroke-dashoffset: 0; }
+  .d--strong { stroke-width: calc(1.15px * var(--k, 1)); }
+  .d--mid { stroke-width: calc(0.9px * var(--k, 1)); opacity: 0.8; }
+  .d--thin { stroke-width: calc(0.7px * var(--k, 1)); opacity: 0.6; }
+  .d--hair { stroke-width: calc(0.5px * var(--k, 1)); opacity: 0.32; }
+  .d--acc { stroke: var(--acc); stroke-width: calc(1.1px * var(--k, 1)); }
+  .d--dash { stroke-dasharray: 0.012 0.012; }
+  .c-line { stroke: currentColor; stroke-width: calc(0.5px * var(--k, 1)); opacity: 0.4; stroke-dasharray: 12 3 2 3; }
+  .gap { fill: var(--plate, var(--foam)) !important; stroke: currentColor; stroke-width: calc(0.6px * var(--k, 1)); opacity: 0.9; }
+  .dot { fill: var(--acc) !important; stroke: none; }
+  .pulse { stroke: var(--acc); stroke-width: calc(0.8px * var(--k, 1)); opacity: 0; }
+  .vtx { fill: currentColor !important; opacity: 0.75; }
+
+  /* spirulina: back strands lighter, front strands with a darker edge and paper-coloured cross walls */
+  .h-back { stroke: var(--alg-2); opacity: 0.3; stroke-linecap: round; }
+  .h-edge { stroke: var(--navy); stroke-linecap: round; }
+  .h-front { stroke: color-mix(in oklab, var(--phyco) 62%, var(--alg-2)); stroke-linecap: round; }
+  .h-wall { stroke: #e3f4fb; stroke-width: 0.6; opacity: 0.7; }
+
+  /* draw-in (armed by JS only) */
+  .nfig--prep, .nfig--prep * { transition: none !important; }
+  .nfig[data-armed] .d { stroke-dasharray: 1 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1600ms var(--ease-water); }
+  .nfig[data-armed] .d--dash { stroke-dasharray: 0.012 0.012; stroke-dashoffset: 0; opacity: 0; transition: opacity 900ms 900ms ease; }
+  .nfig[data-armed] .d--hair { transition-duration: 2200ms; }
+  .nfig[data-armed] .dot, .nfig[data-armed] .vtx, .nfig[data-armed] .gap, .nfig[data-armed] .nfig__slide { opacity: 0; transition: opacity 700ms 1000ms ease; }
+  .nfig[data-armed].is-drawn .d { stroke-dashoffset: 0; }
+  .nfig[data-armed].is-drawn .d--dash { opacity: 1; }
+  .nfig[data-armed].is-drawn .dot, .nfig[data-armed].is-drawn .gap, .nfig[data-armed].is-drawn .nfig__slide { opacity: 1; }
+  .nfig[data-armed].is-drawn .vtx { opacity: 0.75; }
+  .nfig[data-armed] .nfig__slide { transition-delay: 200ms; transition-duration: 1200ms; }
+
+  /* slow motion while the card is hovered or focused */
+  .nfig__spin { transition: rotate 2400ms var(--ease-water); }
+  .nfig__slide { animation: nfig-slide 9s linear infinite; animation-play-state: paused; }
+  .nfig__slide--slow { animation-duration: 14s; }
+  @keyframes nfig-slide { to { transform: translateX(var(--p)); } }
+  @keyframes nfig-pulse { 0% { opacity: 0.9; scale: 1; } 100% { opacity: 0; scale: 5; } }
+  :global(a:hover) .nfig__spin, :global(a:focus-visible) .nfig__spin { rotate: 30deg; }
+  :global(a:hover) .nfig__slide, :global(a:focus-visible) .nfig__slide { animation-play-state: running; }
+  :global(a:hover) .pulse, :global(a:focus-visible) .pulse { animation: nfig-pulse 1800ms var(--ease-water) infinite; }
+  @media (prefers-reduced-motion: reduce) {
+    .nfig__slide, .pulse { animation: none !important; }
+    .nfig__spin { transition: none; }
+  }
+</style>

@@ -1,0 +1,79 @@
+---
+/**
+ * A line component: the studio image when we have one, otherwise an honest
+ * technical-drawing glyph (no invented photography).
+ */
+import Asset from './Asset.astro';
+interface Props { machineKey?: string; variant?: string; alt: string; sizes?: string; class?: string }
+const { machineKey = 'other', variant, alt, sizes = '(max-width: 900px) 40vw, 14vw', class: cls = '' } = Astro.props;
+const ASSET: Record<string, string> = {
+  mixer: 'm-mixer',
+  'screw-conveyor': 'm-screw-conveyor',
+  extruder: variant === 'single-screw' ? 'm-sp130' : 'sp85-ii-extruder',
+  'pneumatic-conveyor': 'm-pneumatic-conveyor',
+  dryer: 'm-dryer',
+  flavoring: 'm-flavoring-drum',
+  'cooling-conveyor': 'm-cooling-conveyor',
+  fryer: 'm-fryer-lxy',
+  mill: 'm-hammer-mill',
+  packaging: 'm-packaging',
+  silo: 'n-raw-silo',
+  'dosing-pump': 'n-dosing-pump',
+  crumbler: 'n-crumbler',
+  'vibrating-screen': 'n-vibro-sieve',
+};
+const asset = ASSET[machineKey];
+const glyph = (() => {
+  if (/conveyor|feeder|screen|sifter/.test(machineKey)) return 'belt';
+  if (/cutter|cutting|shaper|molding|flaking/.test(machineKey)) return 'press';
+  if (/cooler|de-oiler/.test(machineKey)) return 'cabinet';
+  if (/sprayer|filler/.test(machineKey)) return 'spray';
+  return 'cabinet';
+})();
+---
+{asset ? (
+  <Asset name={asset} alt={alt} sizes={sizes} class={`mfig mfig--img ${cls}`} />
+) : (
+  <svg class={`mfig mfig--glyph ${cls}`} viewBox="0 0 160 110" role="img" aria-label={alt}>
+    <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round">
+      {glyph === 'belt' && (
+        <>
+          <path d="M14 70 L146 46" /><path d="M14 80 L146 56" />
+          <circle cx="18" cy="75" r="6" /><circle cx="142" cy="51" r="6" />
+          <path d="M30 78v24M130 58v44M24 102h12M124 102h12" />
+          <path d="M120 30h26v16h-26z" />
+        </>
+      )}
+      {glyph === 'press' && (
+        <>
+          <rect x="30" y="34" width="100" height="40" />
+          <path d="M44 34V20h72v14M60 20v-8h40v8" />
+          <circle cx="80" cy="54" r="11" /><path d="M80 43v22M69 54h22" />
+          <path d="M36 74v28M124 74v28M28 102h16M116 102h16" />
+        </>
+      )}
+      {glyph === 'cabinet' && (
+        <>
+          <rect x="34" y="20" width="92" height="70" />
+          <path d="M34 36h92M34 74h92" />
+          <circle cx="80" cy="55" r="12" /><path d="M80 43v24M68 55h24M71.5 46.5l17 17M88.5 46.5l-17 17" />
+          <path d="M40 90v12M120 90v12" />
+        </>
+      )}
+      {glyph === 'spray' && (
+        <>
+          <rect x="22" y="48" width="116" height="30" rx="15" />
+          <path d="M60 48V28h40v20M70 28v-10h20v10" />
+          <path d="M72 58l-6 10M80 58v10M88 58l6 10" stroke-dasharray="2 3" />
+          <path d="M36 78v24M124 78v24" />
+        </>
+      )}
+    </g>
+    <g stroke="currentColor" stroke-width="0.8" opacity="0.6">
+      <path d="M14 8h132M14 4v8M146 4v8" />
+    </g>
+  </svg>
+)}
+<style>
+  .mfig--glyph { width: 100%; height: auto; color: var(--steel-2); opacity: 0.8; }
+</style>

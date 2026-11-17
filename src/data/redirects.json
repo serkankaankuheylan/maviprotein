@@ -1,0 +1,788 @@
+{
+  "_meta": {
+    "generated": "2026-11-06",
+    "basis": "TASARIM.md §4.2 and site/src/lib/routes.ts",
+    "matching": "Old site ran on IIS (case-insensitive). Match 'from' case-insensitively; en-US and en-us variants are equivalent. Query-string redirects (blogicerik.aspx?MakaleID=N) need a server/edge rule, not a static file redirect.",
+    "oldHost": "http://maviprotein.com.tr (HTTP only; also redirect www and https variants to the new host)"
+  },
+  "redirects": [
+    {
+      "from": "/default.aspx",
+      "to": "/",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/en-US/default.aspx",
+      "to": "/en/",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/arb/default.aspx",
+      "to": "/ar/",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/hakkimizda.aspx",
+      "to": "/hakkimizda",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/hizmetlerimiz/lojistik-tedarik.aspx",
+      "to": "/hizmetler/tedarik-lojistik",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/blog.aspx",
+      "to": "/notlar",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/referanslar.aspx",
+      "to": "/projeler",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/galeri.aspx",
+      "to": "/arsiv",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/mavikatalog.aspx",
+      "to": "/katalog",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/iletisim.aspx",
+      "to": "/iletisim",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/hizmetlerimiz/proje.aspx",
+      "to": "/hizmetler/proje-ve-fon",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/hizmetlerimiz/yem-gida.aspx",
+      "to": "/cozumler/yem-gida-hatlari",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/hizmetlerimiz/makina-sistemleri.aspx",
+      "to": "/makineler",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/hizmetlerimiz/Su-Urunleri.aspx",
+      "to": "/cozumler/su-urunleri",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/hizmetlerimiz/tarim-hayvancilik.aspx",
+      "to": "/cozumler/tarim-hayvancilik",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/FIRMAMIZIN-KEDI-KOPEK-MAMALARI-FORMULASYON-VE-URETIM-DANISMANLIGI/67",
+      "to": "/notlar/kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 200,
+      "kind": "post",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/MAVI-YESIL-ALGLERIN-GEZEGENIMIZ-ICIN-ONEMI/65",
+      "to": "/notlar/mavi-yesil-alglerin-gezegenimiz-icin-onemi",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 200,
+      "kind": "post",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/AKUAKULTUR-EKTRUDE-YEMLERININ-URETIMI/64",
+      "to": "/notlar/akuakultur-ekstrude-yemlerinin-uretimi",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 200,
+      "kind": "post",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/Future-Fish-Eurasia-Izmir-Fuarini-basari-ile-tamamladik/63",
+      "to": "/notlar/future-fish-eurasia-izmir-fuari-tamamlandi",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 200,
+      "kind": "post",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/FUTURE-FISH-EURASIA-2-4-HAZIRAN-2016-FUARINDAYIZ/62",
+      "to": "/notlar/future-fish-eurasia-2016-fuarindayiz",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 200,
+      "kind": "post",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/en-US/About-us.aspx",
+      "to": "/en/about",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/en-US/services/logistics.aspx",
+      "to": "/en/services/supply-logistics",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/en-US/blog.aspx",
+      "to": "/en/notes",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/en-US/references.aspx",
+      "to": "/en/projects",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/en-US/gallery.aspx",
+      "to": "/en/archive",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/en-US/catalog.aspx",
+      "to": "/en/catalog",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/en-US/contact.aspx",
+      "to": "/en/contact",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/en-us/services/projects.aspx",
+      "to": "/en/services/projects-funding",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/en-us/services/feed.aspx",
+      "to": "/en/solutions/feed-food-lines",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/en-us/services/machine-systems.aspx",
+      "to": "/en/machines",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/en-us/services/Aquaculture.aspx",
+      "to": "/en/solutions/aquaculture",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/en-us/services/animal-husbandry.aspx",
+      "to": "/en/solutions/agriculture-livestock",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/en-US/blogicerik.aspx?MakaleID=67",
+      "to": "/en/notes/kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": 200,
+      "kind": "post",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/en-US/blogicerik.aspx?MakaleID=65",
+      "to": "/en/notes/mavi-yesil-alglerin-gezegenimiz-icin-onemi",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": 200,
+      "kind": "post",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/en-US/blogicerik.aspx?MakaleID=64",
+      "to": "/en/notes/akuakultur-ekstrude-yemlerinin-uretimi",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": 200,
+      "kind": "post",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/en-US/blogicerik.aspx?MakaleID=63",
+      "to": "/en/notes/future-fish-eurasia-izmir-fuari-tamamlandi",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": 200,
+      "kind": "post",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/en-US/blogicerik.aspx?MakaleID=62",
+      "to": "/en/notes/future-fish-eurasia-2016-fuarindayiz",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": 200,
+      "kind": "post",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/arb/About.aspx",
+      "to": "/ar/about",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/arb/services/logistics.aspx",
+      "to": "/ar/services/supply-logistics",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": 404,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/arb/references.aspx",
+      "to": "/ar/projects",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/arb/gallery.aspx",
+      "to": "/ar/archive",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/arb/catalog.aspx",
+      "to": "/ar/catalog",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/arb/contact.aspx",
+      "to": "/ar/contact",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/arb/services/feed.aspx",
+      "to": "/ar/solutions/feed-food-lines",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/arb/services/machine-systems.aspx",
+      "to": "/ar/machines",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/arb/blog.aspx",
+      "to": "/ar/notes",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": 500,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/services/lojistik-tedarik.aspx",
+      "to": "/hizmetler/tedarik-lojistik",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 500,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/katalog/samples/magazine/index.html",
+      "to": "/katalog",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/AGRA-ME-2016-FUARIMIZ-BASARI-ILE-TAMAMLANMISTIR/55",
+      "to": "/notlar/agra-me-2016-fuari-tamamlandi",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 200,
+      "kind": "post",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/Dubai-Agra-ME-Fuarindayiz/61",
+      "to": "/notlar/dubai-agra-me-fuarindayiz",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 200,
+      "kind": "post",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/FIRMAMIZIN-KEDI-KOPEK-MAMALARI-FORMULASYON-VE-URETIM-DANISMANLIGI/default.aspx",
+      "to": "/notlar/kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 500,
+      "kind": "post",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/MAVI-YESIL-ALGLERIN-GEZEGENIMIZ-ICIN-ONEMI/default.aspx",
+      "to": "/notlar/mavi-yesil-alglerin-gezegenimiz-icin-onemi",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 500,
+      "kind": "post",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/AKUAKULTUR-EKTRUDE-YEMLERININ-URETIMI/default.aspx",
+      "to": "/notlar/akuakultur-ekstrude-yemlerinin-uretimi",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 500,
+      "kind": "post",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/Future-Fish-Eurasia-Izmir-Fuarini-basari-ile-tamamladik/default.aspx",
+      "to": "/notlar/future-fish-eurasia-izmir-fuari-tamamlandi",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 500,
+      "kind": "post",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/FUTURE-FISH-EURASIA-2-4-HAZIRAN-2016-FUARINDAYIZ/default.aspx",
+      "to": "/notlar/future-fish-eurasia-2016-fuarindayiz",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 500,
+      "kind": "post",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/en-US/services/About-us.aspx",
+      "to": "/en/about",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": 404,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/en-US/blogicerik.aspx?MakaleID=55",
+      "to": "/en/notes/agra-me-2016-fuari-tamamlandi",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": 200,
+      "kind": "post",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/en-US/blogicerik.aspx?MakaleID=61",
+      "to": "/en/notes/dubai-agra-me-fuarindayiz",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": 200,
+      "kind": "post",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/en-us/catalog/samples/magazine/index.html",
+      "to": "/en/catalog",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/arb/catalog/samples/magazine/index.html",
+      "to": "/ar/catalog",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/arb/services/projects.aspx",
+      "to": "/ar/services/projects-funding",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/arb/services/Aquaculture.aspx",
+      "to": "/ar/solutions/aquaculture",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/arb/services/animal-husbandry.aspx",
+      "to": "/ar/solutions/agriculture-livestock",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": 200,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/arb/mavikatalog.aspx",
+      "to": "/ar/catalog",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": 500,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/arb/hakkimizda.aspx",
+      "to": "/ar/about",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": 500,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/arb/galeri.aspx",
+      "to": "/ar/archive",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": 500,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/arb/services/lojistik-tedarik.aspx",
+      "to": "/ar/services/supply-logistics",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": 404,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/arb/iletisim.aspx",
+      "to": "/ar/contact",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": 500,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/arb/referanslar.aspx",
+      "to": "/ar/projects",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": 500,
+      "kind": "page",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/AGRA-ME-2016-FUARIMIZ-BASARI-ILE-TAMAMLANMISTIR/default.aspx",
+      "to": "/notlar/agra-me-2016-fuari-tamamlandi",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 500,
+      "kind": "post",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/Dubai-Agra-ME-Fuarindayiz/default.aspx",
+      "to": "/notlar/dubai-agra-me-fuarindayiz",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": 500,
+      "kind": "post",
+      "source": "discovery/urls.json"
+    },
+    {
+      "from": "/katalog/MaviProtein_Katalog_TR_WEB.pdf",
+      "to": "/docs/MaviProtein_Katalog_TR.pdf",
+      "status": 301,
+      "lang": "tr",
+      "oldStatus": null,
+      "kind": "document",
+      "source": "raw-html links / linked-documents.json"
+    },
+    {
+      "from": "/en-US/catalog.pdf",
+      "to": "/docs/MaviProtein_Catalogue_EN.pdf",
+      "status": 301,
+      "lang": "en",
+      "oldStatus": null,
+      "kind": "document",
+      "source": "raw-html links / linked-documents.json"
+    },
+    {
+      "from": "/arb/catalog.pdf",
+      "to": "/ar/catalog",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": null,
+      "kind": "document",
+      "source": "raw-html links / linked-documents.json"
+    },
+    {
+      "from": "/arb/blogicerik.aspx?MakaleID=55",
+      "to": "/ar/notes/agra-me-2016-fuari-tamamlandi",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": null,
+      "kind": "post",
+      "source": "pattern (AR blog never worked; included for safety)"
+    },
+    {
+      "from": "/arb/blogicerik.aspx?MakaleID=61",
+      "to": "/ar/notes/dubai-agra-me-fuarindayiz",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": null,
+      "kind": "post",
+      "source": "pattern (AR blog never worked; included for safety)"
+    },
+    {
+      "from": "/arb/blogicerik.aspx?MakaleID=62",
+      "to": "/ar/notes/future-fish-eurasia-2016-fuarindayiz",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": null,
+      "kind": "post",
+      "source": "pattern (AR blog never worked; included for safety)"
+    },
+    {
+      "from": "/arb/blogicerik.aspx?MakaleID=63",
+      "to": "/ar/notes/future-fish-eurasia-izmir-fuari-tamamlandi",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": null,
+      "kind": "post",
+      "source": "pattern (AR blog never worked; included for safety)"
+    },
+    {
+      "from": "/arb/blogicerik.aspx?MakaleID=64",
+      "to": "/ar/notes/akuakultur-ekstrude-yemlerinin-uretimi",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": null,
+      "kind": "post",
+      "source": "pattern (AR blog never worked; included for safety)"
+    },
+    {
+      "from": "/arb/blogicerik.aspx?MakaleID=65",
+      "to": "/ar/notes/mavi-yesil-alglerin-gezegenimiz-icin-onemi",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": null,
+      "kind": "post",
+      "source": "pattern (AR blog never worked; included for safety)"
+    },
+    {
+      "from": "/arb/blogicerik.aspx?MakaleID=67",
+      "to": "/ar/notes/kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi",
+      "status": 301,
+      "lang": "ar",
+      "oldStatus": null,
+      "kind": "post",
+      "source": "pattern (AR blog never worked; included for safety)"
+    }
+  ],
+  "patterns": [
+    {
+      "from": "^/[^/]+/(55|61|62|63|64|65|67)/?$",
+      "to": "/notlar/{slug-by-id}",
+      "note": "Old TR blog URLs accept any slug; only the numeric ID matters.",
+      "map": {
+        "55": "agra-me-2016-fuari-tamamlandi",
+        "61": "dubai-agra-me-fuarindayiz",
+        "62": "future-fish-eurasia-2016-fuarindayiz",
+        "63": "future-fish-eurasia-izmir-fuari-tamamlandi",
+        "64": "akuakultur-ekstrude-yemlerinin-uretimi",
+        "65": "mavi-yesil-alglerin-gezegenimiz-icin-onemi",
+        "67": "kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi"
+      }
+    },
+    {
+      "from": "^/en-us/blogicerik\\.aspx\\?makaleid=(\\d+)$",
+      "flags": "i",
+      "to": "/en/notes/{slug-by-id}"
+    },
+    {
+      "from": "^/[^/]+/\\d+/?$",
+      "to": "/notlar",
+      "note": "Other MakaleID values (1–90) returned an empty template; send to the notes index."
+    },
+    {
+      "from": "^/en-us/blogicerik\\.aspx.*$",
+      "flags": "i",
+      "to": "/en/notes"
+    },
+    {
+      "from": "^/en-us/.*$",
+      "flags": "i",
+      "to": "/en/",
+      "note": "Fallback for unknown EN pages."
+    },
+    {
+      "from": "^/arb/.*$",
+      "flags": "i",
+      "to": "/ar/",
+      "note": "Fallback for unknown AR pages."
+    },
+    {
+      "from": "^/img/works/.*$",
+      "to": "/arsiv",
+      "note": "Old gallery image URLs (optional)."
+    }
+  ],
+  "unmapped": []
+}

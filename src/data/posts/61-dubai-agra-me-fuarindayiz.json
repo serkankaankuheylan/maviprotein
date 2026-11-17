@@ -1,0 +1,53 @@
+{
+  "id": 61,
+  "slug": "dubai-agra-me-fuarindayiz",
+  "date": "2016-03-27",
+  "category": "saha",
+  "originalCategory": {
+    "tr": "Fuar",
+    "en": "Fair",
+    "ar": "معرض"
+  },
+  "title": {
+    "tr": "Dubai Agra ME fuarındayız",
+    "en": "We are joining the Dubai Agra ME fair",
+    "ar": "نشارك في معرض Agra ME في دبي"
+  },
+  "excerpt": {
+    "tr": "Türkiye ve Ortadoğu exclusive distribütörlüğünü yaptığımız Jinan Sunpring Machinery and Equipment Co. Ltd. ile ilk uluslararası fuarımıza katılıyoruz.",
+    "en": "We are joining our first international fair with our partner Jinan Sunpring Machinery and Equipment Co.",
+    "ar": "نشارك في أول معرض دولي لنا مع شريكنا Jinan Sunpring Machinery and Equipment Co."
+  },
+  "body": {
+    "tr": [
+      {
+        "type": "quote",
+        "text": "Mavi Protein Danışmanlık olarak Türkiye ve Ortadoğu exclusive distribütörlüğünü yaptığımız Jinan Sunpring Machinery and Equipment Co. Ltd. partnerimizle beraber ilk uluslararası fuarımıza katılıyoruz. 13–15 Mart 2016 tarihlerinde Ortadoğu'nun en önemli tarım, hayvancılık ve balıkçılık fuarı olan AGRA ME-Dubai fuarında, S1E19 nolu standımızda tüm sevdiklerimizi ve yatırımcılarımızı ağırlamaktan onur duyarız."
+      }
+    ],
+    "en": [
+      {
+        "type": "quote",
+        "text": "We are joining our first international fair with our partner, Jinan Sunpring Machinery and Equipment Co., at AGRA ME-Dubai, the Middle East's most important agriculture, livestock and fishing fair, held on 13–15 March 2016. Visit us at stand S1E19; we are honoured to welcome all our visitors and investors."
+      }
+    ],
+    "ar": [
+      {
+        "type": "quote",
+        "text": "نشارك في أول معرض دولي لنا مع شريكنا Jinan Sunpring Machinery and Equipment Co. في معرض AGRA ME في دبي، أهم معرض للزراعة والثروة الحيوانية والصيد في الشرق الأوسط، والذي يُقام خلال الفترة 13–15 مارس 2016. تفضلوا بزيارتنا في الجناح S1E19؛ يشرّفنا استقبال جميع زوارنا والمستثمرين."
+      }
+    ]
+  },
+  "readingMinutes": 1,
+  "oldUrls": [
+    "/Dubai-Agra-ME-Fuarindayiz/61",
+    "/Dubai-Agra-ME-Fuarindayiz/default.aspx",
+    "/en-US/blogicerik.aspx?MakaleID=61"
+  ],
+  "images": [],
+  "fair": "agra-me-2016",
+  "coverNote": "Eski kapak görseli (img/works/7ec1DUBAI SON.jpg) metni gömülü bir davet afişi; kopyalanmadı. Bilgileri (Dubai International Exhibition Centre, Aqua Hall 1) company.json > fairs'te.",
+  "notes": [
+    "Yazı 27.03.2016 tarihli ama fuar 13–15 Mart 2016'da; duyuru fuardan sonra yayımlanmış görünüyor (55 numaralı 'tamamlandı' yazısı 25.03.2016)."
+  ]
+}

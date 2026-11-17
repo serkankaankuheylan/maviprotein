@@ -1,0 +1,128 @@
+---
+import Logo from './Logo.astro';
+import Arrow from './Arrow.astro';
+import { common, CONTACT } from '../i18n/common';
+import { pick, t, LANGS, LANG_META, type Lang } from '../lib/i18n';
+import { href, type RouteKey } from '../lib/routes';
+
+interface Props { lang: Lang; alternates: Record<Lang, string> }
+const { lang, alternates } = Astro.props;
+const c = pick(common, lang);
+const year = new Date().getFullYear();
+// the catalogue button leads to the catalogue page; only on that page does it download the PDF itself
+const onCatalog = alternates[lang] === href('catalog', lang);
+---
+<footer class="ftr s-dark grain" data-surface="dark">
+  <div class="wrap">
+    <div class="ftr__top">
+      <p class="ftr__tag t-h3">{c.footer.tagline}</p>
+      <div class="ftr__actions">
+        <a class="btn btn--light" href={href('start', lang)}>{c.cta}<Arrow /></a>
+        {onCatalog
+          ? <a class="btn btn--ghost" href={CONTACT.catalogPdf[lang]} download>{c.catalog}<Arrow dir="down" /></a>
+          : <a class="btn btn--ghost" href={href('catalog', lang)}>{c.catalog}<Arrow dir="down" /></a>}
+      </div>
+    </div>
+
+    <div class="ftr__cols">
+      <div>
+        <p class="label">{c.footer.cols.solutions}</p>
+        <ul role="list">
+          {c.mega.solutions.map((m) => <li><a class="link" href={href(m.key as RouteKey, lang)}>{m.title}</a></li>)}
+          <li><a class="link" href={href('algophyco', lang)}>ALGOPHYCO™</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="label">{c.footer.cols.machines}</p>
+        <ul role="list">
+          {c.footer.machines.map(([label, hash]) => <li><a class="link" href={href('machines', lang, undefined, hash)}>{label}</a></li>)}
+        </ul>
+      </div>
+      <div>
+        <p class="label">{c.footer.cols.services}</p>
+        <ul role="list">
+          {c.mega.services.map((m) => <li><a class="link" href={href(m.key as RouteKey, lang)}>{m.title}</a></li>)}
+        </ul>
+      </div>
+      <div>
+        <p class="label">{c.footer.cols.company}</p>
+        <ul role="list">
+          {c.footer.company.map(([key, label]) => <li><a class="link" href={href(key as RouteKey, lang)}>{label}</a></li>)}
+        </ul>
+      </div>
+      <div class="ftr__contact">
+        <p class="label">{c.footer.contact}</p>
+        <address>
+          <a class="ftr__big" href={CONTACT.phoneHref}>{CONTACT.phone}</a>
+          <a class="ftr__big" href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+          <span class="ftr__addr">{t(CONTACT.address, lang)}</span>
+          <span class="label faint">{CONTACT.coords}</span>
+        </address>
+        <ul role="list" class="ftr__social">
+          {CONTACT.social.map(([name, url]) => <li><a class="link" href={url} rel="noopener" target="_blank">{name}</a></li>)}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="ftr__word" aria-hidden="true">
+    <span class="ftr__word-type">Mavi Protein</span>
+  </div>
+
+  <div class="wrap ftr__base">
+    <Logo lang={lang} compact />
+    <p class="ftr__legal-name">© {year} {c.footer.rights}</p>
+    <ul role="list" class="ftr__legal">
+      {c.footer.legal.map(([key, label]) => <li><a class="link" href={href(key as RouteKey, lang)}>{label}</a></li>)}
+    </ul>
+    <ul role="list" class="ftr__langs" aria-label={c.footer.lang}>
+      {LANGS.map((l) => <li><a href={alternates[l]} lang={LANG_META[l].htmlLang} aria-current={l === lang ? 'true' : undefined}><img class="flag" src={`/flags/${l}.svg`} alt="" width="16" height="16" loading="lazy" decoding="async" />{LANG_META[l].label}</a></li>)}
+    </ul>
+    <a href="#top" class="ftr__up label">{c.footer.top}<Arrow dir="up" /></a>
+  </div>
+</footer>
+
+<style>
+  .ftr { padding-top: clamp(72px, 9vw, 140px); overflow: hidden; background: var(--abyss); }
+  .ftr__top { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 2rem; padding-bottom: clamp(48px, 6vw, 88px); border-bottom: 1px solid var(--line); }
+  .ftr__tag { max-width: 22ch; font-size: clamp(1.7rem, 1.2rem + 1.6vw, 2.6rem); line-height: 1.2; }
+  .ftr__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .ftr__cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(0, 1.6fr); gap: 2.5rem var(--col-gap); padding-block: clamp(48px, 5vw, 80px); }
+  .ftr__cols ul { display: grid; gap: 0.55rem; margin-top: 1.1rem; font-size: 0.96rem; color: var(--fg-2); }
+  .ftr__cols a:hover { color: var(--fg); }
+  .ftr__contact address { font-style: normal; display: grid; gap: 0.5rem; margin-top: 1.1rem; }
+  .ftr__big { font-family: var(--f-serif); font-size: clamp(1.35rem, 1.1rem + 0.8vw, 1.8rem); letter-spacing: -0.01em; line-height: 1.2; width: fit-content; }
+  .ftr__big:hover { color: var(--aegean); }
+  .ftr__addr { color: var(--fg-2); font-size: 0.96rem; margin-top: 0.4rem; }
+  .ftr__social { display: flex !important; flex-wrap: wrap; gap: 0.4rem 1.2rem !important; margin-top: 1.4rem !important; }
+
+  /* Wordmark = a window into the hero's water: the hero's caustic light, baked once into a texture
+     (scripts/bake-wordmark.mjs) and shown through the letters. Pure paint: no JS, no WebGL, no blending. */
+  .ftr__word {
+    font-family: var(--f-serif); font-weight: 300; font-optical-sizing: auto;
+    font-size: 19.4vw; line-height: 0.78; letter-spacing: -0.055em;
+    white-space: nowrap; text-align: center;
+    margin-top: 1rem; padding-bottom: 1.5vw; user-select: none;
+    direction: ltr;
+  }
+  .ftr__word-type {
+    display: block; color: transparent;
+    background: url('/img/brand/wordmark-water-2400.webp') center / 100% 100% no-repeat;
+    -webkit-background-clip: text; background-clip: text;
+  }
+  @media (max-width: 900px) { .ftr__word-type { background-image: url('/img/brand/wordmark-water-1200.webp'); } }
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .ftr__word-type { animation: ftr-rise linear both; animation-timeline: view(); animation-range: entry 0% cover 45%; }
+      @keyframes ftr-rise { from { transform: translateY(28%); opacity: 0.2; } to { transform: none; opacity: 1; } }
+    }
+  }
+  .ftr__base { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; padding-block: 1.6rem 2rem; border-top: 1px solid var(--line); font-size: 0.82rem; color: var(--fg-3); }
+  .ftr__legal-name { flex: 1 1 320px; max-width: 70ch; }
+  .ftr__legal, .ftr__langs { display: flex; gap: 1.2rem; }
+  .ftr__langs a { opacity: 0.6; display: inline-flex; align-items: center; gap: 0.5rem; transition: opacity 200ms; } .ftr__langs a:hover { opacity: 1; } .ftr__langs a[aria-current] { opacity: 1; color: var(--fg); }
+  .ftr__up { gap: 0.5rem; color: var(--fg-2); }
+  .ftr__up .arr { width: 0.9rem; }
+  @media (max-width: 1100px) { .ftr__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ftr__contact { grid-column: 1 / -1; } }
+  @media (max-width: 520px) { .ftr__cols { grid-template-columns: 1fr 1fr; gap: 2rem 1rem; } }
+</style>

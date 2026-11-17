@@ -1,0 +1,81 @@
+---
+/** Back to the surface: the counterpart of the home hero. The hero looks down at the sea floor;
+    here we look up from just under the surface — Snell's window, light shafts, rising bubbles. */
+import Arrow from './Arrow.astro';
+import { common, CONTACT } from '../i18n/common';
+import { pick, type Lang } from '../lib/i18n';
+import { href } from '../lib/routes';
+interface Props { lang: Lang; title: string; primary?: string; primaryHref?: string; label?: string }
+const { lang, title, primary, primaryHref, label } = Astro.props;
+const c = pick(common, lang);
+const or = { tr: 'ya da doğrudan', en: 'or directly', ar: 'أو مباشرة' }[lang];
+// the catalogue button leads to the catalogue page; only on that page does it download the PDF itself
+const onCatalog = Astro.url.pathname.replace(/\/+$/, '') === href('catalog', lang);
+---
+<section class="close s-dark" data-surface="dark">
+  <div class="close__light" aria-hidden="true"></div>
+  <canvas class="close__water" data-surface-gl aria-hidden="true"></canvas>
+  <canvas class="close__rise" data-rising aria-hidden="true"></canvas>
+  <div class="close__veil" aria-hidden="true"></div>
+  <div class="wrap close__inner">
+    {label && <p class="label">{label}</p>}
+    <h2 class="t-display rise" set:html={title} />
+    <div class="close__actions rise" style="--d:120ms">
+      <a class="btn btn--light" href={primaryHref ?? href('start', lang)}>{primary ?? c.cta}<Arrow /></a>
+      {onCatalog
+        ? <a class="btn btn--ghost" href={CONTACT.catalogPdf[lang]} download>{c.catalog}<Arrow dir="down" /></a>
+        : <a class="btn btn--ghost" href={href('catalog', lang)}>{c.catalog}<Arrow dir="down" /></a>}
+    </div>
+    <p class="close__direct">
+      <span class="label faint">{or}</span>
+      <a class="link mono" href={CONTACT.phoneHref}>{CONTACT.phone}</a>
+      <a class="link mono" href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+    </p>
+  </div>
+</section>
+<style>
+  .close { position: relative; overflow: hidden; isolation: isolate; padding-block: clamp(140px, 18vw, 280px) clamp(90px, 11vw, 160px); border-bottom: 1px solid var(--rule-light); background: var(--abyss); }
+  /* Fallback (no WebGL) and first paint: the same scene in CSS — window top right, shafts, abyss below. */
+  .close__light {
+    position: absolute; inset: 0; z-index: -3;
+    background:
+      radial-gradient(38% 46% at 70% -6%, rgba(236, 248, 253, 0.85), rgba(160, 216, 240, 0.35) 45%, transparent 75%),
+      radial-gradient(80% 70% at 70% 0%, rgba(80, 160, 200, 0.35), transparent 70%),
+      linear-gradient(180deg, #17607f 0%, #0b3156 42%, var(--abyss) 85%);
+  }
+  .close__light::after {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-conic-gradient(from 160deg at 70% -10%, transparent 0deg 3deg, rgba(207, 234, 248, 0.06) 3.5deg 5deg, transparent 5.5deg 8deg);
+    mask-image: linear-gradient(180deg, #000 10%, transparent 80%); -webkit-mask-image: linear-gradient(180deg, #000 10%, transparent 80%);
+  }
+  .close__water, .close__rise { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; }
+  .close__water { opacity: 0; transition: opacity 1400ms var(--ease-water); }
+  .close__water:global(.is-live) { opacity: 1; }
+  .close__rise { z-index: -1; }
+  /* Calm water behind the words: darken the reading side, keep the light side open. */
+  .close__veil {
+    position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(70% 80% at 18% 62%, rgba(4, 20, 42, 0.62), transparent 70%),
+      linear-gradient(180deg, transparent 55%, rgba(6, 26, 51, 0.55) 100%);
+  }
+  :global(html[dir='rtl']) .close__veil {
+    background:
+      radial-gradient(70% 80% at 82% 62%, rgba(4, 20, 42, 0.62), transparent 70%),
+      linear-gradient(180deg, transparent 55%, rgba(6, 26, 51, 0.55) 100%);
+  }
+  :global(html[dir='rtl']) .close__light { transform: scaleX(-1); }
+  .close__inner { display: grid; gap: 2.2rem; justify-items: start; }
+  .close__inner h2 { max-width: 17ch; color: #eaf6fd; text-shadow: 0 2px 40px rgba(4, 20, 42, 0.45); }
+  .close__inner h2 :global(em) { color: var(--aegean); }
+  .close__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  .close__direct { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1.6rem; font-size: 0.95rem; }
+  @media (max-width: 760px) {
+    .close__veil { background: linear-gradient(180deg, rgba(4, 20, 42, 0.1) 0%, rgba(4, 20, 42, 0.55) 45%, rgba(6, 26, 51, 0.7) 100%); }
+  }
+</style>
+<script>
+  import { mountSurface, mountRising } from '../scripts/surface';
+  document.querySelectorAll<HTMLCanvasElement>('[data-surface-gl]').forEach((c) => mountSurface(c));
+  document.querySelectorAll<HTMLCanvasElement>('[data-rising]').forEach((c) => mountRising(c));
+</script>

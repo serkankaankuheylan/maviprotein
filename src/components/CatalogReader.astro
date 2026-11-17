@@ -1,0 +1,246 @@
+---
+/**
+ * The catalogue reader: a full-screen dialog that shows the printed catalogue as it was made, in spreads.
+ * Nothing heavy loads with the page: the reader's code is fetched when someone reaches for the book
+ * (hover, focus or tap) and the page images only when it opens — the spread on screen first, then its
+ * neighbours. Pages are pre-rendered WebP files (scripts/build-catalog-pages.mjs), not the 5–6 MB PDFs.
+ *
+ * Desktop: two-page spreads, a page turn on the spine, edges/keys/wheel to turn, click to zoom, drag to pan.
+ * Phones: the same spreads (the catalogue is laid out across two pages), swipe to turn, double-tap or pinch
+ * to zoom, a hint to turn the phone sideways. Held sideways (phones and tablets) the controls lie over the
+ * paper and step aside while reading; a tap brings them back. Controls keep clear of the notch (safe areas).
+ */
+import { pick, type Lang } from '../lib/i18n';
+import { pagesCopy } from '../i18n/pages';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = pick(pagesCopy, lang).catalog;
+const r = c.reader;
+const chapters = c.chapters.map((ch) => ({ t: ch.t, p: ch.p, start: parseInt(ch.p, 10) }));
+const cfg = {
+  lang: lang === 'tr' ? 'tr' : 'en',
+  pages: 56,
+  pdf: { tr: '/docs/MaviProtein_Katalog_TR.pdf', en: '/docs/MaviProtein_Catalogue_EN.pdf' },
+  t: { page: r.page, cover: r.cover, back: r.back, zoomIn: r.zoomIn, zoomOut: r.zoomOut, loading: r.loading },
+  chapters,
+};
+---
+<dialog class="cr" aria-label={c.title} data-cr data-cfg={JSON.stringify(cfg)} dir="ltr">
+  <div class="cr__top">
+    <button type="button" class="cr__btn cr__close" data-cr-close aria-label={r.close}>
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" /></svg>
+    </button>
+    <p class="cr__title" lang={lang}>{c.title}</p>
+    <div class="cr__langs" role="group" aria-label={r.lang}>
+      <button type="button" data-cr-lang="tr" aria-pressed="false">TR</button>
+      <button type="button" data-cr-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <a class="cr__btn cr__dl" data-cr-dl href={cfg.pdf[cfg.lang as 'tr' | 'en']} download aria-label={r.download}>
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10M5.5 8.5 10 13l4.5-4.5M4 16.5h12" /></svg>
+      <span lang={lang}>PDF</span>
+    </a>
+    <button type="button" class="cr__btn cr__toc-btn" data-cr-panel aria-expanded="false" aria-controls="cr-panel">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 4h5v5H3zM12 4h5v5h-5zM3 11h5v5H3zM12 11h5v5h-5z" /></svg>
+      <span lang={lang}>{r.pages}</span>
+    </button>
+  </div>
+
+  <div class="cr__stage" data-cr-stage>
+    <div class="cr__zoom" data-cr-zoom>
+      <div class="cr__book" data-cr-book>
+        <div class="cr__half cr__half--l" data-cr-l></div>
+        <div class="cr__half cr__half--r" data-cr-r></div>
+      </div>
+    </div>
+    <button type="button" class="cr__side cr__side--prev" data-cr-prev aria-label={r.prev}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" /></svg></button>
+    <button type="button" class="cr__side cr__side--next" data-cr-next aria-label={r.next}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" /></svg></button>
+    <p class="cr__toast" data-cr-toast data-rotate={r.rotate} data-hint={r.hint} lang={lang} aria-hidden="true"></p>
+  </div>
+
+  <div class="cr__bottom">
+    <button type="button" class="cr__btn cr__step" data-cr-prev aria-label={r.prev}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" /></svg></button>
+    <div class="cr__scrub">
+      <input type="range" min="0" max="28" step="1" value="0" data-cr-range aria-label={r.page} />
+      <output class="cr__count" data-cr-count aria-live="polite"></output>
+    </div>
+    <button type="button" class="cr__btn cr__step" data-cr-next aria-label={r.next}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" /></svg></button>
+    <button type="button" class="cr__btn cr__zbtn" data-cr-zoombtn aria-label={r.zoomIn}>
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" /><path d="M12.6 12.6 17 17M6 8.5h5" /><path class="cr__plus" d="M8.5 6v5" /></svg>
+    </button>
+  </div>
+
+  <aside class="cr__panel" id="cr-panel" data-cr-panelbox hidden>
+    <p class="cr__plabel" lang={lang}>{r.contents}</p>
+    <ol class="cr__chapters" role="list" lang={lang}>
+      {chapters.map((ch) => (
+        <li><button type="button" data-cr-go={ch.start}><span>{ch.t}</span><span class="cr__pn">{ch.p}</span></button></li>
+      ))}
+    </ol>
+    <p class="cr__plabel" lang={lang}>{r.all}</p>
+    <ol class="cr__grid" role="list" data-cr-grid></ol>
+  </aside>
+</dialog>
+
+<script>
+  // Loader only: the reader itself is a separate chunk, fetched on intent and run on open.
+  const dlg = document.querySelector<HTMLDialogElement>('[data-cr]');
+  const triggers = document.querySelectorAll<HTMLElement>('[data-cr-open]');
+  let mod: Promise<typeof import('../scripts/catalog-reader')> | null = null;
+  const load = () => (mod ??= import('../scripts/catalog-reader'));
+  const open = async (page?: number) => { if (!dlg) return; const m = await load(); m.openReader(dlg, page); };
+  triggers.forEach((el) => {
+    el.addEventListener('pointerenter', load, { once: true });
+    el.addEventListener('focus', load, { once: true });
+    el.addEventListener('touchstart', load, { once: true, passive: true });
+    el.addEventListener('click', (e) => { e.preventDefault(); open(Number(el.dataset.crOpen) || undefined); });
+  });
+  // a link such as /katalog#s-24 opens the reader on that page
+  const fromHash = () => { const m = /^#s-(\d{1,2})$/.exec(location.hash); return m ? Number(m[1]) : 0; };
+  if (fromHash()) open(fromHash());
+  window.addEventListener('hashchange', () => { if (fromHash() && dlg && !dlg.open) open(fromHash()); });
+</script>
+
+<style is:global>
+  .cr {
+    --cr-bg: #0b1620; --cr-bar: rgba(11, 22, 32, 0.86); --cr-fg: #e9eef2; --cr-fg-2: rgba(233, 238, 242, 0.62); --cr-line: rgba(233, 238, 242, 0.14);
+    position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0;
+    background: radial-gradient(120% 90% at 50% 40%, #13232f, var(--cr-bg) 70%); color: var(--cr-fg);
+    display: none; grid-template-rows: auto 1fr auto; overflow: hidden;
+    font-family: var(--f-sans); -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: contain;
+  }
+  .cr[open] { display: grid; animation: cr-in 380ms var(--ease-water) both; }
+  .cr::backdrop { background: rgba(6, 12, 18, 0.7); }
+  .cr.is-closing { animation: cr-out 240ms ease both; }
+  @keyframes cr-in { from { opacity: 0; } }
+  @keyframes cr-out { to { opacity: 0; } }
+  html.cr-lock, html.cr-lock body { overflow: hidden; }
+
+  .cr svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .cr button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  .cr :focus-visible { outline: 2px solid var(--aegean); outline-offset: 2px; }
+
+  /* bars */
+  .cr__top, .cr__bottom { position: relative; z-index: 3; display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem max(clamp(0.6rem, 2vw, 1.2rem), env(safe-area-inset-right)) 0.6rem max(clamp(0.6rem, 2vw, 1.2rem), env(safe-area-inset-left)); background: var(--cr-bar); transition: opacity 300ms, translate 300ms var(--ease-water); }
+  .cr__top { border-bottom: 1px solid var(--cr-line); padding-top: max(0.6rem, env(safe-area-inset-top)); }
+  .cr__bottom { border-top: 1px solid var(--cr-line); padding-bottom: max(0.6rem, env(safe-area-inset-bottom)); justify-content: center; }
+  .cr__title { font-family: var(--f-serif); font-size: 1.15rem; letter-spacing: 0.01em; margin-inline-end: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cr__btn { display: inline-flex; align-items: center; gap: 0.45rem; min-width: 44px; height: 44px; justify-content: center; padding: 0 0.6rem; border-radius: 22px; color: var(--cr-fg); font-size: 0.82rem; letter-spacing: 0.04em; transition: background 200ms; }
+  .cr__btn:hover { background: rgba(233, 238, 242, 0.08); }
+  .cr__btn[disabled] { opacity: 0.3; cursor: default; background: none; }
+  .cr__close { order: -1; }
+  .cr__langs { display: inline-flex; border: 1px solid var(--cr-line); border-radius: 22px; padding: 3px; }
+  .cr__langs button { min-width: 40px; height: 36px; border-radius: 18px; font-family: var(--f-mono); font-size: 0.85rem; letter-spacing: 0.08em; color: var(--cr-fg-2); transition: background 200ms, color 200ms; }
+  .cr__langs button[aria-pressed='true'] { background: var(--cr-fg); color: var(--cr-bg); }
+  .cr__toc-btn[aria-expanded='true'] { background: rgba(233, 238, 242, 0.14); }
+
+  .cr__scrub { position: relative; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 1rem; width: min(560px, 100%); flex: 1 1 auto; }
+  .cr__scrub input { width: 100%; accent-color: var(--brass-2); height: 44px; cursor: pointer; }
+  .cr__count { font-family: var(--f-mono); font-size: 0.95rem; letter-spacing: 0.06em; min-width: 7.5ch; text-align: end; color: var(--cr-fg); font-variant-numeric: tabular-nums; }
+  .cr__count small { color: var(--cr-fg-2); font-size: inherit; }
+  .cr__zbtn .cr__plus { transition: opacity 200ms; }
+  .cr.is-zoomed .cr__zbtn .cr__plus { opacity: 0; }
+
+  /* stage */
+  .cr__stage { position: relative; overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none; }
+  .cr__zoom { position: absolute; inset: 0; display: grid; grid-template: 100% / 100%; place-items: center; transform-origin: 0 0; will-change: transform; }
+  .cr.is-animating .cr__zoom { transition: transform 320ms var(--ease-water); }
+  .cr__book { position: relative; display: grid; grid-template-columns: 1fr 1fr; width: var(--bw, 600px); height: var(--bh, 424px); perspective: 2600px; }
+  /* no movement while the reader first sizes itself */
+  .cr.is-ready .cr__book { transition: translate 520ms var(--ease-water); }
+  .cr__book.is-cover { translate: -25% 0; }
+  .cr__book.is-backcover { translate: 25% 0; }
+  .cr__half, .cr__face { position: relative; overflow: hidden; background-color: #fff; background-size: cover; }
+  .cr__half:empty, .cr__half.is-blank { background: none; }
+  .cr__half img, .cr__face img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; transition: opacity 260ms; }
+  .cr__half img.is-in, .cr__face img.is-in { opacity: 1; }
+  .cr__half:not(:empty):not(.is-blank) { box-shadow: 0 30px 60px -28px rgba(0, 0, 0, 0.75), 0 2px 6px rgba(0, 0, 0, 0.3); }
+  /* the fold: a soft shadow on both sides of the spine */
+  .cr__half--l::after, .cr__half--r::after { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+  .cr__half--l::after { background: linear-gradient(to left, rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.04) 4%, transparent 9%); }
+  .cr__half--r::after { background: linear-gradient(to right, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.05) 4%, transparent 9%); }
+  .cr__half.is-blank::after, .cr__half:empty::after { display: none; }
+  .cr__loading::before { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(13, 27, 44, 0.06) 50%, transparent 70%) 0 0 / 200% 100%; animation: cr-shimmer 1.2s linear infinite; }
+  @keyframes cr-shimmer { to { background-position: -200% 0; } }
+
+  /* the turning leaf */
+  .cr__leaf { position: absolute; top: 0; width: 50%; height: 100%; transform-style: preserve-3d; z-index: 2; pointer-events: none; }
+  .cr__leaf--next { left: 50%; transform-origin: left center; }
+  .cr__leaf--prev { left: 0; transform-origin: right center; }
+  .cr__face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+  .cr__face--back { transform: rotateY(180deg); }
+  .cr__face::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to right, rgba(0, 0, 0, 0.25), transparent 30%); opacity: var(--shade, 0); }
+  .cr__leaf--prev .cr__face--front::after, .cr__leaf--next .cr__face--back::after { background: linear-gradient(to left, rgba(0, 0, 0, 0.25), transparent 30%); }
+
+  /* cursors: edges turn, the middle zooms */
+  @media (hover: hover) and (pointer: fine) {
+    .cr__stage { cursor: zoom-in; }
+    .cr__stage[data-edge='prev'] { cursor: w-resize; }
+    .cr__stage[data-edge='next'] { cursor: e-resize; }
+    .cr.is-zoomed .cr__stage { cursor: grab; }
+    .cr.is-zoomed .cr__stage.is-dragging { cursor: grabbing; }
+  }
+
+  .cr__side { position: absolute; top: 50%; translate: 0 -50%; z-index: 2; width: 56px; height: 96px; display: grid; place-items: center; color: var(--cr-fg); opacity: 0.7; border-radius: 4px; transition: opacity 200ms, background 200ms; }
+  .cr__side svg { width: 28px; height: 28px; stroke-width: 1.3; }
+  .cr__side:hover { opacity: 1; background: rgba(233, 238, 242, 0.06); }
+  .cr__side[disabled] { opacity: 0; pointer-events: none; }
+  .cr__side--prev { left: calc(clamp(4px, 1.5vw, 24px) + env(safe-area-inset-left)); }
+  .cr__side--next { right: calc(clamp(4px, 1.5vw, 24px) + env(safe-area-inset-right)); }
+  .cr.is-zoomed .cr__side { opacity: 0; pointer-events: none; }
+
+  .cr__toast { position: absolute; left: 50%; bottom: 1rem; translate: -50% 0; z-index: 3; max-width: calc(100% - 2rem); padding: 0.6rem 1rem; border-radius: 22px; background: rgba(233, 238, 242, 0.94); color: var(--cr-bg); font-size: 0.85rem; text-align: center; opacity: 0; transition: opacity 300ms, translate 300ms var(--ease-water); pointer-events: none; }
+  .cr__toast.is-on { opacity: 1; translate: -50% -4px; }
+
+  /* pages panel */
+  .cr__panel { position: absolute; z-index: 4; top: var(--top-h, 60px); bottom: var(--bot-h, 64px); right: 0; width: min(380px, 100%); overflow-y: auto; overscroll-behavior: contain; padding: 1.2rem max(1.2rem, env(safe-area-inset-right)) 2rem 1.2rem; background: rgba(11, 22, 32, 0.97); border-left: 1px solid var(--cr-line); animation: cr-panel 320ms var(--ease-water) both; }
+  @keyframes cr-panel { from { translate: 24px 0; opacity: 0; } }
+  .cr__plabel { font-family: var(--f-mono); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cr-fg-2); margin: 0.4rem 0 0.6rem; }
+  .cr__chapters { margin-bottom: 1.6rem; border-top: 1px solid var(--cr-line); }
+  .cr__chapters button { width: 100%; display: flex; justify-content: space-between; gap: 1rem; padding: 0.75rem 0.2rem; border-bottom: 1px solid var(--cr-line); text-align: start; font-size: 0.95rem; }
+  .cr__chapters button:hover { color: var(--aegean); }
+  .cr__pn { font-family: var(--f-mono); color: var(--brass-2); white-space: nowrap; }
+  .cr__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.1rem 0.8rem; }
+  .cr__grid button { display: grid; gap: 0.35rem; width: 100%; }
+  .cr__grid .cr__th { display: grid; grid-template-columns: 1fr 1fr; aspect-ratio: 1.4142; background: none; box-shadow: 0 0 0 1px var(--cr-line); }
+  .cr__grid .cr__th.is-single { grid-template-columns: 1fr; width: 50%; justify-self: center; }
+  .cr__grid img { width: 100%; height: 100%; object-fit: cover; background: #fff; display: block; }
+  .cr__grid span { font-family: var(--f-mono); font-size: 0.78rem; color: var(--cr-fg-2); }
+  .cr__grid li.is-current .cr__th { box-shadow: 0 0 0 2px var(--brass-2); }
+  .cr__grid li.is-current span { color: var(--brass-2); }
+
+  /* phones and narrow windows */
+  @media (max-width: 760px) {
+    .cr.is-ready .cr__book { transition: translate 520ms var(--ease-water), width 520ms var(--ease-water), height 520ms var(--ease-water); }
+    .cr__title { font-size: 1rem; }
+    .cr__dl span, .cr__toc-btn span { display: none; }
+    .cr__side { display: none; }
+    .cr__scrub { gap: 0.6rem; }
+    .cr__count { font-size: 0.85rem; min-width: 6.5ch; }
+  }
+  /* phones and tablets held sideways, short windows: the bars lie over the stage and step aside while
+     reading, so the paper takes the whole height (same query as `overlay` in catalog-reader.ts) */
+  @media (max-height: 520px), (orientation: landscape) and (pointer: coarse) {
+    .cr { grid-template-rows: 1fr; }
+    .cr__stage { grid-row: 1; grid-column: 1; }
+    .cr__top, .cr__bottom { position: absolute; left: 0; right: 0; padding-block: 0.25rem; }
+    .cr__top { top: 0; padding-top: max(0.25rem, env(safe-area-inset-top)); }
+    .cr__bottom { bottom: 0; padding-bottom: max(0.25rem, env(safe-area-inset-bottom)); }
+    .cr.is-idle .cr__top { opacity: 0; translate: 0 -100%; pointer-events: none; }
+    .cr.is-idle .cr__bottom { opacity: 0; translate: 0 100%; pointer-events: none; }
+    .cr__btn, .cr__scrub input { height: 40px; }
+    .cr__side { display: grid; width: 44px; height: 72px; }
+    /* where the paper needs the side margins (tablets) the arrows give way: the bottom bar, a swipe or a tap
+       on the page edge turns there (visibility, not display: catalog-reader.ts still measures them) */
+    .cr.is-tight .cr__side { visibility: hidden; }
+    /* the hint sits above the bottom bar, not under it */
+    .cr__toast { bottom: calc(var(--bot-h, 49px) + 0.6rem); }
+    /* the panel stays under the top bar, so its own button keeps closing it */
+    .cr__panel { bottom: 0; padding-bottom: max(2rem, env(safe-area-inset-bottom)); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cr[open], .cr.is-closing, .cr__panel { animation: none; }
+    .cr.is-ready .cr__book, .cr.is-animating .cr__zoom { transition: none; }
+  }
+</style>

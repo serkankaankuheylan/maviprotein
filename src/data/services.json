@@ -1,0 +1,2408 @@
+[
+  {
+    "key": "aquaculture",
+    "title": {
+      "tr": "Su ürünleri",
+      "en": "Aquaculture",
+      "ar": "الاستزراع المائي"
+    },
+    "intro": [
+      {
+        "tr": "Firmamız tüm akuakültür sistemlerinin kurulması, üretime alınması, üretim eğitiminin sağlanması ve Ar-Ge çalışmalarının düzenlenmesi konusunda çok yönlü danışmanlık hizmetleri sunmaktadır.",
+        "en": "Our company offers consultancy services such as all kinds of aquaculture system establishment, production, training and organising specific R&D studies.",
+        "ar": "تقدم شركتنا خدمات استشارية في مجالات إنشاء جميع أنواع أنظمة الاستزراع المائي وتشغيلها إنتاجيًا والتدريب وتنظيم دراسات البحث والتطوير المتخصصة."
+      },
+      {
+        "tr": "Uzun yıllar süren tecrübeleri neticesinde her türlü ihtiyacın ya direkt çözüm odağı ya da doğru çözüm ortaklarının bulunup çözümün bir parçası olarak ekonomik ve yüksek verimli işlerin çözüm ortaklığı hizmetini vermektedir.",
+        "en": "Our experience over 20 years in the sector allows us to find solutions to production problems and to make predictions and corrections, either solving each need directly or bringing in the right solution partners for economical, high-yield work.",
+        "ar": "تتيح لنا خبرتنا الممتدة لأكثر من 20 عامًا في القطاع إيجاد حلول لمشكلات الإنتاج والتنبؤ بها وتصحيحها، سواء بمعالجة كل احتياج مباشرة أو بإشراك شركاء الحلول المناسبين لتحقيق أعمال اقتصادية عالية المردود."
+      }
+    ],
+    "subgroups": [
+      {
+        "key": "innovation-projects",
+        "title": {
+          "tr": "İnovasyon ve endüstriyel proje hizmetleri",
+          "en": "Innovation and industrial project services",
+          "ar": "خدمات الابتكار والمشاريع الصناعية"
+        }
+      },
+      {
+        "key": "biological-production",
+        "title": {
+          "tr": "Biyolojik üretim ve sistem danışmanlığı",
+          "en": "Biological production and system consultancy",
+          "ar": "استشارات الإنتاج البيولوجي والأنظمة"
+        }
+      },
+      {
+        "key": "turnkey",
+        "title": {
+          "tr": "Anahtar teslim sistem kurulumları",
+          "en": "Turnkey system installations",
+          "ar": "تركيب الأنظمة بنظام تسليم المفتاح"
+        }
+      },
+      {
+        "key": "feed-ration",
+        "title": {
+          "tr": "Yem ve rasyon",
+          "en": "Feed and rations",
+          "ar": "الأعلاف والعلائق"
+        }
+      },
+      {
+        "key": "logistics",
+        "title": {
+          "tr": "Lojistik hizmetler",
+          "en": "Logistic services",
+          "ar": "الخدمات اللوجستية"
+        }
+      },
+      {
+        "key": "feasibility",
+        "title": {
+          "tr": "Fizibilite ve mühendislik hizmetleri",
+          "en": "Feasibility and engineering services",
+          "ar": "خدمات دراسات الجدوى والهندسة"
+        }
+      }
+    ],
+    "items": [
+      {
+        "title": {
+          "tr": "Ulusal projeler hazırlık, yazım ve yürütücü danışmanlık hizmetleri",
+          "en": "National project preparation, writing and executive consulting services",
+          "ar": "خدمات إعداد المشاريع الوطنية وكتابتها والاستشارات التنفيذية"
+        },
+        "group": "innovation-projects"
+      },
+      {
+        "title": {
+          "tr": "Uluslararası projeler hazırlık ve proje ortağı bulma hizmetleri",
+          "en": "International project preparation and finding project partners",
+          "ar": "إعداد المشاريع الدولية وإيجاد شركاء المشاريع"
+        },
+        "group": "innovation-projects"
+      },
+      {
+        "title": {
+          "tr": "Tüm biyolojik üretimlerin planlanması",
+          "en": "Planning of all kinds of biological production",
+          "ar": "تخطيط جميع أنواع الإنتاج البيولوجي"
+        },
+        "group": "biological-production"
+      },
+      {
+        "title": {
+          "tr": "Anaç balık yönetim ve organizasyon",
+          "en": "Broodstock fish management and organisation",
+          "ar": "إدارة وتنظيم أسماك الأمهات"
+        },
+        "group": "biological-production"
+      },
+      {
+        "title": {
+          "tr": "Larva, nursery ve büyütme üretimleri",
+          "en": "Larvae, nursery and grow-out aquaculture",
+          "ar": "استزراع اليرقات والحضانة والتسمين"
+        },
+        "group": "biological-production"
+      },
+      {
+        "title": {
+          "tr": "Alternatif türler yetiştiriciliği",
+          "en": "Alternative species aquaculture",
+          "ar": "استزراع الأنواع البديلة"
+        },
+        "group": "biological-production"
+      },
+      {
+        "title": {
+          "tr": "Besi üretimleri",
+          "en": "Fish growing (fattening) production",
+          "ar": "إنتاج تسمين الأسماك"
+        },
+        "group": "biological-production"
+      },
+      {
+        "title": {
+          "tr": "Canlı yem ve alg üretimi",
+          "en": "Live feed and algal production",
+          "ar": "إنتاج الأغذية الحية والطحالب"
+        },
+        "group": "biological-production"
+      },
+      {
+        "title": {
+          "tr": "Tatlı su ve deniz akvaryum balığı üretimleri",
+          "en": "Freshwater and marine aquarium fish production",
+          "ar": "إنتاج أسماك الزينة للمياه العذبة والبحرية"
+        },
+        "group": "biological-production"
+      },
+      {
+        "title": {
+          "tr": "Bilimsel çalışmaların dizayn edilmesi, takip edilip sonlandırılması",
+          "en": "Design, tracking and completion of scientific studies",
+          "ar": "تصميم الدراسات العلمية ومتابعتها وإنجازها"
+        },
+        "group": "biological-production",
+        "source": "catalog p.3"
+      },
+      {
+        "title": {
+          "tr": "Üretimin gerçekleştirilmesi ve üretim personelinin eğitim hizmetleri",
+          "en": "Carrying out production and training production staff",
+          "ar": "تنفيذ الإنتاج وتدريب العاملين في الإنتاج"
+        },
+        "group": "biological-production",
+        "source": "catalog p.3"
+      },
+      {
+        "title": {
+          "tr": "Yavru balık kuluçkahane tesisleri",
+          "en": "Fish hatchery facilities",
+          "ar": "منشآت مفارخ الأسماك"
+        },
+        "group": "turnkey"
+      },
+      {
+        "title": {
+          "tr": "Kapalı ve açık sistem tüm mekanizasyon kurulumları",
+          "en": "All mechanisation installations for recirculating (RAS) and open systems",
+          "ar": "جميع تركيبات الميكنة لأنظمة الاستزراع المغلقة المعاد تدويرها (RAS) والأنظمة المفتوحة"
+        },
+        "group": "turnkey"
+      },
+      {
+        "title": {
+          "tr": "Besi tesisleri",
+          "en": "Fish growing farm facilities",
+          "ar": "منشآت مزارع تسمين الأسماك"
+        },
+        "group": "turnkey"
+      },
+      {
+        "title": {
+          "tr": "Deniz ve göl kafes sistemleri",
+          "en": "Marine and inland cage systems",
+          "ar": "أنظمة الأقفاص البحرية والداخلية"
+        },
+        "group": "turnkey"
+      },
+      {
+        "title": {
+          "tr": "Karada besicilik",
+          "en": "Land-based growing farm facilities",
+          "ar": "منشآت مزارع التسمين البرية"
+        },
+        "group": "turnkey"
+      },
+      {
+        "title": {
+          "tr": "Toprak havuz ve beton havuz sistemleri",
+          "en": "Inland ground and concrete pond systems",
+          "ar": "أنظمة الأحواض الترابية والخرسانية الداخلية"
+        },
+        "group": "turnkey",
+        "source": "catalog p.3"
+      },
+      {
+        "title": {
+          "tr": "İşleme tesisleri, planlama ve kurulum hizmetleri",
+          "en": "Planning and installation of fish processing facilities",
+          "ar": "تخطيط منشآت تصنيع الأسماك وتركيبها"
+        },
+        "group": "turnkey"
+      },
+      {
+        "title": {
+          "tr": "Yem ve gıda makineleri kurulumu",
+          "en": "Feed and food machinery installation",
+          "ar": "تركيب آلات الأعلاف والأغذية"
+        },
+        "group": "turnkey"
+      },
+      {
+        "title": {
+          "tr": "Tatlı su ve deniz akvaryum tesisleri kurulumu",
+          "en": "Freshwater and marine aquarium facility installation",
+          "ar": "تركيب منشآت أحواض الزينة للمياه العذبة والبحرية"
+        },
+        "group": "turnkey"
+      },
+      {
+        "title": {
+          "tr": "Akuaponik üretim sistemleri",
+          "en": "Aquaponic systems",
+          "ar": "أنظمة الزراعة المائية السمكية (الأكوابونيك)"
+        },
+        "group": "turnkey",
+        "source": "catalog p.3"
+      },
+      {
+        "title": {
+          "tr": "Canlı yem ve yosun üretim sistemleri kurulumu",
+          "en": "Live feed and algal production system installation",
+          "ar": "تركيب أنظمة إنتاج الأغذية الحية والطحالب"
+        },
+        "group": "turnkey",
+        "source": "catalog p.3"
+      },
+      {
+        "title": {
+          "tr": "Yem ve yem makineleri kurulum ve geliştirme sistemleri",
+          "en": "Feed and feed machinery installation and development",
+          "ar": "تركيب الأعلاف وآلات الأعلاف وتطويرها"
+        },
+        "group": "feed-ration",
+        "source": "catalog p.3"
+      },
+      {
+        "title": {
+          "tr": "Yem rasyonları hazırlığı",
+          "en": "Feed ration preparation",
+          "ar": "إعداد علائق الأعلاف"
+        },
+        "group": "feed-ration",
+        "source": "catalog p.3"
+      },
+      {
+        "title": {
+          "tr": "Yem yapım eğitim hizmetleri",
+          "en": "Feed-making training",
+          "ar": "التدريب على تصنيع الأعلاف"
+        },
+        "group": "feed-ration",
+        "source": "catalog p.3"
+      },
+      {
+        "title": {
+          "tr": "Tüm hammaddeler, katkı maddeleri, vitaminler ve mineraller temin ve tedariki",
+          "en": "Supply of all raw materials, additives, vitamins and minerals",
+          "ar": "توريد جميع المواد الخام والإضافات والفيتامينات والمعادن"
+        },
+        "group": "feed-ration",
+        "source": "catalog p.3"
+      },
+      {
+        "title": {
+          "tr": "Akuakültür üretim sarf malzemeleri",
+          "en": "Aquaculture materials, equipment and supplies",
+          "ar": "مواد ومعدات ومستلزمات الاستزراع المائي"
+        },
+        "group": "logistics"
+      },
+      {
+        "title": {
+          "tr": "Tüm laboratuvar malzemeleri ve teçhizatları",
+          "en": "All laboratory materials and equipment",
+          "ar": "جميع المواد والمعدات المخبرية"
+        },
+        "group": "logistics"
+      },
+      {
+        "title": {
+          "tr": "Ulusal ve uluslararası sertifika ve belgelendirme hizmetleri",
+          "en": "National and international certification services",
+          "ar": "خدمات الاعتماد والشهادات الوطنية والدولية"
+        },
+        "group": "logistics"
+      },
+      {
+        "title": {
+          "tr": "İthalat-ihracat ve gümrükleme işlemleri",
+          "en": "Import, export and customs clearance",
+          "ar": "الاستيراد والتصدير والتخليص الجمركي"
+        },
+        "group": "logistics"
+      },
+      {
+        "title": {
+          "tr": "Proje keşif ve ön etüt çalışmaları",
+          "en": "Project estimate and pre-feasibility studies",
+          "ar": "تقدير المشاريع ودراسات الجدوى الأولية"
+        },
+        "group": "feasibility"
+      },
+      {
+        "title": {
+          "tr": "Kurulu sistem revizyon ve iyileştirme çalışmaları",
+          "en": "Revision and improvement of installed systems",
+          "ar": "مراجعة الأنظمة القائمة وتحسينها"
+        },
+        "group": "feasibility"
+      },
+      {
+        "title": {
+          "tr": "Üretim sistemlerinin rantabilite analiz çalışmaları",
+          "en": "Profitability analysis of production systems",
+          "ar": "تحليل ربحية أنظمة الإنتاج"
+        },
+        "group": "feasibility"
+      }
+    ],
+    "sourceText": {
+      "tr": [
+        "Su ürünleri hizmetlerimiz",
+        "Firmamız tüm akuakültür sistemlerinin kurulması, üretime alınması, üretim eğitiminin sağlanması ve Ar-Ge çalışmalarının düzenlenmesi konusunda çok yönlü danışmanlık hizmetleri sunmaktadır.",
+        "Uzun yıllar süren tecrübeleri neticesinde her türlü ihtiyacın ya direkt çözüm odağı ya da doğru çözüm ortaklarının bulunup çözümün bir parçası olarak ekonomik ve yüksek verimli işlerin çözüm ortaklığı hizmetini vermektedir.",
+        "Bu kapsamda; tüm biyolojik üretimlerin planlanması, anaç balık yönetim ve organizasyon, larva, nursery ve büyütme üretimleri, alternatif türler yetiştiriciliği, besi üretimleri, canlı yem ve alg üretimi, tatlı su ve deniz akvaryum balığı üretimleri.",
+        "Anahtar teslim kurulumlar; yavru balık kuluçkahane tesisleri, kapalı ve açık sistem tüm mekanizasyon kurulumları, besi tesisleri, deniz ve göl kafes sistemleri, karada besicilik, işleme tesisleri, planlama ve kurulum hizmetleri, yem ve gıda makineleri kurulumu, tatlı su ve deniz akvaryum tesisleri kurulumu.",
+        "Fizibilite ve mühendislik hizmetleri: proje keşif ve ön etüt çalışmaları, kurulu sistem revizyon ve iyileştirme çalışmaları, üretim sistemlerinin rantabilite analiz çalışmaları hizmetleri verilmektedir.",
+        "Ayrıntılı bilgi için kataloğumuzu inceleyip lütfen bağlantı kurunuz."
+      ],
+      "en": [
+        "Aquaculture services",
+        "Our company offers consultancy services such as all kinds of aquaculture system establishment, production, education and organising specific R&D studies.",
+        "Our experience over the 20 years in the sector allows us to find solutions to production problems and gives us the ability to make predictions and corrections.",
+        "In this context, our company provides: planning services for all kinds of biological production, broodstock fish management and organisation, larvae, nursery and grow-out aquaculture, alternative species aquaculture, fish growing production, live feed and algal production, freshwater and marine aquarium fish production.",
+        "Turnkey system installations: fish hatchery facilities, all kinds of mechanisation installations for recirculating aquaculture (RAS) and open systems, fish growing farm facilities, marine and inland cage systems, land-based growing farm facilities, planning and installation of fish processing facilities, feed and food machinery installation, freshwater and marine aquarium facility installation.",
+        "Feasibility and engineering services: project estimate and pre-feasibility services, system revision and improvement services, profitability analysis of production systems.",
+        "For further information please examine our catalogue and contact us."
+      ],
+      "ar": [
+        "خدمات الاستزراع المائي",
+        "تقدم شركتنا خدمات استشارية في مجالات إنشاء جميع أنواع أنظمة الاستزراع المائي والإنتاج والتعليم وتنظيم دراسات البحث والتطوير المتخصصة.",
+        "تتيح لنا خبرتنا الممتدة على مدى 20 عامًا في القطاع إيجاد حلول لمشكلات الإنتاج، وتمنحنا القدرة على التنبؤ والتصحيح.",
+        "وفي هذا الإطار تقدم شركتنا: خدمات تخطيط جميع أنواع الإنتاج البيولوجي، وإدارة وتنظيم أسماك الأمهات، واستزراع اليرقات والحضانة والتسمين، واستزراع الأنواع البديلة، وإنتاج تسمين الأسماك، وإنتاج الأغذية الحية والطحالب، وإنتاج أسماك الزينة للمياه العذبة والبحرية.",
+        "تركيب الأنظمة بنظام تسليم المفتاح: منشآت مفارخ الأسماك، وجميع أنواع تركيبات الميكنة لأنظمة الاستزراع المائي المغلقة المعاد تدويرها (RAS) والأنظمة المفتوحة، ومنشآت مزارع تسمين الأسماك، وأنظمة الأقفاص البحرية والداخلية، ومنشآت مزارع التسمين البرية، وتخطيط منشآت تصنيع الأسماك وتركيبها، وتركيب آلات الأعلاف والأغذية، وتركيب منشآت أحواض الزينة للمياه العذبة والبحرية.",
+        "خدمات دراسات الجدوى والهندسة: خدمات تقدير المشاريع ودراسات الجدوى الأولية، وخدمات مراجعة الأنظمة وتحسينها، وتحليل ربحية أنظمة الإنتاج.",
+        "لمزيد من المعلومات يُرجى الاطلاع على كتالوجنا والتواصل معنا."
+      ]
+    },
+    "sourcePages": [
+      "hizmetlerimiz/Su-Urunleri.aspx",
+      "en-us/services/Aquaculture.aspx",
+      "catalog p.3–4"
+    ],
+    "notes": [
+      "TR metin 'uzun yıllar', EN metin 'over the 20 years' diyor.",
+      "TR sayfadaki tamamı büyük harf paragraflar cümle düzenine çevrildi."
+    ]
+  },
+  {
+    "key": "agriculture-livestock",
+    "title": {
+      "tr": "Tarım ve hayvancılık",
+      "en": "Agriculture and animal husbandry",
+      "ar": "الزراعة والثروة الحيوانية"
+    },
+    "intro": [
+      {
+        "tr": "Tüm tarımsal ve hayvansal faaliyetlerin üretim sorunlarının çözüm ortaklığı.",
+        "en": "Solution partnership for the production problems of all agricultural and animal husbandry activities.",
+        "ar": "شراكة في حل مشكلات الإنتاج لجميع الأنشطة الزراعية والحيوانية."
+      }
+    ],
+    "subgroups": [
+      {
+        "key": "partnership",
+        "title": {
+          "tr": "Tüm tarımsal ve hayvansal faaliyetlerin üretim sorunlarının çözüm ortaklığı",
+          "en": "Solution partnership for production problems of all agricultural and animal husbandry activities",
+          "ar": "شراكة في حل مشكلات الإنتاج لجميع الأنشطة الزراعية والحيوانية"
+        }
+      },
+      {
+        "key": "support-programs",
+        "title": {
+          "tr": "İnovatif projelerin uygun destek programları ile hayata geçirilmesi",
+          "en": "Implementing innovative projects with appropriate support programmes",
+          "ar": "تنفيذ المشاريع المبتكرة من خلال برامج الدعم المناسبة"
+        }
+      },
+      {
+        "key": "machine-lines",
+        "title": {
+          "tr": "Tüm hayvancılık ve gıda sektörünün alternatif makine bandı çözümleri",
+          "en": "Alternative machine line solutions for agriculture, animal husbandry and raw materials industry",
+          "ar": "حلول بديلة لخطوط الآلات في قطاعات الزراعة والثروة الحيوانية والمواد الخام"
+        }
+      },
+      {
+        "key": "microorganisms",
+        "title": {
+          "tr": "Efektif mikroorganizmalar kullanımı ve eğitimi",
+          "en": "Effective microorganisms use and training",
+          "ar": "استخدام الكائنات الدقيقة الفعّالة والتدريب عليها"
+        }
+      },
+      {
+        "key": "additives",
+        "title": {
+          "tr": "Ek ve katkı maddelerinin kullanım danışmanlığı",
+          "en": "Consultancy on supplements and additives in agriculture and animal husbandry",
+          "ar": "استشارات حول المكمّلات والإضافات في الزراعة والثروة الحيوانية"
+        }
+      },
+      {
+        "key": "recycling",
+        "title": {
+          "tr": "Geri dönüşüm projeleri ve atık arıtım sistemlerinin geliştirilmesi",
+          "en": "Recycling and waste treatment project development",
+          "ar": "تطوير مشاريع إعادة التدوير ومعالجة النفايات"
+        }
+      },
+      {
+        "key": "turnkey",
+        "title": {
+          "tr": "Anahtar teslim kurulumlar",
+          "en": "Turnkey system installations",
+          "ar": "تركيب الأنظمة بنظام تسليم المفتاح"
+        }
+      },
+      {
+        "key": "logistics",
+        "title": {
+          "tr": "Lojistik hizmetler",
+          "en": "Logistic services",
+          "ar": "الخدمات اللوجستية"
+        }
+      }
+    ],
+    "items": [
+      {
+        "title": {
+          "tr": "Tarımsal ve hayvansal üretimlerin fizibilite ve rantabilite analizlerinin, mühendislik ölçümlerinin yapılması",
+          "en": "Feasibility and profitability analysis of agricultural and animal husbandry production, estimate and engineering services",
+          "ar": "تحليل الجدوى والربحية للإنتاج الزراعي والحيواني، وخدمات التقدير والهندسة"
+        },
+        "group": "partnership"
+      },
+      {
+        "title": {
+          "tr": "Ulusal projeler hazırlık, yazım ve yürütücü danışmanlık hizmetleri",
+          "en": "National project preparation, writing and executive consulting services",
+          "ar": "خدمات إعداد المشاريع الوطنية وكتابتها والاستشارات التنفيذية"
+        },
+        "group": "support-programs"
+      },
+      {
+        "title": {
+          "tr": "Uluslararası projeler hazırlık ve proje ortağı bulma hizmetleri",
+          "en": "International project preparation and finding project partners",
+          "ar": "إعداد المشاريع الدولية وإيجاد شركاء المشاريع"
+        },
+        "group": "support-programs"
+      },
+      {
+        "title": {
+          "tr": "Özel üretim makine sistemlerinin geliştirilmesi, kurulması ve kullanımı hizmetleri",
+          "en": "Special machinery system development, installation and training services",
+          "ar": "خدمات تطوير أنظمة الآلات الخاصة وتركيبها والتدريب عليها"
+        },
+        "group": "machine-lines"
+      },
+      {
+        "title": {
+          "tr": "Etkin mikroorganizmaların kullanımı ve geliştirilmesi",
+          "en": "Use and development of effective microorganisms",
+          "ar": "استخدام الكائنات الدقيقة الفعّالة وتطويرها"
+        },
+        "group": "microorganisms"
+      },
+      {
+        "title": {
+          "tr": "Doğal katkı maddelerinin kullanım danışmanlığı ve eğitimi",
+          "en": "Consultancy and training on the use of natural ingredients",
+          "ar": "الاستشارات والتدريب على استخدام المكونات الطبيعية"
+        },
+        "group": "additives"
+      },
+      {
+        "title": {
+          "tr": "Biyolojik atık değerlendirme sistemleri",
+          "en": "Biological waste recycling systems",
+          "ar": "أنظمة إعادة تدوير النفايات البيولوجية"
+        },
+        "group": "recycling"
+      },
+      {
+        "title": {
+          "tr": "Kompost malzeme hazırlığı ve üretimi",
+          "en": "Compost material preparation and production",
+          "ar": "إعداد مواد السماد العضوي (الكمبوست) وإنتاجها"
+        },
+        "group": "recycling"
+      },
+      {
+        "title": {
+          "tr": "Silaj hazırlığı ve üretimi",
+          "en": "Silage preparation and production",
+          "ar": "إعداد السيلاج وإنتاجه"
+        },
+        "group": "recycling"
+      },
+      {
+        "title": {
+          "tr": "Kesimhanelerin atık arıtım sistemleri kurulumu",
+          "en": "Installation of slaughterhouse waste treatment systems",
+          "ar": "تركيب أنظمة معالجة نفايات المسالخ"
+        },
+        "group": "recycling"
+      },
+      {
+        "title": {
+          "tr": "Toprak analizleri ve değerlendirilmesi",
+          "en": "Soil analysis and evaluation",
+          "ar": "تحليل التربة وتقييمها"
+        },
+        "group": "recycling",
+        "note": "Yalnız TR web sayfasında geçiyor; katalogda ve EN sayfada yok."
+      },
+      {
+        "title": {
+          "tr": "Besi çiftlikleri",
+          "en": "Animal farm installations",
+          "ar": "تركيب مزارع الحيوانات"
+        },
+        "group": "turnkey"
+      },
+      {
+        "title": {
+          "tr": "Kümes hayvanları tüm sistemler kurulumu",
+          "en": "Installation of complete poultry farms",
+          "ar": "تركيب مزارع الدواجن المتكاملة"
+        },
+        "group": "turnkey"
+      },
+      {
+        "title": {
+          "tr": "Kesimhaneler",
+          "en": "Slaughterhouse installations",
+          "ar": "تركيب المسالخ"
+        },
+        "group": "turnkey"
+      },
+      {
+        "title": {
+          "tr": "Soğuk hava depoları",
+          "en": "Cold storage systems",
+          "ar": "أنظمة التخزين المبرّد"
+        },
+        "group": "turnkey"
+      },
+      {
+        "title": {
+          "tr": "Yem sanayi sistemleri ve mekanizasyonu",
+          "en": "Feed industry and mechanisation systems",
+          "ar": "صناعة الأعلاف وأنظمة الميكنة"
+        },
+        "group": "turnkey"
+      },
+      {
+        "title": {
+          "tr": "Et ve süt ürünleri işleme ve paketleme tesisleri",
+          "en": "Meat and dairy processing and packing facilities",
+          "ar": "منشآت تصنيع اللحوم ومنتجات الألبان وتعبئتها"
+        },
+        "group": "turnkey"
+      },
+      {
+        "title": {
+          "tr": "Sera kurulumu",
+          "en": "Greenhouse installations",
+          "ar": "تركيب البيوت المحمية"
+        },
+        "group": "turnkey"
+      },
+      {
+        "title": {
+          "tr": "Sebze ve meyve işleme ve paketleme tesisleri",
+          "en": "Fruit and vegetable processing and packaging facilities",
+          "ar": "منشآت تصنيع الفواكه والخضروات وتعبئتها"
+        },
+        "group": "turnkey"
+      },
+      {
+        "title": {
+          "tr": "Zeytin ve zeytinyağı işleme tesisleri",
+          "en": "Olive and olive oil processing facilities",
+          "ar": "منشآت معالجة الزيتون وزيت الزيتون"
+        },
+        "group": "turnkey"
+      },
+      {
+        "title": {
+          "tr": "İthalat-ihracat ve gümrükleme işlemleri",
+          "en": "Import, export and customs clearance",
+          "ar": "الاستيراد والتصدير والتخليص الجمركي"
+        },
+        "group": "logistics"
+      },
+      {
+        "title": {
+          "tr": "Bakım ve teknik hizmet destekleri",
+          "en": "Maintenance and technical support services",
+          "ar": "خدمات الصيانة والدعم الفني"
+        },
+        "group": "logistics"
+      }
+    ],
+    "agriculture": {
+      "title": {
+        "tr": "Tarım hizmetleri",
+        "en": "Agriculture services",
+        "ar": "الخدمات الزراعية"
+      },
+      "catalogPage": 6,
+      "subgroups": [
+        {
+          "key": "partnership",
+          "title": {
+            "tr": "Tüm tarımsal faaliyetlerin üretim sorunlarının çözüm ortaklığı",
+            "en": "Solution partnership for production problems of all agricultural activity",
+            "ar": "شراكة في حل مشكلات الإنتاج لجميع الأنشطة الزراعية"
+          }
+        },
+        {
+          "key": "support-programs",
+          "title": {
+            "tr": "İnovatif projelerin uygun destek programları ile hayata geçirilmesi",
+            "en": "Implementing innovative projects with appropriate support programmes",
+            "ar": "تنفيذ المشاريع المبتكرة من خلال برامج الدعم المناسبة"
+          }
+        },
+        {
+          "key": "machine-lines",
+          "title": {
+            "tr": "Tüm tarım ve hammadde sektörünün alternatif makine bandı çözümleri",
+            "en": "Alternative machine line solutions for the agriculture and raw materials industry",
+            "ar": "حلول بديلة لخطوط الآلات في قطاعي الزراعة والمواد الخام"
+          }
+        },
+        {
+          "key": "microorganisms",
+          "title": {
+            "tr": "Efektif mikroorganizmalar kullanımı ve eğitimi",
+            "en": "Effective microorganisms use and training",
+            "ar": "استخدام الكائنات الدقيقة الفعّالة والتدريب عليها"
+          }
+        },
+        {
+          "key": "additives",
+          "title": {
+            "tr": "Ek ve katkı maddelerinin kullanım danışmanlığı",
+            "en": "Consultancy on supplements and additives",
+            "ar": "استشارات حول المكمّلات والإضافات"
+          }
+        },
+        {
+          "key": "recycling",
+          "title": {
+            "tr": "Geri dönüşüm projeleri ve atık arıtım sistemlerinin geliştirilmesi",
+            "en": "Recycling and waste treatment project development",
+            "ar": "تطوير مشاريع إعادة التدوير ومعالجة النفايات"
+          }
+        },
+        {
+          "key": "turnkey",
+          "title": {
+            "tr": "Anahtar teslim sistem kurulumları",
+            "en": "Turnkey system installations",
+            "ar": "تركيب الأنظمة بنظام تسليم المفتاح"
+          }
+        },
+        {
+          "key": "logistics",
+          "title": {
+            "tr": "Lojistik hizmetler",
+            "en": "Logistic services",
+            "ar": "الخدمات اللوجستية"
+          }
+        }
+      ],
+      "items": [
+        {
+          "title": {
+            "tr": "Tarımsal üretimlerin fizibilite ve rantabilite analizlerinin, mühendislik ölçümlerinin yapılması",
+            "en": "Feasibility and profitability analysis of agricultural production, estimate and engineering services",
+            "ar": "تحليل الجدوى والربحية للإنتاج الزراعي، وخدمات التقدير والهندسة"
+          },
+          "group": "partnership"
+        },
+        {
+          "title": {
+            "tr": "Ulusal projeler hazırlık, yazım ve yürütücü danışmanlık hizmetleri",
+            "en": "National project preparation, writing and executive consulting services",
+            "ar": "خدمات إعداد المشاريع الوطنية وكتابتها والاستشارات التنفيذية"
+          },
+          "group": "support-programs"
+        },
+        {
+          "title": {
+            "tr": "Uluslararası projeler hazırlık ve proje ortağı bulma hizmetleri",
+            "en": "International project preparation and finding project partners",
+            "ar": "إعداد المشاريع الدولية وإيجاد شركاء المشاريع"
+          },
+          "group": "support-programs"
+        },
+        {
+          "title": {
+            "tr": "Özel üretim makine sistemleri",
+            "en": "Special machinery system services",
+            "ar": "خدمات أنظمة الآلات الخاصة"
+          },
+          "group": "machine-lines"
+        },
+        {
+          "title": {
+            "tr": "Etkin mikroorganizmaların tarımda kullanımı",
+            "en": "Use of effective microorganisms in agriculture",
+            "ar": "استخدام الكائنات الدقيقة الفعّالة في الزراعة"
+          },
+          "group": "microorganisms"
+        },
+        {
+          "title": {
+            "tr": "Doğal katkı maddelerinin kullanım danışmanlığı",
+            "en": "Consultancy on the use of natural ingredients",
+            "ar": "استشارات حول استخدام المكونات الطبيعية"
+          },
+          "group": "additives"
+        },
+        {
+          "title": {
+            "tr": "Biyolojik atık değerlendirme sistemleri",
+            "en": "Biological waste recycling systems",
+            "ar": "أنظمة إعادة تدوير النفايات البيولوجية"
+          },
+          "group": "recycling"
+        },
+        {
+          "title": {
+            "tr": "Kompost malzeme hazırlığı ve üretimi",
+            "en": "Compost material preparation and production",
+            "ar": "إعداد مواد السماد العضوي (الكمبوست) وإنتاجها"
+          },
+          "group": "recycling"
+        },
+        {
+          "title": {
+            "tr": "Silaj hazırlığı ve üretimi",
+            "en": "Silage preparation and production",
+            "ar": "إعداد السيلاج وإنتاجه"
+          },
+          "group": "recycling"
+        },
+        {
+          "title": {
+            "tr": "Sera kurulumu",
+            "en": "Greenhouse installations",
+            "ar": "تركيب البيوت المحمية"
+          },
+          "group": "turnkey"
+        },
+        {
+          "title": {
+            "tr": "Soğuk hava depoları",
+            "en": "Cold storage installations",
+            "ar": "تركيب مستودعات التخزين المبرّد"
+          },
+          "group": "turnkey"
+        },
+        {
+          "title": {
+            "tr": "Sebze ve meyve işleme ve paketleme tesisleri",
+            "en": "Fruit and vegetable processing and packaging facilities",
+            "ar": "منشآت تصنيع الفواكه والخضروات وتعبئتها"
+          },
+          "group": "turnkey"
+        },
+        {
+          "title": {
+            "tr": "Zeytin ve zeytinyağı işleme tesisleri",
+            "en": "Olive and olive oil processing facilities",
+            "ar": "منشآت معالجة الزيتون وزيت الزيتون"
+          },
+          "group": "turnkey"
+        },
+        {
+          "title": {
+            "tr": "İthalat-ihracat ve gümrükleme işlemleri",
+            "en": "Import, export and customs clearance",
+            "ar": "الاستيراد والتصدير والتخليص الجمركي"
+          },
+          "group": "logistics"
+        },
+        {
+          "title": {
+            "tr": "Bakım ve teknik hizmet destekleri",
+            "en": "Maintenance and technical support services",
+            "ar": "خدمات الصيانة والدعم الفني"
+          },
+          "group": "logistics"
+        }
+      ]
+    },
+    "livestock": {
+      "title": {
+        "tr": "Hayvancılık hizmetleri",
+        "en": "Animal husbandry services",
+        "ar": "خدمات الثروة الحيوانية"
+      },
+      "catalogPage": 8,
+      "subgroups": [
+        {
+          "key": "partnership",
+          "title": {
+            "tr": "Tüm hayvancılık üretim faaliyetlerinin çözüm ortaklığı",
+            "en": "Solution partnership for all animal husbandry operations",
+            "ar": "شراكة في الحلول لجميع عمليات الثروة الحيوانية"
+          }
+        },
+        {
+          "key": "support-programs",
+          "title": {
+            "tr": "İnovatif projelerin uygun destek programları ile hayata geçirilmesi",
+            "en": "Implementing innovative projects with appropriate support programmes",
+            "ar": "تنفيذ المشاريع المبتكرة من خلال برامج الدعم المناسبة"
+          }
+        },
+        {
+          "key": "machine-lines",
+          "title": {
+            "tr": "Tüm hayvancılık ve yem sektörünün alternatif makine bandı çözümleri",
+            "en": "Alternative machine line solutions for the animal husbandry and feed industry",
+            "ar": "حلول بديلة لخطوط الآلات في قطاعي الثروة الحيوانية والأعلاف"
+          }
+        },
+        {
+          "key": "microorganisms",
+          "title": {
+            "tr": "Efektif mikroorganizmalar kullanımı ve eğitimi",
+            "en": "Effective microorganisms use and training",
+            "ar": "استخدام الكائنات الدقيقة الفعّالة والتدريب عليها"
+          }
+        },
+        {
+          "key": "additives",
+          "title": {
+            "tr": "Ek ve katkı maddelerinin kullanım danışmanlığı",
+            "en": "Consultancy on supplements and additives",
+            "ar": "استشارات حول المكمّلات والإضافات"
+          }
+        },
+        {
+          "key": "recycling",
+          "title": {
+            "tr": "Geri dönüşüm projeleri ve atık arıtım sistemlerinin geliştirilmesi",
+            "en": "Recycling and waste treatment project development",
+            "ar": "تطوير مشاريع إعادة التدوير ومعالجة النفايات"
+          }
+        },
+        {
+          "key": "turnkey",
+          "title": {
+            "tr": "Anahtar teslim sistem kurulumları",
+            "en": "Turnkey system installations",
+            "ar": "تركيب الأنظمة بنظام تسليم المفتاح"
+          }
+        },
+        {
+          "key": "logistics",
+          "title": {
+            "tr": "Lojistik hizmetler",
+            "en": "Logistic services",
+            "ar": "الخدمات اللوجستية"
+          }
+        }
+      ],
+      "items": [
+        {
+          "title": {
+            "tr": "Hayvansal üretim sistemlerinin ön etüt, fizibilite ve rantabilite analizlerinin yapılması",
+            "en": "Pre-feasibility, feasibility and profitability analysis of animal husbandry production systems",
+            "ar": "دراسات الجدوى الأولية والجدوى وتحليل الربحية لأنظمة الإنتاج الحيواني"
+          },
+          "group": "partnership"
+        },
+        {
+          "title": {
+            "tr": "Ulusal projeler hazırlık, yazım ve yürütücü danışmanlık hizmetleri",
+            "en": "National project preparation, writing and executive consulting services",
+            "ar": "خدمات إعداد المشاريع الوطنية وكتابتها والاستشارات التنفيذية"
+          },
+          "group": "support-programs"
+        },
+        {
+          "title": {
+            "tr": "Uluslararası projeler hazırlık ve proje ortağı bulma hizmetleri",
+            "en": "International project preparation and finding project partners",
+            "ar": "إعداد المشاريع الدولية وإيجاد شركاء المشاريع"
+          },
+          "group": "support-programs"
+        },
+        {
+          "title": {
+            "tr": "Özel üretim makine sistemlerinin geliştirilmesi, kurulması ve kullanımı hizmetleri",
+            "en": "Development, installation and operation of special machinery systems",
+            "ar": "تطوير أنظمة الآلات الخاصة وتركيبها وتشغيلها"
+          },
+          "group": "machine-lines"
+        },
+        {
+          "title": {
+            "tr": "Etkin mikroorganizmaların hayvancılıkta kullanımı ve geliştirilmesi",
+            "en": "Use and development of effective microorganisms in animal husbandry",
+            "ar": "استخدام الكائنات الدقيقة الفعّالة وتطويرها في الثروة الحيوانية"
+          },
+          "group": "microorganisms"
+        },
+        {
+          "title": {
+            "tr": "Doğal katkı maddelerinin kullanım danışmanlığı ve eğitimi",
+            "en": "Consultancy and training on the use of natural ingredients",
+            "ar": "الاستشارات والتدريب على استخدام المكونات الطبيعية"
+          },
+          "group": "additives"
+        },
+        {
+          "title": {
+            "tr": "Kesimhanelerin atık arıtım sistemleri kurulumu",
+            "en": "Installation of slaughterhouse waste treatment systems",
+            "ar": "تركيب أنظمة معالجة نفايات المسالخ"
+          },
+          "group": "recycling"
+        },
+        {
+          "title": {
+            "tr": "Kompost üretimi",
+            "en": "Compost production",
+            "ar": "إنتاج السماد العضوي (الكمبوست)"
+          },
+          "group": "recycling"
+        },
+        {
+          "title": {
+            "tr": "Silaj hazırlığı ve üretimi",
+            "en": "Silage preparation and production",
+            "ar": "إعداد السيلاج وإنتاجه"
+          },
+          "group": "recycling"
+        },
+        {
+          "title": {
+            "tr": "Besi çiftlikleri",
+            "en": "Animal farm installations",
+            "ar": "تركيب مزارع الحيوانات"
+          },
+          "group": "turnkey"
+        },
+        {
+          "title": {
+            "tr": "Kümes hayvanları tüm sistemler kurulumu",
+            "en": "Installation of complete poultry farms",
+            "ar": "تركيب مزارع الدواجن المتكاملة"
+          },
+          "group": "turnkey"
+        },
+        {
+          "title": {
+            "tr": "Kesimhaneler",
+            "en": "Slaughterhouse installations",
+            "ar": "تركيب المسالخ"
+          },
+          "group": "turnkey"
+        },
+        {
+          "title": {
+            "tr": "Soğuk hava depoları",
+            "en": "Cold storage systems",
+            "ar": "أنظمة التخزين المبرّد"
+          },
+          "group": "turnkey"
+        },
+        {
+          "title": {
+            "tr": "Yem sanayi sistemleri ve mekanizasyonu",
+            "en": "Feed industry and mechanisation systems",
+            "ar": "صناعة الأعلاف وأنظمة الميكنة"
+          },
+          "group": "turnkey"
+        },
+        {
+          "title": {
+            "tr": "Et ve süt ürünleri işleme ve paketleme tesisleri",
+            "en": "Meat and dairy processing and packing facilities",
+            "ar": "منشآت تصنيع اللحوم ومنتجات الألبان وتعبئتها"
+          },
+          "group": "turnkey"
+        },
+        {
+          "title": {
+            "tr": "İthalat-ihracat ve gümrükleme işlemleri",
+            "en": "Import, export and customs clearance",
+            "ar": "الاستيراد والتصدير والتخليص الجمركي"
+          },
+          "group": "logistics"
+        },
+        {
+          "title": {
+            "tr": "Bakım ve teknik hizmet destekleri",
+            "en": "Maintenance and technical support services",
+            "ar": "خدمات الصيانة والدعم الفني"
+          },
+          "group": "logistics"
+        }
+      ]
+    },
+    "sourceText": {
+      "tr": [
+        "Tarım ve hayvancılık hizmetlerimiz",
+        "Tüm tarımsal ve hayvansal faaliyetlerin üretim sorunlarının çözüm ortaklığı",
+        "• Tarımsal ve hayvansal üretimlerin fizibilite ve rantabilite analizlerinin, mühendislik ölçümlerinin yapılması",
+        "İnovatif projelerin uygun destek programları ile hayata geçirilmesi",
+        "• Ulusal projeler hazırlık, yazım ve yürütücü danışmanlık hizmetleri",
+        "• Uluslararası projeler hazırlık ve proje ortağı bulma hizmetleri",
+        "Tüm hayvancılık ve gıda sektörünün alternatif makine bandı çözümleri",
+        "• Özel üretim makine sistemlerinin geliştirilmesi, kurulması ve kullanımı hizmetleri",
+        "Efektif mikroorganizmalar kullanımı ve eğitimi",
+        "• Etkin mikroorganizmaların kullanımı ve geliştirilmesi",
+        "Ek ve katkı maddelerinin kullanım danışmanlığı",
+        "• Doğal katkı maddelerinin kullanım danışmanlığı ve eğitimi",
+        "Geri dönüşüm projeleri ve atık arıtım sistemlerinin geliştirilmesi",
+        "• Biyolojik atık değerlendirme sistemleri",
+        "• Kompost malzeme hazırlığı ve üretimi",
+        "• Silaj hazırlığı ve üretimi",
+        "• Kesimhanelerin atık arıtım sistemleri kurulumu",
+        "• Toprak analizleri ve değerlendirilmesi",
+        "• İnovatif projelerin uygun destek programları ile hayata geçirilmesi",
+        "Anahtar teslim kurulumlar",
+        "• Besi çiftlikleri · Kümes hayvanları tüm sistemler kurulumu · Kesimhaneler · Soğuk hava depoları · Yem sanayi sistemleri ve mekanizasyonu · Et ve süt ürünleri işleme ve paketleme tesisleri · Sera kurulumu · Sebze ve meyve işleme ve paketleme tesisleri · Zeytin ve zeytinyağı işleme tesisleri",
+        "Lojistik hizmetler",
+        "• İthalat-ihracat ve gümrükleme işlemleri · Bakım ve teknik hizmet destekleri",
+        "Ayrıntılı bilgi için kataloğumuzu inceleyip lütfen bağlantı kurunuz."
+      ],
+      "en": [
+        "Agriculture and animal husbandry services",
+        "Solution partnership of production problems of all agricultural & animal husbandry activities",
+        "• Analysis of the feasibility and profitability of agricultural & animal husbandry production, estimate and engineering services",
+        "• Implementing the innovative projects with the appropriate support programs",
+        "• National projects preparation, writing and executive consulting services",
+        "• International projects preparation and finding project partners services",
+        "• All of agriculture & animal husbandry and raw industry alternative machine line solutions",
+        "• Special machinery system developing, establishing and education services",
+        "• Effective microorganisms use and training",
+        "• Counselling supplements and additives using in agriculture & animal husbandry",
+        "• Counselling natural ingredients using",
+        "• Recycling and waste treatment project developing services",
+        "• Biological waste recycling systems",
+        "• Compost material preparation and production services",
+        "• Silage preparation and production services",
+        "Turnkey system installations",
+        "• Animal farms installations · The installation of the entire poultry farms · Slaughterhouse installations · Cold storage systems · Feed industry and mechanization systems · Meat and dairy products processing and packing facilities",
+        "For further information please examine our catalog and contact us."
+      ],
+      "ar": [
+        "خدمات الزراعة والثروة الحيوانية",
+        "شراكة في حل مشكلات الإنتاج لجميع الأنشطة الزراعية والحيوانية",
+        "• تحليل جدوى وربحية الإنتاج الزراعي والحيواني، وخدمات التقدير والهندسة",
+        "• تنفيذ المشاريع المبتكرة من خلال برامج الدعم المناسبة",
+        "• خدمات إعداد المشاريع الوطنية وكتابتها والاستشارات التنفيذية",
+        "• خدمات إعداد المشاريع الدولية وإيجاد شركاء المشاريع",
+        "• حلول بديلة لخطوط الآلات في جميع قطاعات الزراعة والثروة الحيوانية والمواد الخام",
+        "• خدمات تطوير أنظمة الآلات الخاصة وإنشائها والتدريب عليها",
+        "• استخدام الكائنات الدقيقة الفعّالة والتدريب عليها",
+        "• استشارات استخدام المكمّلات والإضافات في الزراعة والثروة الحيوانية",
+        "• استشارات استخدام المكونات الطبيعية",
+        "• خدمات تطوير مشاريع إعادة التدوير ومعالجة النفايات",
+        "• أنظمة إعادة تدوير النفايات البيولوجية",
+        "• خدمات إعداد مواد السماد العضوي (الكمبوست) وإنتاجها",
+        "• خدمات إعداد السيلاج وإنتاجه",
+        "تركيب الأنظمة بنظام تسليم المفتاح",
+        "• تركيب مزارع الحيوانات · تركيب مزارع الدواجن المتكاملة · تركيب المسالخ · أنظمة التخزين المبرّد · صناعة الأعلاف وأنظمة الميكنة · منشآت تصنيع اللحوم ومنتجات الألبان وتعبئتها",
+        "لمزيد من المعلومات يُرجى الاطلاع على كتالوجنا والتواصل معنا."
+      ]
+    },
+    "sourcePages": [
+      "hizmetlerimiz/tarim-hayvancilik.aspx",
+      "en-us/services/animal-husbandry.aspx",
+      "catalog p.6 (tarım), p.8 (hayvancılık)"
+    ],
+    "notes": [
+      "Web sayfası tarım ve hayvancılığı tek listede birleştiriyor; katalogda ayrı sayfalar (agriculture = s.6, livestock = s.8).",
+      "EN sayfada tarıma özgü anahtar teslim kurulumlar (sera, sebze-meyve, zeytin) ve lojistik maddeleri yok."
+    ]
+  },
+  {
+    "key": "projects-funding",
+    "title": {
+      "tr": "Proje ve fon",
+      "en": "Projects and funding",
+      "ar": "المشاريع والتمويل"
+    },
+    "intro": [
+      {
+        "tr": "Yatırımcıların yenilikçi fikir ve düşüncelerinin bilimsel ve ticari proje disiplininde oluşturulması, hazırlanması ve ilgili kuruma sunulmasında gerekli her türlü danışmanlık hizmeti.",
+        "en": "Guidance to turn investors' innovative ideas into commercial projects in the light of scientific discipline, and to prepare and submit them to the relevant institution.",
+        "ar": "إرشاد المستثمرين إلى تحويل أفكارهم المبتكرة إلى مشاريع تجارية في ضوء المنهجية العلمية، وإعدادها وتقديمها إلى الجهة المعنية."
+      }
+    ],
+    "items": [
+      {
+        "title": {
+          "tr": "Ulusal projeler hazırlık, yazım ve yürütücü danışmanlık hizmetleri",
+          "en": "National project preparation, writing and executive consulting services",
+          "ar": "خدمات إعداد المشاريع الوطنية وكتابتها والاستشارات التنفيذية"
+        },
+        "detail": {
+          "tr": "Ülkemiz yatırımcılarının yenilikçi fikir ve düşüncelerinin bilimsel ve ticari proje disiplininde oluşturulması, hazırlanması ve ilgili kuruma sunulmasında gerekli her türlü danışmanlık hizmetleri verilmektedir.",
+          "en": "Our aim is to guide investors in turning innovative ideas into commercial projects in the light of scientific discipline, supporting every step of the process.",
+          "ar": "هدفنا إرشاد المستثمرين إلى تحويل الأفكار المبتكرة إلى مشاريع تجارية في ضوء المنهجية العلمية، مع دعم كل خطوة من خطوات العملية."
+        }
+      },
+      {
+        "title": {
+          "tr": "Yatırım fikri olmayanlar için fizibilite ve anahtar teslim yatırım",
+          "en": "Feasibility and turnkey investment for those without a project idea",
+          "ar": "دراسة الجدوى والاستثمار بنظام تسليم المفتاح لمن لا يملكون فكرة مشروع"
+        },
+        "detail": {
+          "tr": "Hiçbir proje yatırım fikri olmayanların, yatırımlarını yapmak istedikleri konu hakkında geniş kapsamlı yatırım proje fizibilitesi çıkarılması ve yatırım önerileri ile birlikte her türlü anahtar teslim yatırımların proje destekli yapılmasının hizmeti verilmektedir.",
+          "en": "For those without a project idea, we prepare a comprehensive investment feasibility study on the subject they want to invest in, together with investment recommendations, and carry out all kinds of turnkey investments with project support.",
+          "ar": "لمن لا يملكون فكرة مشروع، نُعدّ دراسة جدوى استثمارية شاملة في المجال الذي يرغبون في الاستثمار فيه، مع توصيات استثمارية، وننفذ جميع أنواع الاستثمارات بنظام تسليم المفتاح مع دعم المشروع."
+        }
+      },
+      {
+        "title": {
+          "tr": "Hammadde ve ekipman tedariki",
+          "en": "Sourcing raw materials and equipment",
+          "ar": "توريد المواد الخام والمعدات"
+        },
+        "detail": {
+          "tr": "Yenilikçi proje yatırım fikri olup da gerekli her türlü hammadde ve ekipmanı nereden ve nasıl temin edeceği konusunda sıkıntıya düşenlerin ihtiyaç duyduğu her türlü malzeme, dünyanın neresinden olursa olsun bulunup tedarik edilmektedir.",
+          "en": "For those with an innovative investment idea who struggle to source the necessary raw materials and equipment, we find and supply whatever is needed, wherever it is in the world.",
+          "ar": "لأصحاب الأفكار الاستثمارية المبتكرة الذين يواجهون صعوبة في توفير المواد الخام والمعدات اللازمة، نجد ونورّد كل ما يلزم أينما كان في العالم."
+        }
+      },
+      {
+        "title": {
+          "tr": "Yeni tasarım canlı ve makine üretim sistemleri",
+          "en": "New design biological and machine production systems",
+          "ar": "أنظمة إنتاج بيولوجية وآلية بتصاميم جديدة"
+        },
+        "detail": {
+          "tr": "Tüm yeni dizayn ve yeni tasarım canlı ve makine üretim sistemlerinin oluşturulmasında gerek duyulduğunda verilecek hizmetler firmamızın en büyük keyifle gerçekleştirdiği hizmetlerdir.",
+          "en": "Services for creating all newly designed biological and machine production systems are the services our company provides with the greatest pleasure.",
+          "ar": "خدمات إنشاء جميع أنظمة الإنتاج البيولوجية والآلية ذات التصاميم الجديدة هي الخدمات التي تقدمها شركتنا بكل سرور."
+        }
+      },
+      {
+        "title": {
+          "tr": "Uluslararası projeler hazırlık ve proje ortağı bulma hizmetleri",
+          "en": "International project preparation and finding project partners",
+          "ar": "إعداد المشاريع الدولية وإيجاد شركاء المشاريع"
+        },
+        "detail": {
+          "tr": "Tüm uluslararası ülkelerde bulunan yatırımcıların yenilikçi proje ihtiyaç ve talepleri firmamızın büyük bir özen ve heyecanla hizmet verdiği konulardır.",
+          "en": "The innovative project needs and demands of investors in all countries are served by our company with great care and enthusiasm.",
+          "ar": "تتعامل شركتنا مع احتياجات المستثمرين ومتطلباتهم من المشاريع المبتكرة في جميع البلدان بعناية كبيرة وحماس."
+        }
+      },
+      {
+        "title": {
+          "tr": "Yabancı yatırımcılar için anahtar teslim kurulum ve fon",
+          "en": "Turnkey installation and funding for foreign investors",
+          "ar": "التركيب بنظام تسليم المفتاح والتمويل للمستثمرين الأجانب"
+        },
+        "detail": {
+          "tr": "Yabancı yatırımcıların yatırım sistemlerinin anahtar teslimi kurulumu yanında Avrupa Birliği fonlarından veya kendi ülkesindeki destek fonlarından faydalanılması hizmeti verilmektedir.",
+          "en": "Turnkey installation of systems for foreign investors, as well as benefiting from European Union funds or support funds in their own country.",
+          "ar": "تركيب الأنظمة بنظام تسليم المفتاح للمستثمرين الأجانب، إلى جانب الاستفادة من صناديق الاتحاد الأوروبي أو صناديق الدعم في بلدانهم."
+        }
+      },
+      {
+        "title": {
+          "tr": "Avrupa Birliği destek fonları",
+          "en": "European Union support funds",
+          "ar": "صناديق الدعم الأوروبية"
+        },
+        "detail": {
+          "tr": "Ülkemiz yatırımcılarının Avrupa Birliği destek fonlarından (Horizon Europe, Grants for R&D, Grants for Innovation, Marie Skłodowska-Curie projeleri vb.) yararlanabilmeleri kapsamında onlar adına proje ve proje ortakları takibi, hazırlığı ve sunumu hizmetleri verilmektedir.",
+          "en": "To help investors benefit from European Union support funds (Horizon Europe, Grants for R&D, Grants for Innovation, Marie Skłodowska-Curie projects, etc.), we prepare and present projects and find partners from the EU on their behalf.",
+          "ar": "لمساعدة المستثمرين على الاستفادة من صناديق الدعم التابعة للاتحاد الأوروبي (Horizon Europe، ومنح البحث والتطوير، ومنح الابتكار، ومشاريع ماري سكلودوفسكا-كوري وغيرها)، نُعدّ المشاريع ونقدّمها ونجد الشركاء من الاتحاد الأوروبي نيابةً عنهم."
+        },
+        "note": "Kaynakta 'Horizon 2020' yazıyor; program 2021'de Horizon Europe'a devredildiği için güncel adla yazıldı."
+      }
+    ],
+    "programs": [
+      {
+        "name": {
+          "tr": "TÜBİTAK 1501 Sanayi Ar-Ge Projeleri Destekleme Programı",
+          "en": "TÜBİTAK 1501 Industrial R&D Projects Grant Programme",
+          "ar": "برنامج TÜBİTAK 1501 لدعم مشاريع البحث والتطوير الصناعية"
+        },
+        "evidence": "Turkuaz Marin (2016–2017)"
+      },
+      {
+        "name": {
+          "tr": "Horizon Europe",
+          "en": "Horizon Europe",
+          "ar": "Horizon Europe (أفق أوروبا)"
+        },
+        "note": "Kaynakta 'Horizon 2020' yazıyor; program 2021'de Horizon Europe'a devredildiği için güncel adla yazıldı."
+      },
+      {
+        "name": {
+          "tr": "Grants for R&D",
+          "en": "Grants for R&D",
+          "ar": "منح البحث والتطوير"
+        }
+      },
+      {
+        "name": {
+          "tr": "Grants for Innovation",
+          "en": "Grants for Innovation",
+          "ar": "منح الابتكار"
+        }
+      },
+      {
+        "name": {
+          "tr": "Marie Skłodowska-Curie Eylemleri (MSCA)",
+          "en": "Marie Skłodowska-Curie Actions (MSCA)",
+          "ar": "إجراءات ماري سكلودوفسكا-كوري (MSCA)"
+        }
+      },
+      {
+        "name": {
+          "tr": "Yabancı yatırımcının kendi ülkesindeki destek fonları",
+          "en": "Support funds in the foreign investor's own country",
+          "ar": "صناديق الدعم في بلد المستثمر الأجنبي"
+        }
+      }
+    ],
+    "sourceText": {
+      "tr": [
+        "Projelendirme hizmetlerimiz",
+        "Ulusal projeler hazırlık, yazım ve yürütücü danışmanlık hizmetleri",
+        "Ülkemiz yatırımcılarının, yenilikçi fikir ve düşüncelerinin bilimsel ve ticari proje disiplininde oluşturulması, hazırlanması ve ilgili kuruma sunulmasında gerekli her türlü danışmanlık hizmetleri verilmektedir.",
+        "Hiçbir proje yatırım fikri olmayanların, yatırımlarını yapmak istedikleri konu hakkında geniş kapsamlı yatırım proje fizibilite çıkarılması ve yatırım önerileri ile birlikte her türlü anahtar teslim yatırımların proje destekli yapılmasının hizmeti verilmektedir.",
+        "Yenilikçi proje yatırım fikri olup da gerekli her türlü hammadde ve ekipmanları nereden ve nasıl temin edileceği konusunda sıkıntıya düşenlerin her türlü ihtiyaç duyulan malzemeleri dünyanın neresinden olursa olsun bulunup tedarik hizmeti verilmektedir.",
+        "Tüm yeni dizayn ve yeni tasarım canlı ve makine üretim sistemlerinin oluşturulmasında gerek duyulduğunda verilecek hizmetler firmamızın en büyük keyifle gerçekleştirdiği hizmetlerdir.",
+        "Uluslararası projeler hazırlık ve proje ortağı bulma hizmetleri",
+        "Tüm uluslararası ülkelerde bulunan yatırımcıların yenilikçi proje ihtiyaç ve talepleri firmamızın büyük bir özen ve heyecanla hizmet verdiği konulardır.",
+        "Yabancı yatırımcıların yatırım sistemlerinin anahtar teslimi kurulumu yanında Avrupa Birliği fonlarından veya kendi ülkesindeki destek fonlarından faydalanılması hizmeti verilmektedir.",
+        "Ülkemiz yatırımcılarının Avrupa Birliği destek fonlarından (Horizon Europe, Grants for R&D, Grants for Innovation, Marie Skłodowska-Curie projeleri vb.) yararlanabilmeleri kapsamında onlar adına proje ve proje ortakları takibi, hazırlığı ve sunumu hizmetleri verilmektedir.",
+        "Ayrıntılı bilgi için kataloğumuzu inceleyip lütfen bağlantı kurunuz."
+      ],
+      "en": [
+        "Project design services",
+        "National project preparation, writing and executive consulting services",
+        "Our aim is guiding to realize innovative ideas of the investors turn into the commercial projects in the light of the scientific discipline and providing each process of the investors at this moment.",
+        "Development of all new designs machine production system services are provided and it is the biggest pleasure of our company.",
+        "International projects preparation and finding project partners services",
+        "All innovative projects of international investors in their country's needs and demands are issues of great care and enthusiasm services of our company.",
+        "Turnkey installation of the systems for foreign investors is also done as well as benefiting European Union funds.",
+        "On behalf scope to benefit of European Union support funds (Horizon Europe, Grants for R&D, Grants for Innovation, Marie Skłodowska-Curie Project, etc.), the project preparation & presentation services and finding partners from EU, are given by our company.",
+        "For further information please examine our catalog and contact us."
+      ],
+      "ar": [
+        "خدمات تصميم المشاريع",
+        "خدمات إعداد المشاريع الوطنية وكتابتها والاستشارات التنفيذية",
+        "هدفنا إرشاد المستثمرين إلى تحقيق أفكارهم المبتكرة وتحويلها إلى مشاريع تجارية في ضوء المنهجية العلمية، ومرافقتهم في كل مرحلة من مراحل العملية.",
+        "تقدم شركتنا خدمات تطوير جميع أنظمة إنتاج الآلات ذات التصاميم الجديدة، وهي من أحبّ الخدمات إليها.",
+        "خدمات إعداد المشاريع الدولية وإيجاد شركاء المشاريع",
+        "تحظى جميع المشاريع المبتكرة للمستثمرين الدوليين وفق احتياجات بلدانهم ومتطلباتها بعناية شركتنا الكبيرة وحماسها.",
+        "كما نتولى تركيب الأنظمة بنظام تسليم المفتاح للمستثمرين الأجانب، إلى جانب الاستفادة من صناديق الاتحاد الأوروبي.",
+        "في إطار الاستفادة من صناديق الدعم التابعة للاتحاد الأوروبي (Horizon Europe، ومنح البحث والتطوير، ومنح الابتكار، ومشروع ماري سكلودوفسكا-كوري وغيرها)، تقدم شركتنا خدمات إعداد المشاريع وعرضها وإيجاد الشركاء من الاتحاد الأوروبي نيابةً عن المستثمرين.",
+        "لمزيد من المعلومات يُرجى الاطلاع على كتالوجنا والتواصل معنا."
+      ]
+    },
+    "sourcePages": [
+      "hizmetlerimiz/proje.aspx",
+      "en-us/services/projects.aspx",
+      "catalog p.4, 6, 8"
+    ],
+    "notes": [
+      "Kaynakta 'Horizon 2020' yazıyor; program 2021'de Horizon Europe'a devredildiği için güncel adla yazıldı.",
+      "EN sayfada 'Maria Sklodowska-Curie' yazım hatası 'Marie Skłodowska-Curie' olarak düzeltildi.",
+      "Hangi programlarda gerçekten başvuru/hibe deneyimi olduğu müşteriyle teyit edilmeli; kaynakta somut örnek yalnız TÜBİTAK 1501 (Turkuaz Marin)."
+    ]
+  },
+  {
+    "key": "logistics",
+    "title": {
+      "tr": "Tedarik ve lojistik",
+      "en": "Supply and logistics",
+      "ar": "التوريد والخدمات اللوجستية"
+    },
+    "intro": [
+      {
+        "tr": "Firmamız her türlü üreticinin, yatırımcının, üniversitelerdeki araştırmacı bilim insanlarının, laboratuvar ve küçük ölçekli sanayi kuruluşlarının ihtiyaç duyduğu Ar-Ge çalışmalarının yönlendirilmesini, sistem kurulumunun ve makine ihtiyaçlarının temin ve tedarik hizmetlerini sunmaktadır.",
+        "en": "Our company provides logistics and supply services to all kinds of producers, investors, university researchers, laboratories and SMEs for their R&D studies, system installations and machinery needs.",
+        "ar": "تقدم شركتنا خدمات لوجستية وتوريد لجميع أنواع المنتجين والمستثمرين والباحثين الجامعيين والمختبرات والشركات الصغيرة والمتوسطة لتلبية احتياجاتهم من دراسات البحث والتطوير وتركيب الأنظمة والآلات."
+      }
+    ],
+    "subgroups": [
+      {
+        "key": "water-treatment",
+        "title": {
+          "tr": "Su arıtım ve kalite",
+          "en": "Water treatment and quality",
+          "ar": "معالجة المياه وجودتها"
+        }
+      },
+      {
+        "key": "measurement",
+        "title": {
+          "tr": "Ölçüm ve kontrol",
+          "en": "Measurement and control",
+          "ar": "القياس والتحكم"
+        }
+      },
+      {
+        "key": "hatchery-production",
+        "title": {
+          "tr": "Kuluçkahane ve üretim ekipmanı",
+          "en": "Hatchery and production equipment",
+          "ar": "معدات المفارخ والإنتاج"
+        }
+      },
+      {
+        "key": "feed-bio-inputs",
+        "title": {
+          "tr": "Yem ve biyolojik girdiler",
+          "en": "Feed and biological inputs",
+          "ar": "الأعلاف والمدخلات البيولوجية"
+        }
+      },
+      {
+        "key": "laboratory",
+        "title": {
+          "tr": "Laboratuvar",
+          "en": "Laboratory",
+          "ar": "المختبر"
+        }
+      },
+      {
+        "key": "services",
+        "title": {
+          "tr": "Hizmetler",
+          "en": "Services",
+          "ar": "الخدمات"
+        }
+      }
+    ],
+    "items": [
+      {
+        "title": {
+          "tr": "Filtreler (tambur, torba, kum, kartuş, otomatik)",
+          "en": "Filters (drum, bag, sand, cartridge, automatic)",
+          "ar": "المرشحات (أسطوانية، كيسية، رملية، خرطوشية، أوتوماتيكية)"
+        },
+        "group": "water-treatment"
+      },
+      {
+        "title": {
+          "tr": "UV sterilizasyon sistemleri",
+          "en": "UV sterilizer systems",
+          "ar": "أنظمة التعقيم بالأشعة فوق البنفسجية (UV)"
+        },
+        "group": "water-treatment"
+      },
+      {
+        "title": {
+          "tr": "Ozon jeneratörleri ve paket ozon sistemleri",
+          "en": "Ozone generators and packaged ozone systems",
+          "ar": "مولدات الأوزون وأنظمة الأوزون المتكاملة"
+        },
+        "group": "water-treatment"
+      },
+      {
+        "title": {
+          "tr": "Biyolojik filtre dolgu malzemeleri, biyolojik filtre bakteri kültürleri",
+          "en": "Biofilter media and biofilter bacteria cultures",
+          "ar": "وسائط المرشحات الحيوية ومزارع بكتيريا المرشحات الحيوية"
+        },
+        "group": "water-treatment"
+      },
+      {
+        "title": {
+          "tr": "Dezenfektanlar",
+          "en": "Disinfectants",
+          "ar": "المطهرات"
+        },
+        "group": "water-treatment"
+      },
+      {
+        "title": {
+          "tr": "Kimyasallar",
+          "en": "Chemicals",
+          "ar": "المواد الكيميائية"
+        },
+        "group": "water-treatment"
+      },
+      {
+        "title": {
+          "tr": "Su gözlem ürünleri",
+          "en": "Water monitoring products",
+          "ar": "منتجات مراقبة المياه"
+        },
+        "group": "measurement"
+      },
+      {
+        "title": {
+          "tr": "Su analiz cihazları",
+          "en": "Water analysis equipment",
+          "ar": "أجهزة تحليل المياه"
+        },
+        "group": "measurement"
+      },
+      {
+        "title": {
+          "tr": "El tipi oksijen, sıcaklık, pH, tuzluluk, derinlik ölçerler",
+          "en": "Handheld oxygen, temperature, pH, salinity and depth meters",
+          "ar": "أجهزة محمولة لقياس الأكسجين والحرارة ودرجة الحموضة (pH) والملوحة والعمق"
+        },
+        "group": "measurement"
+      },
+      {
+        "title": {
+          "tr": "Sabit oksijen, sıcaklık, pH ölçüm ve kontrol sistemleri",
+          "en": "Fixed oxygen, temperature and pH measurement and control systems",
+          "ar": "أنظمة ثابتة لقياس الأكسجين والحرارة ودرجة الحموضة (pH) والتحكم فيها"
+        },
+        "group": "measurement"
+      },
+      {
+        "title": {
+          "tr": "Kuluçkahane ekipmanları",
+          "en": "Hatchery equipment",
+          "ar": "معدات المفارخ"
+        },
+        "group": "hatchery-production"
+      },
+      {
+        "title": {
+          "tr": "Tanklar",
+          "en": "Tanks",
+          "ar": "الخزانات"
+        },
+        "group": "hatchery-production"
+      },
+      {
+        "title": {
+          "tr": "Karasal üretim ve kafes üretim sistemleri ekipmanları",
+          "en": "Land-based farming and cage farming equipment",
+          "ar": "معدات الاستزراع البري والاستزراع في الأقفاص"
+        },
+        "group": "hatchery-production"
+      },
+      {
+        "title": {
+          "tr": "Kapalı devre üretim ve araştırma sistemleri ekipmanları",
+          "en": "Recirculating aquaculture system (RAS) production and research equipment",
+          "ar": "معدات الإنتاج والبحث لأنظمة الاستزراع المائي المعاد تدويرها (RAS)"
+        },
+        "group": "hatchery-production"
+      },
+      {
+        "title": {
+          "tr": "Oksijenlendirme ve havalandırma sistemleri ve ekipmanları",
+          "en": "Oxygenation and aeration systems and equipment",
+          "ar": "أنظمة ومعدات الأكسجة والتهوية"
+        },
+        "group": "hatchery-production"
+      },
+      {
+        "title": {
+          "tr": "Isıtma / soğutma sistemleri",
+          "en": "Heating / cooling systems",
+          "ar": "أنظمة التسخين / التبريد"
+        },
+        "group": "hatchery-production"
+      },
+      {
+        "title": {
+          "tr": "Otomatik yemleme sistemleri",
+          "en": "Fish farm feeder systems",
+          "ar": "أنظمة التغذية في مزارع الأسماك"
+        },
+        "group": "hatchery-production"
+      },
+      {
+        "title": {
+          "tr": "Projeye özel tasarlanan üretim, büyütme ve deneme sistemleri",
+          "en": "Project-specific production, grow-out and trial systems",
+          "ar": "أنظمة إنتاج وتسمين وتجارب مصممة خصيصًا لكل مشروع"
+        },
+        "group": "hatchery-production"
+      },
+      {
+        "title": {
+          "tr": "Balık markaları",
+          "en": "Fish tags (markers)",
+          "ar": "علامات الأسماك (أدوات الوسم)"
+        },
+        "group": "hatchery-production",
+        "note": "'Balık markaları' büyük olasılıkla balık işaretleme etiketleri; anlamı müşteriyle teyit edilmeli."
+      },
+      {
+        "title": {
+          "tr": "Canlı, dondurulmuş, işlenmiş su ürünleri temini",
+          "en": "Live, frozen and processed aquaculture and fisheries products",
+          "ar": "منتجات الاستزراع المائي ومصايد الأسماك الحية والمجمّدة والمصنّعة"
+        },
+        "group": "feed-bio-inputs"
+      },
+      {
+        "title": {
+          "tr": "Artemia, alg ürünleri, rotifer kültür besinleri ve zenginleştirme ürünleri",
+          "en": "Artemia, algal products, rotifer culture foods and enrichment products",
+          "ar": "الأرتيميا ومنتجات الطحالب وأغذية مزارع الروتيفر ومنتجات الإغناء"
+        },
+        "group": "feed-bio-inputs"
+      },
+      {
+        "title": {
+          "tr": "Yavru yemleri, büyütme yemleri, anaç yemleri, akvaryum yemleri",
+          "en": "Starter, grow-out, broodstock and aquarium feeds",
+          "ar": "أعلاف البداية والتسمين والأمهات وأسماك الزينة"
+        },
+        "group": "feed-bio-inputs"
+      },
+      {
+        "title": {
+          "tr": "Yem katkıları, doğal katkı ürünleri, yağlar",
+          "en": "Feed additives, natural feed additives and oils",
+          "ar": "إضافات الأعلاف والإضافات الطبيعية والزيوت"
+        },
+        "group": "feed-bio-inputs"
+      },
+      {
+        "title": {
+          "tr": "Probiyotikler, enzimler",
+          "en": "Probiotics and enzymes",
+          "ar": "البروبيوتيك والإنزيمات"
+        },
+        "group": "feed-bio-inputs"
+      },
+      {
+        "title": {
+          "tr": "Laboratuvar alet ve ekipmanları",
+          "en": "Laboratory instruments and equipment",
+          "ar": "الأجهزة والمعدات المخبرية"
+        },
+        "group": "laboratory"
+      },
+      {
+        "title": {
+          "tr": "Tüm laboratuvar malzemeleri ve teçhizatları",
+          "en": "All laboratory materials and equipment",
+          "ar": "جميع المواد والمعدات المخبرية"
+        },
+        "group": "laboratory"
+      },
+      {
+        "title": {
+          "tr": "Genel sarf malzemeleri",
+          "en": "General consumables",
+          "ar": "المستهلكات العامة"
+        },
+        "group": "laboratory"
+      },
+      {
+        "title": {
+          "tr": "Tasarım, imalat, montaj, bakım ve teknik destek",
+          "en": "Planning, manufacturing, installation, maintenance and technical support",
+          "ar": "التخطيط والتصنيع والتركيب والصيانة والدعم الفني"
+        },
+        "group": "services"
+      },
+      {
+        "title": {
+          "tr": "İthalat-ihracat, gümrükleme, pazarlama",
+          "en": "Import and export, customs clearance and marketing",
+          "ar": "الاستيراد والتصدير والتخليص الجمركي والتسويق"
+        },
+        "group": "services"
+      },
+      {
+        "title": {
+          "tr": "Ulusal ve uluslararası sertifika ve belgelendirme hizmetleri",
+          "en": "National and international certification services",
+          "ar": "خدمات الاعتماد والشهادات الوطنية والدولية"
+        },
+        "group": "services",
+        "link": "certification"
+      }
+    ],
+    "sourceText": {
+      "tr": [
+        "Lojistik ve tedarik hizmetlerimiz",
+        "Firmamız her türlü üreticilerin, yatırımcıların, üniversitelerdeki araştırmacı bilim adamlarının, laboratuvar ve küçük ölçekli sanayi kuruluşlarının ihtiyaç duyduğu Ar-Ge çalışmalarının yönlendirilmesini, sistem kurulumunun ve makine ihtiyaçlarının temin ve tedarik hizmetlerini sunmaktadır.",
+        "Bu kapsamda çalışılan konular:",
+        "Tasarım, imalat, montaj, bakım ve teknik destek",
+        "İthalat-ihracat, gümrükleme, pazarlama",
+        "Canlı, dondurulmuş, işlenmiş su ürünleri temini",
+        "Artemia, alg ürünleri, rotifer kültür besinleri ve zenginleştirme ürünleri",
+        "Yavru yemleri, büyütme yemleri, anaç yemleri, akvaryum yemleri",
+        "Yem katkıları, doğal katkı ürünleri, yağlar",
+        "Filtreler (tambur, torba, kum, kartuş, otomatik)",
+        "UV sterilizasyon sistemleri",
+        "Ozon jeneratörleri ve paket ozon sistemleri",
+        "Su gözlem ürünleri, su analiz cihazları",
+        "Laboratuvar alet ve ekipmanları",
+        "Kuluçkahane ekipmanları",
+        "Tanklar",
+        "Karasal üretim ve kafes üretim sistemleri ekipmanları",
+        "Kapalı devre üretim ve araştırma sistemleri ekipmanları",
+        "Oksijenlendirme ve havalandırma sistemleri ve ekipmanları",
+        "Kimyasallar",
+        "Probiyotikler, enzimler",
+        "Biyolojik filtre dolgu malzemeleri, biyolojik filtre bakteri kültürleri",
+        "Dezenfektanlar",
+        "Genel sarf malzemeleri",
+        "Balık markaları",
+        "Isıtma / soğutma sistemleri",
+        "El tipi oksijen, sıcaklık, pH, tuzluluk, derinlik ölçerler",
+        "Sabit oksijen, sıcaklık, pH ölçüm ve kontrol sistemleri",
+        "Projeye özel tasarlanan, üretim, büyütme ve deneme sistemleri",
+        "UV sistemleri",
+        "Oksijenlendirme ve havalandırma ekipmanları",
+        "Su gözlem ürünleri",
+        "Ozon jeneratörleri ve sistemleri",
+        "Otomatik yemleme sistemleri",
+        "Ayrıntılı bilgi için kataloğumuzu inceleyip lütfen bağlantı kurunuz."
+      ],
+      "en": [
+        "Logistics and supply services",
+        "Our company is giving logistic and supply services to all kind of producers, investors, researchers at universities, SME's laboratory and R&D studies, system installations and machinery needs.",
+        "Some of the services and equipments listed below:",
+        "Planning, manufacturing, installation, maintenance & technical support services",
+        "Import & export, custom clearance and marketing services",
+        "Live, frozen, processed aquaculture & fisheries products",
+        "Artemia, algal products, rotifer culture foods and enrichment products",
+        "Starter feeds, growout feeds, broodstock and aquarium feeds",
+        "Feed additives, natural feed additives & oils",
+        "Filters (drum, bag, sand, cartridge, automatic filters)",
+        "UV sterilizer systems",
+        "Ozone generator systems",
+        "Water analysis equipments",
+        "Laboratory equipments",
+        "Hatchery equipments",
+        "Landbase farming & cage farming equipments",
+        "Recirculating aquaculture system (RAS) equipments",
+        "Oxygenation & aeration systems and equipments",
+        "Probiotics & enzymes",
+        "Biofilter media products & bacteria products",
+        "Heating / cooling systems",
+        "Oxygenmeters, temperature, pHmeter, salinometers",
+        "Fish farm feeder systems",
+        "For further information please examine our catalog and contact us."
+      ],
+      "ar": [
+        "الخدمات اللوجستية وخدمات التوريد",
+        "تقدم شركتنا خدمات لوجستية وتوريد لجميع أنواع المنتجين والمستثمرين والباحثين في الجامعات ومختبرات الشركات الصغيرة والمتوسطة ودراسات البحث والتطوير، ولاحتياجات تركيب الأنظمة والآلات.",
+        "فيما يلي بعض الخدمات والمعدات:",
+        "خدمات التخطيط والتصنيع والتركيب والصيانة والدعم الفني",
+        "خدمات الاستيراد والتصدير والتخليص الجمركي والتسويق",
+        "منتجات الاستزراع المائي ومصايد الأسماك الحية والمجمّدة والمصنّعة",
+        "الأرتيميا ومنتجات الطحالب وأغذية مزارع الروتيفر ومنتجات الإغناء",
+        "أعلاف البداية وأعلاف التسمين وأعلاف الأمهات وأسماك الزينة",
+        "إضافات الأعلاف والإضافات الطبيعية والزيوت",
+        "المرشحات (أسطوانية، كيسية، رملية، خرطوشية، مرشحات أوتوماتيكية)",
+        "أنظمة التعقيم بالأشعة فوق البنفسجية (UV)",
+        "أنظمة مولدات الأوزون",
+        "أجهزة تحليل المياه",
+        "المعدات المخبرية",
+        "معدات المفارخ",
+        "معدات الاستزراع البري والاستزراع في الأقفاص",
+        "معدات أنظمة الاستزراع المائي المعاد تدويرها (RAS)",
+        "أنظمة ومعدات الأكسجة والتهوية",
+        "البروبيوتيك والإنزيمات",
+        "منتجات وسائط المرشحات الحيوية ومنتجات البكتيريا",
+        "أنظمة التسخين / التبريد",
+        "أجهزة قياس الأكسجين والحرارة ودرجة الحموضة (pH) والملوحة",
+        "أنظمة التغذية في مزارع الأسماك",
+        "لمزيد من المعلومات يُرجى الاطلاع على كتالوجنا والتواصل معنا."
+      ]
+    },
+    "sourcePages": [
+      "hizmetlerimiz/lojistik-tedarik.aspx",
+      "en-US/services/logistics.aspx",
+      "catalog p.54"
+    ],
+    "notes": [
+      "TR web listesinde 'UV sistemleri', 'Oksijenlendirme ve havalandırma ekipmanları', 'Su gözlem ürünleri' ve 'Ozon jeneratörleri ve sistemleri' iki kez geçiyor; items listesinde birleştirildi (sourceText'te aynen duruyor).",
+      "'Kimyasallar', 'Dezenfektanlar', 'Genel sarf malzemeleri', 'Balık markaları', 'Sabit ölçüm sistemleri' ve 'Projeye özel sistemler' yalnız TR web sayfasında var; EN sayfa ve katalogda yok."
+    ]
+  },
+  {
+    "key": "feed-food-machinery",
+    "title": {
+      "tr": "Yem ve gıda üretim hatları",
+      "en": "Feed and food production lines",
+      "ar": "خطوط إنتاج الأعلاف والأغذية"
+    },
+    "intro": [
+      {
+        "tr": "Firmamız her türlü özel tasarım ve hâlihazırda var olan makine sistemlerinin yatırımcı isteği doğrultusunda yaptırılması ve üretimin öğretilerek müşteriye teslim edilmesi hizmetini vermektedir.",
+        "en": "Our company has all kinds of special or existing machine systems built to the investor's request, covering planning, manufacturing, installation, training, maintenance and technical support, and hands production over to the customer by teaching it.",
+        "ar": "توفر شركتنا جميع أنواع أنظمة الآلات الخاصة أو القائمة المصنّعة وفق طلب المستثمر، بما يشمل التخطيط والتصنيع والتركيب والتدريب والصيانة والدعم الفني، وتسلّم الإنتاج إلى العميل بعد تعليمه إياه."
+      },
+      {
+        "tr": "Firmamız yeni tasarım makine sistemlerinin geliştirilmesinde ve laboratuvar tipi ile Ar-Ge ölçekli pilot sistem makinelerin geliştirilmesi ve yaptırılmasında öncüdür.",
+        "en": "Our company is a pioneer in developing new machine system designs, laboratory-scale systems and R&D pilot systems.",
+        "ar": "شركتنا رائدة في تطوير تصاميم أنظمة الآلات الجديدة والأنظمة بالمقياس المخبري والأنظمة التجريبية للبحث والتطوير."
+      },
+      {
+        "tr": "Hiçbir pilot ölçekli sistem küçümsenmeden her türlü laboratuvar tipi ve butik ölçekli makine sistemlerinin yapılması firmamızın hizmetlerindendir.",
+        "en": "Without underestimating any pilot-scale system, building all kinds of laboratory-type and boutique-scale machine systems is among our services.",
+        "ar": "من دون التقليل من شأن أي نظام بالمقياس التجريبي، يُعدّ إنشاء جميع أنواع أنظمة الآلات المخبرية وذات المقياس المحدود من ضمن خدماتنا."
+      }
+    ],
+    "items": [
+      {
+        "title": {
+          "tr": "Hayvancılık sanayi yemleri üretim makineleri hattı",
+          "en": "Animal husbandry industry food production machinery line",
+          "ar": "خط آلات إنتاج أعلاف الثروة الحيوانية"
+        },
+        "line": "hayvancilik-yemi"
+      },
+      {
+        "title": {
+          "tr": "Akvaryum canlıları yemleri üretim makineleri hattı",
+          "en": "Aquatic feed production machinery line",
+          "ar": "خط آلات إنتاج أعلاف الأحياء المائية"
+        },
+        "line": "akvaryum-yemi"
+      },
+      {
+        "title": {
+          "tr": "Kültür balığı yemleri üretim makineleri hattı",
+          "en": "Aquaculture fish food production machinery line",
+          "ar": "خط آلات إنتاج أعلاف أسماك الاستزراع المائي"
+        },
+        "line": "kultur-baligi-yemi"
+      },
+      {
+        "title": {
+          "tr": "Evcil hayvan mamaları üretim makineleri hattı",
+          "en": "Pet food production machinery line",
+          "ar": "خط آلات إنتاج أغذية الحيوانات الأليفة"
+        },
+        "line": "evcil-hayvan-mamasi"
+      },
+      {
+        "title": {
+          "tr": "Evcil hayvan ödül ve çiğneme mamaları üretim makineleri hattı",
+          "en": "Pet treats, pet chew, twisted bi-color pet food production machinery line",
+          "ar": "خط آلات إنتاج مكافآت ومضغيات الحيوانات الأليفة والأغذية الملتوية ثنائية اللون"
+        },
+        "line": "evcil-hayvan-odul-mamasi"
+      },
+      {
+        "title": {
+          "tr": "Ekstrüde edilmiş cips ve kraker işleme makineleri hattı",
+          "en": "Extruded chips, snacks and cracker processing machinery line",
+          "ar": "خط آلات إنتاج الرقائق والوجبات الخفيفة والمقرمشات المبثوقة"
+        },
+        "line": "ekstrude-cips-kraker"
+      },
+      {
+        "title": {
+          "tr": "Mısır gevreği / kahvaltılık tahıl üretim makineleri hattı",
+          "en": "Corn flakes, breakfast cereal production machinery line",
+          "ar": "خط آلات إنتاج رقائق الذرة وحبوب الإفطار"
+        },
+        "line": "misir-gevregi-kahvaltilik-tahil"
+      },
+      {
+        "title": {
+          "tr": "Çıtır atıştırmalıklar üretim makineleri hattı",
+          "en": "Crispy snacks production machinery line",
+          "ar": "خط آلات إنتاج الوجبات الخفيفة المقرمشة"
+        },
+        "line": "citir-atistirmalik"
+      },
+      {
+        "title": {
+          "tr": "Kızartılmış halka, 3 boyutlu pelet işleme makineleri hattı",
+          "en": "Fried pellet, screw-shell shaped, 3D pellet processing machinery line",
+          "ar": "خط آلات معالجة الحبيبات المقلية والحلزونية والصدفية والحبيبات ثلاثية الأبعاد"
+        },
+        "line": "kizartilmis-halka-3d-pelet"
+      },
+      {
+        "title": {
+          "tr": "Müsli / tahıl bar / çikolatalı yulaf şekerleri işleme makineleri hattı",
+          "en": "Muesli bar, cereal bar, chocolate oat candy processing machinery line",
+          "ar": "خط آلات معالجة ألواح الموسلي وألواح الحبوب وحلوى الشوفان بالشوكولاتة"
+        },
+        "line": "musli-tahil-bar"
+      },
+      {
+        "title": {
+          "tr": "Pofidik-rulokat atıştırmalık çerez üretim makine hattı",
+          "en": "Core filling, puffed snacks production machinery line",
+          "ar": "خط آلات إنتاج الوجبات الخفيفة المنفوخة والمحشوة"
+        },
+        "line": "pofidik-rulokat"
+      },
+      {
+        "title": {
+          "tr": "Bebek maması üretim makineleri hattı",
+          "en": "Baby food production machinery line",
+          "ar": "خط آلات إنتاج أغذية الأطفال"
+        },
+        "line": "bebek-mamasi"
+      },
+      {
+        "title": {
+          "tr": "Jelatinize / modifiye edilmiş nişasta üretim makinesi hattı",
+          "en": "Pre-gelatinized starch, modified starch production machinery line",
+          "ar": "خط آلات إنتاج النشا المُجلتن مسبقًا والنشا المعدّل"
+        },
+        "line": "jelatinize-modifiye-nisasta"
+      },
+      {
+        "title": {
+          "tr": "Pirinç şekillendirme / yapay pirinç işleme makineleri hattı",
+          "en": "Reconstituted rice, artificial rice processing machinery line",
+          "ar": "خط آلات معالجة الأرز المعاد تكوينه والأرز الصناعي"
+        },
+        "line": "yapay-pirinc"
+      },
+      {
+        "title": {
+          "tr": "Bitkisel protein dokusu / soya proteini / et benzeri dokuları işleme makineleri hattı",
+          "en": "TVP, TSP, meat analogue processing machinery line",
+          "ar": "خط آلات معالجة البروتين النباتي المُنسَّج (TVP) وبروتين الصويا المُنسَّج (TSP) وبدائل اللحوم"
+        },
+        "line": "bitkisel-protein-dokusu"
+      }
+    ],
+    "sourceText": {
+      "tr": [
+        "Yem ve gıda üretim sanayi makine hatları",
+        "Firmamız her türlü özel tasarım ve hali hazırda var olan makine sistemlerinin yatırımcı isteği doğrultusunda yaptırılması ve üretimin öğretilerek müşteriye teslim edilmesi hizmetini vermektedir.",
+        "Firmamız yeni tasarım makine sistemlerinin geliştirilmesinde ve laboratuvar tipi ile Ar-Ge ölçekli pilot sistem makinelerin geliştirilmesi ve yaptırılmasında öncüdür.",
+        "Hiç bir pilot ölçekli sistem küçümsenmeden her türlü laboratuvar tipi ve butik ölçekli makine sistemlerinin yapılması firmamızın hizmetlerindendir.",
+        "Satışımızda olan bazı üretim hattı sistemleri: hayvancılık sanayi yemleri üretim makineleri hattı, akvaryum canlıları yemleri üretim makineleri hattı, kültür balığı yemleri üretim makineleri hattı, evcil hayvan mamaları üretim makineleri hattı, evcil hayvan ödül ve çiğneme mamaları üretim makineleri hattı, ekstrude edilmiş cips ve kraker işleme makineleri hattı, mısır gevreği/kahvaltılık tahıl üretim makineleri hattı, çıtır atıştırmalıklar üretim makineleri hattı, kızartılmış halka, 3 boyutlu pelet işleme makineleri hattı, müsli, tahıl bar, çikolatalı yulaf şekerleri işleme makineleri hattı, pofidik-rulokat atıştırmalık çerez üretim makine hattı, bebek maması üretim makineleri hattı, jelatinize/modifiye edilmiş nişasta üretim makineleri hattı, pirinç şekillendirme/yapay pirinç işleme makineleri hattı, bitkisel protein dokusu/soya proteini/et benzeri dokuları işleme makineleri hattı.",
+        "Ayrıntılı bilgi için kataloğumuzu inceleyip lütfen bağlantı kurunuz."
+      ],
+      "en": [
+        "Feed and food industry machinery services",
+        "Our company gives all kind of special machine design request of the investors, including planning, manufacturing, installation, education, maintenance & technical support services.",
+        "Our company is pioneer for development of new design machine systems, laboratory scale systems and R&D pilot systems.",
+        "Our machinery systems listed below: Animal Husbandry Industry Food Production Machinery Line, Aquatic Feed Production Machinery Line, Aquaculture Fish Food Production Machinery Line, Pet Food Production Machinery Line, Pet Treats, Pet Chew, Twisted-Bi Color Pet Food Production Machinery Line, Extruded Chips, Snacks and Cracker Processing Machinery Line, Corn Flakes, Breakfast Cereal Production Machinery Line, Crispy Snacks Production Machinery Line, Fried Pellet, Screw-Shell Shaped, 3D Pellet Processing Machinery Line, Muesli Bar, Cereal Bar, Chocolate Oat Candy Processing Machinery Line, Core Filling, Puffed Snacks Production Machinery Line, Baby Food Production Machinery Line, Pre-Gelatinized Starch, Modified Starch Production Machinery Line, Reconstituted Rice, Artificial Rice Processing Machinery Line, TVP, TSP, Meat Analogue Processing Machinery Line.",
+        "For further information please examine our catalog and contact us."
+      ],
+      "ar": [
+        "خدمات آلات صناعة الأعلاف والأغذية",
+        "تلبي شركتنا جميع طلبات المستثمرين لتصميم الآلات الخاصة، بما يشمل خدمات التخطيط والتصنيع والتركيب والتعليم والصيانة والدعم الفني.",
+        "شركتنا رائدة في تطوير أنظمة الآلات ذات التصاميم الجديدة والأنظمة بالمقياس المخبري والأنظمة التجريبية للبحث والتطوير.",
+        "أنظمة آلاتنا: خط آلات إنتاج أعلاف الثروة الحيوانية، خط آلات إنتاج أعلاف الأحياء المائية، خط آلات إنتاج أعلاف أسماك الاستزراع المائي، خط آلات إنتاج أغذية الحيوانات الأليفة، خط آلات إنتاج مكافآت ومضغيات الحيوانات الأليفة والأغذية الملتوية ثنائية اللون، خط آلات إنتاج الرقائق والوجبات الخفيفة والمقرمشات المبثوقة، خط آلات إنتاج رقائق الذرة وحبوب الإفطار، خط آلات إنتاج الوجبات الخفيفة المقرمشة، خط آلات معالجة الحبيبات المقلية والحلزونية والصدفية والحبيبات ثلاثية الأبعاد، خط آلات معالجة ألواح الموسلي وألواح الحبوب وحلوى الشوفان بالشوكولاتة، خط آلات إنتاج الوجبات الخفيفة المنفوخة والمحشوة، خط آلات إنتاج أغذية الأطفال، خط آلات إنتاج النشا المُجلتن مسبقًا والنشا المعدّل، خط آلات معالجة الأرز المعاد تكوينه والأرز الصناعي، خط آلات معالجة البروتين النباتي المُنسَّج (TVP) وبروتين الصويا المُنسَّج (TSP) وبدائل اللحوم.",
+        "لمزيد من المعلومات يُرجى الاطلاع على كتالوجنا والتواصل معنا."
+      ]
+    },
+    "sourcePages": [
+      "hizmetlerimiz/yem-gida.aspx",
+      "en-us/services/feed.aspx"
+    ],
+    "notes": [
+      "EN sayfada 'Hiçbir pilot ölçekli sistem küçümsenmeden' cümlesinin karşılığı yok; intro EN'i çeviridir. EN sayfadaki 'pionerr' ve 'develeopment' yazım hataları düzeltildi."
+    ]
+  },
+  {
+    "key": "machine-systems",
+    "title": {
+      "tr": "Makine sistemleri",
+      "en": "Machinery systems",
+      "ar": "أنظمة الآلات"
+    },
+    "intro": [
+      {
+        "tr": "Değirmen, ekstruder, kurutma fırını ve seri paketleme makine sistemleri.",
+        "en": "Hammermill and grinder, extruder, dryer and series packing machinery systems.",
+        "ar": "أنظمة الطواحين المطرقية والمطاحن والباثقات والمجففات وآلات التعبئة المتسلسلة."
+      }
+    ],
+    "items": [
+      {
+        "title": {
+          "tr": "Değirmen sistemleri",
+          "en": "Hammermill and grinder machinery systems",
+          "ar": "أنظمة الطواحين المطرقية والمطاحن"
+        },
+        "family": "mills"
+      },
+      {
+        "title": {
+          "tr": "Ekstruder sistemleri",
+          "en": "Extruder systems",
+          "ar": "أنظمة الباثقات"
+        },
+        "family": "extruders"
+      },
+      {
+        "title": {
+          "tr": "Kurutma fırını sistemleri",
+          "en": "Dryer systems",
+          "ar": "أنظمة المجففات"
+        },
+        "family": "dryers"
+      },
+      {
+        "title": {
+          "tr": "Seri paketleme makineleri",
+          "en": "Series packing machinery systems",
+          "ar": "أنظمة آلات التعبئة المتسلسلة"
+        },
+        "family": "packaging"
+      }
+    ],
+    "sourceText": {
+      "tr": [
+        "Makine sistemleri",
+        "Çift vidalı ekstruder",
+        "Çift Vidalı Ekstruder malzeme akış yönünde açılı buhar enjektörleri sayesinde buharın ürünlere karışmasına izin veren özel dişli profili, çeşitli köpek mamaları, akvaryum yemleri, et benzeri ürünler ve tek vidalı ekstruder tarafından işlenemeyen ürünlerin pişirilmesine ve kalıplanmasına uygundur. Özel köpek mamaları üretmek için ve %50'ye kadar taze yiyecek (kuru tarifin yüzdesi olarak) ve değişim olmadan %40'a kadar nem ile işlenebilir. Varil, içinde vidanın çok küçük açıklıkla döndüğü bir silindirdir. Genellikle varil aşınımı azaltmak için direnç kaplamasıyla sertleştirilmiştir. Dişli, çoğu zaman nitritlenerek bazen de çeşitli vida adımlarıyla hassasiyetle işlenmiştir. Segmentlerin değişen düzeneği sayesinde (karıştırma elemanı, yoğurma elemanı ve buhar bloğu), ekstruder farklı ürünlerin gereksinimlerini karşılayabilir. Yüksek tork koşulları altında olsa bile özel dişli kutusu tasarımı yardımıyla maksimum iletim verimliliğiyle motorun hareketi dişliye aktarılır. Dişli kutusunun içindeki tahrik ve baskı yatağı sofistikedir. Rulmanların yağlanması ve soğutulması için soğutma sistemi içeren bir hazne mevcuttur. Ekstruder bağımsız bir kontrol paneli tarafından kontrol edilir.",
+        "Ekstruder aşağıdaki parçalardan oluşmaktadır: besleme sistemi, ekstrüzyon sistemi, kesme sistemi, yağlama sistemi.",
+        "Özellikler",
+        "• Ana motor, kesici ve besleyicideki frekans hız kontrol sistemi, makine performansının sabitliğini ve korunmasını sağlar.",
+        "• Zorlanmış yağlama sistemi, ekipmanlardaki aktarımın uzun ömürlü olmasını garanti eder. Yağ kutusu 3 mm çelik plakadan yapılır. 12 mm'lik kapalı kuyu tüpü, yüksek basınçtan (300 psi) zarar görebilir. Bağlantı şekli mandal gibidir.",
+        "• Görünür otomatik sıcaklık kontrol sistemi, sıcaklık kontrolünü daha doğru ve kesin hale getirmektedir.",
+        "Ekstrüzyon varili",
+        "Ekstrüzyon varili 38CrMoAl'dan yapılır. Sertlik derecesi HRC60 civarındadır. Varili tutan 3 destek varili vardır. Çelik plaka 10 mm kalınlığındadır. Çelik platformun dayanımını artırmak ve redüktör ve dişli kutusu arasındaki mükemmel dengeyi sağlamak için 7 çelik çubuk mevcuttur.",
+        "Besleme silosu",
+        "Vida besleme silosu paslanmaz çelikten yapılmış olup 0,75 kw güç üreten bir motora sahiptir. Besleme silosunun içinde 2 adet karıştırıcı bulunur.",
+        "Ayrıntılı bilgi için kataloğumuzu inceleyip lütfen bağlantı kurunuz."
+      ],
+      "en": [
+        "Machinery systems",
+        "Twin screw extruder",
+        "Twin screw extruder is suitable for ripening and molding various kind of dog food, aqua feeds, meat analogue etc., and for treating some products which cannot be processed by a single screw extruder thanks to angled steam injector ports oriented in the direction of material flow, along with a unique screw profile that allows steam to be mixed into the product. It can be used to produce special dog foods and treats with up to 50 percent fresh meat (as a percent of the dry recipe) and up to 40 percent moisture without changing.",
+        "The barrel is a cylinder within which the screw turns with very close clearance. Usually the barrel is hardened to reduce wear, with resistance jacket. The screw is precisely machined often by nitriding treatment, sometimes with varying pitch. Through changing assembly of segments (mixing element, kneading element and steam block), the extruder can meet different products' requirement. The movement of the motor is transferred to the screw with the help of special design gear box to get maximum transmission efficiency even under adverse high-torque conditions. The drive and thrust bearing in gear box is sophisticated. A sump including cooling system is available for the bearings' lubrication and cooling. Extruder is controlled through an independent control panel.",
+        "Extrusion barrel: The extrusion barrel is made by 38CrMoAl. The hardness is around HRC60. There are three barrel supports, which hold the barrel. The steel plate is 10 mm thickness. There are seven (7) steel bars to strengthen the steel platform and find a wonderful balance between reducer and gear box.",
+        "Feeding hopper: The screw feeding hopper is driven by a 0.75 kW motor and the hopper is made of stainless steel. There are 2 mixing agitators in the feeding hopper.",
+        "Extrusion system: The extrusion mechanism is driven by a 75.0 kW motor. The jacket and the screw are made of special hardened and tempered steel. The kind and quality of the steel treatment are special to provide more useful life to the parts. The gear in the reducer is made by heating treatment to harder and result by grinding machine, the surface is more smooth and shining.",
+        "Twin-screw: Screw is made by special craft by 38CrMoAl excellent material and being nitriding treatment. Segmented screw is available for special product requirement, including mixing flight, cut flight, kneading element, steam block, etc. There are 2 coupling sticks between extruder barrel and gear box, which are protected by the housing coupling stick. The screws with self-cleaning function.",
+        "Cutting system: It is a movable cutting system, with steam above exit and a fan for moving moisture above the product box.",
+        "Heating system: The band is heated by band heater. Dimension for the band heater is 168*70 & 198*110 mm. Band heater is made by stainless steel. Cast aluminum heater also available as options. Water cooling is available when required.",
+        "For further information please examine our catalog and contact us."
+      ],
+      "ar": [
+        "أنظمة الآلات",
+        "الباثقة ثنائية اللولب",
+        "تناسب الباثقة ثنائية اللولب إنضاج وتشكيل أنواع مختلفة من أغذية الكلاب وأعلاف الأحياء المائية وبدائل اللحوم وغيرها، ومعالجة بعض المنتجات التي لا يمكن معالجتها بالباثقة أحادية اللولب، وذلك بفضل فتحات حقن البخار المائلة الموجّهة في اتجاه تدفق المادة، إلى جانب تصميم لولب فريد يتيح مزج البخار بالمنتج. ويمكن استخدامها لإنتاج أغذية ومكافآت خاصة للكلاب تحتوي على ما يصل إلى 50 بالمئة من اللحم الطازج (نسبةً إلى الوصفة الجافة) وما يصل إلى 40 بالمئة من الرطوبة دون تغيير.",
+        "الأسطوانة (البرميل) أنبوب يدور داخله اللولب بخلوص ضئيل جدًا، وتُقسّى عادةً للحد من التآكل وتُزوَّد بغلاف مقاوم. ويُشغَّل اللولب بدقة، وغالبًا ما يُعالج بالنترجة، وأحيانًا بخطوة متغيرة. وبتغيير تجميع المقاطع (عنصر الخلط، وعنصر العجن، وكتلة البخار) يمكن للباثقة تلبية متطلبات المنتجات المختلفة. تنتقل حركة المحرك إلى اللولب بمساعدة علبة تروس مصممة خصيصًا لتحقيق أقصى كفاءة نقل حتى في ظروف عزم الدوران العالي الصعبة، ومحامل الإدارة والدفع في علبة التروس متطورة. ويتوفر حوض يضم نظام تبريد لتزييت المحامل وتبريدها. ويُتحكم بالباثقة عبر لوحة تحكم مستقلة.",
+        "أسطوانة البثق: مصنوعة من 38CrMoAl، وتبلغ صلادتها نحو HRC60. وتحمل الأسطوانةَ ثلاثُ دعامات، وتبلغ سماكة الصفيحة الفولاذية 10 mm. وتُقوّي سبعة (7) قضبان فولاذية المنصةَ الفولاذية وتحقق توازنًا ممتازًا بين المخفّض وعلبة التروس.",
+        "قمع التغذية: يُدار قمع التغذية اللولبي بمحرك بقدرة 0.75 kW، وهو مصنوع من الفولاذ المقاوم للصدأ، ويحتوي على خلّاطين للتقليب.",
+        "نظام البثق: تُدار آلية البثق بمحرك بقدرة 75.0 kW. والغلاف واللولب مصنوعان من فولاذ مقسّى ومُطبَّع خاص، ونوع معالجة الفولاذ وجودتها مميزان لإطالة العمر التشغيلي للأجزاء. أما ترس المخفّض فيُعالج حراريًا لزيادة صلادته ثم يُشطَّب على آلة تجليخ، فيصبح سطحه أنعم وأكثر لمعانًا.",
+        "اللولب المزدوج: يُصنع اللولب بحِرفية خاصة من مادة 38CrMoAl الممتازة ويُعالج بالنترجة. وتتوفر لوالب مقطّعية لمتطلبات المنتجات الخاصة، تشمل أجنحة الخلط والأجنحة المقطوعة وعناصر العجن وكتل البخار وغيرها. ويوجد قضيبا اقتران بين أسطوانة الباثقة وعلبة التروس يحميهما غلاف الاقتران. واللوالب مزودة بخاصية التنظيف الذاتي.",
+        "نظام القطع: نظام قطع متحرك، مع منفذ للبخار فوق المخرج ومروحة لإزالة الرطوبة فوق صندوق المنتج.",
+        "نظام التسخين: تُسخَّن الأسطوانة بسخانات حزامية مقاساتها 168×70 و198×110 mm، مصنوعة من الفولاذ المقاوم للصدأ. وتتوفر سخانات من الألومنيوم المصبوب خيارًا إضافيًا، كما يتوفر التبريد المائي عند الحاجة.",
+        "لمزيد من المعلومات يُرجى الاطلاع على كتالوجنا والتواصل معنا."
+      ]
+    },
+    "sourcePages": [
+      "hizmetlerimiz/makina-sistemleri.aspx",
+      "en-us/services/machine-systems.aspx",
+      "catalog p.40–51"
+    ],
+    "notes": [
+      "sourceText arşiv amaçlı orijinal metindir. TR sayfadaki 'varil' (doğrusu: kovan), 'dişli' (doğrusu: vida), 'nitritlenerek' (nitrürlenerek) ve '300 psi'den zarar görebilir' (doğrusu: dayanır) hatalı çevirilerdir; düzeltilmiş içerik machines.json > sp85-ii'de."
+    ]
+  },
+  {
+    "key": "feasibility",
+    "title": {
+      "tr": "Fizibilite ve mühendislik",
+      "en": "Feasibility and engineering",
+      "ar": "دراسات الجدوى والهندسة"
+    },
+    "intro": [
+      {
+        "tr": "Fikri olan yatırımcının ilk durağı: proje keşfi ve ön etütten fizibilite ve rantabilite analizine, mühendislik ölçümlerinden kurulu sistemlerin revizyonuna kadar.",
+        "en": "The first stop for an investor with an idea: from project estimate and pre-feasibility to feasibility and profitability analysis, engineering measurements and revision of installed systems.",
+        "ar": "المحطة الأولى للمستثمر صاحب الفكرة: من تقدير المشروع ودراسة الجدوى الأولية إلى دراسة الجدوى وتحليل الربحية والقياسات الهندسية ومراجعة الأنظمة القائمة."
+      }
+    ],
+    "introDraft": true,
+    "items": [
+      {
+        "title": {
+          "tr": "Proje keşif ve ön etüt çalışmaları",
+          "en": "Project estimate and pre-feasibility studies",
+          "ar": "تقدير المشاريع ودراسات الجدوى الأولية"
+        },
+        "appliesTo": [
+          "aquaculture"
+        ],
+        "source": "catalog p.4; hizmetlerimiz/Su-Urunleri.aspx"
+      },
+      {
+        "title": {
+          "tr": "Kurulu sistem revizyon ve iyileştirme çalışmaları",
+          "en": "Revision and improvement of installed systems",
+          "ar": "مراجعة الأنظمة القائمة وتحسينها"
+        },
+        "appliesTo": [
+          "aquaculture"
+        ],
+        "source": "catalog p.4; hizmetlerimiz/Su-Urunleri.aspx"
+      },
+      {
+        "title": {
+          "tr": "Üretim sistemlerinin rantabilite analiz çalışmaları",
+          "en": "Profitability analysis of production systems",
+          "ar": "تحليل ربحية أنظمة الإنتاج"
+        },
+        "appliesTo": [
+          "aquaculture"
+        ],
+        "source": "catalog p.4; hizmetlerimiz/Su-Urunleri.aspx"
+      },
+      {
+        "title": {
+          "tr": "Tarımsal üretimlerin fizibilite ve rantabilite analizlerinin, mühendislik ölçümlerinin yapılması",
+          "en": "Feasibility and profitability analysis and engineering measurements for agricultural production",
+          "ar": "تحليل الجدوى والربحية والقياسات الهندسية للإنتاج الزراعي"
+        },
+        "appliesTo": [
+          "agriculture"
+        ],
+        "source": "catalog p.6"
+      },
+      {
+        "title": {
+          "tr": "Hayvansal üretim sistemlerinin ön etüt, fizibilite ve rantabilite analizlerinin yapılması",
+          "en": "Pre-feasibility, feasibility and profitability analysis of animal husbandry production systems",
+          "ar": "دراسات الجدوى الأولية والجدوى وتحليل الربحية لأنظمة الإنتاج الحيواني"
+        },
+        "appliesTo": [
+          "livestock"
+        ],
+        "source": "catalog p.8"
+      },
+      {
+        "title": {
+          "tr": "Tarımsal ve hayvansal üretimlerin fizibilite ve rantabilite analizlerinin, mühendislik ölçümlerinin yapılması",
+          "en": "Feasibility and profitability analysis and engineering measurements for agricultural and animal husbandry production",
+          "ar": "تحليل الجدوى والربحية والقياسات الهندسية للإنتاج الزراعي والحيواني"
+        },
+        "appliesTo": [
+          "agriculture",
+          "livestock"
+        ],
+        "source": "hizmetlerimiz/tarim-hayvancilik.aspx"
+      },
+      {
+        "title": {
+          "tr": "Yatırım fikri olmayanlar için geniş kapsamlı yatırım proje fizibilitesi ve yatırım önerileri",
+          "en": "Comprehensive investment feasibility and investment recommendations for those without a project idea",
+          "ar": "دراسة جدوى استثمارية شاملة وتوصيات استثمارية لمن لا يملكون فكرة مشروع"
+        },
+        "appliesTo": [
+          "all"
+        ],
+        "source": "hizmetlerimiz/proje.aspx"
+      }
+    ],
+    "sourcePages": [
+      "catalog p.4, 6, 8",
+      "hizmetlerimiz/Su-Urunleri.aspx",
+      "hizmetlerimiz/tarim-hayvancilik.aspx",
+      "hizmetlerimiz/proje.aspx"
+    ],
+    "notes": [
+      "Eski sitede ayrı bir fizibilite sayfası yoktu; maddeler çözüm sayfalarından ve katalogdan toplandı. intro TASLAK metindir (introDraft)."
+    ]
+  },
+  {
+    "key": "certification",
+    "title": {
+      "tr": "Belgelendirme",
+      "en": "Certification",
+      "ar": "الاعتماد والشهادات"
+    },
+    "intro": [
+      {
+        "tr": "Firmamız, profesyonel çözüm ortakları ile yönetim sistemi belgelendirme faaliyetlerini objektif, nitelikli ve müşteri odaklı hizmet yaklaşımı temelinde vermektedir. Uluslararası geçerliliğe sahip denetim ve belgelendirme hizmetleri sunulmaktadır.",
+        "en": "Through our professional solution partners, we provide management system certification on an objective, qualified and customer-focused basis. Internationally recognised inspection and certification services are offered.",
+        "ar": "نقدم، عبر شركائنا المحترفين في الحلول، شهادات أنظمة الإدارة على أسس موضوعية ومؤهلة وتتمحور حول العميل، إلى جانب خدمات تفتيش واعتماد معترف بها دوليًا."
+      },
+      {
+        "tr": "ISO 17024 akreditasyonlu, uluslararası geçerlilikte mesleki uzmanlık sertifika hizmetleri de sunulmaktadır.",
+        "en": "Accredited, internationally valid professional certification programmes (ISO 17024) are also offered by our partner.",
+        "ar": "كما يقدم شريكنا برامج شهادات مهنية معتمدة وصالحة دوليًا (ISO 17024)."
+      }
+    ],
+    "deliveredVia": {
+      "tr": "Çözüm ortaklarımız aracılığıyla",
+      "en": "Through our solution partners",
+      "ar": "عبر شركائنا في الحلول"
+    },
+    "items": [
+      {
+        "code": "ISO 9001",
+        "title": {
+          "tr": "Kalite yönetim sistemi",
+          "en": "Quality management system",
+          "ar": "نظام إدارة الجودة"
+        },
+        "detail": {
+          "tr": "Ürün ve hizmet kalitesini tutarlı kılan süreç odaklı yönetim sistemi.",
+          "en": "A process-based management system for consistent product and service quality.",
+          "ar": "نظام إدارة قائم على العمليات يضمن جودة متسقة للمنتجات والخدمات."
+        },
+        "detailDraft": true,
+        "kind": "system",
+        "offFocus": false
+      },
+      {
+        "code": "ISO 14001",
+        "title": {
+          "tr": "Çevre yönetim sistemi",
+          "en": "Environmental management system",
+          "ar": "نظام الإدارة البيئية"
+        },
+        "detail": {
+          "tr": "Çevresel etkilerin belirlenmesi, izlenmesi ve azaltılması için yönetim sistemi.",
+          "en": "A management system to identify, monitor and reduce environmental impacts.",
+          "ar": "نظام إدارة لتحديد الآثار البيئية ورصدها والحد منها."
+        },
+        "detailDraft": true,
+        "kind": "system",
+        "offFocus": false
+      },
+      {
+        "code": "ISO 27001",
+        "title": {
+          "tr": "Bilgi güvenliği yönetim sistemi",
+          "en": "Information security management system",
+          "ar": "نظام إدارة أمن المعلومات"
+        },
+        "detail": {
+          "tr": "Bilginin gizliliğini, bütünlüğünü ve erişilebilirliğini korumaya yönelik yönetim sistemi.",
+          "en": "A management system protecting the confidentiality, integrity and availability of information.",
+          "ar": "نظام إدارة يحمي سرية المعلومات وسلامتها وإتاحتها."
+        },
+        "detailDraft": true,
+        "kind": "system",
+        "offFocus": false
+      },
+      {
+        "code": "ISO 45001",
+        "title": {
+          "tr": "İş sağlığı ve güvenliği yönetim sistemi",
+          "en": "Occupational health and safety management system",
+          "ar": "نظام إدارة الصحة والسلامة المهنية"
+        },
+        "detail": {
+          "tr": "Çalışanların sağlığını ve güvenliğini koruyan, riskleri önleyen yönetim sistemi.",
+          "en": "A management system that protects workers' health and safety and prevents risks.",
+          "ar": "نظام إدارة يحمي صحة العاملين وسلامتهم ويمنع المخاطر."
+        },
+        "detailDraft": true,
+        "kind": "system",
+        "offFocus": false,
+        "note": "Katalogda 'OHSAS 18001' yazıyor; standart 2018'de ISO 45001 ile değiştirildiği için güncel adla yazıldı.",
+        "originalCode": "OHSAS 18001"
+      },
+      {
+        "code": "ISO 22000",
+        "title": {
+          "tr": "Gıda güvenliği yönetim sistemi",
+          "en": "Food safety management system",
+          "ar": "نظام إدارة سلامة الغذاء"
+        },
+        "detail": {
+          "tr": "Gıda zincirinin tüm halkalarında gıda güvenliği tehlikelerini kontrol eden yönetim sistemi.",
+          "en": "A management system controlling food safety hazards across the food chain.",
+          "ar": "نظام إدارة يتحكم في مخاطر سلامة الغذاء عبر السلسلة الغذائية بأكملها."
+        },
+        "detailDraft": true,
+        "kind": "system",
+        "offFocus": false
+      },
+      {
+        "code": "OIC/SMIIC 1",
+        "title": {
+          "tr": "Helal gıda yönetim sistemi",
+          "en": "Halal food management system",
+          "ar": "نظام إدارة الأغذية الحلال"
+        },
+        "detail": {
+          "tr": "İİT/SMIIC standardına göre helal gıda üretimi ve belgelendirmesi.",
+          "en": "Halal food production and certification according to the OIC/SMIIC standard.",
+          "ar": "إنتاج الأغذية الحلال واعتمادها وفق معيار منظمة التعاون الإسلامي / معهد المواصفات والمقاييس للدول الإسلامية (OIC/SMIIC)."
+        },
+        "detailDraft": true,
+        "kind": "system",
+        "offFocus": false
+      },
+      {
+        "code": "IPC",
+        "title": {
+          "tr": "Yönetim sistemleri denetçisi",
+          "en": "Management systems auditor",
+          "ar": "مدقق أنظمة الإدارة"
+        },
+        "kind": "professional",
+        "offFocus": false,
+        "note": "Yalnız TR katalogda."
+      },
+      {
+        "code": null,
+        "title": {
+          "tr": "Yönetim sistemleri temsilcisi",
+          "en": "Management systems representative",
+          "ar": "ممثل أنظمة الإدارة"
+        },
+        "kind": "professional",
+        "offFocus": false,
+        "note": "Yalnız TR katalogda."
+      },
+      {
+        "code": null,
+        "title": {
+          "tr": "Yönetim sistemleri danışmanı",
+          "en": "Management systems consultant",
+          "ar": "مستشار أنظمة الإدارة"
+        },
+        "kind": "professional",
+        "offFocus": false,
+        "note": "Yalnız TR katalogda."
+      },
+      {
+        "code": null,
+        "title": {
+          "tr": "Zeytinyağı eksperliği",
+          "en": "Olive oil expert",
+          "ar": "خبير زيت الزيتون"
+        },
+        "kind": "professional",
+        "offFocus": false
+      },
+      {
+        "code": null,
+        "title": {
+          "tr": "Şarap eksperliği",
+          "en": "Wine expert",
+          "ar": "خبير النبيذ"
+        },
+        "kind": "professional",
+        "offFocus": false,
+        "note": "Tarım ürünü uzmanlığı; odağa uzak sayılabilir, müşteriye sorulmalı."
+      },
+      {
+        "code": "CFSA",
+        "title": {
+          "tr": "Gıda güvenliği yönetim sistemleri (ISO 22000) uzmanlığı",
+          "en": "Food safety management systems specialist (ISO 22000)",
+          "ar": "أخصائي أنظمة إدارة سلامة الغذاء (ISO 22000)"
+        },
+        "kind": "professional",
+        "offFocus": false,
+        "note": "Yalnız EN katalogda."
+      },
+      {
+        "code": "PREV",
+        "title": {
+          "tr": "Emlak / piyasa değerleme uzmanı",
+          "en": "Real estate / market valuations",
+          "ar": "تقييمات العقارات / السوق"
+        },
+        "kind": "professional",
+        "offFocus": true
+      },
+      {
+        "code": "PCPV",
+        "title": {
+          "tr": "Konut ve ticari mülk değerleme uzmanı",
+          "en": "Residential and standard commercial property valuations",
+          "ar": "تقييم العقارات السكنية والتجارية القياسية"
+        },
+        "kind": "professional",
+        "offFocus": true
+      },
+      {
+        "code": "PMRV",
+        "title": {
+          "tr": "Mülkiyet değerlendirmesi uzmanı",
+          "en": "Property and market rating valuations",
+          "ar": "تقييمات الملكية وتصنيف السوق"
+        },
+        "kind": "professional",
+        "offFocus": true
+      },
+      {
+        "code": "PMLV",
+        "title": {
+          "tr": "Mortgage kredileri değerleme uzmanı",
+          "en": "Mortgage lending valuations",
+          "ar": "تقييمات قروض الرهن العقاري"
+        },
+        "kind": "professional",
+        "offFocus": true
+      },
+      {
+        "code": "PBSV",
+        "title": {
+          "tr": "Bankacılık değerleme uzmanı",
+          "en": "Bank sector valuations",
+          "ar": "تقييمات القطاع المصرفي"
+        },
+        "kind": "professional",
+        "offFocus": true
+      },
+      {
+        "code": "PEMV",
+        "title": {
+          "tr": "Elektromekanik tesisat değerleme uzmanı",
+          "en": "Electro-mechanical installation valuations",
+          "ar": "تقييم التركيبات الكهروميكانيكية"
+        },
+        "kind": "professional",
+        "offFocus": true,
+        "note": "Yalnız EN katalogda."
+      },
+      {
+        "code": "PBFV",
+        "title": {
+          "tr": "İş - finans değerleme uzmanı",
+          "en": "Business-finance valuations",
+          "ar": "تقييمات الأعمال والتمويل"
+        },
+        "kind": "professional",
+        "offFocus": true
+      },
+      {
+        "code": "PFAV",
+        "title": {
+          "tr": "Güzel sanatlar değerleme uzmanı",
+          "en": "Fine-art valuations",
+          "ar": "تقييم الأعمال الفنية"
+        },
+        "kind": "professional",
+        "offFocus": true
+      },
+      {
+        "code": "PREA",
+        "title": {
+          "tr": "Profesyonel emlak komisyoncusu",
+          "en": "Professional real estate agents",
+          "ar": "وكلاء عقاريون محترفون"
+        },
+        "kind": "professional",
+        "offFocus": true
+      }
+    ],
+    "sourcePages": [
+      "catalog p.52–53 (TR ve EN)",
+      "hizmetlerimiz/* yan menü: 'Ulusal ve uluslararası sertifika ve belgelendirme hizmetleri'"
+    ],
+    "notes": [
+      "Standartların tek satırlık açıklamaları kaynakta yok, TASLAK olarak yazıldı.",
+      "TR ve EN katalogdaki mesleki sertifika listeleri farklı: TR'de IPC denetçi/temsilci/danışman var, EN'de PEMV ve CFSA var; kodlar yalnız EN'de. Birleştirilmiş liste verildi.",
+      "offFocus: true olan değerleme/emlak/güzel sanatlar sertifikaları firmanın odağıyla ilgisiz; sitede yer alıp almayacağı müşteriye sorulacak.",
+      "Katalogda 'OHSAS 18001' yazıyor; ISO 45001 olarak güncellendi."
+    ]
+  }
+]

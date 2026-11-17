@@ -1,0 +1,53 @@
+---
+/**
+ * A light engraved seal for the certification page: the heavy geometry (rim, guilloche, rays) is drawn
+ * once by <CertSealDefs/> and referenced here with <use>, so eight seals cost one set of paths.
+ * Same drawing as the home banderole (src/lib/seal.ts) — an original seal, never the ISO logo.
+ */
+import { RING_PATH, sealFace, sealRing } from '../lib/seal';
+import type { Lang } from '../lib/i18n';
+interface Props { code: string; title: string; lang: Lang; id: string; rot?: number; class?: string }
+const { code, title, lang, id, rot = 0, class: cls = '' } = Astro.props;
+const face = sealFace(code, lang);
+const ringText = sealRing(title, lang);
+---
+<svg class:list={['cseal', cls]} viewBox="0 0 200 200" aria-hidden="true" focusable="false" data-cseal>
+  <defs><path id={`${id}-ring`} d={RING_PATH} /></defs>
+  <use href="#cs-rim" class="cseal__rim" fill="url(#cs-disc)" />
+  <circle cx="100" cy="100" r="92" class="cseal__hair" />
+  <g class="cseal__g" style={`--r:${rot}deg`}><use href="#cs-guil" /></g>
+  <circle cx="100" cy="100" r="72.5" class="cseal__hair cseal__hair--b" />
+  <text class="cseal__ring" dy="2.6" direction="ltr" data-cseal-ring>
+    {lang === 'ar'
+      ? <textPath href={`#${id}-ring`} startOffset="50%" text-anchor="middle">{ringText}</textPath>
+      : <textPath href={`#${id}-ring`} textLength="400" lengthAdjust="spacing">{ringText}</textPath>}
+  </text>
+  <circle cx="100" cy="100" r="56" class="cseal__hair cseal__hair--b" />
+  <circle cx="100" cy="100" r="53" class="cseal__field" />
+  <use href="#cs-rays" class="cseal__rays" />
+  <circle cx="100" cy="100" r="38" class="cseal__core" />
+  <text x="100" y="80" text-anchor="middle" class="cseal__pre" data-cseal-pre>{face.pre}</text>
+  <text x="100" y="111" text-anchor="middle" class:list={['cseal__big', { 'is-word': face.word, 'is-long': face.big.length > 4 && !face.word }]} data-cseal-big>{face.big}</text>
+  <g class="cseal__stars"><path d="M88 124h7M105 124h7" /><circle cx="100" cy="124" r="1.6" /></g>
+</svg>
+
+<style>
+  .cseal { --engrave: #8a5420; --engrave-2: var(--brass); width: 100%; height: auto; aspect-ratio: 1; overflow: visible; display: block; }
+  .cseal__rim { stroke: color-mix(in srgb, var(--engrave) 55%, transparent); stroke-width: 0.6; }
+  .cseal__hair { fill: none; stroke: var(--engrave); stroke-width: 0.7; opacity: 0.8; }
+  .cseal__hair--b { stroke-width: 0.9; opacity: 0.9; }
+  .cseal__g { transform-origin: 100px 100px; transform: rotate(var(--r, 0deg)); transition: transform 1600ms var(--ease-water); }
+  .cseal__ring { font-family: var(--f-mono); font-size: 7.4px; letter-spacing: 0.02em; fill: var(--engrave); }
+  :global(html[lang='ar']) .cseal__ring { font-family: 'IBM Plex Sans Arabic', var(--f-sans); font-size: 8.4px; }
+  .cseal__field { fill: rgba(255, 250, 241, 0.6); }
+  .cseal__rays { fill: none; stroke: var(--engrave-2); stroke-width: 0.35; opacity: 0.35; }
+  .cseal__core { fill: #fffaf1; stroke: var(--engrave); stroke-width: 0.5; opacity: 0.96; }
+  .cseal__pre { font-family: var(--f-mono); font-size: 7.6px; letter-spacing: 0.22em; fill: var(--engrave); }
+  .cseal__big { font-family: var(--f-serif); font-size: 31px; font-weight: 420; letter-spacing: -0.02em; fill: var(--ink); font-variant-numeric: lining-nums; }
+  .cseal__big.is-long { font-size: 26px; }
+  .cseal__big.is-word { font-size: 27px; }
+  :global(html[lang='ar']) .cseal__big.is-word { font-family: 'IBM Plex Sans Arabic', var(--f-sans); font-weight: 500; font-size: 24px; }
+  .cseal__stars path { stroke: var(--engrave); stroke-width: 0.7; }
+  .cseal__stars circle { fill: var(--brass); }
+  @media (prefers-reduced-motion: reduce) { .cseal__g { transition: none; } }
+</style>

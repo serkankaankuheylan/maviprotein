@@ -1,0 +1,124 @@
+---
+import Base from '../layouts/Base.astro';
+import Intro from '../components/Intro.astro';
+import NoteCard from '../components/NoteCard.astro';
+import ClosingCta from '../components/ClosingCta.astro';
+import { pagesCopy } from '../i18n/pages';
+import { home } from '../i18n/home';
+import { pick, t, type Lang } from '../lib/i18n';
+import { href } from '../lib/routes';
+import { postsSorted, NOTE_CATS } from '../lib/data';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = pick(pagesCopy, lang).notes;
+const featured = postsSorted.find((p: any) => p.featured) ?? postsSorted.find((p) => p.id === 64) ?? postsSorted[0];
+const cats = ['teknik', 'biyoloji', 'saha', 'firma'].filter((k) => postsSorted.some((p) => p.category === k));
+const blogJson = { '@context': 'https://schema.org', '@type': 'Blog', name: 'Mavi Protein Diyor Ki', blogPost: postsSorted.map((p) => ({ '@type': 'BlogPosting', headline: t(p.title, lang), datePublished: p.date, url: Astro.site!.origin + href('note', lang, p.slug) })) };
+---
+<Base lang={lang} title={c.meta.title} description={c.meta.description} route="notes" startDark={false} gauge={false} jsonLd={[blogJson]}>
+  <!-- The featured note sits in the intro's right column (under the title on small screens). -->
+  <Intro lang={lang} surface="light" kicker={c.kicker} title={c.title} lead={c.lead}>
+    {featured && (
+      <section class="feat" aria-labelledby="feat-title">
+        <h2 id="feat-title" class="label feat__l">{c.featured}</h2>
+        <NoteCard post={featured} lang={lang} size="l" />
+      </section>
+    )}
+  </Intro>
+
+  <!-- Same surface as the intro above: one continuous area, the index as a three-column grid. -->
+  <section class="dir s-light grain section" data-surface="light" aria-labelledby="dir-title" data-notes>
+    <div class="wrap">
+      <header class="dir__head">
+        <h2 id="dir-title" class="t-h2">{c.index}</h2>
+        <div class="dir__f" role="group" aria-labelledby="dir-title">
+          <button type="button" aria-pressed="true" data-c="all">{c.all}</button>
+          {cats.map((k) => <button type="button" aria-pressed="false" data-c={k}>{t(NOTE_CATS[k], lang)}</button>)}
+        </div>
+      </header>
+      <ol class="dir__grid" role="list">
+        {postsSorted.map((p) => (
+          <li data-cat={p.category}><NoteCard post={p} lang={lang} media="image" vt={p.id !== featured?.id} /></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <ClosingCta lang={lang} title={pick(home, lang).close.title} />
+</Base>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-notes]');
+  if (root) {
+    const btns = [...root.querySelectorAll<HTMLButtonElement>('[data-c]')];
+    const calm = matchMedia('(prefers-reduced-motion: reduce)');
+    btns.forEach((b) => b.addEventListener('click', () => {
+      btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      root.querySelectorAll<HTMLElement>('[data-cat]').forEach((li) => {
+        const hide = b.dataset.c !== 'all' && li.dataset.cat !== b.dataset.c;
+        const appears = li.hidden && !hide;
+        li.hidden = hide;
+        // only the cards a filter brings back rise into place; the page itself never waits on an animation
+        if (appears && !calm.matches) li.animate({ opacity: [0, 1], translate: ['0 14px', '0 0'] }, { duration: 600, easing: 'cubic-bezier(0.22, 0.61, 0.24, 1)' });
+      });
+    }));
+    // The index repeats the featured note, and a view-transition name may appear only once on the page:
+    // the plate that is clicked takes the name, so the note opens out of the card the reader chose.
+    root.addEventListener('click', (e) => {
+      const plate = (e.target as Element).closest('a')?.querySelector<HTMLElement>('[data-vt]');
+      const name = plate?.dataset.vt;
+      if (!plate || !name || plate.style.getPropertyValue('view-transition-name')) return;
+      document.querySelectorAll<HTMLElement>(`[data-vt="${name}"]`).forEach((el) => el.style.removeProperty('view-transition-name'));
+      plate.style.setProperty('view-transition-name', name);
+    });
+  }
+</script>
+
+<style>
+  /* block-level, so the label sits on its own line box and not on the section's taller text strut;
+     a size step above the intro's labels (Arabic labels are set smaller, so is this one) */
+  .feat__l { display: flex; margin-bottom: 1.1rem; font-size: 1.05rem; color: var(--ink-2); }
+  :global(html[dir='rtl']) .feat__l { font-size: 0.95rem; }
+  /* the featured card: plate on top, date, title and summary under it */
+  .feat :global(.note--l .note__plate) { aspect-ratio: 16 / 10; }
+
+  /* Wide screens: the intro's own halves (words in columns 1–6, the featured note in 7–12, as on every intro with art),
+     and both columns start on shared lines:
+       · "Öne çıkan" stands on the baseline of the kicker ("Mavi Protein diyor ki"),
+       · the plate's top edge is the top line of the page title's letters ("Notlar").
+     --fk / --fl  size of the intro's labels (crumbs, kicker) / of "Öne çıkan"
+     --eb   the labels' line box (line-height 1.4); "Öne çıkan" takes the same box
+     --d    a larger label in the same box sets its baseline lower by (ascent − descent) / 2 × the size difference
+     --cap  the title letters' top below the top of the title's box, in em:
+            Barlow Condensed 500 at line-height 0.94 (ascent 1.0, descent 0.195, cap height 0.70) → 0.171;
+            IBM Plex Sans Arabic 400 at line-height 1.25 (ascent 1.09, descent 0.41, letter height 0.74) → 0.224 */
+  @media (min-width: 961px) {
+    :global(.intro:has(.feat)) {
+      --fk: calc(var(--t-mono) * 1.18);
+      --fl: 1.05rem;
+      --eb: calc(var(--fk) * 1.4);
+      --d: calc(0.4 * (var(--fl) - var(--fk)));
+      --cap: 0.171;
+    }
+    :global(html[dir='rtl'] .intro:has(.feat)) { --fk: 0.8rem; --fl: 0.95rem; --d: calc(0.35 * (var(--fl) - var(--fk))); --cap: 0.224; }
+    :global(.intro.intro--art:has(.feat) .intro__words) { align-self: start; }
+    :global(.intro.intro--art:has(.feat) .intro__art) { align-self: start; margin-top: calc(var(--eb) + 1.4rem - var(--d)); }
+    .feat__l { line-height: var(--eb); margin-bottom: calc(1.4rem + var(--d) + var(--cap) * var(--t-display)); }
+  }
+  /* small screens: title first, the featured note under it */
+  @media (max-width: 960px) {
+    :global(.intro.intro--art:has(.feat) .intro__art) { order: 0; margin-top: clamp(2.5rem, 8vw, 4rem); }
+  }
+  /* the intro's own bottom padding already separates the two; this keeps the index close enough to read as one area */
+  .dir { padding-top: clamp(32px, 3.5vw, 56px); }
+  .dir__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1rem; margin-bottom: clamp(1.4rem, 2.4vw, 2.2rem); }
+  .dir__f { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .dir__f button { min-height: 42px; padding: 0.4rem 0.9rem; border: 1px solid var(--rule-strong); border-radius: 99px; font-size: 0.9rem; font-weight: 500; transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease; }
+  .dir__f button:hover { border-color: var(--ink); }
+  .dir__f button[aria-pressed='true'] { background: var(--navy); color: var(--foam); border-color: var(--navy); }
+  .dir__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(2.6rem, 4vw, 3.8rem) var(--col-gap); padding-top: clamp(1.6rem, 2.6vw, 2.6rem); border-top: 1px solid var(--rule-strong); }
+  .dir__grid > li[hidden] { display: none; }
+  @media (max-width: 1000px) { .dir__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .dir__grid { grid-template-columns: 1fr; } }
+</style>

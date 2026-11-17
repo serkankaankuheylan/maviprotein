@@ -1,0 +1,145 @@
+---
+/**
+ * Spirulina under the microscope: a scroll-driven "focus pull" background.
+ *
+ * Two dark-field micrographs (AI re-renders of real Arthrospira micrographs, see
+ * design-assets/references/ref-spirulina-SOURCES.md):
+ *   field  = 100x, long helical trichomes
+ *   macro  = 400x, a few thick segmented filaments
+ * Each has a tiny pre-blurred twin. Focus is faked by cross-fading sharp ↔ soft, so
+ * the scroll animation only touches opacity + transform (fully composited, no live blur).
+ *
+ * Scroll story (view timeline of the parent section, about one screen tall on desktop):
+ *   rising in → field drifts in out of focus and sharpens; stays crisp until the section covers ~3/4 of the screen
+ *   filling   → quick "objective change" (cover 36–50%): field rushes past the lens and blurs away,
+ *               400x snaps in and refocuses, sharp by the time the section fills the screen
+ *   leaving   → 400x stays, drifting slowly
+ * Without scroll-driven animation support or with reduced motion: the crisp field, static.
+ *
+ * `hero`: for a section that is already on screen at page load. The field focuses once on load
+ * (time-based), and a slower version of the story (mscope-hero-*) is shifted so the objective change
+ * happens while the hero scrolls away (range starts at cover 17% ≈ "field crisp" at scrollY 0 for a 100svh hero).
+ */
+import manifest from '../generated/assets.json';
+interface Props { class?: string; hero?: boolean }
+const { class: cls = '', hero = false } = Astro.props;
+const load = (l: string) => (hero && l === 'field' ? 'eager' : 'lazy');
+type V = { src: string; w: number; h: number };
+const m = manifest as Record<string, V[]>;
+const srcset = (n: string) => (m[n] ?? []).map((v) => `${v.src} ${v.w}w`).join(', ');
+const largest = (n: string) => m[n]?.[m[n].length - 1]?.src;
+const layers = ['field', 'macro'] as const;
+---
+<div class:list={['mscope', hero && 'mscope--hero', cls]} aria-hidden="true">
+  {layers.map((l) => (
+    <div class={`mscope__stage mscope__stage--${l}`}>
+      <div class="mscope__drift">
+      <img class="mscope__img" src={largest(`bg-spirulina-${l}`)} srcset={srcset(`bg-spirulina-${l}`)} sizes="100vw" alt="" loading={load(l)} decoding="async" />
+      <img class="mscope__img mscope__soft" src={largest(`bg-spirulina-${l}-soft`)} alt="" loading={load(l)} decoding="async" />
+      {hero && l === 'field' && <img class="mscope__img mscope__intro" src={largest('bg-spirulina-field-soft')} alt="" loading="eager" decoding="async" />}
+      </div>
+    </div>
+  ))}
+  <div class="mscope__veil"></div>
+</div>
+
+<style>
+  .mscope { position: absolute; inset: 0; z-index: -1; overflow: hidden; background: #04201b; view-timeline: --mscope block; }
+  .mscope__stage { position: absolute; inset: 0; transform-origin: 68% 50%; will-change: transform, opacity; }
+  /* gliding motility: Arthrospira trichomes creep slowly even when the slide is still (sharp + soft move together) */
+  .mscope__drift { position: absolute; inset: -3%; animation: mscope-glide 38s ease-in-out infinite alternate; }
+  .mscope__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; }
+  .mscope__stage--macro { opacity: 0; }
+  .mscope__stage--macro .mscope__drift { animation-duration: 46s; animation-direction: alternate-reverse; }
+  .mscope__soft { opacity: 0; }
+  .mscope__intro { animation: mscope-intro 2.4s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s both; }
+  @keyframes mscope-intro { from { opacity: 1; } to { opacity: 0; } }
+  @keyframes mscope-glide { from { transform: translate3d(-1.2%, 0.6%, 0) rotate(-0.6deg); } to { transform: translate3d(1.2%, -0.8%, 0) rotate(0.5deg); } }
+
+  /* readable text on the left, soft hand-off to neighbouring sections */
+  .mscope__veil {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(90deg, rgba(6, 35, 31, 0.92) 0%, rgba(6, 35, 31, 0.7) 32%, rgba(6, 35, 31, 0.12) 62%, transparent 80%),
+      linear-gradient(180deg, #06231f 0%, transparent 16%, transparent 84%, #06231f 100%),
+      radial-gradient(120% 90% at 70% 50%, transparent 55%, rgba(2, 16, 14, 0.55) 100%);
+  }
+  @media (max-width: 960px) {
+    .mscope__veil { background: linear-gradient(180deg, #06231f 0%, rgba(6, 35, 31, 0.72) 18%, rgba(6, 35, 31, 0.6) 55%, rgba(6, 35, 31, 0.35) 80%, #06231f 100%); }
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .mscope__stage, .mscope__soft { animation-timeline: --mscope; animation-range: cover 0% cover 100%; animation-fill-mode: both; animation-timing-function: linear; }
+      .mscope__stage--field { animation-name: mscope-field; }
+      .mscope__stage--field .mscope__soft { animation-name: mscope-field-focus; }
+      .mscope__stage--macro { animation-name: mscope-macro; }
+      .mscope__stage--macro .mscope__soft { animation-name: mscope-macro-focus; }
+      .mscope--hero .mscope__stage, .mscope--hero .mscope__soft { animation-range: cover 17% cover 100%; }
+      .mscope--hero .mscope__stage--field { animation-name: mscope-hero-field; }
+      .mscope--hero .mscope__stage--field .mscope__soft { animation-name: mscope-hero-field-focus; }
+      .mscope--hero .mscope__stage--macro { animation-name: mscope-hero-macro; }
+      .mscope--hero .mscope__stage--macro .mscope__soft { animation-name: mscope-hero-macro-focus; }
+    }
+  }
+  /* 100x: arrives from slightly too close and out of focus, settles while the section rises,
+     then rushes past the lens (cover 36–45%) */
+  @keyframes mscope-field {
+    0%   { transform: scale(1.16) translate3d(0, 2.5%, 0); opacity: 1; }
+    20%  { transform: scale(1.03); opacity: 1; }
+    36%  { transform: scale(1.05); opacity: 1; animation-timing-function: ease-in; }
+    45%  { transform: scale(1.6); opacity: 0; }
+    100% { transform: scale(1.6); opacity: 0; }
+  }
+  @keyframes mscope-field-focus {
+    0%   { opacity: 1; }
+    6%   { opacity: 0.85; animation-timing-function: ease-out; }
+    18%  { opacity: 0; }
+    35%  { opacity: 0; animation-timing-function: ease-in; }
+    43%  { opacity: 1; }
+    100% { opacity: 1; }
+  }
+  /* 400x: snaps in as the turret clicks, starts soft, then the fine focus knob brings the cells out;
+     sharp at cover 50%, when a one-screen-tall section fills the screen */
+  @keyframes mscope-macro {
+    0%, 36% { transform: scale(0.86); opacity: 0; animation-timing-function: ease-out; }
+    44%  { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.08) translate3d(-1.5%, -1%, 0); opacity: 1; }
+  }
+  @keyframes mscope-macro-focus {
+    0%, 39% { opacity: 1; animation-timing-function: ease-out; }
+    50%  { opacity: 0; }
+    100% { opacity: 0; }
+  }
+  /* hero: the slower story, the objective change plays while the hero scrolls away */
+  @keyframes mscope-hero-field {
+    0%   { transform: scale(1.16) translate3d(0, 2.5%, 0); opacity: 1; }
+    36%  { transform: scale(1.02); opacity: 1; animation-timing-function: ease-in; }
+    50%  { transform: scale(1.1); opacity: 1; }
+    66%  { transform: scale(1.75); opacity: 0; }
+    100% { transform: scale(1.75); opacity: 0; }
+  }
+  @keyframes mscope-hero-field-focus {
+    0%   { opacity: 1; }
+    10%  { opacity: 0.85; animation-timing-function: ease-out; }
+    30%  { opacity: 0; }
+    46%  { opacity: 0; animation-timing-function: ease-in; }
+    62%  { opacity: 1; }
+    100% { opacity: 1; }
+  }
+  @keyframes mscope-hero-macro {
+    0%, 48% { transform: scale(0.84); opacity: 0; animation-timing-function: ease-out; }
+    64%  { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.08) translate3d(-1.5%, -1%, 0); opacity: 1; }
+  }
+  @keyframes mscope-hero-macro-focus {
+    0%, 54% { opacity: 1; animation-timing-function: ease-out; }
+    74%  { opacity: 0; }
+    100% { opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mscope__stage, .mscope__drift, .mscope__soft, .mscope__intro { animation: none !important; }
+    .mscope__stage--field { opacity: 1; transform: none; }
+    .mscope__stage--macro, .mscope__soft, .mscope__intro { opacity: 0; }
+  }
+</style>

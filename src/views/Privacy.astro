@@ -1,0 +1,6 @@
+---
+import Legal from './Legal.astro';
+import type { Lang } from '../lib/i18n';
+const { lang } = Astro.props as { lang: Lang };
+---
+<Legal lang={lang} kind="privacy" />

@@ -1,0 +1,120 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import { pagesCopy } from '../i18n/pages';
+import { CONTACT } from '../i18n/common';
+import { pick, t, type Lang } from '../lib/i18n';
+import { href } from '../lib/routes';
+import { FORM_ENDPOINT, FORM_TO } from '../lib/config';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = pick(pagesCopy, lang).contact;
+const f = pick(pagesCopy, lang).form;
+const mapQuery = encodeURIComponent('Halkapınar Mah. 1203 Sk. No:13 Konak İzmir');
+const mapUrl = 'https://www.google.com/maps/search/?api=1&query=' + mapQuery;
+/* keyless Google Maps embed (no API key needed) */
+const mapEmbed = `https://maps.google.com/maps?q=${mapQuery}&z=16&hl=${lang}&output=embed`;
+const msgs = { sending: f.sending, ok: f.ok, err: f.err, mailto: f.mailto, required: f.required, invalidEmail: f.invalidEmail };
+const local = { '@context': 'https://schema.org', '@type': 'LocalBusiness', name: 'Mavi Protein Danışmanlık', telephone: CONTACT.phone, email: CONTACT.email, address: { '@type': 'PostalAddress', streetAddress: 'Halkapınar Mah. 1203 Sk. No:13/1309', addressLocality: 'Konak', addressRegion: 'İzmir', addressCountry: 'TR' }, geo: { '@type': 'GeoCoordinates', latitude: 38.437, longitude: 27.163 } };
+---
+<Base lang={lang} title={c.meta.title} description={c.meta.description} route="contact" startDark={false} gauge={false} jsonLd={[local]}>
+  <section class="ct s-light grain" data-surface="light" aria-labelledby="ct-title">
+    <div class="wrap ct__grid">
+      <div class="ct__direct">
+        <p class="label"><span class="dot"></span>{c.kicker}</p>
+        <h1 id="ct-title" class="t-display" set:html={c.title} />
+        <dl class="ct__list">
+          <div>
+            <dt class="label">{c.phone}</dt>
+            <dd><a class="ct__big" href={CONTACT.phoneHref}>{CONTACT.phone}</a><button type="button" class="ct__copy" data-copy={CONTACT.phone} data-done={c.copied}>{c.copy}</button></dd>
+          </div>
+          <div>
+            <dt class="label">{c.email}</dt>
+            <dd><a class="ct__big" href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a><button type="button" class="ct__copy" data-copy={CONTACT.email} data-done={c.copied}>{c.copy}</button></dd>
+          </div>
+          <div>
+            <dt class="label">{c.address}</dt>
+            <dd class="ct__addr">{t(CONTACT.address, lang)}</dd>
+          </div>
+          <div>
+            <dt class="label">{c.hours}</dt>
+            <dd>{c.hoursV}</dd>
+          </div>
+        </dl>
+        <ul class="ct__social" role="list">
+          {CONTACT.social.map(([n, u]) => <li><a class="link" href={u} target="_blank" rel="noopener">{n}</a></li>)}
+          <li><a class="link" href={CONTACT.whatsappHref} target="_blank" rel="noopener">WhatsApp</a></li>
+        </ul>
+        <figure class="map">
+          <iframe class="map__frame" src={mapEmbed} title={`${c.address}: ${t(CONTACT.address, lang)}`} loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          <figcaption class="map__bar">
+            <span class="mono">{CONTACT.coords} · İzmir</span>
+            <a class="link" href={mapUrl} target="_blank" rel="noopener">{c.map}<Arrow dir="out" /></a>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="ct__formwrap">
+        <form class="frm" novalidate data-form data-endpoint={FORM_ENDPOINT} data-to={FORM_TO} data-msgs={JSON.stringify(msgs)} data-subject="Web · İletişim">
+          <p class="label">{c.formTitle}</p>
+          <div class="fld"><label for="cf-name">{f.name}</label><input id="cf-name" name="name" autocomplete="name" required /><span class="fld__err" aria-live="polite"></span></div>
+          <div class="fld"><label for="cf-email">{f.email}</label><input id="cf-email" name="email" type="email" autocomplete="email" required /><span class="fld__err" aria-live="polite"></span></div>
+          <div class="fld"><label for="cf-subject">{f.subject} <span class="faint">({f.optional})</span></label><input id="cf-subject" name="subject" /></div>
+          <div class="fld"><label for="cf-msg">{f.message}</label><textarea id="cf-msg" name="message" rows="6" required></textarea><span class="fld__err" aria-live="polite"></span></div>
+          <div class="fld fld--check"><input id="cf-kvkk" type="checkbox" name="kvkk" required /><label for="cf-kvkk"><a class="link" href={href('privacy', lang)} target="_blank">{f.kvkk}</a></label><span class="fld__err" aria-live="polite"></span></div>
+          <button class="btn" type="submit" data-submit>{f.send}<Arrow /></button>
+          <p class="frm__status" role="status" data-status></p>
+          <p class="t-small muted frm__hint">{c.startHint} <a class="link" href={href('start', lang)}>{pick(pagesCopy, lang).start.kicker}</a></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { validate, send } from '../scripts/forms';
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((b) => b.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(b.dataset.copy!); const o = b.textContent; b.textContent = b.dataset.done!; setTimeout(() => (b.textContent = o), 1600); } catch {}
+  }));
+  const form = document.querySelector<HTMLFormElement>('[data-form]');
+  if (form) {
+    const msgs = JSON.parse(form.dataset.msgs!);
+    const status = form.querySelector<HTMLElement>('[data-status]')!;
+    const btn = form.querySelector<HTMLButtonElement>('[data-submit]')!;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!validate(form, msgs)) return;
+      btn.disabled = true; status.textContent = msgs.sending; status.dataset.state = 'sending';
+      const fd = Object.fromEntries(new FormData(form)) as Record<string, string>;
+      const r = await send(fd, form.dataset.endpoint!, form.dataset.to!, form.dataset.subject!);
+      status.dataset.state = r;
+      status.textContent = r === 'ok' ? msgs.ok : r === 'mailto' ? msgs.mailto : msgs.err;
+      btn.disabled = false;
+      if (r === 'ok') form.reset();
+    });
+  }
+</script>
+
+<style>
+  .ct { padding-top: calc(var(--header-h) + clamp(40px, 6vw, 96px)); padding-bottom: var(--sec-y); }
+  .ct__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); align-items: start; }
+  .ct__direct { grid-column: 1 / span 6; display: grid; gap: 1.6rem; justify-items: start; }
+  .ct__list { width: 100%; border-top: 1px solid var(--rule-strong); margin-top: 1rem; }
+  .ct__list > div { display: grid; gap: 0.4rem; padding-block: 1.2rem; border-bottom: 1px solid var(--rule); }
+  .ct__list dd { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.6rem 1.2rem; }
+  .ct__big { font-family: var(--f-serif); font-size: clamp(1.6rem, 1.1rem + 1.8vw, 2.8rem); letter-spacing: -0.02em; line-height: 1.1; direction: ltr; }
+  .ct__big:hover { color: var(--phyco); }
+  .ct__copy { font-family: var(--f-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); padding: 0.4rem 0.6rem; border: 1px solid var(--rule); border-radius: 2px; }
+  .ct__copy:hover { color: var(--ink); border-color: var(--rule-strong); }
+  .ct__addr { font-size: 1.15rem; }
+  .ct__social { display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem; }
+  .map { width: 100%; margin: 0; border: 1px solid var(--rule); border-radius: 2px; overflow: hidden; background: var(--sand, #eee); }
+  .map__frame { display: block; width: 100%; aspect-ratio: 16 / 10; border: 0; }
+  .map__bar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 0.7rem 1rem; border-top: 1px solid var(--rule); font-size: 0.85rem; }
+  .map__bar .mono { font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink-3); }
+  .map__bar a { display: inline-flex; gap: 0.4rem; align-items: center; font-weight: 600; }
+  .ct__formwrap { grid-column: 8 / -1; position: sticky; top: calc(var(--header-h) + 1.5rem); }
+  @media (max-width: 960px) { .ct__direct, .ct__formwrap { grid-column: 1 / -1; position: static; } }
+
+</style>

@@ -1,0 +1,966 @@
+{
+  "legalName": {
+    "tr": "Mavi Protein Danışmanlık Su Ürünleri Tarım ve Hayvancılık Turizm San. ve Tic. Ltd. Şti.",
+    "en": "Mavi Protein Consultancy Aquaculture Agriculture Animal Husbandry Tourism Ind. & Trade Limited Co.",
+    "ar": "شركة Mavi Protein للاستشارات والاستزراع المائي والزراعة والثروة الحيوانية والسياحة والصناعة والتجارة المحدودة"
+  },
+  "shortName": {
+    "tr": "Mavi Protein Danışmanlık",
+    "en": "Mavi Protein Consultancy",
+    "ar": "Mavi Protein للاستشارات"
+  },
+  "brand": "Mavi Protein",
+  "founded": {
+    "year": 2015,
+    "text": {
+      "tr": "2015 yılı başı",
+      "en": "Beginning of 2015",
+      "ar": "مطلع عام 2015"
+    }
+  },
+  "city": {
+    "tr": "İzmir",
+    "en": "Izmir",
+    "ar": "إزمير"
+  },
+  "founder": {
+    "name": "Fatih Başaran",
+    "title": {
+      "tr": "Doç. Dr.",
+      "en": "Assoc. Prof. Dr.",
+      "ar": "أستاذ مشارك دكتور"
+    },
+    "displayName": {
+      "tr": "Doç. Dr. Fatih Başaran",
+      "en": "Assoc. Prof. Dr. Fatih Başaran",
+      "ar": "الأستاذ المشارك الدكتور فاتح باشاران (Fatih Başaran)"
+    },
+    "aquacultureSince": 1990,
+    "summary": {
+      "tr": "1990 yılında başlayan akuakültür balıkçılık deneyimleri, akademik deneyimleri ve reel sektör deneyimleri.",
+      "en": "Experience in aquaculture and fisheries since 1990, together with academic and real-sector experience.",
+      "ar": "خبرة في الاستزراع المائي ومصايد الأسماك منذ عام 1990، تجمع بين الخبرة الأكاديمية والخبرة في القطاع الفعلي."
+    },
+    "note": "Portre, akademik özgeçmiş, uzmanlık alanları ve yayın listesi kaynakta yok; müşteriden istenecek."
+  },
+  "about": {
+    "tr": "Mavi Protein Danışmanlık Ltd. Şti., şirketimiz kurucusu Doç. Dr. Fatih Başaran'ın 1990 yılında başlayan akuakültür balıkçılık deneyimleri, akademik deneyimleri ve reel sektör deneyimlerini tüm insanlığın hizmetine sunabilme arzusu ile 2015 yılı başında kurulmuş olan profesyonel çok amaçlı bir danışmanlık firmasıdır.",
+    "en": "Mavi Protein Consultancy was founded at the beginning of 2015 as a multipurpose professional consulting company. Its founder, Assoc. Prof. Fatih Başaran, has worked since 1990 in aquaculture, in academia and in the real sector, and founded the company with the wish to share all this experience with humanity.",
+    "ar": "تأسست Mavi Protein للاستشارات في مطلع عام 2015 شركةً استشاريةً مهنيةً متعددة الأغراض. ومؤسسها الأستاذ المشارك الدكتور فاتح باشاران يعمل منذ عام 1990 في مجال الاستزراع المائي، في الوسط الأكاديمي وفي القطاع الفعلي، وقد أسس الشركة رغبةً منه في مشاركة هذه الخبرة كلها مع الإنسانية."
+  },
+  "mission": [
+    {
+      "tr": "Şirketimizin misyonu, ülkemiz yatırımcı ve üreticilerinin araştırma ve geliştirme projelerini hayata geçirmek için ulusal ve uluslararası kaynakları kullanımında rehberlik ederek, ülkemizin üretim gücünü ve nitelikli eleman yetişmesinin ivmesini arttırmaktır.",
+      "en": "Our company's mission is to guide investors and producers in achieving their research and development projects. Our main aims are to increase their manufacturing power and to develop the quality of the workforce.",
+      "ar": "تتمثل رسالة شركتنا في إرشاد المستثمرين والمنتجين إلى تحقيق مشاريعهم في البحث والتطوير. وأهدافنا الرئيسية زيادة قدرتهم التصنيعية وتطوير جودة القوى العاملة."
+    },
+    {
+      "tr": "Tüm çalışma ortaklarımızın işini, kendi işimizi yaparken duyduğumuz heyecanla, motivasyonla ve yılmadan gerçekleştirip uzun ömürlü ilişkiler kurmaktır.",
+      "en": "We want to carry out all the work of our partners with great motivation and excitement, and to establish long-term relationships with our business partners.",
+      "ar": "نسعى إلى إنجاز جميع أعمال شركائنا بحماس ودافعية كبيرين، وإلى إقامة علاقات طويلة الأمد مع شركائنا في العمل."
+    }
+  ],
+  "vision": {
+    "tr": "Şirketimizin vizyonu, ulusal ve uluslararası proje ortaklarının buluştuğu ve daha güzel yarınlar için yarattığı, en üst düzeyde teknik ve bilimsel desteğin ve yönlendirmenin yapıldığı sanayi aşçısı olmaktır.",
+    "en": "Our vision is to be a meeting point of national and international project partners. Our company provides the highest level of scientific techniques to customers so they can create a better tomorrow.",
+    "ar": "رؤيتنا أن نكون نقطة التقاء لشركاء المشاريع الوطنيين والدوليين. وتقدم شركتنا لعملائها أرقى التقنيات العلمية ليصنعوا غدًا أفضل."
+  },
+  "visionFaithfulEn": "Our vision is to be the 'industrial chef' where national and international project partners meet and create for a better tomorrow, offering technical and scientific support and guidance at the highest level.",
+  "visionKeyPhrase": {
+    "tr": "sanayi aşçısı",
+    "en": "industrial chef",
+    "ar": "طاهٍ صناعي"
+  },
+  "visionNote": "EN sitedeki vizyon metninde 'sanayi aşçısı' ifadesi yok; visionFaithfulEn TR metnin sadık çevirisidir (TASLAK).",
+  "contact": {
+    "address": {
+      "street": "Halkapınar Mah. 1203 Sk. No:13/1309",
+      "district": "Konak",
+      "city": "İzmir",
+      "country": {
+        "tr": "Türkiye",
+        "en": "Türkiye",
+        "ar": "تركيا"
+      },
+      "formatted": {
+        "tr": "Halkapınar Mah. 1203 Sk. No:13/1309 Konak / İzmir",
+        "en": "Halkapınar Mah. 1203 Sk. No:13/1309, Konak, Izmir, Türkiye",
+        "ar": "Halkapınar Mah. 1203 Sk. No:13/1309, Konak, İzmir, Türkiye"
+      }
+    },
+    "gsm": "+90 532 676 74 22",
+    "gsmHref": "tel:+905326767422",
+    "email": "info@maviprotein.com.tr",
+    "web": "https://www.maviprotein.com.tr",
+    "source": "iletisim.aspx ve TR footer (2026 taraması)"
+  },
+  "legacyContact": {
+    "note": "Eski bilgiler; EN/AR iletişim sayfası ve 2016 kataloğundan. Yeni sitede yayımlanmadan önce müşteriyle teyit edilmeli; güncel olan TR sitedeki Konak adresidir.",
+    "address": {
+      "tr": "Karacaoğlan Mah. 6169 Sk. No: 6/6 Işıkkent, Bornova / İzmir",
+      "en": "Karacaoğlan Mah. 6169 Sk. No: 6/6 Işıkkent, Bornova, Izmir, Türkiye",
+      "ar": "Karacaoğlan Mah. 6169 Sk. No: 6/6 Işıkkent, Bornova, İzmir, Türkiye"
+    },
+    "phone": "+90 232 472 20 97",
+    "fax": "+90 232 472 20 98",
+    "sources": [
+      "en-US/contact.aspx",
+      "arb/contact.aspx",
+      "catalog p.56 ('6169. Sokak, No: 6/6 Bornova / İzmir', tel, faks)"
+    ],
+    "spirulinaLabel": {
+      "phone": "+90 546 660 44 65",
+      "web": "www.turkishspirulina.com",
+      "source": "ALGOPHYCO etiket infografiği (img/works/0fe8YERLİ ÜRETİM 2.png)",
+      "note": "Yalnız spirulina görselinde geçen ikinci GSM ve alan adı; kime ait olduğu teyit edilmeli."
+    }
+  },
+  "social": {
+    "facebook": "https://www.facebook.com/maviprotein",
+    "x": "https://x.com/Maviprotein",
+    "twitterLegacy": "https://twitter.com/Maviprotein",
+    "linkedin": "https://www.linkedin.com/company/maviprotein",
+    "instagram": "https://www.instagram.com/maviprotein/",
+    "dropped": [
+      {
+        "name": "Google+",
+        "reason": "Servis 2019 yılında kapandı; bağlantı yeni siteye alınmadı."
+      }
+    ],
+    "note": "Footer'daki facebook.com/cizgibey bağlantısı ('/ÇizgiBey') eski sitenin tasarım ajansı imzası; firma hesabı değil. Hesapların hâlâ aktif olduğu teyit edilmeli."
+  },
+  "reference": {
+    "company": {
+      "tr": "Turkuaz Marin Deniz Ürünleri A.Ş.",
+      "en": "Turkuaz Marin Deniz Ürünleri Co. (Türkiye)",
+      "ar": "شركة Turkuaz Marin Deniz Ürünleri (تركيا)"
+    },
+    "city": {
+      "tr": "İzmir",
+      "en": "Izmir",
+      "ar": "إزمير"
+    },
+    "program": {
+      "tr": "TÜBİTAK 1501 Sanayi Ar-Ge Projeleri Destekleme Programı",
+      "en": "TÜBİTAK 1501 Industrial R&D Projects Grant Programme",
+      "ar": "برنامج TÜBİTAK 1501 لدعم مشاريع البحث والتطوير الصناعية"
+    },
+    "funder": {
+      "tr": "TÜBİTAK (Türkiye Bilimsel ve Teknolojik Araştırma Kurumu)",
+      "en": "TÜBİTAK (The Scientific and Technological Research Council of Türkiye)",
+      "ar": "TÜBİTAK (مجلس البحوث العلمية والتكنولوجية في تركيا)"
+    },
+    "start": "2016-01",
+    "end": "2017-07",
+    "period": {
+      "tr": "Ocak 2016 – Temmuz 2017",
+      "en": "January 2016 – July 2017",
+      "ar": "يناير 2016 – يوليو 2017"
+    },
+    "text": {
+      "tr": "1501 - TÜBİTAK Sanayi Ar-Ge Projeleri Destekleme Programı kapsamında; proje başlangıç-bitiş: Ocak 2016 / Temmuz 2017.",
+      "en": "Within the TÜBİTAK 1501 Industrial R&D Projects Grant Programme; project dates: January 2016 to July 2017.",
+      "ar": "ضمن برنامج TÜBİTAK 1501 لدعم مشاريع البحث والتطوير الصناعية؛ مدة المشروع من يناير 2016 إلى يوليو 2017."
+    },
+    "projectDetail": null,
+    "note": "Kaynakta proje konusu, Mavi Protein'in rolü ve sonuç yok; müşteriden istenecek. Kayıttaki kişi adları, adres ve telefon (kişisel veri) bilinçli olarak alınmadı.",
+    "sources": [
+      "referanslar.aspx",
+      "en-US/references.aspx"
+    ]
+  },
+  "partnerships": [
+    {
+      "name": "Jinan Sunpring Machinery and Equipment Co. Ltd.",
+      "country": {
+        "tr": "Çin",
+        "en": "China",
+        "ar": "الصين"
+      },
+      "role": {
+        "tr": "Türkiye ve Ortadoğu exclusive distribütörlüğü",
+        "en": "Exclusive distributor for Türkiye and the Middle East",
+        "ar": "الموزع الحصري في تركيا والشرق الأوسط"
+      },
+      "since": "2016-03",
+      "sinceNote": "Başlangıç tarihi kaynakta yok; en erken kanıt 27.03.2016 tarihli yazı ve 13–15 Mart 2016 AGRA ME fuarı.",
+      "sourceText": {
+        "tr": "Mavi Protein Danışmanlık olarak Türkiye ve Ortadoğu exclusive distribütörlüğünü yaptığımız Jinan Sunpring Machinery and Equipment Co. Ltd. partnerimizle beraber ilk uluslararası fuarımıza katılıyoruz.",
+        "en": "We are joining our first international fair with our partner, Jinan Sunpring Machinery and Equipment Co.",
+        "ar": "نشارك في أول معرض دولي لنا مع شريكنا Jinan Sunpring Machinery and Equipment Co."
+      },
+      "evidence": [
+        "Blog yazısı 61 (TR ve EN): 'Dubai Agra ME Fuarındayız'",
+        "AGRA ME 2016 davet görselinde (img/works/7ec1DUBAI SON.jpg) Sunpring logosu",
+        "EN katalog s.36 (yapay pirinç hattı) Sunpring ekstrüzyon sistemlerine doğrudan atıf yapıyor"
+      ],
+      "note": "EN metinde 'exclusive distributor' ifadesi yok, yalnız 'partner' deniyor. Ortaklığın bugün sürüp sürmediği teyit edilmeli."
+    }
+  ],
+  "fairs": [
+    {
+      "key": "agra-me-2016",
+      "name": "AGRA ME 2016",
+      "fullName": {
+        "tr": "20. Agra Middle East Tarım, Kanatlı, Balıkçılık ve Teknolojileri Fuarı",
+        "en": "20th Agra Middle East Agriculture, Poultry, Fishing & Technologies Fair",
+        "ar": "معرض Agra Middle East العشرون للزراعة والدواجن والصيد والتقنيات"
+      },
+      "description": {
+        "tr": "Ortadoğu'nun en önemli tarım, hayvancılık ve balıkçılık fuarı",
+        "en": "The Middle East's most important agriculture, livestock and fishing fair",
+        "ar": "أهم معرض للزراعة والثروة الحيوانية والصيد في الشرق الأوسط"
+      },
+      "city": {
+        "tr": "Dubai, Birleşik Arap Emirlikleri",
+        "en": "Dubai, United Arab Emirates",
+        "ar": "دبي، الإمارات العربية المتحدة"
+      },
+      "venue": "Dubai International Exhibition Centre",
+      "start": "2016-03-13",
+      "end": "2016-03-15",
+      "stand": "S1E19, Aqua Hall 1",
+      "with": {
+        "tr": "Jinan Sunpring Machinery and Equipment Co. Ltd. ile birlikte; firmanın ilk uluslararası fuarı",
+        "en": "Together with Jinan Sunpring Machinery and Equipment Co. Ltd.; the company's first international fair",
+        "ar": "بالتعاون مع Jinan Sunpring Machinery and Equipment Co. Ltd.؛ أول معرض دولي للشركة"
+      },
+      "countriesMet": [
+        {
+          "code": "AE",
+          "name": {
+            "tr": "Birleşik Arap Emirlikleri",
+            "en": "United Arab Emirates",
+            "ar": "الإمارات العربية المتحدة"
+          }
+        },
+        {
+          "code": "IN",
+          "name": {
+            "tr": "Hindistan",
+            "en": "India",
+            "ar": "الهند"
+          }
+        },
+        {
+          "code": "IR",
+          "name": {
+            "tr": "İran",
+            "en": "Iran",
+            "ar": "إيران"
+          }
+        },
+        {
+          "code": "NP",
+          "name": {
+            "tr": "Nepal",
+            "en": "Nepal",
+            "ar": "نيبال"
+          }
+        },
+        {
+          "code": "SO",
+          "name": {
+            "tr": "Somali",
+            "en": "Somalia",
+            "ar": "الصومال"
+          }
+        },
+        {
+          "code": "NG",
+          "name": {
+            "tr": "Nijerya",
+            "en": "Nigeria",
+            "ar": "نيجيريا"
+          }
+        },
+        {
+          "code": "UG",
+          "name": {
+            "tr": "Uganda",
+            "en": "Uganda",
+            "ar": "أوغندا"
+          }
+        },
+        {
+          "code": "KR",
+          "name": {
+            "tr": "Kore",
+            "en": "Korea",
+            "ar": "كوريا"
+          }
+        },
+        {
+          "code": "PT",
+          "name": {
+            "tr": "Portekiz",
+            "en": "Portugal",
+            "ar": "البرتغال"
+          }
+        },
+        {
+          "code": "CM",
+          "name": {
+            "tr": "Kamerun",
+            "en": "Cameroon",
+            "ar": "الكاميرون"
+          }
+        }
+      ],
+      "outcome": {
+        "tr": "Birçok uluslararası yatırımcı ve iş insanıyla görüşmeler ve tanışmalar gerçekleştirildi; geleceğe dönük birçok proje konusunda ön görüşmeler yapıldı.",
+        "en": "Meetings were held with many international investors and business people, with preliminary discussions on many future-oriented projects.",
+        "ar": "عُقدت لقاءات مع العديد من المستثمرين ورجال الأعمال الدوليين، وأُجريت مباحثات أولية حول العديد من المشاريع المستقبلية."
+      },
+      "posts": [
+        61,
+        55
+      ],
+      "images": [
+        "/img/archive/agra-me-2016-dubai-stand.jpg"
+      ],
+      "notes": [
+        "'Kore' için Güney/Kuzey ayrımı kaynakta yok; KR varsayıldı.",
+        "Salon ve fuarın tam adı davet görselinden (img/works/7ec1DUBAI SON.jpg) okundu."
+      ]
+    },
+    {
+      "key": "future-fish-eurasia-2016",
+      "name": "Future Fish Eurasia 2016",
+      "fullName": {
+        "tr": "8. Uluslararası Su Ürünleri İhracat ve İşleme, Akuakültür ve Balıkçılık Teknolojileri Fuarı",
+        "en": "8th International Fair for Fish Imports/Exports, Processing, Aquaculture and Fisheries",
+        "ar": "المعرض الدولي الثامن لاستيراد وتصدير الأسماك وتصنيعها والاستزراع المائي ومصايد الأسماك"
+      },
+      "city": {
+        "tr": "İzmir, Türkiye",
+        "en": "Izmir, Türkiye",
+        "ar": "إزمير، تركيا"
+      },
+      "start": "2016-06-02",
+      "end": "2016-06-04",
+      "stand": "228, Hall D",
+      "with": {
+        "tr": "Çinli ve İranlı iş ortaklarıyla birlikte",
+        "en": "Together with Chinese and Iranian business partners",
+        "ar": "بالتعاون مع شركائنا في العمل من الصين وإيران"
+      },
+      "outcome": {
+        "tr": "Tüm dostlarla sohbet etme şansı yakalandı, standda çok sevilen dostlar ağırlandı ve önemli ticari görüşmeler yapıldı.",
+        "en": "We had the chance to talk with friends, welcomed dear friends at our stand and held important business meetings.",
+        "ar": "أُتيحت لنا فرصة الحديث مع الأصدقاء، واستقبلنا أصدقاءنا الأعزاء في جناحنا، وعقدنا لقاءات عمل مهمة."
+      },
+      "posts": [
+        62,
+        63
+      ],
+      "images": [
+        "/img/archive/future-fish-2016-izmir-01.jpg",
+        "/img/archive/future-fish-2016-izmir-02.jpg",
+        "/img/archive/future-fish-2016-izmir-03.jpg",
+        "/img/archive/future-fish-2016-izmir-04.jpg",
+        "/img/archive/future-fish-2016-izmir-05.jpg",
+        "/img/archive/future-fish-2016-izmir-06.jpg"
+      ],
+      "notes": [
+        "'Hall D' bilgisi davet görselinden (img/works/807e2016 Future Fish Fair İzmir.jpg) okundu.",
+        "Fotoğrafların Future Fish'e ait olduğu eski galerideki kategori etiketinden alındı; bazı karelerdeki ziyaretçi profili teyit gerektirebilir."
+      ]
+    }
+  ],
+  "rotika": {
+    "client": "Rotika",
+    "country": {
+      "tr": "İran",
+      "en": "Iran",
+      "ar": "إيران"
+    },
+    "service": {
+      "tr": "Kedi-köpek mamaları formülasyon ve üretim danışmanlığı",
+      "en": "Cat and dog food formulation and production consultancy",
+      "ar": "استشارات تركيب وإنتاج أغذية القطط والكلاب"
+    },
+    "summary": {
+      "tr": "Uluslararası işlerimizden olan kedi-köpek mamaları ve üretim danışmanlıkları çalışmalarımızın önemli bir tanesi, İran'da Rotika firmasına verilen danışmanlıkla meyvelerini vermiştir. Üretimler gerçekleştirilmiş olup ürünler piyasaya sunulmuştur.",
+      "en": "One of our important international cat and dog food production consultancy projects bore fruit with the consultancy given to Rotika in Iran. Production has been carried out and the products have been launched on the market.",
+      "ar": "أثمر أحد مشاريعنا الدولية المهمة في استشارات إنتاج أغذية القطط والكلاب من خلال الاستشارات المقدمة لشركة Rotika في إيران، إذ تم تنفيذ الإنتاج وطُرحت المنتجات في السوق."
+    },
+    "outlook2020": {
+      "tr": "Benzer ürünlerin pandemi sonrası ülkemizde de satışa sunulması düşünülmektedir.",
+      "en": "Similar products are planned to be offered for sale in Türkiye after the pandemic.",
+      "ar": "من المخطط طرح منتجات مماثلة للبيع في تركيا بعد انتهاء الجائحة."
+    },
+    "outlookNote": "2020 tarihli niyet beyanı; güncel durumu teyit edilmeden yayımlanmamalı.",
+    "date": "2020-07-30",
+    "packagingMark": "Official Licensed Product · Mavi Protein",
+    "brandLine": "Rotika · For pet lovers",
+    "products": [
+      {
+        "tr": "Orta-büyük ırk yetişkin köpek maması (2 kg)",
+        "en": "Medium to large breeds adult dogs (2 kg)",
+        "ar": "غذاء الكلاب البالغة من السلالات المتوسطة والكبيرة (2 kg)"
+      },
+      {
+        "tr": "Orta-büyük ırk yavru köpek maması (2 kg)",
+        "en": "Medium to large breeds junior dogs (2 kg)",
+        "ar": "غذاء جراء الكلاب من السلالات المتوسطة والكبيرة (2 kg)"
+      },
+      {
+        "tr": "Küçük ırk yetişkin köpek maması (2 kg)",
+        "en": "Small breeds adult dogs (2 kg)",
+        "ar": "غذاء الكلاب البالغة من السلالات الصغيرة (2 kg)"
+      },
+      {
+        "tr": "Küçük ırk yavru köpek maması (2 kg)",
+        "en": "Small breeds junior dogs (2 kg)",
+        "ar": "غذاء جراء الكلاب من السلالات الصغيرة (2 kg)"
+      },
+      {
+        "tr": "Yavru kedi maması (2 kg)",
+        "en": "Kittens (2 kg)",
+        "ar": "غذاء صغار القطط (2 kg)"
+      },
+      {
+        "tr": "Yetişkin kedi maması (2 kg)",
+        "en": "Adult cats (2 kg)",
+        "ar": "غذاء القطط البالغة (2 kg)"
+      },
+      {
+        "tr": "Evcil kuşlar için karışık yem (1 kg)",
+        "en": "Mixed food for companion birds (1 kg)",
+        "ar": "غذاء مخلوط لطيور الزينة (1 kg)"
+      },
+      {
+        "tr": "Mayna kuşu günlük pelet yemi (1 kg)",
+        "en": "Mynah's daily pellet food (1 kg)",
+        "ar": "غذاء محبب يومي لطيور المينا (1 kg)"
+      },
+      {
+        "tr": "Orta-büyük papağan günlük pelet yemi (1 kg)",
+        "en": "Medium to large parrots daily pellet food (1 kg)",
+        "ar": "غذاء محبب يومي للببغاوات المتوسطة والكبيرة (1 kg)"
+      },
+      {
+        "tr": "Küçük-orta papağan günlük pelet yemi (1 kg)",
+        "en": "Small to medium parrots daily pellet food (1 kg)",
+        "ar": "غذاء محبب يومي للببغاوات الصغيرة والمتوسطة (1 kg)"
+      },
+      {
+        "tr": "Kemirgenler için kuruyemiş-meyve karışımı (1 kg)",
+        "en": "Rodent's nuts mixed fruit (1 kg)",
+        "ar": "خليط المكسرات والفواكه للقوارض (1 kg)"
+      }
+    ],
+    "productsSource": "Ambalaj görselleri (eski galeri 'Kedi-köpek mamaları' ve 67 numaralı yazı); ürün adları ambalajlardan okundu.",
+    "post": 67,
+    "images": [
+      "/img/archive/rotika-uretim-tesisi-01.jpg",
+      "/img/archive/rotika-uretim-tesisi-02.jpg",
+      "/img/archive/rotika-kopek-orta-buyuk-irk-yetiskin.jpg"
+    ],
+    "note": "Yazı yalnız kedi-köpek mamasından söz ediyor; ambalajlarda kuş ve kemirgen yemleri de var (TASARIM.md 'kuş maması' da diyor)."
+  },
+  "algophyco": {
+    "brand": "ALGOPHYCO™",
+    "role": {
+      "tr": "Mavi Protein Danışmanlık bu ürünün yetkili bayisidir.",
+      "en": "Mavi Protein Consultancy is an authorised dealer of this product.",
+      "ar": "Mavi Protein للاستشارات وكيل معتمد لهذا المنتج."
+    },
+    "slogan": {
+      "tr": "Tek adımda mükemmel beslenin!",
+      "en": "Perfect nutrition in a single step!",
+      "ar": "تغذية مثالية في خطوة واحدة!"
+    },
+    "sloganNote": "EN slogan TASLAK çeviridir.",
+    "product": {
+      "tr": "%100 Arthrospira platensis, kurutulmuş mikro yosun (spirulina) unu; katkı ve koruyucu içermez.",
+      "en": "100% Arthrospira platensis, dried micro-algae (spirulina) powder; contains no additives or preservatives.",
+      "ar": "مسحوق طحالب دقيقة مجففة (سبيرولينا) من Arthrospira platensis بنسبة 100%؛ لا يحتوي على أي إضافات أو مواد حافظة."
+    },
+    "origin": {
+      "tr": "Yerli üretim. Ülkemizde İzmir, Denizli ve Adana bölgelerinde yerli spirulina üretimleri yapılmaktadır.",
+      "en": "Produced in Türkiye. Domestic spirulina is produced in the Izmir, Denizli and Adana regions.",
+      "ar": "منتج في تركيا. تُنتج السبيرولينا المحلية في مناطق إزمير ودنيزلي وأضنة."
+    },
+    "description": {
+      "tr": "Spirulina, genellikle mavi-yeşil alg olarak adlandırılan tek hücreli mikroorganizmaların ailesi olan bir siyanobakteridir. Sarmal bir yapısı ve bazen düz çubuksu yapılardaki alt türleri mevcuttur. Hücrenin eni 5–10 µm, boyu 300–500 µm kadar uzamaktadır.",
+      "en": "Spirulina is a cyanobacterium, part of the family of single-celled microorganisms commonly called blue-green algae. It has a spiral structure, with some sub-types forming straight rods. Cells are 5–10 µm wide and grow up to 300–500 µm long.",
+      "ar": "السبيرولينا بكتيريا زرقاء (سيانوبكتيريا)، تنتمي إلى فصيلة الكائنات الدقيقة وحيدة الخلية المعروفة عمومًا بالطحالب الخضراء المزرقة. تتميز ببنية حلزونية، وتشكّل بعض أنواعها الفرعية قضبانًا مستقيمة. يبلغ عرض خلاياها 5–10 µm ويصل طولها إلى 300–500 µm."
+    },
+    "packs": [
+      {
+        "size": "100 g",
+        "type": {
+          "tr": "Doypack",
+          "en": "Doypack",
+          "ar": "كيس قائم (Doypack)"
+        },
+        "image": "/img/archive/algophyco-100g-doypack.png"
+      },
+      {
+        "size": "250 g",
+        "type": {
+          "tr": "Doypack",
+          "en": "Doypack",
+          "ar": "كيس قائم (Doypack)"
+        },
+        "image": "/img/archive/algophyco-250g-doypack.png"
+      },
+      {
+        "size": "900 g",
+        "type": {
+          "tr": "Şişe",
+          "en": "Bottle",
+          "ar": "عبوة"
+        },
+        "image": "/img/archive/algophyco-900g-sise.png"
+      }
+    ],
+    "composition": {
+      "basis": {
+        "tr": "Ürün etiketi (temel besinler, %)",
+        "en": "Product label (basic nutrients, %)",
+        "ar": "ملصق المنتج (العناصر الغذائية الأساسية، %)"
+      },
+      "macros": [
+        {
+          "key": "protein",
+          "label": {
+            "tr": "Protein",
+            "en": "Protein",
+            "ar": "بروتين"
+          },
+          "min": 64,
+          "max": 67,
+          "unit": "%"
+        },
+        {
+          "key": "fat",
+          "label": {
+            "tr": "Yağ",
+            "en": "Fat",
+            "ar": "دهون"
+          },
+          "min": 5,
+          "max": 7,
+          "unit": "%"
+        },
+        {
+          "key": "carbohydrate",
+          "label": {
+            "tr": "Karbonhidrat",
+            "en": "Carbohydrate",
+            "ar": "كربوهيدرات"
+          },
+          "min": 10,
+          "max": 15,
+          "unit": "%"
+        },
+        {
+          "key": "ash",
+          "label": {
+            "tr": "Kül",
+            "en": "Ash",
+            "ar": "رماد"
+          },
+          "min": 7,
+          "max": 7,
+          "unit": "%"
+        }
+      ],
+      "packFront": {
+        "tr": "En az %64 protein",
+        "en": "At least 64% protein",
+        "ar": "بروتين بنسبة 64% على الأقل"
+      },
+      "generalRanges": {
+        "source": {
+          "tr": "Spirulina bilgi infografiği (genel değerler)",
+          "en": "Spirulina information sheet (general values)",
+          "ar": "ورقة معلومات السبيرولينا (قيم عامة)"
+        },
+        "items": [
+          {
+            "key": "protein",
+            "label": {
+              "tr": "Toplam protein",
+              "en": "Total protein",
+              "ar": "إجمالي البروتين"
+            },
+            "min": 60,
+            "max": 70,
+            "unit": "%"
+          },
+          {
+            "key": "fat",
+            "label": {
+              "tr": "Toplam yağ",
+              "en": "Total fat",
+              "ar": "إجمالي الدهون"
+            },
+            "min": 5,
+            "max": 10,
+            "unit": "%"
+          },
+          {
+            "key": "carbohydrate",
+            "label": {
+              "tr": "Toplam karbonhidrat",
+              "en": "Total carbohydrate",
+              "ar": "إجمالي الكربوهيدرات"
+            },
+            "min": 10,
+            "max": 15,
+            "unit": "%"
+          },
+          {
+            "key": "ash",
+            "label": {
+              "tr": "Toplam kül",
+              "en": "Total ash",
+              "ar": "إجمالي الرماد"
+            },
+            "min": 5,
+            "max": 7,
+            "unit": "%"
+          }
+        ]
+      },
+      "micros": {
+        "title": {
+          "tr": "Vitamin, mineral ve yağ asitleri",
+          "en": "Vitamins, minerals and fatty acids",
+          "ar": "الفيتامينات والمعادن والأحماض الدهنية"
+        },
+        "unit": "mg/kg",
+        "items": [
+          {
+            "key": "gla",
+            "label": {
+              "tr": "Gama-linolenik asit (GLA)",
+              "en": "Gamma-linolenic acid (GLA)",
+              "ar": "حمض غاما لينولينيك (GLA)"
+            },
+            "value": 33.6
+          },
+          {
+            "key": "linolenic",
+            "label": {
+              "tr": "Linolenik asit",
+              "en": "Linolenic acid",
+              "ar": "حمض اللينولينيك"
+            },
+            "value": 11.1
+          },
+          {
+            "key": "oleic",
+            "label": {
+              "tr": "Oleik asit",
+              "en": "Oleic acid",
+              "ar": "حمض الأوليك"
+            },
+            "value": 2.7
+          },
+          {
+            "key": "stearic",
+            "label": {
+              "tr": "Stearik asit",
+              "en": "Stearic acid",
+              "ar": "حمض الستياريك"
+            },
+            "value": 4.0
+          },
+          {
+            "key": "magnesium",
+            "label": {
+              "tr": "Magnezyum",
+              "en": "Magnesium",
+              "ar": "المغنيسيوم"
+            },
+            "value": 3545
+          },
+          {
+            "key": "zinc",
+            "label": {
+              "tr": "Çinko",
+              "en": "Zinc",
+              "ar": "الزنك"
+            },
+            "value": 17.8
+          },
+          {
+            "key": "calcium",
+            "label": {
+              "tr": "Kalsiyum",
+              "en": "Calcium",
+              "ar": "الكالسيوم"
+            },
+            "value": 362
+          },
+          {
+            "key": "chromium",
+            "label": {
+              "tr": "Krom",
+              "en": "Chromium",
+              "ar": "الكروم"
+            },
+            "value": 2.1
+          },
+          {
+            "key": "vitaminD3",
+            "label": {
+              "tr": "Vitamin D3",
+              "en": "Vitamin D3",
+              "ar": "فيتامين D3"
+            },
+            "value": 2.0
+          },
+          {
+            "key": "iron",
+            "label": {
+              "tr": "Demir",
+              "en": "Iron",
+              "ar": "الحديد"
+            },
+            "value": 397
+          }
+        ]
+      },
+      "vitaminsListed": [
+        "A (retinol)",
+        "D (kalsiferol / calciferol)",
+        "E (alfa-tokoferol / alpha-tocopherol)",
+        "C (askorbik asit / ascorbic acid)",
+        "B1 (tiamin / thiamine)",
+        "B2 (riboflavin)",
+        "B3 (niasin / niacin)",
+        "B5 (pantotenik asit / pantothenic acid)",
+        "B6 (piridoksin / pyridoxine)",
+        "B7 (biotin)",
+        "B9 (folik asit / folic acid)",
+        "B12 (siyanokobalamin / cyanocobalamin)"
+      ],
+      "mineralsListed": {
+        "tr": "Selenyum (Se), demir (Fe), fosfor (P), potasyum (K), magnezyum (Mg), çinko (Zn), kalsiyum (Ca), krom (Cr)",
+        "en": "Selenium (Se), iron (Fe), phosphorus (P), potassium (K), magnesium (Mg), zinc (Zn), calcium (Ca), chromium (Cr)",
+        "ar": "السيلينيوم (Se)، الحديد (Fe)، الفوسفور (P)، البوتاسيوم (K)، المغنيسيوم (Mg)، الزنك (Zn)، الكالسيوم (Ca)، الكروم (Cr)"
+      },
+      "pigments": {
+        "tr": "Fikosiyanin, klorofil a, β-karoten, astaksantin, ksantofil ve fikoeritrin",
+        "en": "Phycocyanin, chlorophyll a, β-carotene, astaxanthin, xanthophyll and phycoerythrin",
+        "ar": "الفيكوسيانين، والكلوروفيل a، والبيتا كاروتين، والأستازانثين، والزانثوفيل، والفيكوإريثرين"
+      },
+      "notes": [
+        "Etiket değerleri (protein %64–67 vb.) ile genel infografik değerleri (%60–70 vb.) farklı; ürün sayfasında etiket değerleri esas alınmalı.",
+        "Vitamin listesi infografikte 'önemli miktarda' başlığıyla veriliyor; 'kaynağıdır/yüksektir' gibi beyanlar ancak mevzuattaki eşikler sağlanırsa kullanılabilir, bu yüzden yalnız 'içerir' olarak alındı.",
+        "GLA değeri etikette 33,6 mg/kg; spirulina için alışılmadık düşük (genelde g/kg mertebesi). Etiketle teyit edilmeli."
+      ]
+    },
+    "legalNote": {
+      "tr": "Spirulina ilaç değildir. Kurutulmuş, %100 Arthrospira platensis mikro yosundur; katkı ve koruyucu içermez. Günlük besin takviyesi olarak kullanılır.",
+      "en": "Spirulina is not a medicine. It is dried, 100% Arthrospira platensis micro-algae, with no additives or preservatives. It is used as a daily food supplement.",
+      "ar": "السبيرولينا ليست دواءً، بل هي طحالب دقيقة مجففة من Arthrospira platensis بنسبة 100%، دون إضافات أو مواد حافظة، وتُستخدم مكمّلًا غذائيًا يوميًا."
+    },
+    "usageAreas": [
+      {
+        "title": {
+          "tr": "İnsan gıdası katkı maddesi",
+          "en": "Human food additive",
+          "ar": "إضافة لأغذية الإنسان"
+        }
+      },
+      {
+        "title": {
+          "tr": "Karasal ve sucul hayvan beslemede gıda katkı maddesi",
+          "en": "Feed additive for land and aquatic animals",
+          "ar": "إضافة لأعلاف الحيوانات البرية والمائية"
+        }
+      },
+      {
+        "title": {
+          "tr": "Sağlıklı beslenme ürünleri içinde katkı amaçlı",
+          "en": "Ingredient in healthy nutrition products",
+          "ar": "مكوّن في منتجات التغذية الصحية"
+        }
+      },
+      {
+        "title": {
+          "tr": "Gıda renklendirmede pigment olarak (fikosiyanin)",
+          "en": "Pigment for food colouring (phycocyanin)",
+          "ar": "صبغة لتلوين الأغذية (الفيكوسيانين)"
+        }
+      },
+      {
+        "title": {
+          "tr": "Kozmetik ve kıvam artırıcı olarak",
+          "en": "Cosmetics and as a thickener",
+          "ar": "مستحضرات التجميل وعامل تكثيف"
+        }
+      },
+      {
+        "title": {
+          "tr": "Bio-dizel yakıt üretiminde",
+          "en": "Bio-diesel fuel production",
+          "ar": "إنتاج وقود الديزل الحيوي"
+        }
+      },
+      {
+        "title": {
+          "tr": "Hormon üretim sanayisinde (oksinler ve sitokininler)",
+          "en": "Hormone production industry (auxins and cytokinins)",
+          "ar": "صناعة إنتاج الهرمونات (الأوكسينات والسيتوكينينات)"
+        }
+      },
+      {
+        "title": {
+          "tr": "İlaç sanayisinde pigment hammaddesi olarak",
+          "en": "As a pigment raw material for the pharmaceutical industry",
+          "ar": "مادة خام للأصباغ في الصناعات الدوائية"
+        },
+        "reviewNeeded": true
+      }
+    ],
+    "usageAreasNote": "Kaynak: 'Spirulina'nın kullanım alanları' infografiği (img/works/fd45YERLİ ÜRETİM 3.png). İlaç sanayi maddesi sağlık beyanına kayabileceği için gözden geçirilmeli.",
+    "purchaseLinks": [
+      {
+        "name": "Hepsiburada",
+        "url": "https://www.hepsiburada.com/Algophyco"
+      },
+      {
+        "name": "n11",
+        "url": "https://www.n11.com/magaza/maviprotein"
+      }
+    ],
+    "purchaseLinksNote": "Bağlantılardaki fbclid parametreleri temizlendi. GittiGidiyor (https://www.gittigidiyor.com/magaza/mavi-protein) platform 2022'de kapandığı için çıkarıldı. Mağazaların hâlâ aktif olduğu teyit edilmeli.",
+    "websites": [
+      "www.turkishspirulina.com"
+    ],
+    "websitesNote": "Etiket ve ambalajlarda geçiyor; alan adının sahibi ve durumu teyit edilmeli.",
+    "images": [
+      "/img/archive/spirulina-acik-havuz-uretimi.jpg",
+      "/img/archive/spirulina-havuz-basinda.jpg"
+    ],
+    "removedClaims": "Galeri görsellerindeki (YERLİ ÜRETİM 4 ve 13) ve ambalajlardaki bağışıklık, antioksidan, antiviral, anti-kanser, kolesterol, kan basıncı, kan şekeri/diyabet, alerji ve kas gücü iddiaları Türk Gıda Kodeksi ve takviye edici gıda mevzuatı gereği bu veriye alınmadı. Ambalaj fotoğraflarının ön yüzünde 'Etkin bağışıklık sistemi desteği' basılı; yeniden üretilen ambalaj görsellerinde bu ifade yer almamalı.",
+    "post": 65
+  },
+  "catalogCover": {
+    "title": {
+      "tr": "Mavi Protein Danışmanlık",
+      "en": "Mavi Protein Consultancy",
+      "ar": "Mavi Protein للاستشارات"
+    },
+    "year": 2016,
+    "keywords": [
+      {
+        "tr": "Yetiştiricilik",
+        "en": "Aquaculture",
+        "ar": "الاستزراع المائي"
+      },
+      {
+        "tr": "Üretim",
+        "en": "Production",
+        "ar": "الإنتاج"
+      },
+      {
+        "tr": "Sürdürülebilir",
+        "en": "Sustainable",
+        "ar": "الاستدامة"
+      },
+      {
+        "tr": "Planlama",
+        "en": "Planning",
+        "ar": "التخطيط"
+      },
+      {
+        "tr": "Danışmanlık",
+        "en": "Consultancy",
+        "ar": "الاستشارات"
+      },
+      {
+        "tr": "Su ürünleri",
+        "en": "Fisheries",
+        "ar": "مصايد الأسماك والأحياء المائية"
+      },
+      {
+        "tr": "Tarım",
+        "en": "Agriculture",
+        "ar": "الزراعة"
+      },
+      {
+        "tr": "Hayvancılık",
+        "en": "Animal husbandry",
+        "ar": "الثروة الحيوانية"
+      },
+      {
+        "tr": "Organik",
+        "en": "Organic",
+        "ar": "عضوي"
+      },
+      {
+        "tr": "Mühendislik",
+        "en": "Engineering",
+        "ar": "الهندسة"
+      },
+      {
+        "tr": "Biyoteknoloji",
+        "en": "Biotechnology",
+        "ar": "التكنولوجيا الحيوية"
+      },
+      {
+        "tr": "Nanoteknoloji",
+        "en": "Nanotechnology",
+        "ar": "تكنولوجيا النانو"
+      },
+      {
+        "tr": "Proje",
+        "en": "Project",
+        "ar": "المشاريع"
+      },
+      {
+        "tr": "Etüt-fizibilite",
+        "en": "Survey and feasibility",
+        "ar": "المسح ودراسات الجدوى"
+      },
+      {
+        "tr": "Ar-Ge inovasyon",
+        "en": "R&D innovation",
+        "ar": "البحث والتطوير والابتكار"
+      },
+      {
+        "tr": "Endüstriyel",
+        "en": "Industrial",
+        "ar": "صناعي"
+      },
+      {
+        "tr": "KOBİ",
+        "en": "SME",
+        "ar": "الشركات الصغيرة والمتوسطة"
+      },
+      {
+        "tr": "Sanayi",
+        "en": "Industry",
+        "ar": "الصناعة"
+      },
+      {
+        "tr": "Teknoloji",
+        "en": "Technology",
+        "ar": "التكنولوجيا"
+      },
+      {
+        "tr": "Mekanizasyon",
+        "en": "Mechanisation",
+        "ar": "الميكنة"
+      }
+    ],
+    "source": "TR katalog kapağı (s.1), elle transkripsiyon: content/image-texts.json",
+    "downloads": {
+      "tr": "/docs/MaviProtein_Katalog_TR.pdf",
+      "en": "/docs/MaviProtein_Catalogue_EN.pdf",
+      "ar": null
+    },
+    "note": "EN anahtar kelimeler çeviridir; EN katalog kapağı ayrıca transkribe edilmedi. Arapça katalog PDF'i kaynakta yok (404)."
+  },
+  "quotes": [],
+  "quotesNote": "Eski anasayfadaki ünlü kişi alıntıları (Drucker, Einstein vb.) bilinçli olarak alınmadı."
+}

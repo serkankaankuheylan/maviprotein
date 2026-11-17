@@ -1,0 +1,26 @@
+---
+// Steel paperclip drawn as one wire: inner loop, top bend, outer loop.
+// The gradient runs across the wire so it reads as a round, polished rod.
+interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+const id = `clip-${Math.random().toString(36).slice(2, 8)}`;
+---
+<svg class:list={['paperclip', cls]} viewBox="0 0 26 68" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id={id} x1="0" y1="0" x2="26" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7f8892" />
+      <stop offset="0.28" stop-color="#eef1f4" />
+      <stop offset="0.5" stop-color="#a3abb4" />
+      <stop offset="0.74" stop-color="#e3e7eb" />
+      <stop offset="1" stop-color="#818a94" />
+    </linearGradient>
+  </defs>
+  <path
+    d="M9 21V51a4 4 0 0 0 8 0V11a7 7 0 0 0-14 0V55a10 10 0 0 0 20 0V23"
+    fill="none" stroke={`url(#${id})`} stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"
+  />
+  <path
+    d="M9 21V51a4 4 0 0 0 8 0V11a7 7 0 0 0-14 0V55a10 10 0 0 0 20 0V23"
+    fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="0.6" stroke-linecap="round" transform="translate(-0.5 -0.4)"
+  />
+</svg>

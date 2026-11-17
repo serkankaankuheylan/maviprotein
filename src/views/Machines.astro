@@ -1,0 +1,100 @@
+---
+import Base from '../layouts/Base.astro';
+import Intro from '../components/Intro.astro';
+import Asset from '../components/Asset.astro';
+import Arrow from '../components/Arrow.astro';
+import MachineFigure from '../components/MachineFigure.astro';
+import ClosingCta from '../components/ClosingCta.astro';
+import { machinesCopy } from '../i18n/machines';
+import { common } from '../i18n/common';
+import { pick, t, type Lang } from '../lib/i18n';
+import { href } from '../lib/routes';
+import { machines, MODEL_ASSET, FAMILY_KEY, FAMILY_HASH } from '../lib/data';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = pick(machinesCopy, lang).list;
+const cc = pick(common, lang);
+const fams = machines.families.filter((f: any) => f.models?.length);
+const capOf = (m: any) => {
+  const s = (m.specs ?? []).find((x: any) => x.key === 'capacity' || x.key === 'speed');
+  return s ? t(s.value, lang) : '';
+};
+---
+<Base lang={lang} title={c.meta.title} description={c.meta.description} route="machines" startDark={false} gaugeMax={90}>
+  <Intro lang={lang} surface="light" kicker={c.kicker} title={c.title} lead={c.lead} toc={fams.map((f: any) => [FAMILY_HASH[f.key], t(f.name, lang)])}>
+    <div class="mi-art">
+      <Asset name="sp85-ii-extruder" alt="SP85-II" sizes="(max-width: 960px) 92vw, 50vw" loading="eager" fetchpriority="high" />
+      <span class="mi-dim mi-dim--w mono" aria-hidden="true"><i></i>4600 mm</span>
+      <span class="mi-dim mi-dim--h mono" aria-hidden="true"><i></i>2000</span>
+    </div>
+  </Intro>
+
+  {fams.map((f: any, fi: number) => (
+    <section class:list={['fam section', fi % 2 ? 's-sand' : 's-light']} id={FAMILY_HASH[f.key]} data-surface="light" aria-labelledby={`fam-${f.key}`}>
+      <div class="wrap">
+        <header class="fam__head">
+          <p class="label"><span>{String(fi + 1).padStart(2, '0')}</span><span class="sep">·</span><span>{f.models.length} {c.models}</span></p>
+          <h2 id={`fam-${f.key}`} class="t-h1">{t(f.name, lang)}</h2>
+          {f.intro?.[0] && <p class="fam__intro muted">{t(f.intro[0], lang)}</p>}
+        </header>
+        <ul class="fam__grid" role="list">
+          {f.models.map((m: any) => (
+            <li>
+              <a class="mc" href={href('machine', lang, m.slug)}>
+                <span class="mc__fig">
+                  {MODEL_ASSET[m.slug]
+                    ? <Asset name={MODEL_ASSET[m.slug]} alt={t(m.name, lang)} sizes="(max-width: 640px) 90vw, (max-width: 1100px) 45vw, 30vw" vt={`mc-${m.slug}`} />
+                    : <MachineFigure machineKey={FAMILY_KEY[f.key]} alt={t(m.name, lang)} />}
+                  <span class="mc__grid blueprint" aria-hidden="true"></span>
+                </span>
+                <span class="mc__model mono">{m.model ?? t(m.name, lang)}</span>
+                <span class="mc__name">{t(m.name, lang)}</span>
+                <span class="mc__foot">
+                  {capOf(m) && <span class="mono faint">{capOf(m)}</span>}
+                  <span class="mc__go">{c.inspect}<Arrow /></span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ))}
+
+  <ClosingCta lang={lang} title={c.close} />
+</Base>
+
+<style>
+  .mi-art { position: relative; padding: 2rem 0 2rem 2.4rem; }
+  .mi-art :global(img) { filter: drop-shadow(0 34px 34px rgba(13, 27, 44, 0.24)) drop-shadow(0 4px 6px rgba(13, 27, 44, 0.18)); }
+  .mi-dim { position: absolute; font-size: 0.7rem; color: var(--brass); letter-spacing: 0.06em; display: flex; align-items: center; gap: 0.5rem; }
+  .mi-dim i { display: block; background: currentColor; opacity: 0.6; }
+  .mi-dim--w { inset-inline: 2.4rem 0; top: 0; justify-content: center; border-inline: 1px solid; height: 12px; }
+  .mi-dim--w i { position: absolute; inset-inline: 0; top: 50%; height: 1px; z-index: -1; }
+  .mi-dim--w { background: linear-gradient(var(--foam), var(--foam)) center / 6.5em 100% no-repeat; }
+  .mi-dim--h { inset-block: 2rem; inset-inline-start: 0; writing-mode: vertical-rl; border-block: 1px solid; width: 12px; justify-content: center; }
+
+  .fam__head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 1rem var(--col-gap); align-items: end; margin-bottom: 2.6rem; }
+  .fam__head .label { grid-column: 1 / -1; }
+  .fam__head h2 { grid-column: 1 / span 6; }
+  .fam__intro { grid-column: 7 / -1; max-width: 60ch; }
+  @media (max-width: 960px) { .fam__head h2, .fam__intro { grid-column: 1 / -1; } }
+  .fam__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--col-gap); }
+  @media (max-width: 1100px) { .fam__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .fam__grid { grid-template-columns: 1fr; } }
+  .mc { display: grid; gap: 0.5rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--rule-strong); height: 100%; }
+  .mc__fig { position: relative; display: block; aspect-ratio: 16 / 10; background: #fbf9f5; border: 1px solid var(--rule); overflow: hidden; }
+  .s-sand .mc__fig { background: var(--foam); }
+  /* Every studio image is fitted (contain) into the same inner box and centred on both axes,
+     so wide and tall machines read at a consistent scale and never spill out of the frame. */
+  .mc__fig :global(img), .mc__fig :global(svg) { position: absolute; z-index: 1; top: 9%; left: 8%; width: 84%; height: 78%; max-width: none; object-fit: contain; object-position: 50% 50%; transition: transform 1000ms var(--ease-water); filter: drop-shadow(0 18px 16px rgba(13, 27, 44, 0.22)); }
+  .mc__fig :global(.mfig--glyph) { color: var(--ink-3); filter: none; }
+  .mc__grid { position: absolute; inset: 0; opacity: 0; transition: opacity 600ms var(--ease-steel); }
+  .mc:hover .mc__grid { opacity: 0.7; }
+  .mc:hover .mc__fig :global(img) { transform: scale(1.04) translateY(-4px); }
+  .mc__model { font-size: 1.25rem; margin-top: 0.8rem; color: var(--navy); letter-spacing: 0.02em; }
+  .mc__name { color: var(--ink-2); font-size: 0.95rem; }
+  .mc__foot { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: auto; padding-top: 0.6rem; font-size: 0.8rem; }
+  .mc__go { display: inline-flex; gap: 0.4rem; align-items: center; font-weight: 600; color: var(--navy); }
+</style>

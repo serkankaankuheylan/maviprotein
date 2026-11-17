@@ -1,0 +1,269 @@
+---
+import Base from '../layouts/Base.astro';
+import Intro from '../components/Intro.astro';
+import Asset from '../components/Asset.astro';
+import Arrow from '../components/Arrow.astro';
+import ClosingCta from '../components/ClosingCta.astro';
+import ServiceFigure from '../components/ServiceFigure.astro';
+import { servicesCopy } from '../i18n/services';
+import { common } from '../i18n/common';
+import { pick, t, type Lang } from '../lib/i18n';
+import { href, type RouteKey } from '../lib/routes';
+import { services, grouped } from '../lib/data';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = pick(servicesCopy, lang).supply;
+const cc = pick(common, lang);
+const svc = services['logistics'] ?? {};
+const groups = grouped(svc);
+const total = groups.reduce((a: number, g: any) => a + g.items.length, 0);
+const pad = (i: number) => String(i + 1).padStart(2, '0');
+const gIndex = Object.fromEntries(groups.map((g: any, i: number) => [g.key, i]));
+// anchors used by the hatchery anatomy on the aquaculture page
+const ANCHORS: [string, RegExp][] = [['k-filtre', /filtre/i], ['k-uv', /\bUV\b/], ['k-ozon', /ozon/i], ['k-oksijen', /oksijen/i], ['k-isi', /ısıtma|soğutma/i], ['k-tank', /tank/i], ['k-canli', /artemia|rotifer|canlı yem/i], ['k-olcum', /ölçer|ölçüm/i]];
+const used = new Set<string>();
+const anchorFor = (tr: string) => {
+  for (const [id, re] of ANCHORS) if (!used.has(id) && re.test(tr)) { used.add(id); return id; }
+  return undefined;
+};
+// What each category looks like: the studio set (design-assets/final), the same light as the home page.
+const PLATE: Record<string, string[]> = {
+  'water-treatment': ['eq-drum-filter', 'eq-ozone-generator', 'eq-uv-sterilizer'],
+  measurement: ['eq-oxygen-meter'],
+  'hatchery-production': ['aq-sea-cage', 'aq-hatchery-tank'],
+  'feed-bio-inputs': ['b-algae-culture', 'p-aquarium-feed'],
+  laboratory: ['eq-lab-microscope'],
+};
+// The intro still life: one group shot of what we supply; each piece is numbered like its category below.
+const KIT: { asset: string; group: string; n?: boolean }[] = [
+  { asset: 'eq-drum-filter', group: 'water-treatment', n: true },
+  { asset: 'eq-lab-microscope', group: 'laboratory', n: true },
+  { asset: 'aq-hatchery-tank', group: 'hatchery-production', n: true },
+  { asset: 'eq-uv-sterilizer', group: 'water-treatment' },
+  { asset: 'b-algae-culture', group: 'feed-bio-inputs', n: true },
+  { asset: 'eq-oxygen-meter', group: 'measurement', n: true },
+];
+const titleOf = (key: string) => t(groups.find((g: any) => g.key === key)?.title, lang);
+const text = (it: any) => [it.title.tr, it.title.en, it.title.ar].filter(Boolean).join(' ').toLocaleLowerCase(lang);
+---
+<Base lang={lang} title={c.meta.title} description={c.meta.description} route="supply" startDark={false} gaugeMax={80}>
+  <Intro lang={lang} surface="light" snug kicker={c.kicker} title={c.title} lead={t(svc.intro?.[0], lang)} crumbs={[[cc.nav.services, 'supply']]} toc={groups.map((g: any) => [`g-${g.key}`, t(g.title, lang)])}>
+    <div class="kit">
+      {KIT.map((k, i) => (
+        <a class={`kit__it kit__it--${i}`} href={`#g-${k.group}`} style={`--i:${i}`} aria-label={titleOf(k.group)} tabindex={k.n ? undefined : -1} aria-hidden={k.n ? undefined : 'true'}>
+          <Asset name={k.asset} alt="" class="kit__img" sizes="(max-width: 960px) 40vw, 18vw" loading="eager" />
+          {k.n && <span class="num kit__n">{gIndex[k.group] + 1}</span>}
+        </a>
+      ))}
+    </div>
+  </Intro>
+
+  <section class="dir s-light" data-surface="light" aria-label={c.meta.title} data-dir>
+    <div class="dir__bar" role="search">
+      <div class="wrap dir__search">
+        <label for="dir-q" class="label">{c.search}</label>
+        <input id="dir-q" type="search" placeholder={c.placeholder} autocomplete="off" enterkeyhint="search" data-q />
+        <div class="dir__tools">
+          <span class="dir__quick">{c.quick.map((q) => <button type="button" class="chip" data-quick={q}>{q}</button>)}</span>
+          <button type="button" class="dir__clear link" data-clear hidden>{c.clear}</button>
+          <p class="dir__count mono" aria-live="polite"><span data-n>{total}</span> {c.results}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap dir__body">
+      {groups.map((g: any, gi: number) => {
+        const dark = g.key === 'services';
+        return (
+          <section class:list={['cat', { 'cat--dark s-steel': dark }]} id={`g-${g.key}`} data-group data-surface={dark ? 'dark' : undefined} aria-labelledby={`gh-${g.key}`}>
+            <div class="cat__fig">
+              <div class:list={['cat__plate', `cat__plate--${g.key}`, { sheet: !dark }]}>
+                {dark
+                  ? <ServiceFigure kind="supply" class="cat__box" />
+                  : (PLATE[g.key] ?? []).map((a, k) => <Asset name={a} alt="" class={`cat__img cat__img--${k}`} sizes="(max-width: 900px) 60vw, 22vw" />)}
+                <span class="cat__no mono">{pad(gi)}</span>
+              </div>
+            </div>
+            <div class="cat__body">
+              <header class="cat__head">
+                <p class="label"><span>{pad(gi)}</span><span class="sep">·</span><span>{g.items.length} {c.results}</span></p>
+                <h2 id={`gh-${g.key}`} class="t-h2">{t(g.title, lang)}</h2>
+                {dark && <p class="cat__world" set:html={c.world} />}
+              </header>
+              <ol class="cat__items" role="list">
+                {g.items.map((it: any, k: number) => (
+                  <li id={anchorFor(it.title.tr)} data-item data-text={text(it)}>
+                    <span class="cat__k mono">{pad(k)}</span>
+                    <span class="cat__t"><span data-label>{t(it.title, lang)}</span>{it.link && <a class="cat__link link" href={href(it.link as RouteKey, lang)}>{c.cert}</a>}</span>
+                    <a class="cat__ask" href={`${href('start', lang)}?alan=tedarik&kalem=${encodeURIComponent(t(it.title, lang))}`} aria-label={`${c.ask}: ${t(it.title, lang)}`}><span>{c.askShort}</span><Arrow /></a>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </section>
+        );
+      })}
+      <p class="dir__none muted" hidden data-none>{c.none}</p>
+    </div>
+  </section>
+
+  <ClosingCta lang={lang} title={c.close} primaryHref={`${href('start', lang)}?alan=tedarik`} />
+</Base>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-dir]');
+  if (root) {
+    const q = root.querySelector<HTMLInputElement>('[data-q]')!;
+    const n = root.querySelector<HTMLElement>('[data-n]')!;
+    const none = root.querySelector<HTMLElement>('[data-none]')!;
+    const clear = root.querySelector<HTMLButtonElement>('[data-clear]')!;
+    const lang = document.documentElement.lang || 'tr';
+    const low = (s: string) => s.toLocaleLowerCase(lang);
+    const esc = (s: string) => s.replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[ch]!);
+    const items = [...root.querySelectorAll<HTMLElement>('[data-item]')].map((el) => {
+      const label = el.querySelector<HTMLElement>('[data-label]')!;
+      return { el, label, text: el.dataset.text!, orig: label.textContent ?? '' };
+    });
+    const groups = [...root.querySelectorAll<HTMLElement>('[data-group]')];
+    const run = () => {
+      const v = low(q.value.trim());
+      let count = 0;
+      for (const it of items) {
+        const hit = !v || it.text.includes(v);
+        it.el.hidden = !hit;
+        const at = v && hit ? low(it.orig).indexOf(v) : -1;
+        it.label.innerHTML = at < 0 ? esc(it.orig) : `${esc(it.orig.slice(0, at))}<mark>${esc(it.orig.slice(at, at + v.length))}</mark>${esc(it.orig.slice(at + v.length))}`;
+        if (hit) count++;
+      }
+      groups.forEach((g) => { g.hidden = !g.querySelector('[data-item]:not([hidden])'); });
+      n.textContent = String(count);
+      none.hidden = count > 0;
+      clear.hidden = !q.value;
+    };
+    q.addEventListener('input', run);
+    // a shortcut fills the search; if the bar is already stuck, bring the first result up under it
+    root.querySelectorAll<HTMLButtonElement>('[data-quick]').forEach((b) => b.addEventListener('click', () => {
+      q.value = b.dataset.quick!;
+      run();
+      if (root.getBoundingClientRect().top < 0) root.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    }));
+    clear.addEventListener('click', () => { q.value = ''; run(); q.focus(); });
+    // arriving from the hatchery anatomy (or following one of its links again): flash the target
+    const flash = () => { if (location.hash.startsWith('#k-')) document.querySelector(location.hash)?.classList.add('is-hit'); };
+    flash();
+    addEventListener('hashchange', flash);
+  }
+</script>
+
+<style>
+  /* ---------- intro: the supply, as one studio group shot ---------- */
+  .kit { position: relative; width: min(100%, var(--art-h, 9999px) * 1.5); margin-inline: auto; aspect-ratio: 5 / 3.3; container-type: inline-size; }
+  .kit__it { position: absolute; display: block; left: var(--x); bottom: var(--y); width: var(--w); z-index: var(--z, 1); }
+  .kit__it :global(.kit__img) { width: 100%; height: auto; filter: drop-shadow(0 18px 18px rgba(13, 27, 44, 0.16)) drop-shadow(0 3px 4px rgba(13, 27, 44, 0.12)); transition: translate 800ms var(--ease-water); }
+  /* back row: drum filter, microscope, hatchery tank; front row overlaps their feet: UV, algae, meter */
+  .kit__it--0 { --x: 0%; --y: 34%; --w: 43%; }
+  .kit__it--1 { --x: 37%; --y: 37.5%; --w: 33%; }
+  .kit__it--2 { --x: 71%; --y: 30%; --w: 28%; }
+  .kit__it--3 { --x: 2%; --y: 5%; --w: 47%; --z: 2; }
+  .kit__it--4 { --x: 43%; --y: 1%; --w: 36%; --z: 2; }
+  .kit__it--5 { --x: 81%; --y: 3.5%; --w: 18%; --z: 3; }
+  .kit__n { position: absolute; top: -0.4rem; inset-inline-start: -0.2rem; --s: 1.7rem; background: var(--foam); box-shadow: 0 0 0 4px color-mix(in srgb, var(--foam) 70%, transparent); transition: background var(--dur-steel) var(--ease-steel), color var(--dur-steel) var(--ease-steel); }
+  .kit__it--5 .kit__n { top: -1rem; }
+  .kit__it:hover :global(.kit__img), .kit__it:focus-visible :global(.kit__img) { translate: 0 -6px; }
+  .kit__it:hover .kit__n, .kit__it:focus-visible .kit__n { background: var(--brass); color: var(--foam); border-color: var(--brass); }
+  :global(.js) .kit__it { animation: kit-in 1100ms var(--ease-water) both; animation-delay: calc(200ms + var(--i) * 110ms); }
+  @keyframes kit-in { from { opacity: 0; transform: translateY(22px); } }
+  @media (max-width: 960px) { .kit { width: min(100%, 560px, var(--art-h, 9999px) * 1.5); margin-inline: auto; } }
+  @media (prefers-reduced-motion: reduce) { :global(.js) .kit__it { animation: none; } }
+
+  /* ---------- search bar ---------- */
+  /* no bottom padding: the last category (services) is a full-bleed dark band that runs into the closing section */
+  .dir { --bar: 5.4rem; }
+  .dir__bar { position: sticky; top: var(--header-h); z-index: 6; background: color-mix(in srgb, var(--foam) 94%, transparent); border-block: 1px solid var(--rule-strong); transition: transform 520ms var(--ease-water); }
+  /* the site header slides away while reading down; the bar takes its place */
+  :global(html:has(.hdr.is-hidden:not(.is-open))) .dir__bar { transform: translateY(calc(-1 * var(--header-h))); }
+  .dir__search { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 1.2rem 1.6rem; align-items: center; min-height: var(--bar); }
+  .dir__search input { border: 0; background: none; font-family: var(--f-serif); font-size: clamp(1.45rem, 1.1rem + 1.1vw, 2.3rem); padding: 0.3rem 0; outline: none; min-width: 0; }
+  .dir__search input::placeholder { color: var(--ink-3); opacity: 0.55; }
+  .dir__search input::-webkit-search-cancel-button { display: none; }
+  .dir__tools { display: flex; align-items: center; gap: 1rem; }
+  .dir__quick { display: flex; gap: 0.35rem; }
+  .chip { font-family: var(--f-mono); font-size: 0.78rem; letter-spacing: 0.04em; padding: 0.35rem 0.7rem; border: 1px solid var(--rule-strong); border-radius: 99px; color: var(--ink-2); transition: color 300ms, border-color 300ms, background 300ms; }
+  .chip:hover, .chip:focus-visible { color: var(--navy); border-color: var(--navy); background: #fff; }
+  .dir__clear { font-size: 0.86rem; color: var(--ink-2); }
+  .dir__count { font-size: 0.8rem; letter-spacing: 0.06em; color: var(--ink-3); white-space: nowrap; min-width: 4.5rem; text-align: end; }
+  .dir__count span { color: var(--brass); font-weight: 600; }
+
+  /* ---------- categories: a catalogue plate beside its items ---------- */
+  .cat { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); padding-block: clamp(3rem, 5vw, 4.5rem); border-bottom: 1px solid var(--rule); scroll-margin-top: calc(var(--header-h) + var(--bar)); }
+  .cat__fig { grid-column: 1 / span 5; position: sticky; top: calc(var(--header-h) + var(--bar) + 1.6rem); align-self: start; }
+  .cat__plate { position: relative; aspect-ratio: 4 / 3; --ti: 12px; }
+  .cat__plate :global(.cat__img) { position: absolute; left: var(--x); bottom: var(--y); width: var(--w); height: auto; z-index: var(--z, 1); filter: drop-shadow(0 16px 18px rgba(13, 27, 44, 0.15)) drop-shadow(0 3px 4px rgba(13, 27, 44, 0.1)); }
+  .cat__no { position: absolute; top: 1.1rem; inset-inline-start: 1.4rem; font-size: 0.78rem; letter-spacing: 0.1em; color: var(--brass); }
+  /* compositions (percent of the plate; images keep their own aspect ratio) */
+  .cat__plate--water-treatment :global(.cat__img--0) { --x: 5%; --y: 30%; --w: 54%; }
+  .cat__plate--water-treatment :global(.cat__img--1) { --x: 66%; --y: 27%; --w: 25%; }
+  .cat__plate--water-treatment :global(.cat__img--2) { --x: 22%; --y: 9%; --w: 56%; --z: 2; }
+  .cat__plate--measurement :global(.cat__img--0) { --x: 31%; --y: 11%; --w: 38%; }
+  .cat__plate--hatchery-production :global(.cat__img--0) { --x: 40%; --y: 18%; --w: 54%; }
+  .cat__plate--hatchery-production :global(.cat__img--1) { --x: 10%; --y: 9%; --w: 34%; --z: 2; }
+  .cat__plate--feed-bio-inputs :global(.cat__img--0) { --x: 6%; --y: 28%; --w: 62%; }
+  .cat__plate--feed-bio-inputs :global(.cat__img--1) { --x: 54%; --y: 8%; --w: 40%; --z: 2; }
+  .cat__plate--laboratory :global(.cat__img--0) { --x: 14%; --y: 9%; --w: 72%; }
+
+  .cat__body { grid-column: 7 / -1; display: grid; gap: 1.8rem; align-content: start; }
+  .cat__head { display: grid; gap: 0.8rem; }
+  .cat__head .label { color: var(--fg-3); }
+  .cat__head .label span:first-child { color: var(--brass); }
+  .cat__items { border-top: 1px solid var(--line-strong); }
+  .cat__items li { display: grid; grid-template-columns: 2.6rem minmax(0, 1fr) auto; gap: 1rem; align-items: baseline; padding-block: 1rem; border-bottom: 1px solid var(--line); scroll-margin-top: calc(var(--header-h) + var(--bar) + 2rem); transition: background 600ms var(--ease-water); }
+  .cat__k { font-size: 0.76rem; letter-spacing: 0.06em; color: var(--fg-3); }
+  .cat__t { font-size: 1.08rem; line-height: 1.45; display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; align-items: baseline; }
+  .cat__t :global(mark) { background: color-mix(in srgb, var(--aegean) 55%, transparent); color: inherit; border-radius: 2px; padding-inline: 1px; }
+  .cat__link { font-size: 0.88rem; color: var(--fg-2); }
+  .cat__ask { display: inline-flex; align-items: center; gap: 0.45rem; font-family: var(--f-mono); font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brass); opacity: 0.35; transition: opacity 300ms; }
+  .cat__ask :global(.arr) { width: 15px; height: 15px; transition: transform 400ms var(--ease-water); }
+  :global(html[dir='rtl']) .cat__ask { text-transform: none; letter-spacing: 0; }
+  :global(html[dir='rtl']) .cat__ask :global(.arr) { scale: -1 1; }
+  .cat__items li:hover .cat__ask, .cat__ask:focus-visible { opacity: 1; }
+  .cat__items li:hover .cat__ask :global(.arr) { transform: translateX(3px); }
+  @media (hover: none) { .cat__ask { opacity: 0.8; } }
+  .cat__items li.is-hit { background: linear-gradient(90deg, rgba(11, 139, 217, 0.12), transparent); }
+  :global(html[dir='rtl']) .cat__items li.is-hit { background: linear-gradient(-90deg, rgba(11, 139, 217, 0.12), transparent); }
+  .cat__items li.is-hit .cat__t { color: var(--navy); font-weight: 600; }
+
+  /* services: the last plate is a working drawing on the steel table — import, export, customs */
+  .cat--dark {
+    margin-inline: calc(50% - 50vw); padding-inline: max(var(--gutter), calc(50vw - var(--max) / 2 + var(--gutter)));
+    padding-block: clamp(4.5rem, 8vw, 7.5rem); border-bottom: 0; position: relative; isolation: isolate;
+    background: radial-gradient(90% 80% at 25% 40%, #24303c, var(--graphite-2) 70%);
+  }
+  .cat--dark::before { content: ''; position: absolute; inset: 0; z-index: -1; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 48px 48px; opacity: 0.45; -webkit-mask-image: radial-gradient(70% 70% at 25% 45%, #000, transparent 75%); mask-image: radial-gradient(70% 70% at 25% 45%, #000, transparent 75%); }
+  .cat--dark .cat__plate { aspect-ratio: 16 / 10; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 2px; }
+  .cat--dark .cat__plate :global(.cat__box) { width: 92%; height: 86%; color: var(--aegean-pale); --plate: #1c2631; --acc: var(--brass-2); --k: 1.6; }
+  .cat--dark .cat__no { color: var(--brass-2); }
+  .cat--dark .cat__head h2 { color: #eef2f5; }
+  .cat__world { font-family: var(--f-serif); font-size: var(--t-h3); line-height: 1.2; color: var(--fg-2); max-width: 30ch; }
+  .cat__world :global(em) { font-style: normal; color: var(--aegean); }
+  .cat--dark .cat__ask { color: var(--brass-2); }
+  .cat--dark .cat__link { color: var(--aegean); }
+  .cat--dark .cat__t :global(mark) { background: rgba(130, 204, 240, 0.28); }
+
+  .dir__none { padding-top: 3rem; }
+  /* when a search hides the dark band, the light list needs its own bottom margin again */
+  .dir:has(.cat--dark[hidden]) .dir__body { padding-bottom: var(--sec-y); }
+
+  @media (max-width: 900px) {
+    .dir__search { grid-template-columns: minmax(0, 1fr); gap: 0.2rem; padding-block: 0.7rem 0.8rem; }
+    .dir__search .label { display: none; }
+    .dir__tools { justify-content: space-between; }
+    .dir { --bar: 7.6rem; }
+    .cat__fig, .cat__body { grid-column: 1 / -1; position: static; }
+    .cat { gap: 1.6rem; }
+    .cat__plate { width: min(100%, 520px); }
+    .cat__items li { grid-template-columns: 2.2rem minmax(0, 1fr) auto; gap: 0.6rem; }
+    .cat__ask span { display: none; }
+  }
+  @media (max-width: 420px) { .dir__quick .chip:nth-child(n + 3) { display: none; } }
+</style>

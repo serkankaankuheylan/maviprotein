@@ -1,0 +1,314 @@
+---
+/**
+ * One figure per chapter of a feasibility report, set like a plate in a technical journal (the same
+ * line language as ServiceFigure and NoteFigure). Schematic, never data: the axes carry no values and
+ * every proportion is illustrative — the page says so under the plates.
+ *   0 market     → supply–demand cross, equilibrium P*, Q*
+ *   1 technical  → plan of a feed line in its hall, in process order (silo → packing), hall L × B
+ *   2 biology    → production calendar: broodstock → eggs → larvae → nursery → grow-out
+ *   3 financial  → cumulative cash flow: investment trough, payback point, a lower-revenue case
+ *   4 risk       → probability × impact matrix; technical, biological and market risks moved by mitigation
+ *   5 financing  → sources and uses: equity + grant + loan = machinery + building + working capital
+ * Lines draw in when an ancestor gets `.is-on`; without JS or with reduced motion they are simply there.
+ */
+interface Props { kind: number; uid: string; L: Record<string, any> }
+const { kind, uid, L } = Astro.props;
+const f = (n: number) => +n.toFixed(2);
+const W = 480, H = 340;
+const arrowR = (x: number, y: number, s = 6) => `M${x - s} ${y - s * 0.6}L${x} ${y}L${x - s} ${y + s * 0.6}`;
+const arrowL = (x: number, y: number, s = 6) => `M${x + s} ${y - s * 0.6}L${x} ${y}L${x + s} ${y + s * 0.6}`;
+const arrowU = (x: number, y: number, s = 6) => `M${x - s * 0.6} ${y + s}L${x} ${y}L${x + s * 0.6} ${y + s}`;
+const arrowD = (x: number, y: number, s = 6) => `M${x - s * 0.6} ${y - s}L${x} ${y}L${x + s * 0.6} ${y - s}`;
+
+/* ---------- 0 · market ---------- */
+const mk = (() => {
+  const ox = 80, oy = 276, xr = 446, yt = 34;
+  const D = [[114, 70], [408, 246]], S = [[114, 250], [408, 74]];
+  const [a, b] = D, [c, d] = S;
+  const den = (a[0] - b[0]) * (c[1] - d[1]) - (a[1] - b[1]) * (c[0] - d[0]);
+  const t = ((a[0] - c[0]) * (c[1] - d[1]) - (a[1] - c[1]) * (c[0] - d[0])) / den;
+  const E = [f(a[0] + t * (b[0] - a[0])), f(a[1] + t * (b[1] - a[1]))];
+  const grid = [92, 150, 208].map((y) => `M${ox} ${y}H${xr - 10}`).join('') + [170, 262, 354].map((x) => `M${x} ${yt + 18}V${oy}`).join('');
+  return { ox, oy, xr, yt, D, S, E, grid };
+})();
+
+/* ---------- 1 · technical: plan of a feed line ---------- */
+const tp = (() => {
+  // hall: outer 64..408 × 54..244, walls 6 thick; intake gap on the top wall, product door on the left wall
+  const outer = 'M64 54H92M112 54H408V244H64V214M64 182V54';
+  const inner = 'M70 60H92M112 60H402V238H70V214M70 182V60';
+  const jambs = 'M92 54V60M112 54V60M64 182H70M64 214H70';
+  const silo = { cx: 102, cy: 104, r: 16 };
+  const mill = { x: 136, y: 86, w: 38, h: 36 };
+  const mixer = { x: 194, y: 84, w: 54, h: 40 };
+  const ex = { x: 270, y: 91, w: 104, h: 26 };
+  const dryer = { x: 286, y: 156, w: 92, h: 56 };
+  const pack = { x: 112, y: 175, w: 56, h: 46 };
+  const screw = Array.from({ length: 12 }, (_, i) => `M${ex.x + 10 + i * 8} ${ex.y + 6}l4 14`).join('');
+  const belts = [170, 184, 198].map((y) => `M${dryer.x + 8} ${y}H${dryer.x + dryer.w - 8}`).join('');
+  const flow = [
+    `M${silo.cx} 16V${silo.cy - silo.r - 2}`,
+    `M${silo.cx + silo.r} ${silo.cy}H${mill.x}`,
+    `M${mill.x + mill.w} ${silo.cy}H${mixer.x}`,
+    `M${mixer.x + mixer.w} ${silo.cy}H${ex.x}`,
+    `M${ex.x + ex.w} ${silo.cy}H390V184H${dryer.x + dryer.w}`,
+    `M${dryer.x} 184H${pack.x + pack.w}`,
+    `M${pack.x} 198H30`,
+  ].join('');
+  const heads = [arrowD(silo.cx, silo.cy - silo.r - 2, 5), arrowR(mill.x, silo.cy, 5), arrowR(mixer.x, silo.cy, 5), arrowR(ex.x, silo.cy, 5), arrowL(dryer.x + dryer.w, 184, 5), arrowL(pack.x + pack.w, 184, 5), arrowL(30, 198, 5)].join('');
+  const dims = 'M64 270H408M64 250V276M408 250V276M60 274L68 266M404 274L412 266' + 'M432 54V244M414 54H438M414 244H438M428 58L436 50M428 248L436 240';
+  const nums = [[silo.cx, silo.cy], [mill.x + mill.w / 2, mill.y + mill.h / 2], [mixer.x + mixer.w / 2, mixer.y + mixer.h / 2], [ex.x + ex.w / 2, ex.y - 13], [dryer.x + dryer.w / 2, dryer.y + dryer.h - 12], [pack.x + pack.w / 2, pack.y + pack.h / 2]];
+  return { outer, inner, jambs, silo, mill, mixer, ex, dryer, pack, screw, belts, flow, heads, dims, nums };
+})();
+
+/* ---------- 2 · biology: production calendar ---------- */
+const cal = (() => {
+  const x0 = 152, x1 = 446, months = 12, mw = (x1 - x0) / months, y0 = 70, rh = 40;
+  const X = (m: number) => f(x0 + m * mw);
+  const yc = (i: number) => y0 + rh / 2 + i * rh;
+  const spans: [number, number][] = [[0, 12], [0.3, 1.7], [1.3, 3.3], [2.9, 5.7], [5.2, 12]];
+  const bars = spans.map(([s, e], i) => ({ x: X(s), w: f(X(e) - X(s)), y: yc(i) - (i ? 6 : 3), h: i ? 12 : 6, acc: i === 2 }));
+  const vgrid = Array.from({ length: months + 1 }, (_, m) => `M${X(m)} ${y0 - 6}V${y0 + rh * 5}`).join('');
+  const hgrid = Array.from({ length: 6 }, (_, i) => `M${x0} ${y0 + i * rh}H${x1}`).join('');
+  const deps = spans.slice(1).map(([s], i) => `M${X(s)} ${yc(i) + (i ? 6 : 3)}V${yc(i + 1) - 6}`).join('');
+  const more = `M${x1} ${yc(4)}H${x1 + 18}` + arrowR(x1 + 20, yc(4), 5);
+  const heads = Array.from({ length: months }, (_, m) => ({ x: f(X(m) + mw / 2), t: String(m + 1) }));
+  return { x0, x1, y0, rh, yc, bars, vgrid, hgrid, deps, more, heads };
+})();
+
+/* ---------- 3 · financial: cumulative cash flow ---------- */
+const cash = (() => {
+  const X = (t: number) => f(80 + t * 36.4), zero = 192, k = 0.42, Y = (c: number) => f(zero - c * k);
+  const series = (rev: number) => {
+    const pts: [number, number][] = [];
+    for (let t = 0; t <= 10.001; t += 0.1) pts.push([t, t <= 1.2 ? -100 * t : -120 + rev * 60 * ((t - 1.2) - 1 + Math.exp(-(t - 1.2)))]);
+    return pts;
+  };
+  const base = series(1), low = series(0.78);
+  const path = (p: [number, number][]) => p.map(([t, c], i) => `${i ? 'L' : 'M'}${X(t)} ${Y(c)}`).join('');
+  const neg = base.filter(([, c]) => c <= 0);
+  const area = `${path(neg)}L${X(neg[neg.length - 1][0])} ${zero}L${X(0)} ${zero}Z`;
+  let pb = 0;
+  for (let i = 1; i < base.length; i++) if (base[i - 1][1] < 0 && base[i][1] >= 0) { const [t0, c0] = base[i - 1], [t1, c1] = base[i]; pb = t0 + ((0 - c0) / (c1 - c0)) * (t1 - t0); break; }
+  const hatch: string[] = []; for (let x = 40; x < 300; x += 7) hatch.push(`M${x} ${zero}l52 52`);
+  const ticks = Array.from({ length: 11 }, (_, i) => `M${X(i)} ${zero}v${i % 5 === 0 ? 6 : 3}`).join('');
+  return { zero, X, Y, base: path(base), low: path(low), area, hatch: hatch.join(''), ticks, pb: { x: X(pb), y: zero }, trough: { x: X(1.2), y: Y(-120) }, x0: X(0), x1: X(10) };
+})();
+
+/* ---------- 4 · risk matrix ---------- */
+const rk = (() => {
+  const gx = 158, gy = 40, cw = 92, ch = 70;
+  const cells = [] as { x: number; y: number; o: number }[];
+  for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) cells.push({ x: gx + i * cw, y: gy + j * ch, o: f(0.035 + (i + (2 - j)) * 0.05) });
+  const C = (i: number, j: number) => [f(gx + (i + 0.5) * cw), f(gy + (j + 0.5) * ch)];
+  const from = [C(2, 0), C(1, 0), C(2, 1)], to = [C(1, 1), C(0, 1), C(1, 2)];
+  const arrows = from.map((a, i) => {
+    const b = to[i], dx = b[0] - a[0], dy = b[1] - a[1], l = Math.hypot(dx, dy), ux = dx / l, uy = dy / l;
+    const s = [a[0] + ux * 10, a[1] + uy * 10], e = [b[0] - ux * 10, b[1] - uy * 10];
+    const h1 = [e[0] - ux * 6 - uy * 3.6, e[1] - uy * 6 + ux * 3.6], h2 = [e[0] - ux * 6 + uy * 3.6, e[1] - uy * 6 - ux * 3.6];
+    return { line: `M${f(s[0])} ${f(s[1])}L${f(e[0])} ${f(e[1])}`, head: `M${f(h1[0])} ${f(h1[1])}L${f(e[0])} ${f(e[1])}L${f(h2[0])} ${f(h2[1])}` };
+  });
+  const grid = [0, 1, 2, 3].map((i) => `M${gx + i * cw} ${gy}V${gy + 3 * ch}`).join('') + [0, 1, 2, 3].map((j) => `M${gx} ${gy + j * ch}H${gx + 3 * cw}`).join('');
+  const mid = [(from[2][0] + to[2][0]) / 2, (from[2][1] + to[2][1]) / 2];
+  return { gx, gy, cw, ch, cells, from, to, arrows, grid, mid };
+})();
+
+/* ---------- 5 · financing: sources and uses ---------- */
+const fs = (() => {
+  const top = 70, h = 196, w = 78, xa = 150, xb = 266;
+  const seg = (parts: number[]) => { let y = top; return parts.map((p) => { const s = { y: f(y), h: f(p * h) }; y += p * h; return s; }); };
+  const src = seg([0.36, 0.24, 0.4]), use = seg([0.46, 0.3, 0.24]);
+  return { top, h, w, xa, xb, src, use };
+})();
+
+const n2 = (i: number) => String(i + 1).padStart(2, '0');
+---
+<span class:list={['rf', `rf--${kind}`]} aria-hidden="true">
+  <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" focusable="false" direction="ltr">
+    {kind === 0 && (
+      <g>
+        <path class="d d--hair" d={mk.grid} pathLength="1" />
+        <path class="d d--strong" d={`M${mk.ox} ${mk.yt}V${mk.oy}H${mk.xr}`} pathLength="1" />
+        <path class="d d--strong" d={arrowU(mk.ox, mk.yt) + arrowR(mk.xr, mk.oy)} pathLength="1" />
+        <path class="d d--strong" d={`M${mk.D[0].join(' ')}L${mk.D[1].join(' ')}`} pathLength="1" />
+        <path class="d d--mid" d={`M${mk.S[0].join(' ')}L${mk.S[1].join(' ')}`} pathLength="1" />
+        <path class="d d--acc d--dash" d={`M${mk.E[0]} ${mk.E[1]}H${mk.ox}M${mk.E[0]} ${mk.E[1]}V${mk.oy}`} pathLength="1" />
+        <circle class="dot" cx={mk.E[0]} cy={mk.E[1]} r="4.5" />
+        <circle class="pulse" cx={mk.E[0]} cy={mk.E[1]} r="4.5" style={`transform-origin:${mk.E[0]}px ${mk.E[1]}px`} />
+        <text class="lbl" x={mk.ox + 10} y={mk.yt + 8}>{L.price}</text>
+        <text class="lbl" x={mk.xr} y={mk.oy + 22} text-anchor="end">{L.qty}</text>
+        <text class="lbl lbl--ink" x={mk.D[1][0] + 8} y={mk.D[1][1] + 4}>{L.demand}</text>
+        <text class="lbl lbl--ink" x={mk.S[1][0] + 8} y={mk.S[1][1] + 4}>{L.supply}</text>
+        <text class="sym" x={mk.ox - 8} y={mk.E[1] + 4} text-anchor="end">P*</text>
+        <text class="sym" x={mk.E[0]} y={mk.oy + 22} text-anchor="middle">Q*</text>
+      </g>
+    )}
+
+    {kind === 1 && (
+      <g>
+        <path class="d d--strong" d={tp.outer} pathLength="1" />
+        <path class="d d--mid" d={tp.inner} pathLength="1" />
+        <path class="d d--thin" d={tp.jambs} pathLength="1" />
+        <circle class="d d--mid fp" cx={tp.silo.cx} cy={tp.silo.cy} r={tp.silo.r} pathLength="1" />
+        <rect class="d d--mid fp" x={tp.mill.x} y={tp.mill.y} width={tp.mill.w} height={tp.mill.h} pathLength="1" />
+        <rect class="d d--mid fp" x={tp.mixer.x} y={tp.mixer.y} width={tp.mixer.w} height={tp.mixer.h} pathLength="1" />
+        <rect class="d d--mid fp" x={tp.ex.x} y={tp.ex.y} width={tp.ex.w} height={tp.ex.h} pathLength="1" />
+        <path class="d d--hair" d={tp.screw} pathLength="1" />
+        <rect class="d d--mid fp" x={tp.dryer.x} y={tp.dryer.y} width={tp.dryer.w} height={tp.dryer.h} pathLength="1" />
+        <path class="d d--hair" d={tp.belts} pathLength="1" />
+        <rect class="d d--mid fp" x={tp.pack.x} y={tp.pack.y} width={tp.pack.w} height={tp.pack.h} pathLength="1" />
+        <path class="d d--acc d--dash" d={tp.flow} pathLength="1" />
+        <path class="d d--acc" d={tp.heads} pathLength="1" />
+        <path class="d d--thin" d={tp.dims} pathLength="1" />
+        {tp.nums.map(([x, y], i) => (
+          <g class="no">
+            <circle cx={x} cy={y} r="8" />
+            <text x={x} y={y + 3.4} text-anchor="middle">{i + 1}</text>
+          </g>
+        ))}
+        <text class="lbl" x={tp.silo.cx + 10} y="22">{L.raw}</text>
+        <text class="sym" x="236" y="290" text-anchor="middle">L</text>
+        <text class="sym" x="444" y="153">B</text>
+        {L.machines.map((m: string, i: number) => (
+          <text class="lbl lbl--key" x={42 + i * 72} y="324"><tspan class="lbl__n">{i + 1}</tspan> {m}</text>
+        ))}
+      </g>
+    )}
+
+    {kind === 2 && (
+      <g>
+        <path class="d d--hair" d={cal.vgrid} pathLength="1" />
+        <path class="d d--thin" d={cal.hgrid} pathLength="1" />
+        {cal.heads.map((h) => <text class="lbl lbl--m" x={h.x} y={cal.y0 - 12} text-anchor="middle">{h.t}</text>)}
+        <text class="lbl" x={cal.x0 - 12} y={cal.y0 - 12} text-anchor="end">{L.month}</text>
+        {L.stages.map((s: string, i: number) => <text class="lbl lbl--ink" x={cal.x0 - 12} y={cal.yc(i) + 4} text-anchor="end">{s}</text>)}
+        {cal.bars.map((b) => <rect class:list={['d', 'bar', b.acc ? 'd--acc' : 'd--mid']} x={b.x} y={b.y} width={b.w} height={b.h} rx="1" pathLength="1" />)}
+        <path class="d d--thin" d={cal.deps} pathLength="1" />
+        <path class="d d--mid" d={cal.more} pathLength="1" />
+      </g>
+    )}
+
+    {kind === 3 && (
+      <g>
+        <clipPath id={`${uid}-neg`}><path d={cash.area} /></clipPath>
+        <path class="d d--hair" d={cash.hatch} clip-path={`url(#${uid}-neg)`} pathLength="1" />
+        <path class="c-line" d={`M${cash.x0} ${cash.zero}H${cash.x1 + 6}`} />
+        <path class="d d--strong" d={`M${cash.x0} 30V262`} pathLength="1" />
+        <path class="d d--strong" d={arrowU(cash.x0, 30)} pathLength="1" />
+        <path class="d d--thin" d={cash.ticks} pathLength="1" />
+        <path class="d d--acc d--dash" d={cash.low} pathLength="1" />
+        <path class="d d--strong" d={cash.base} pathLength="1" />
+        <path class="d d--hair" d={`M${cash.trough.x} ${cash.trough.y}V${cash.zero}`} pathLength="1" />
+        <circle class="vtx" cx={cash.trough.x} cy={cash.trough.y} r="2.6" />
+        <circle class="dot" cx={cash.pb.x} cy={cash.pb.y} r="4.5" />
+        <circle class="pulse" cx={cash.pb.x} cy={cash.pb.y} r="4.5" style={`transform-origin:${cash.pb.x}px ${cash.pb.y}px`} />
+        <text class="lbl" x={cash.x0 + 10} y="38">{L.cash}</text>
+        <text class="lbl" x={cash.x1 + 6} y={cash.zero - 10} text-anchor="end">{L.year}</text>
+        <text class="lbl lbl--ink" x={cash.trough.x} y={cash.trough.y + 22} text-anchor="middle">{L.invest}</text>
+        <text class="lbl lbl--acc" x={cash.pb.x + 10} y={cash.zero + 20}>{L.payback}</text>
+      </g>
+    )}
+
+    {kind === 4 && (
+      <g>
+        {rk.cells.map((c) => <rect class="cell" x={c.x} y={c.y} width={rk.cw} height={rk.ch} style={`fill-opacity:${c.o}`} />)}
+        <path class="d d--thin" d={rk.grid} pathLength="1" />
+        <path class="d d--strong" d={`M${rk.gx} ${rk.gy + 3 * rk.ch + 18}H${rk.gx + 3 * rk.cw}` + arrowR(rk.gx + 3 * rk.cw, rk.gy + 3 * rk.ch + 18)} pathLength="1" />
+        <path class="d d--strong" d={`M${rk.gx - 18} ${rk.gy + 3 * rk.ch}V${rk.gy}` + arrowU(rk.gx - 18, rk.gy)} pathLength="1" />
+        <text class="lbl" x={rk.gx + 3 * rk.cw} y={rk.gy + 3 * rk.ch + 38} text-anchor="end">{L.prob}</text>
+        <text class="lbl" x={rk.gx - 28} y={rk.gy + 8} text-anchor="end">{L.impact}</text>
+        {rk.arrows.map((a) => <path class="d d--acc d--dash" d={a.line} pathLength="1" />)}
+        {rk.arrows.map((a) => <path class="d d--acc" d={a.head} pathLength="1" />)}
+        {rk.to.map(([x, y]) => <circle class="d d--strong ring" cx={x} cy={y} r="5.5" pathLength="1" />)}
+        {rk.from.map(([x, y]) => <circle class="pt" cx={x} cy={y} r="5.5" />)}
+        {L.risks.map((r: string, i: number) => <text class="lbl lbl--ink" x={rk.from[i][0]} y={rk.from[i][1] - 13} text-anchor="middle">{r}</text>)}
+        <text class="lbl lbl--acc" x={rk.mid[0] + 12} y={rk.mid[1] + 14}>{L.mit}</text>
+      </g>
+    )}
+
+    {kind === 5 && (
+      <g>
+        <text class="lbl" x={fs.xa + fs.w / 2} y={fs.top - 16} text-anchor="middle">{L.sources}</text>
+        <text class="lbl" x={fs.xb + fs.w / 2} y={fs.top - 16} text-anchor="middle">{L.uses}</text>
+        {fs.src.map((s, i) => <rect class:list={['seg', `seg--s${i}`]} x={fs.xa} y={s.y} width={fs.w} height={s.h} />)}
+        {fs.use.map((s, i) => <rect class:list={['seg', `seg--u${i}`]} x={fs.xb} y={s.y} width={fs.w} height={s.h} />)}
+        <path class="d d--strong" d={`M${fs.xa} ${fs.top}h${fs.w}v${fs.h}h${-fs.w}Z M${fs.xb} ${fs.top}h${fs.w}v${fs.h}h${-fs.w}Z`} pathLength="1" />
+        <path class="d d--thin" d={fs.src.slice(1).map((s) => `M${fs.xa} ${s.y}h${fs.w}`).join('') + fs.use.slice(1).map((s) => `M${fs.xb} ${s.y}h${fs.w}`).join('')} pathLength="1" />
+        <path class="d d--hair" d={`M${fs.xa + fs.w} ${fs.top}H${fs.xb}M${fs.xa + fs.w} ${fs.top + fs.h}H${fs.xb}`} pathLength="1" />
+        <path class="d d--mid" d={`M${(fs.xa + fs.w + fs.xb) / 2 - 8} ${fs.top + fs.h / 2 - 4}h16M${(fs.xa + fs.w + fs.xb) / 2 - 8} ${fs.top + fs.h / 2 + 4}h16`} pathLength="1" />
+        {L.src.map((t: string, i: number) => <text class:list={['lbl', i === 1 ? 'lbl--acc' : 'lbl--ink']} x={fs.xa - 12} y={fs.src[i].y + fs.src[i].h / 2 + 4} text-anchor="end">{t}</text>)}
+        {L.use.map((t: string, i: number) => <text class="lbl lbl--ink" x={fs.xb + fs.w + 12} y={fs.use[i].y + fs.use[i].h / 2 + 4}>{t}</text>)}
+      </g>
+    )}
+  </svg>
+</span>
+
+<style>
+  /* --k keeps hairlines near 1px however large the plate is drawn (480-unit viewBox) */
+  .rf { display: block; width: 100%; height: 100%; color: var(--ink); --acc: var(--brass); --k: 0.8; }
+  .rf svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .rf path, .rf circle, .rf rect { fill: none; }
+  .d { stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1 0; stroke-dashoffset: 0; }
+  .d--strong { stroke-width: calc(1.25px * var(--k)); }
+  .d--mid { stroke-width: calc(1px * var(--k)); opacity: 0.82; }
+  .d--thin { stroke-width: calc(0.75px * var(--k)); opacity: 0.6; }
+  .d--hair { stroke-width: calc(0.6px * var(--k)); opacity: 0.3; }
+  .d--acc { stroke: var(--acc); stroke-width: calc(1.15px * var(--k)); opacity: 1; }
+  .d--dash { stroke-dasharray: 0.014 0.012; }
+  .c-line { stroke: currentColor; stroke-width: calc(0.6px * var(--k)); opacity: 0.5; stroke-dasharray: 12 3 2 3; vector-effect: non-scaling-stroke; }
+  .dot { fill: var(--acc) !important; stroke: none; }
+  .pt { fill: currentColor !important; stroke: none; }
+  .ring { fill: var(--plate, #fbf9f4) !important; }
+  .vtx { fill: currentColor !important; opacity: 0.75; }
+  .pulse { stroke: var(--acc); stroke-width: 1px; opacity: 0; vector-effect: non-scaling-stroke; }
+  .fp { fill: color-mix(in oklab, currentColor 4%, transparent) !important; }
+  .bar.d--mid { fill: color-mix(in oklab, currentColor 9%, transparent) !important; }
+  .bar.d--acc { fill: color-mix(in oklab, var(--acc) 22%, transparent) !important; }
+  .cell { fill: var(--acc) !important; stroke: none; }
+  .seg { stroke: none; }
+  .seg--s0, .seg--u1 { fill: color-mix(in oklab, currentColor 6%, transparent) !important; }
+  .seg--s1 { fill: color-mix(in oklab, var(--acc) 24%, transparent) !important; }
+  .seg--s2, .seg--u0 { fill: color-mix(in oklab, currentColor 13%, transparent) !important; }
+  .seg--u2 { fill: color-mix(in oklab, currentColor 3%, transparent) !important; }
+  .no circle { fill: var(--plate, #fbf9f4) !important; stroke: var(--acc); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+  .no text { font-family: var(--f-mono); font-size: 10px; font-weight: 600; fill: var(--acc); }
+
+  /* labels: SVG user units; a bigger size on phones where the plate is drawn small */
+  .lbl { font-family: var(--f-mono); font-size: 11.5px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; fill: var(--ink-3); }
+  .lbl--ink { fill: var(--ink-2); }
+  .lbl--acc { fill: var(--acc); }
+  .lbl--m { font-size: 10px; letter-spacing: 0.02em; }
+  .lbl--key { font-size: 10.5px; letter-spacing: 0.04em; }
+  .lbl__n { fill: var(--acc); font-weight: 600; }
+  .sym { font-family: var(--f-mono); font-size: 13px; font-weight: 600; font-style: italic; fill: var(--ink-2); }
+  :global(html[dir='rtl']) .lbl { font-family: 'IBM Plex Sans Arabic', var(--f-sans); text-transform: none; letter-spacing: 0; font-size: 12.5px; }
+  @media (max-width: 900px) {
+    .rf { --k: 1.35; }
+    .lbl { font-size: 14px; }
+    .lbl--m { font-size: 12px; }
+    .lbl--key { font-size: 12.5px; }
+    .rf--1 .lbl--key { display: none; }
+    :global(html[dir='rtl']) .lbl { font-size: 15px; }
+  }
+
+  /* draw-in: armed by the page script; lines draw when an ancestor turns on */
+  /* off: reset only after the plate has faded out (a layer leaving keeps its drawing while it fades) */
+  :global(.js) .rf .d { stroke-dasharray: 1 1; stroke-dashoffset: 1; transition: stroke-dashoffset 0s 650ms; }
+  :global(.js) .rf .d--dash { stroke-dasharray: 0.014 0.012; stroke-dashoffset: 0; opacity: 0; transition: opacity 0s 650ms; }
+  :global(.js) .rf :is(.dot, .vtx, .pt, .cell, .seg, .bar, .no, .lbl, .sym, .c-line, .fp) { opacity: 0; transition: opacity 0s 650ms; }
+  :global(.js .is-on) .rf .d { stroke-dashoffset: 0; transition: stroke-dashoffset 1300ms var(--ease-water); }
+  :global(.js .is-on) .rf .d--hair { transition-duration: 1700ms; }
+  :global(.js .is-on) .rf .d--dash { opacity: 1; transition: opacity 700ms 700ms ease; }
+  :global(.js .is-on) .rf :is(.dot, .pt, .cell, .seg, .no, .lbl, .sym, .fp) { opacity: 1; transition: opacity 700ms 450ms ease; }
+  :global(.js .is-on) .rf .bar { opacity: 1; transition: opacity 700ms 450ms ease, stroke-dashoffset 1300ms var(--ease-water); }
+  :global(.js .is-on) .rf .c-line { opacity: 0.5; transition: opacity 700ms 300ms ease; }
+  :global(.js .is-on) .rf .vtx { opacity: 0.75; transition: opacity 700ms 450ms ease; }
+  :global(.js .is-on) .rf .pulse { animation: rf-pulse 2600ms 1400ms var(--ease-water) infinite; }
+  @keyframes rf-pulse { 0% { opacity: 0.9; scale: 1; } 100% { opacity: 0; scale: 4.5; } }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) .rf .d { stroke-dashoffset: 0 !important; }
+    :global(.js) .rf .d--dash, :global(.js) .rf :is(.dot, .vtx, .pt, .cell, .seg, .bar, .no, .lbl, .sym, .fp) { opacity: 1 !important; }
+    :global(.js) .rf .c-line { opacity: 0.5 !important; }
+    .pulse { animation: none !important; }
+  }
+</style>

@@ -1,0 +1,353 @@
+---
+import Logo from './Logo.astro';
+import LogoSwitch from './LogoSwitch.astro';
+import Arrow from './Arrow.astro';
+import Asset from './Asset.astro';
+import ServiceFigure from './ServiceFigure.astro';
+import { common, CONTACT } from '../i18n/common';
+import { pick, LANGS, LANG_META, type Lang } from '../lib/i18n';
+import { href, type RouteKey } from '../lib/routes';
+
+interface Props { lang: Lang; alternates: Record<Lang, string>; current?: RouteKey; startDark?: boolean }
+const { lang, alternates, current, startDark = true } = Astro.props;
+const c = pick(common, lang);
+const solutionKeys: RouteKey[] = ['aquaculture', 'lines', 'agri', 'line'];
+const serviceKeys: RouteKey[] = ['funding', 'feasibility', 'supply', 'certification'];
+const linkFor = (key: string, target: string) => (key === 'line' ? href('line', lang, target) : href(key as RouteKey, lang, undefined, target));
+// Same scenes as the home "worlds" section, cropped to the swatch's 16:7 (m-*-bg, ≈3–25 KB each).
+// The agri scene carries its own subject (the harvester), so it gets no cut-out on top.
+const swatchBg: Record<string, string> = { aquaculture: 'm-sea-bg', lines: 'm-factory-bg', agri: 'm-field-bg' };
+const swatchImg: Record<string, string> = { aquaculture: 'b-sea-bream', lines: 'fish-feed-pellets' };
+const swatch: Record<string, string> = { aquaculture: 'sw-water', lines: 'sw-steel', agri: 'sw-earth' };
+---
+<header class:list={['hdr', { 'on-dark': startDark }]} data-hdr>
+  <a class="skip" href="#main">{c.skip}</a>
+  <div class="hdr__bar wrap">
+    <a href={href('home', lang)} class="hdr__logo" aria-label={`${c.brand} ${c.brandSub}`}>
+      <Logo lang={lang} sub={c.brandSub} />
+    </a>
+
+    <nav class="hdr__nav" aria-label="Ana menü">
+      <ul role="list">
+        <li>
+          <button class="hdr__link" aria-expanded="false" aria-controls="mega-solutions" data-mega-btn data-active={current && solutionKeys.includes(current) ? '' : undefined}>
+            {c.nav.solutions}<svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 5 6.5 8 3.5" fill="none" stroke="currentColor" stroke-width="1.2" /></svg>
+          </button>
+        </li>
+        <li><a class="hdr__link" href={href('machines', lang)} data-active={current === 'machines' || current === 'machine' ? '' : undefined}>{c.nav.machines}</a></li>
+        <li>
+          <button class="hdr__link" aria-expanded="false" aria-controls="mega-services" data-mega-btn data-active={current && serviceKeys.includes(current) ? '' : undefined}>
+            {c.nav.services}<svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 5 6.5 8 3.5" fill="none" stroke="currentColor" stroke-width="1.2" /></svg>
+          </button>
+        </li>
+        <li><a class="hdr__link" href={href('projects', lang)} data-active={current === 'projects' ? '' : undefined}>{c.nav.projects}</a></li>
+        <li><a class="hdr__link" href={href('about', lang)} data-active={current === 'about' ? '' : undefined}>{c.nav.about}</a></li>
+        <li><a class="hdr__link" href={href('notes', lang)} data-active={current === 'notes' || current === 'note' ? '' : undefined}>{c.nav.notes}</a></li>
+      </ul>
+    </nav>
+
+    <div class="hdr__end">
+      <ul class="hdr__langs" role="list" aria-label={c.footer.lang}>
+        {LANGS.map((l) => (
+          <li>
+            <a href={alternates[l]} hreflang={LANG_META[l].htmlLang} lang={LANG_META[l].htmlLang} aria-current={l === lang ? 'true' : undefined} title={LANG_META[l].label}>
+              <img class="flag" src={`/flags/${l}.svg`} alt="" width="16" height="16" decoding="async" />{LANG_META[l].short}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a class="btn btn--sm hdr__cta" href={href('start', lang)}>{c.cta}<Arrow /></a>
+      <button class="hdr__burger" aria-expanded="false" aria-controls="mnav" data-burger>
+        <span class="sr-only">{c.menu}</span>
+        <span class="hdr__burger-lines" aria-hidden="true"><i></i><i></i></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mega panels -->
+  <div class="mega" id="mega-solutions" hidden data-mega>
+    <div class="wrap mega__grid mega__grid--3">
+      {c.mega.solutions.map((m, i) => (
+        <div class="mega__col" style={`--i:${i}`}>
+          <a class:list={['mega__swatch', swatch[m.key], { 'mega__swatch--scene': swatchBg[m.key] }]} href={href(m.key as RouteKey, lang)} tabindex="-1" aria-hidden="true">
+            <span class="label">0{i + 1}</span>
+            {swatchBg[m.key] && <Asset name={swatchBg[m.key]} alt="" sizes="(min-width: 1500px) 520px, 34vw" class="mega__bg" />}
+            {swatchImg[m.key] && <Asset name={swatchImg[m.key]} alt="" sizes="240px" class="mega__img" />}
+          </a>
+          <a class="mega__title" href={href(m.key as RouteKey, lang)}>{m.title}<Arrow /></a>
+          <p class="mega__text">{m.text}</p>
+          <ul role="list" class="mega__links">
+            {m.links.map(([label, key, target]) => <li><a class="link" href={linkFor(key, target)}>{label}</a></li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+  <div class="mega" id="mega-services" hidden data-mega>
+    <div class="wrap mega__grid mega__grid--4">
+      {c.mega.services.map((m, i) => (
+        <div class="mega__col" style={`--i:${i}`}>
+          <a class="mega__swatch mega__swatch--s sheet" href={href(m.key as RouteKey, lang)} tabindex="-1" aria-hidden="true">
+            <span class="label">0{i + 1}</span>
+            <ServiceFigure kind={m.key as 'funding' | 'feasibility' | 'supply' | 'certification'} class="mega__fig" />
+          </a>
+          <a class="mega__title" href={href(m.key as RouteKey, lang)}>{m.title}<Arrow /></a>
+          <p class="mega__text">{m.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</header>
+{import.meta.env.DEV && <LogoSwitch />}
+
+<!-- Mobile navigation -->
+<div class="mnav s-dark" id="mnav" hidden data-mnav>
+  <div class="mnav__inner wrap">
+    <nav aria-label="Mobil menü">
+      <p class="label">{c.nav.solutions}</p>
+      <ul role="list" class="mnav__list">
+        {c.mega.solutions.map((m) => <li><a href={href(m.key as RouteKey, lang)}>{m.title}</a></li>)}
+      </ul>
+      <p class="label">{c.nav.services}</p>
+      <ul role="list" class="mnav__list mnav__list--s">
+        {c.mega.services.map((m) => <li><a href={href(m.key as RouteKey, lang)}>{m.title}</a></li>)}
+      </ul>
+      <ul role="list" class="mnav__list mnav__list--s">
+        <li><a href={href('machines', lang)}>{c.nav.machines}</a></li>
+        <li><a href={href('projects', lang)}>{c.nav.projects}</a></li>
+        <li><a href={href('about', lang)}>{c.nav.about}</a></li>
+        <li><a href={href('notes', lang)}>{c.nav.notes}</a></li>
+        <li><a href={href('contact', lang)}>{c.footer.contact}</a></li>
+      </ul>
+    </nav>
+    <div class="mnav__foot">
+      <a class="btn btn--light" href={href('start', lang)}>{c.cta}<Arrow /></a>
+      <a class="mono" href={CONTACT.phoneHref}>{CONTACT.phone}</a>
+      <a class="mono" href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+      <ul class="hdr__langs" role="list">
+        {LANGS.map((l) => <li><a href={alternates[l]} lang={LANG_META[l].htmlLang} aria-current={l === lang ? 'true' : undefined}><img class="flag flag--m" src={`/flags/${l}.svg`} alt="" width="20" height="20" decoding="async" />{LANG_META[l].label}</a></li>)}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<style>
+  .skip { position: absolute; inset-inline-start: 12px; top: -60px; z-index: 100; background: var(--foam); color: var(--ink); padding: 10px 14px; font-weight: 600; }
+  .skip:focus { top: 12px; }
+
+  .hdr {
+    --hfg: var(--ink);
+    --hbg: rgba(246, 243, 238, 0.84);
+    --hline: var(--rule);
+    position: fixed; inset: 0 0 auto 0; z-index: 50;
+    color: var(--hfg);
+    transition: transform 520ms var(--ease-water), color 320ms ease;
+  }
+  .hdr.on-dark { --hfg: var(--aegean-pale); --hbg: rgba(6, 26, 51, 0.72); --hline: var(--rule-light); }
+  .hdr.is-hidden:not(.is-open) { transform: translateY(-100%); }
+  .hdr__bar {
+    height: var(--header-h);
+    display: flex; align-items: center; gap: 2rem;
+    position: relative;
+  }
+  .hdr__bar::before {
+    content: ''; position: absolute; inset: 0 calc(50% - 50vw); z-index: -1;
+    background: var(--hbg);
+    backdrop-filter: blur(14px) saturate(1.2);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    border-bottom: 1px solid var(--hline);
+    opacity: 0; transition: opacity 420ms ease;
+  }
+  .hdr.is-scrolled .hdr__bar::before, .hdr.is-open .hdr__bar::before { opacity: 1; }
+  .hdr__logo { flex: none; }
+
+  .hdr__nav { margin-inline: auto; }
+  .hdr__nav ul { display: flex; gap: clamp(0.6rem, 1.6vw, 2rem); }
+  .hdr__link {
+    display: inline-flex; align-items: center; gap: 0.35em;
+    font-size: 0.95rem; font-weight: 500; letter-spacing: 0.005em;
+    padding-block: 0.6rem; position: relative;
+  }
+  .hdr__link::after {
+    content: ''; position: absolute; inset-inline: 0; bottom: 0.3rem; height: 1px; background: currentColor;
+    transform: scaleX(0); transform-origin: left; transition: transform 500ms var(--ease-water);
+  }
+  .hdr__link:hover::after, .hdr__link[aria-expanded='true']::after { transform: scaleX(1); }
+  .hdr__link[data-active]::after { transform: scaleX(1); background: var(--brass); height: 2px; }
+  .chev { width: 10px; height: 10px; transition: transform 320ms var(--ease-steel); }
+  .hdr__link[aria-expanded='true'] .chev { transform: rotate(180deg); }
+
+  .hdr__end { display: flex; align-items: center; gap: 1.25rem; }
+  .hdr__langs { display: flex; align-items: center; gap: 0.95rem; font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.06em; }
+  .hdr__langs li { display: flex; align-items: center; }
+  .hdr__langs a { display: inline-flex; align-items: center; gap: 0.45rem; opacity: 0.62; padding: 0.4rem 0.1rem; transition: opacity 200ms; }
+  .hdr__langs a:hover, .hdr__langs a[aria-current] { opacity: 1; }
+  .hdr.on-dark .hdr__cta { --bg: var(--foam); --c: var(--abyss); --bd: var(--foam); }
+
+  .hdr__burger { display: none; width: 44px; height: 44px; place-items: center; }
+  .hdr__burger-lines { width: 24px; height: 10px; position: relative; display: block; }
+  .hdr__burger-lines i { position: absolute; inset-inline: 0; height: 1.5px; background: currentColor; transition: transform 420ms var(--ease-water), top 420ms var(--ease-water); }
+  .hdr__burger-lines i:first-child { top: 0; }
+  .hdr__burger-lines i:last-child { top: 8.5px; }
+  .hdr__burger[aria-expanded='true'] i:first-child { top: 4.25px; transform: rotate(45deg); }
+  .hdr__burger[aria-expanded='true'] i:last-child { top: 4.25px; transform: rotate(-45deg); }
+
+  /* mega */
+  .mega {
+    position: absolute; inset-inline: 0; top: var(--header-h);
+    background: var(--foam); color: var(--ink);
+    border-bottom: 1px solid var(--rule);
+    box-shadow: 0 40px 80px -40px rgba(6, 26, 51, 0.35);
+    padding-block: 2.5rem 3rem;
+  }
+  .mega:not([hidden]) { animation: mega-in 520ms var(--ease-water) both; }
+  @keyframes mega-in { from { opacity: 0; transform: translateY(-8px); } }
+  .mega__grid { display: grid; gap: var(--col-gap); }
+  .mega__grid--3 { grid-template-columns: repeat(3, 1fr); }
+  .mega__grid--4 { grid-template-columns: repeat(4, 1fr); }
+  .mega__col { display: grid; align-content: start; gap: 0.7rem; animation: mega-in 600ms var(--ease-water) both; animation-delay: calc(var(--i) * 70ms + 80ms); }
+  .mega__swatch { aspect-ratio: 16 / 7; border-radius: var(--radius); padding: 0.75rem; display: flex; align-items: flex-start; overflow: hidden; position: relative; }
+  /* services: journal plates (same language as Notes), figure drawn from the service itself */
+  .mega__swatch--s { aspect-ratio: 16 / 7; color: var(--ink-3); transition: box-shadow 500ms var(--ease-water); }
+  .mega__swatch--s .label { font-size: 0.66rem; letter-spacing: 0.1em; opacity: 1; margin: 0.2rem 0 0 0.75rem; }
+  .mega__swatch--s :global(.mega__fig) { position: absolute; inset: 14% 7% 10%; }
+  .mega__col:hover .mega__swatch--s { box-shadow: inset 0 0 0 1px var(--rule-strong); }
+  .mega__swatch .label { color: inherit; opacity: 0.8; position: relative; z-index: 2; }
+  .mega__swatch.mega__swatch--scene::after { content: none; }
+  .mega__swatch--scene .label { color: #fff; opacity: 0.92; text-shadow: 0 1px 8px rgba(6, 26, 51, 0.45); }
+  .mega__swatch :global(.mega__bg) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1400ms var(--ease-water); }
+  .mega__col:hover :global(.mega__bg) { transform: scale(1.03); }
+  .mega__swatch :global(.mega__img) { position: absolute; z-index: 1; right: 6%; bottom: 8%; height: 78%; width: auto; max-width: 70%; object-fit: contain; filter: drop-shadow(0 10px 12px rgba(0,0,0,.35)); transition: transform 900ms var(--ease-water); }
+  .mega__col:hover :global(.mega__img) { transform: translateY(-4px) scale(1.04); }
+  .sw-water { background: radial-gradient(120% 90% at 20% 0%, #1d5a8e 0%, var(--abyss-2) 45%, var(--abyss) 100%); color: var(--aegean); }
+  .sw-water::after { content: ''; position: absolute; inset: 0; background: repeating-radial-gradient(circle at 30% -20%, transparent 0 14px, rgba(130, 204, 240, 0.14) 15px 16px); mix-blend-mode: screen; }
+  .sw-steel { background: linear-gradient(100deg, var(--graphite-2), #3b4652 55%, var(--graphite)); color: var(--steel-2); }
+  .sw-steel::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 23px, rgba(255, 255, 255, 0.07) 23px 24px); }
+  .sw-earth { background: linear-gradient(160deg, var(--sand) 0%, #c9b994 60%, var(--alg) 140%); color: var(--alg); }
+  .mega__title { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--f-serif); font-size: 1.55rem; letter-spacing: -0.015em; margin-top: 0.4rem; }
+  .mega__title .arr { width: 0.8em; opacity: 0; transform: translateX(-6px); transition: all 420ms var(--ease-water); }
+  .mega__title:hover .arr { opacity: 1; transform: none; }
+  .mega__text { color: var(--ink-2); font-size: 0.95rem; max-width: 36ch; }
+  .mega__links { display: grid; gap: 0.35rem; font-size: 0.92rem; margin-top: 0.3rem; }
+
+  /* mobile nav */
+  .mnav { position: fixed; inset: 0; z-index: 45; padding-top: calc(var(--header-h) + 1rem); overflow-y: auto; }
+  .mnav:not([hidden]) { animation: rise-water 640ms var(--ease-water) both; }
+  @keyframes rise-water { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
+  .mnav__inner { display: grid; gap: 2.5rem; padding-bottom: 3rem; min-height: 100%; align-content: space-between; }
+  .mnav .label { margin-top: 1.6rem; margin-bottom: 0.4rem; }
+  .mnav__list a { display: block; font-family: var(--f-serif); font-size: 2.1rem; line-height: 1.25; letter-spacing: -0.02em; padding-block: 0.15rem; }
+  .mnav__list--s a { font-size: 1.45rem; }
+  .mnav__foot { display: grid; gap: 0.9rem; justify-items: start; }
+  .mnav__foot .hdr__langs { font-size: 0.85rem; gap: 1.4rem; margin-top: 0.6rem; }
+  .mnav__foot .hdr__langs a { gap: 0.6rem; }
+
+  @media (max-width: 1180px) {
+    .hdr__nav, .hdr__end > .hdr__langs { display: none; }
+    .hdr__end { margin-inline-start: auto; }
+    .hdr__burger { display: grid; }
+  }
+  @media (max-width: 560px) { .hdr__cta { display: none; } }
+  html[dir='rtl'] .hdr__link::after { transform-origin: right; }
+</style>
+
+<script>
+  const hdr = document.querySelector<HTMLElement>('[data-hdr]')!;
+  const btns = [...document.querySelectorAll<HTMLButtonElement>('[data-mega-btn]')];
+  const burger = document.querySelector<HTMLButtonElement>('[data-burger]')!;
+  const mnav = document.querySelector<HTMLElement>('[data-mnav]')!;
+  let closeTimer = 0;
+  let openedAt = 0;
+
+  function setMega(btn: HTMLButtonElement | null) {
+    btns.forEach((b) => {
+      const panel = document.getElementById(b.getAttribute('aria-controls')!)!;
+      const open = b === btn;
+      b.setAttribute('aria-expanded', String(open));
+      panel.hidden = !open;
+    });
+    if (btn) openedAt = performance.now();
+    hdr.classList.toggle('is-open', !!btn);
+    syncSurface();
+  }
+  btns.forEach((b) => {
+    const panel = document.getElementById(b.getAttribute('aria-controls')!)!;
+    b.addEventListener('click', () => {
+      const open = b.getAttribute('aria-expanded') === 'true';
+      if (open && performance.now() - openedAt < 450) return; // just opened by hover
+      setMega(open ? null : b);
+    });
+    const enter = () => { clearTimeout(closeTimer); if (matchMedia('(hover:hover)').matches && b.getAttribute('aria-expanded') !== 'true') setMega(b); };
+    const leave = () => { closeTimer = window.setTimeout(() => setMega(null), 220); };
+    b.addEventListener('pointerenter', enter);
+    b.addEventListener('pointerleave', leave);
+    panel.addEventListener('pointerenter', () => clearTimeout(closeTimer));
+    panel.addEventListener('pointerleave', leave);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const open = btns.find((b) => b.getAttribute('aria-expanded') === 'true');
+    if (open) { setMega(null); open.focus(); }
+    if (!mnav.hidden) toggleMobile(false);
+  });
+  document.addEventListener('click', (e) => { if (!hdr.contains(e.target as Node)) setMega(null); });
+
+  function toggleMobile(open: boolean) {
+    burger.setAttribute('aria-expanded', String(open));
+    mnav.hidden = !open;
+    document.documentElement.style.overflow = open ? 'hidden' : '';
+    hdr.classList.toggle('is-open', open);
+    syncSurface();
+  }
+  burger.addEventListener('click', () => toggleMobile(burger.getAttribute('aria-expanded') !== 'true'));
+
+  // Header reads the surface beneath it (data-surface="dark|light") and hides while descending.
+  let lastY = scrollY;
+  // Geometry instead of hit-testing: elementsFromPoint misses surfaces under overlays,
+  // pointer-events:none layers, or a page that is still restoring (bfcache / scroll restore).
+  const surfaces = [...document.querySelectorAll<HTMLElement>('[data-surface]')].filter((el) => !hdr.contains(el));
+  function surfaceUnderHeader(): string | undefined {
+    const y = Math.min(36, innerHeight - 1);
+    let found: HTMLElement | undefined;
+    for (const el of surfaces) {
+      const r = el.getBoundingClientRect();
+      if (r.height && r.top <= y && r.bottom > y) found = el; // document order → innermost wins
+    }
+    return found?.dataset.surface;
+  }
+  function syncSurface() {
+    if (!mnav.hidden) { hdr.classList.add('on-dark'); return; }
+    if (hdr.classList.contains('is-open')) { hdr.classList.remove('on-dark'); return; }
+    hdr.classList.toggle('on-dark', surfaceUnderHeader() === 'dark');
+  }
+  function onScroll() {
+    const y = scrollY;
+    hdr.classList.toggle('is-scrolled', y > 24);
+    if (Math.abs(y - lastY) > 6) {
+      hdr.classList.toggle('is-hidden', y > lastY && y > 320);
+      lastY = y;
+    }
+    syncSurface();
+  }
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', syncSurface);
+
+  // Leaving the page (link in mega / mobile nav) must not freeze an open menu into the
+  // back-forward cache; on return, re-read the surface from the restored scroll position.
+  function resetMenus() {
+    clearTimeout(closeTimer);
+    if (!mnav.hidden) toggleMobile(false);
+    setMega(null);
+  }
+  addEventListener('pagehide', resetMenus);
+  addEventListener('pageshow', (e) => {
+    if (e.persisted) resetMenus();
+    hdr.classList.remove('is-hidden');
+    lastY = scrollY;
+    onScroll();
+    requestAnimationFrame(onScroll);
+  });
+  addEventListener('load', () => requestAnimationFrame(onScroll));
+  document.fonts?.ready.then(syncSurface);
+  onScroll();
+</script>

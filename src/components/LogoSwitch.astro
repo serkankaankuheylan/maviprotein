@@ -1,0 +1,40 @@
+---
+/**
+ * Dev server only (Header.astro includes it under import.meta.env.DEV; it is never part of a build).
+ * Flips the header between the logo candidates so they can be judged in place, on any page and ground.
+ * The choice is kept per browser tab; `?logo=sade` (or parlak, yumusak) in the address sets it too.
+ */
+import { LOGO, LOGO_KINDS, LOGO_LABEL } from '../lib/logo-choice';
+---
+<div class="lsw" data-logo-switch hidden>
+  <span>Logo</span>
+  {LOGO_KINDS.map((k) => <button type="button" data-v={k}>{LOGO_LABEL[k]}</button>)}
+</div>
+<script is:inline define:vars={{ def: LOGO, kinds: LOGO_KINDS }}>
+  (() => {
+    const KEY = 'mp-logo', box = document.querySelector('[data-logo-switch]');
+    const read = () => { try { return sessionStorage.getItem(KEY); } catch { return null; } };
+    const q = new URLSearchParams(location.search).get('logo');
+    const apply = (v) => {
+      try { sessionStorage.setItem(KEY, v); } catch {}
+      document.querySelectorAll('.logo[data-logo]').forEach((l) => kinds.forEach((k) => l.classList.toggle('logo--' + k, k === v)));
+      box.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v === v)));
+    };
+    box.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => apply(b.dataset.v)));
+    apply(kinds.includes(q) ? q : kinds.includes(read()) ? read() : def);
+    box.hidden = false;
+  })();
+</script>
+<style>
+  .lsw {
+    position: fixed; z-index: 60; left: 12px; bottom: 12px;
+    display: flex; align-items: center; gap: 4px; padding: 4px 4px 4px 12px;
+    font: 500 12px/1 system-ui, sans-serif; color: #fff;
+    background: rgba(13, 27, 44, 0.9); border-radius: 999px; box-shadow: 0 6px 24px -8px rgba(0, 0, 0, 0.5);
+  }
+  .lsw[hidden] { display: none; }
+  .lsw span { margin-inline-end: 6px; opacity: 0.7; }
+  .lsw button { font: inherit; color: inherit; padding: 8px 12px; border-radius: 999px; }
+  .lsw button[aria-pressed='true'] { background: #fff; color: #0d1b2c; }
+  @media (max-width: 760px) { .lsw { bottom: 84px; } }
+</style>

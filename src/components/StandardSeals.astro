@@ -1,0 +1,240 @@
+---
+/**
+ * Standards banderole: one engraved seal per standard we certify *through partners*.
+ * These are ORIGINAL seals drawn here (guilloche + engraved ring text), not the ISO logo
+ * or any certification body's mark — ISO forbids use of its logo, and certification marks
+ * belong to accredited bodies. The copy frames them as services, not as Mavi Protein's own
+ * certificates.
+ * Source: catalogue p.52–53 / services.json `certification` (OHSAS 18001 → ISO 45001).
+ */
+import { services } from '../lib/data';
+import { t, type Lang } from '../lib/i18n';
+import { href } from '../lib/routes';
+import { rim, rays } from '../lib/seal';
+
+interface Props {
+  lang: Lang;
+  label: string;
+  lead: string;
+  cta: string;
+  people: string;
+}
+const { lang, label, lead, cta, people } = Astro.props;
+
+const systems = (services['certification']?.items ?? []).filter((i: any) => i.kind === 'system' && !i.offFocus);
+type Seal = { code: string; title: string; short?: string };
+const seals: Seal[] = [
+  ...systems.map((s: any) => ({ code: s.code as string, title: t(s.title, lang) as string })),
+  { code: 'ISO 17024', title: people },
+];
+
+const up = (s: string) => (lang === 'ar' ? s : s.toLocaleUpperCase(lang === 'tr' ? 'tr' : 'en'));
+const RIM = rim();
+const RAYS = rays();
+
+const sealData = seals.map((s, i) => {
+  const isHalal = s.code.startsWith('OIC');
+  const m = s.code.match(/^(ISO)\s+(\d+)$/);
+  const pre = m ? m[1] : 'OIC/SMIIC 1';
+  const big = m ? m[2] : (lang === 'ar' ? 'حلال' : lang === 'tr' ? 'Helal' : 'Halal');
+  const ring = up(s.title);
+  // Arabic can't be letter-spaced (it breaks the joins), so fill the ring by repetition instead.
+  const reps = lang === 'ar' ? Math.max(2, Math.floor(110 / (ring.length + 5))) : ring.length < 26 ? 3 : 2;
+  const ringText = Array(reps).fill(ring).join('  ✦  ') + '  ✦  ';
+  return { ...s, i, pre, big, isHalal, ringText, id: `std-${lang}-${i}` };
+});
+const certHref = href('certification', lang);
+---
+<aside class="bandrol rise" aria-labelledby="bandrol-label">
+  <div class="bandrol__edge" aria-hidden="true"></div>
+  <div class="bandrol__head">
+    <p class="label" id="bandrol-label"><span class="bandrol__dot" aria-hidden="true"></span>{label}</p>
+    <p class="bandrol__lead">{lead}</p>
+    <a class="bandrol__cta link" href={certHref}>{cta} <span aria-hidden="true">{lang === 'ar' ? '←' : '→'}</span></a>
+  </div>
+  <ul class="bandrol__row" role="list">
+    {sealData.map((s) => (
+      <li class="seal" style={`--i:${s.i}`}>
+        <a href={certHref} aria-label={`${s.code} · ${s.title}`}>
+          <svg class="seal__svg" viewBox="0 0 200 200" role="img" aria-hidden="true">
+            <defs>
+              <radialGradient id={`${s.id}-disc`} cx="38%" cy="32%" r="78%">
+                <stop offset="0" stop-color="var(--seal-hi)" />
+                <stop offset="0.62" stop-color="var(--seal-mid)" />
+                <stop offset="1" stop-color="var(--seal-lo)" />
+              </radialGradient>
+              {/* starts at the bottom so 50% sits at the top (Arabic is centred there) */}
+              <path id={`${s.id}-ring`} d="M100 164.5a64.5 64.5 0 1 1 0-129a64.5 64.5 0 1 1 0 129" />
+            </defs>
+            <path d={RIM} fill={`url(#${s.id}-disc)`} class="seal__rim" />
+            <circle cx="100" cy="100" r="92" class="seal__hair" />
+            <g class="seal__g" data-seal-g={s.i}></g>
+            <circle cx="100" cy="100" r="72.5" class="seal__hair seal__hair--b" />
+            <text class="seal__ring" dy="2.6" direction="ltr">
+              {lang === 'ar'
+                ? <textPath href={`#${s.id}-ring`} startOffset="50%" text-anchor="middle">{s.ringText}</textPath>
+                : <textPath href={`#${s.id}-ring`} textLength="400" lengthAdjust="spacing">{s.ringText}</textPath>}
+            </text>
+            <circle cx="100" cy="100" r="56" class="seal__hair seal__hair--b" />
+            <circle cx="100" cy="100" r="53" class="seal__field" />
+            <path d={RAYS} class="seal__rays" />
+            <circle cx="100" cy="100" r="38" class="seal__core" />
+            <text x="100" y="80" text-anchor="middle" class="seal__pre">{s.pre}</text>
+            <text x="100" y="111" text-anchor="middle" class:list={['seal__big', { 'is-word': s.isHalal, 'is-long': s.big.length > 4 && !s.isHalal }]}>{s.big}</text>
+            <g class="seal__stars">
+              <path d="M88 124h7M105 124h7" />
+              <circle cx="100" cy="124" r="1.6" />
+            </g>
+          </svg>
+          <span class="seal__cap">
+            <span class="mono seal__code">{s.code}</span>
+            <span class="seal__title">{s.title}</span>
+          </span>
+        </a>
+      </li>
+    ))}
+  </ul>
+  <div class="bandrol__edge bandrol__edge--b" aria-hidden="true"></div>
+</aside>
+
+<script>
+  import { guilloche } from '../lib/seal';
+  // The guilloche (ten engraved strands per seal, ~50 KB of path data each) is drawn here instead of being
+  // shipped in the HTML: same function and seed, so the seal is identical and the page ~350 KB lighter.
+  // Drawn a screen before the band arrives; the band rises in only once it is in view.
+  const engrave = (band: Element) => band.querySelectorAll<SVGGElement>('[data-seal-g]').forEach((g) => {
+    const scope = [...g.classList].filter((c) => c.startsWith('astro-')); // scoped styles (scopedStyleStrategy: class)
+    g.replaceChildren(...guilloche(Number(g.dataset.sealG), 74, 88).map((d, j) => {
+      const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      p.setAttribute('d', d);
+      p.classList.add('seal__gl', ...scope, ...(j % 2 ? ['is-alt'] : []));
+      return p;
+    }));
+  });
+  document.querySelectorAll('.bandrol').forEach((band) => {
+    const io = new IntersectionObserver((es) => {
+      if (!es.some((e) => e.isIntersecting)) return;
+      io.disconnect();
+      engrave(band);
+    }, { rootMargin: '100% 0px' });
+    io.observe(band);
+  });
+
+  // Arabic ring text can't be letter-spaced without breaking its joins: measure it and
+  // scale the type so the inscription closes the ring instead.
+  const fit = () => {
+    document.querySelectorAll<SVGTextElement>('html[lang="ar"] .bandrol .seal__ring').forEach((el) => {
+      const path = el.ownerSVGElement?.querySelector<SVGPathElement>('defs path');
+      if (!path) return;
+      el.style.fontSize = '';
+      const len = el.getComputedTextLength();
+      if (!len) return;
+      const base = parseFloat(getComputedStyle(el).fontSize);
+      const size = Math.min(10.5, Math.max(6.5, (base * path.getTotalLength() * 0.95) / len));
+      el.style.fontSize = `${size}px`;
+    });
+  };
+  if (document.fonts?.ready) document.fonts.ready.then(fit); else fit();
+</script>
+
+<style>
+  .bandrol {
+    --seal-hi: #fffaf1;
+    --seal-mid: #f1e7d6;
+    --seal-lo: #dccab0;
+    --engrave: #8a5420;
+    --engrave-2: var(--brass);
+    position: relative;
+    margin-top: clamp(3.5rem, 6vw, 5.5rem);
+    /* full bleed: break out of .wrap to the viewport edges, keep content on the wrap's lines */
+    margin-inline: calc(50% - 50vw);
+    padding-inline: max(var(--gutter), calc(50vw - var(--max) / 2 + var(--gutter)));
+    padding-block: clamp(2.4rem, 4vw, 3.6rem);
+    background: linear-gradient(180deg, color-mix(in srgb, var(--sand) 34%, transparent), color-mix(in srgb, var(--sand) 52%, transparent));
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(1.5rem, 3vw, 3.5rem);
+    align-items: center;
+  }
+  /* banderole edges: double brass rule with a guilloche wave between, like a tax stamp */
+  .bandrol__edge {
+    position: absolute; inset-inline: 0; top: 0; height: 9px;
+    border-block: 1px solid color-mix(in srgb, var(--brass) 70%, transparent);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='7' viewBox='0 0 24 7'%3E%3Cpath d='M0 3.5C3 0 9 0 12 3.5S21 7 24 3.5' fill='none' stroke='%23b8742f' stroke-width='.6' opacity='.75'/%3E%3Cpath d='M0 3.5C3 7 9 7 12 3.5S21 0 24 3.5' fill='none' stroke='%23b8742f' stroke-width='.6' opacity='.45'/%3E%3C/svg%3E");
+    background-repeat: repeat-x; background-position: 0 50%; background-size: 24px 7px;
+  }
+  .bandrol__edge--b { top: auto; bottom: 0; }
+
+  /* head runs as one line above the seals so the seals get the full width */
+  .bandrol__head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: baseline; gap: 0.8rem clamp(1.2rem, 3vw, 3rem); }
+  .bandrol__lead { max-width: 52ch; }
+  .bandrol__head .label { display: flex; align-items: center; gap: 0.6em; color: var(--engrave); }
+  .bandrol__dot { width: 7px; height: 7px; transform: rotate(45deg); background: var(--brass); }
+  .bandrol__lead { font-family: var(--f-serif); font-size: 1.12rem; line-height: 1.4; color: var(--ink-2); }
+  .bandrol__cta { justify-self: start; font-size: var(--t-small); color: var(--ink); }
+
+  .bandrol__row {
+    display: grid; grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: clamp(0.6rem, 1.2vw, 1.4rem);
+  }
+  .seal a { display: grid; justify-items: center; gap: 0.8rem; text-align: center; outline-offset: 6px; }
+  .seal__svg {
+    width: 100%; max-width: 200px; aspect-ratio: 1; overflow: visible;
+    filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.7)) drop-shadow(0 10px 14px rgba(70, 44, 14, 0.16)) drop-shadow(0 2px 3px rgba(70, 44, 14, 0.18));
+    transition: transform 700ms var(--ease-water), filter 700ms var(--ease-water);
+  }
+  .seal__rim { stroke: color-mix(in srgb, var(--engrave) 55%, transparent); stroke-width: 0.6; }
+  .seal__hair { fill: none; stroke: var(--engrave); stroke-width: 0.7; opacity: 0.8; }
+  .seal__hair--b { stroke-width: 0.9; opacity: 0.9; }
+  .seal__g { transform-origin: 100px 100px; transition: transform 1600ms var(--ease-water); }
+  .seal__gl { fill: none; stroke: var(--engrave-2); stroke-width: 0.42; opacity: 0.75; }
+  .seal__gl.is-alt { stroke: var(--engrave); opacity: 0.5; }
+  .seal__ring { font-family: var(--f-mono); font-size: 7.4px; letter-spacing: 0.02em; fill: var(--engrave); }
+  :global(html[lang='ar']) .seal__ring { font-family: 'IBM Plex Sans Arabic', var(--f-sans); font-size: 8.4px; }
+  .seal__field { fill: color-mix(in srgb, var(--seal-hi) 60%, transparent); }
+  .seal__rays { stroke: var(--engrave-2); stroke-width: 0.35; opacity: 0.35; }
+  .seal__core { fill: var(--seal-hi); stroke: var(--engrave); stroke-width: 0.5; opacity: 0.96; }
+  .seal__pre { font-family: var(--f-mono); font-size: 7.6px; letter-spacing: 0.22em; fill: var(--engrave); }
+  .seal__big { font-family: var(--f-serif); font-size: 31px; font-weight: 420; letter-spacing: -0.02em; fill: var(--ink); font-variant-numeric: lining-nums; }
+  .seal__big.is-long { font-size: 26px; }
+  .seal__big.is-word { font-style: italic; font-size: 27px; }
+  :global(html[lang='ar']) .seal__big.is-word { font-family: 'IBM Plex Sans Arabic', var(--f-sans); font-style: normal; font-weight: 500; font-size: 24px; }
+  .seal__stars path { stroke: var(--engrave); stroke-width: 0.7; }
+  .seal__stars circle { fill: var(--brass); }
+
+  .seal__cap { display: grid; gap: 0.2rem; max-width: 12rem; }
+  .seal__code { font-size: var(--t-mono-s); letter-spacing: 0.08em; color: var(--engrave); }
+  .seal__title { font-size: 0.88rem; line-height: 1.3; color: var(--ink-2); }
+
+  .seal a:hover .seal__svg, .seal a:focus-visible .seal__svg {
+    transform: translateY(-4px) rotate(-4deg);
+    filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.7)) drop-shadow(0 18px 22px rgba(70, 44, 14, 0.2)) drop-shadow(0 3px 4px rgba(70, 44, 14, 0.2));
+  }
+  .seal a:hover .seal__g, .seal a:focus-visible .seal__g { transform: rotate(24deg); }
+
+  /* staggered press-in when the band rises */
+  :global(.js) .bandrol .seal { opacity: 0; transform: scale(0.94); transition: opacity 900ms var(--ease-water), transform 900ms var(--ease-water); transition-delay: calc(var(--i) * 70ms + 200ms); }
+  :global(.js) .bandrol:global(.is-in) .seal { opacity: 1; transform: none; }
+
+  @media (max-width: 1100px) {
+    .bandrol__head { grid-template-columns: minmax(0, 1fr) auto; align-items: end; }
+    .bandrol__head .label { grid-column: 1 / -1; }
+  }
+  @media (max-width: 760px) {
+    .bandrol__head { grid-template-columns: 1fr; }
+    /* a banderole you can pull: horizontal, snapping, bleeds to the gutter */
+    .bandrol__row {
+      display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+      margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter);
+      gap: 1rem; padding-bottom: 0.4rem;
+    }
+    .bandrol__row::-webkit-scrollbar { display: none; }
+    /* exactly 2.5 seals in view (visible width = content + leading gutter, minus two gaps)
+       so the cut-off third seal signals that the band scrolls */
+    .seal { flex: 0 0 calc((100% + var(--gutter) - 2rem) / 2.5); scroll-snap-align: start; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .seal__g, .seal__svg { transition: none; }
+    :global(.js) .bandrol .seal { opacity: 1; transform: none; }
+  }
+</style>

@@ -1,0 +1,267 @@
+---
+/**
+ * A service's plate, in the same journal-plate language as NoteFigure: a precise line figure
+ * drawn from what the service actually delivers. No stock texture, no decoration.
+ *   funding       → work-package schedule (Gantt): the six stages of a funded project,
+ *                   submission milestone, interim/final reports during execution
+ *   feasibility   → cumulative cash flow: investment trough, payback point, a sensitivity case
+ *   supply        → 20 ft ISO container (6.06 × 2.44 × 2.59 m) in dimetric view: import/export
+ *   certification → PDCA (Deming) wheel on the incline, held by the standard (wedge): ISO
+ *                   management systems (9001, 14001, 45001 …) are built on this cycle
+ * Lines draw in each time the plate comes into view; hover/focus on the parent sets it in motion.
+ */
+interface Props { kind: 'funding' | 'feasibility' | 'supply' | 'certification'; class?: string }
+const { kind, class: cls = '' } = Astro.props;
+const uid = `sf-${kind}`;
+const f = (n: number) => +n.toFixed(2);
+const W = 400, H = 175;
+
+/* ---------- work-package schedule ---------- */
+const gantt = (() => {
+  const x0 = 46, x1 = 372, months = 18, mx = (m: number) => f(x0 + (m * (x1 - x0)) / months);
+  const top = 30, pitch = 21, bh = 7, axis = 158;
+  const rowY = (i: number) => top + i * pitch;
+  // stage → [start, end] in months (schematic: proportions of a typical call, not a promise)
+  const bars = [[0, 2], [1, 3], [2, 6], [3, 6], [6, 7], [8, 21]].map(([a, b], i) => ({ x: mx(a), w: f(mx(b) - mx(a)), y: f(rowY(i) - bh / 2) }));
+  const ticks: string[] = [], grid: string[] = [];
+  for (let m = 0; m <= months; m++) ticks.push(`M${mx(m)} ${axis}v${m % 6 === 0 ? 6 : 3}`);
+  for (let m = 6; m < months; m += 6) grid.push(`M${mx(m)} ${top - 12}V${axis}`);
+  const rows = Array.from({ length: 6 }, (_, i) => `M${x0} ${rowY(i)}H${x1}`).join('');
+  // dependencies: writing → submission, submission → execution
+  const deps = `M${mx(6)} ${rowY(2) + bh / 2}V${rowY(4) - bh / 2 - 1}M${mx(7) + 5} ${rowY(4)}H${mx(7.5)}V${rowY(5) - bh / 2 - 1}`;
+  const sub = { x: mx(7), y: rowY(4) };
+  const reports = [12, 17].map((m) => ({ x: mx(m), y: rowY(5) }));
+  return { x0, x1, top, axis, bars, ticks: ticks.join(''), grid: grid.join(''), rows, deps, sub, reports, bh };
+})();
+
+/* ---------- cumulative cash flow ---------- */
+const cash = (() => {
+  const X = (t: number) => f(40 + t * 33.6), k = 0.2735, zero = 118, Y = (c: number) => f(zero - c * k);
+  // investment over 1.2 years, then net income ramping up to steady state (exp. approach)
+  const series = (rev: number) => {
+    const pts: [number, number][] = [];
+    for (let t = 0; t <= 10.001; t += 0.1) {
+      const c = t <= 1.2 ? -100 * t : -120 + rev * 60 * ((t - 1.2) - 1 + Math.exp(-(t - 1.2)));
+      pts.push([t, c]);
+    }
+    return pts;
+  };
+  const base = series(1), low = series(0.8);
+  const path = (p: [number, number][]) => p.map(([t, c], i) => `${i ? 'L' : 'M'}${X(t)} ${Y(c)}`).join('');
+  const neg = base.filter(([, c]) => c <= 0);
+  const area = `${path(neg)}L${X(neg[neg.length - 1][0])} ${zero}L${X(0)} ${zero}Z`;
+  // payback: first crossing of zero on the base case
+  let pb = 0; for (let i = 1; i < base.length; i++) if (base[i - 1][1] < 0 && base[i][1] >= 0) { const [t0, c0] = base[i - 1], [t1, c1] = base[i]; pb = t0 + ((0 - c0) / (c1 - c0)) * (t1 - t0); break; }
+  const hatch: string[] = []; for (let x = 20; x < 220; x += 6) hatch.push(`M${x} ${zero}l40 40`);
+  const ticks = Array.from({ length: 11 }, (_, i) => `M${X(i)} ${zero}v${i % 5 === 0 ? 5 : 3}`).join('');
+  const minY = Y(-120);
+  return { zero, base: path(base), low: path(low), area, hatch: hatch.join(''), ticks, pb: { x: X(pb), y: zero }, xEnd: X(10), x0: X(0), minY, trough: { x: X(1.2), y: minY } };
+})();
+
+/* ---------- 20 ft ISO container, dimetric ---------- */
+const box = (() => {
+  const s = 26, L = 6.058 * s, Wd = 2.438 * s, Hh = 2.591 * s, ca = 0.94, sa = 0.342, ox = 152, oy = 86;
+  const P = (x: number, y: number, z: number) => [f(ox + (x - y) * ca), f(oy + (x + y) * sa - z)];
+  const poly = (pts: number[][]) => `M${pts.map((p) => p.join(' ')).join('L')}Z`;
+  const pl = (...pts: number[][]) => `M${pts.map((p) => p.join(' ')).join('L')}`;
+  const top = poly([P(0, 0, Hh), P(L, 0, Hh), P(L, Wd, Hh), P(0, Wd, Hh)]);
+  const side = poly([P(0, Wd, 0), P(L, Wd, 0), P(L, Wd, Hh), P(0, Wd, Hh)]);
+  const end = poly([P(L, 0, 0), P(L, Wd, 0), P(L, Wd, Hh), P(L, 0, Hh)]);
+  // side corrugation: trapezoidal profile seen as paired verticals between the corner posts
+  const corr: string[] = [], corr2: string[] = [];
+  const post = 0.16 * s, rail = 0.2 * s, cap = 0.13 * s;
+  for (let x = post + 4; x < L - post - 2; x += 7.2) {
+    corr.push(pl(P(x, Wd, rail), P(x, Wd, Hh - cap)));
+    corr2.push(pl(P(x + 2.6, Wd, rail), P(x + 2.6, Wd, Hh - cap)));
+  }
+  const rails = pl(P(0, Wd, rail), P(L, Wd, rail)) + pl(P(0, Wd, Hh - cap), P(L, Wd, Hh - cap))
+    + pl(P(post, Wd, 0), P(post, Wd, Hh)) + pl(P(L - post, Wd, 0), P(L - post, Wd, Hh));
+  // roof: shallow transverse ribs
+  const roof: string[] = [];
+  for (let x = post + 8; x < L - post; x += 12) roof.push(pl(P(x, 0.1 * s, Hh), P(x, Wd - 0.1 * s, Hh)));
+  // doors: two leaves, four locking bars with handles
+  const doorEdge = pl(P(L, Wd / 2, rail), P(L, Wd / 2, Hh - cap)) + pl(P(L, post * 0.8, rail), P(L, post * 0.8, Hh - cap))
+    + pl(P(L, Wd - post * 0.8, rail), P(L, Wd - post * 0.8, Hh - cap)) + pl(P(L, 0, rail), P(L, Wd, rail)) + pl(P(L, 0, Hh - cap), P(L, Wd, Hh - cap));
+  const bars = [0.2, 0.36, 0.64, 0.8].map((u) => pl(P(L, Wd * u, rail + 2), P(L, Wd * u, Hh - cap - 2))).join('');
+  const handles = [0.2, 0.36, 0.64, 0.8].map((u) => pl(P(L, Wd * u, Hh * 0.42), P(L, Wd * u + (u < 0.5 ? 5 : -5), Hh * 0.42))).join('');
+  // dimension line: length, offset off the near bottom edge
+  const dA = P(0, Wd + 0.75 * s, 0), dB = P(L, Wd + 0.75 * s, 0);
+  const dim = pl(dA, dB) + pl(P(0, Wd + 0.35 * s, 0), P(0, Wd + 0.95 * s, 0)) + pl(P(L, Wd + 0.35 * s, 0), P(L, Wd + 0.95 * s, 0));
+  const hoist = [P(0, 0, Hh), P(L, 0, Hh), P(L, Wd, Hh), P(0, Wd, Hh)].map((p) => `M${p[0]} ${p[1]}V-4`).join('');
+  return { top, side, end, corr: corr.join(''), corr2: corr2.join(''), rails, roof: roof.join(''), doorEdge, bars, handles, dim, hoist };
+})();
+
+/* ---------- PDCA wheel on the incline ---------- */
+const pdca = (() => {
+  const A = [34, 162], B = [372, 80];
+  const len = Math.hypot(B[0] - A[0], B[1] - A[1]);
+  const d = [(B[0] - A[0]) / len, (B[1] - A[1]) / len], n = [d[1], -d[0]]; // n: up-normal
+  const at = (s: number, h = 0) => [f(A[0] + d[0] * s + n[0] * h), f(A[1] + d[1] * s + n[1] * h)];
+  const R = 43, sC = 232;
+  const c = at(sC, R), contact = at(sC);
+  // wedge (the standard) sits downhill against the wheel
+  const wedge = `M${at(sC - 58).join(' ')}L${at(sC - 16).join(' ')}L${at(sC - 16, 22).join(' ')}Z`;
+  const ghosts = [sC - 108, sC - 196].map((s) => at(s, R));
+  const ground: string[] = []; for (let s = 6; s < len; s += 9) { const p = at(s); ground.push(`M${p[0]} ${p[1]}l-7 9`); }
+  // four quadrants, arrowheads at each quadrant end (clockwise = rolling uphill to the right)
+  const arc = (a0: number, a1: number, r: number) => { const p = (a: number) => [f(c[0] + r * Math.cos(a)), f(c[1] + r * Math.sin(a))]; const q0 = p(a0), q1 = p(a1); return `M${q0.join(' ')}A${r} ${r} 0 0 1 ${q1.join(' ')}`; };
+  const rad = (deg: number) => (deg * Math.PI) / 180;
+  const arrows = [-90, 0, 90, 180].map((a) => arc(rad(a + 8), rad(a + 80), R - 7)).join('');
+  const heads = [-90, 0, 90, 180].map((a) => {
+    const t = rad(a + 80), r = R - 7, tip = [c[0] + r * Math.cos(t), c[1] + r * Math.sin(t)];
+    const tg = [-Math.sin(t), Math.cos(t)], nr = [Math.cos(t), Math.sin(t)];
+    const b1 = [tip[0] - tg[0] * 5 + nr[0] * 2.6, tip[1] - tg[1] * 5 + nr[1] * 2.6], b2 = [tip[0] - tg[0] * 5 - nr[0] * 2.6, tip[1] - tg[1] * 5 - nr[1] * 2.6];
+    return `M${f(b1[0])} ${f(b1[1])}L${f(tip[0])} ${f(tip[1])}L${f(b2[0])} ${f(b2[1])}`;
+  }).join('');
+  const cross = `M${c[0] - R} ${c[1]}H${c[0] + R}M${c[0]} ${c[1] - R}V${c[1] + R}`;
+  const letters = [['P', 45 - 90], ['D', 45], ['C', 135], ['A', 225]].map(([t, a]) => ({ t, x: f(c[0] + 21 * Math.cos(rad(+a))), y: f(c[1] + 21 * Math.sin(rad(+a)) + 3.2) }));
+  return { A, B, c, R, contact, wedge, ghosts, ground: ground.join(''), arrows, heads, cross, letters };
+})();
+---
+<span class:list={['sfig', `sfig--${kind}`, cls]} data-sfig aria-hidden="true">
+  <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" focusable="false">
+    {kind === 'funding' && (
+      <g>
+        <path class="d d--hair" d={gantt.rows} pathLength="1" />
+        <path class="d d--hair" d={gantt.grid} pathLength="1" />
+        <path class="d d--strong" d={`M${gantt.x0} ${gantt.axis}H${gantt.x1}`} pathLength="1" />
+        <path class="d d--thin" d={gantt.ticks} pathLength="1" />
+        <defs>
+          <linearGradient id={`${uid}-fade`} x1="0" x2="1"><stop offset="0.7" stop-color="#fff" /><stop offset="1" stop-color="#fff" stop-opacity="0" /></linearGradient>
+          <mask id={`${uid}-m`} maskUnits="userSpaceOnUse" x="0" y="0" width={W} height={H}><rect width={W} height={H} style={`fill:url(#${uid}-fade)`} /></mask>
+        </defs>
+        <g mask={`url(#${uid}-m)`}>
+          {gantt.bars.map((b, i) => <rect class:list={['d', 'bar', i === 4 ? 'd--acc' : 'd--mid']} x={b.x} y={b.y} width={b.w} height={gantt.bh} pathLength="1" />)}
+        </g>
+        <path class="d d--thin" d={gantt.deps} pathLength="1" />
+        {gantt.reports.map((r) => <path class="d d--mid" d={`M${r.x} ${r.y - 6}l5 6l-5 6l-5 -6Z`} pathLength="1" />)}
+        <path class="dot" d={`M${gantt.sub.x} ${gantt.sub.y - 6.5}l6.5 6.5l-6.5 6.5l-6.5 -6.5Z`} />
+        <circle class="pulse" cx={gantt.sub.x} cy={gantt.sub.y} r="4" style={`transform-origin:${gantt.sub.x}px ${gantt.sub.y}px`} />
+        <path class="cursor" d={`M${gantt.x0} ${gantt.top - 14}V${gantt.axis}`} style={`--run:${gantt.x1 - gantt.x0}px`} />
+      </g>
+    )}
+
+    {kind === 'feasibility' && (
+      <g>
+        <clipPath id={`${uid}-neg`}><path d={cash.area} /></clipPath>
+        <path class="d d--hair" d={cash.hatch} clip-path={`url(#${uid}-neg)`} pathLength="1" />
+        <path class="c-line" d={`M${cash.x0} ${cash.zero}H${cash.xEnd}`} />
+        <path class="d d--strong" d={`M${cash.x0} 16V${cash.minY + 12}`} pathLength="1" />
+        <path class="d d--thin" d={cash.ticks} pathLength="1" />
+        <path class="d d--acc d--dash" d={cash.low} pathLength="1" />
+        <path class="d d--strong" d={cash.base} pathLength="1" />
+        <path class="d d--hair" d={`M${cash.trough.x} ${cash.trough.y}V${cash.zero}`} pathLength="1" />
+        <circle class="vtx" cx={cash.trough.x} cy={cash.trough.y} r="2.2" />
+        <circle class="dot" cx={cash.pb.x} cy={cash.pb.y} r="3.6" />
+        <circle class="pulse" cx={cash.pb.x} cy={cash.pb.y} r="3.6" style={`transform-origin:${cash.pb.x}px ${cash.pb.y}px`} />
+      </g>
+    )}
+
+    {kind === 'supply' && (
+      <g>
+        <path class="d d--thin" d={box.dim} pathLength="1" />
+        <g class="lift">
+          <path class="d d--hair hoist" d={box.hoist} pathLength="1" />
+          <path class="face face--top" d={box.top} />
+          <path class="face face--side" d={box.side} />
+          <path class="face face--end" d={box.end} />
+          <path class="d d--hair" d={box.roof} pathLength="1" />
+          <path class="d d--thin" d={box.corr} pathLength="1" />
+          <path class="d d--hair" d={box.corr2} pathLength="1" />
+          <path class="d d--mid" d={box.rails} pathLength="1" />
+          <path class="d d--mid" d={box.doorEdge} pathLength="1" />
+          <path class="d d--acc" d={box.bars} pathLength="1" />
+          <path class="d d--thin" d={box.handles} pathLength="1" />
+          <path class="d d--strong" d={box.top} pathLength="1" />
+          <path class="d d--strong" d={box.side} pathLength="1" />
+          <path class="d d--strong" d={box.end} pathLength="1" />
+        </g>
+      </g>
+    )}
+
+    {kind === 'certification' && (
+      <g>
+        <path class="d d--hair" d={pdca.ground} pathLength="1" />
+        <path class="d d--strong" d={`M${pdca.A.join(' ')}L${pdca.B.join(' ')}`} pathLength="1" />
+        {pdca.ghosts.map((g, i) => <circle class="d d--thin d--dash" cx={g[0]} cy={g[1]} r={pdca.R} style={`opacity:${0.5 - i * 0.2}`} pathLength="1" />)}
+        <path class="d d--acc wedge" d={pdca.wedge} pathLength="1" />
+        <g class="wheel" style={`transform-origin:${pdca.c[0]}px ${pdca.c[1]}px`}>
+          <circle class="face face--top" cx={pdca.c[0]} cy={pdca.c[1]} r={pdca.R} />
+          <path class="d d--hair" d={pdca.cross} pathLength="1" />
+          <path class="d d--thin" d={pdca.arrows} pathLength="1" />
+          <path class="d d--thin" d={pdca.heads} pathLength="1" />
+          <circle class="d d--strong" cx={pdca.c[0]} cy={pdca.c[1]} r={pdca.R} pathLength="1" />
+          {pdca.letters.map((l) => <text class="ltr" x={l.x} y={l.y} text-anchor="middle">{l.t}</text>)}
+        </g>
+      </g>
+    )}
+  </svg>
+</span>
+
+<script>
+  // Lines draw in each time a plate becomes visible (the mega panel toggles `hidden`).
+  // Without JS, or with reduced motion, they are simply there.
+  const figs = document.querySelectorAll<HTMLElement>('[data-sfig]:not([data-armed])');
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const io = new IntersectionObserver((es) => {
+      for (const e of es) e.target.classList.toggle('is-drawn', e.isIntersecting);
+    }, { threshold: 0.2 });
+    figs.forEach((el) => { el.setAttribute('data-armed', ''); io.observe(el); });
+  }
+</script>
+
+<style>
+  .sfig { display: block; position: relative; width: 100%; height: 100%; color: var(--ink); --acc: var(--brass); --k: 1.25; }
+  .sfig svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .sfig path, .sfig circle, .sfig rect { fill: none; }
+
+  .d { stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1 0; stroke-dashoffset: 0; }
+  .d--strong { stroke-width: calc(1.15px * var(--k)); }
+  .d--mid { stroke-width: calc(0.9px * var(--k)); opacity: 0.8; }
+  .d--thin { stroke-width: calc(0.7px * var(--k)); opacity: 0.6; }
+  .d--hair { stroke-width: calc(0.5px * var(--k)); opacity: 0.32; }
+  .d--acc { stroke: var(--acc); stroke-width: calc(1.1px * var(--k)); opacity: 1; }
+  .d--dash { stroke-dasharray: 0.012 0.012; }
+  .c-line { stroke: currentColor; stroke-width: calc(0.5px * var(--k)); opacity: 0.45; stroke-dasharray: 12 3 2 3; }
+  .dot { fill: var(--acc) !important; stroke: none; }
+  .pulse { stroke: var(--acc); stroke-width: calc(0.8px * var(--k)); opacity: 0; }
+  .vtx { fill: currentColor !important; opacity: 0.75; }
+  .bar.d--mid { fill: color-mix(in oklab, currentColor 7%, transparent) !important; }
+  .bar.d--acc { fill: color-mix(in oklab, var(--acc) 16%, transparent) !important; }
+  .face { stroke: none; }
+  .face--top { fill: var(--plate, var(--foam)) !important; }
+  .face--side { fill: color-mix(in oklab, var(--plate, var(--foam)) 94%, var(--ink)) !important; }
+  .face--end { fill: color-mix(in oklab, var(--plate, var(--foam)) 88%, var(--ink)) !important; }
+  .wedge { fill: color-mix(in oklab, var(--acc) 14%, transparent) !important; }
+  .ltr { fill: var(--ink-2); font-family: var(--f-mono); font-size: 8.5px; letter-spacing: 0.04em; }
+  .cursor { stroke: var(--acc); stroke-width: calc(0.8px * var(--k)); stroke-dasharray: 2 2.5; opacity: 0; }
+  .hoist { opacity: 0; }
+
+  /* draw-in (armed by JS only) */
+  .sfig[data-armed] .d { stroke-dasharray: 1 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1100ms var(--ease-water); }
+  .sfig[data-armed] .d--dash { stroke-dasharray: 0.012 0.012; stroke-dashoffset: 0; opacity: 0; transition: opacity 700ms 600ms ease; }
+  .sfig[data-armed] .d--hair { transition-duration: 1500ms; }
+  .sfig[data-armed] :is(.dot, .vtx, .face, .ltr, .bar, .wedge) { opacity: 0; transition: opacity 600ms 500ms ease, stroke-dashoffset 1100ms var(--ease-water); }
+  .sfig[data-armed]:not(.is-drawn) .d { transition-duration: 0ms; }
+  .sfig[data-armed].is-drawn .d { stroke-dashoffset: 0; }
+  .sfig[data-armed].is-drawn .d--dash { opacity: 1; }
+  .sfig[data-armed].is-drawn :is(.dot, .face, .ltr, .bar, .wedge) { opacity: 1; }
+  .sfig[data-armed].is-drawn .vtx { opacity: 0.75; }
+  .sfig[data-armed].is-drawn .bar.d--mid { opacity: 0.8; }
+
+  /* motion while the column is hovered or focused */
+  .wheel { transition: rotate 2400ms var(--ease-water); }
+  .lift { transition: translate 1200ms var(--ease-water); }
+  .hoist { transition: opacity 600ms ease; }
+  @keyframes sf-pulse { 0% { opacity: 0.9; scale: 1; } 100% { opacity: 0; scale: 5; } }
+  @keyframes sf-sweep { 0% { opacity: 0; translate: 0 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { opacity: 0; translate: var(--run) 0; } }
+  :global(:is(a, .mega__col):is(:hover, :focus-within)) .wheel { rotate: 90deg; }
+  :global(:is(a, .mega__col):is(:hover, :focus-within)) .lift { translate: 0 -7px; }
+  :global(:is(a, .mega__col):is(:hover, :focus-within)) .hoist { opacity: 0.4; }
+  :global(:is(a, .mega__col):is(:hover, :focus-within)) .pulse { animation: sf-pulse 1800ms var(--ease-water) infinite; }
+  :global(:is(a, .mega__col):is(:hover, :focus-within)) .cursor { animation: sf-sweep 3600ms linear infinite; }
+  @media (prefers-reduced-motion: reduce) {
+    .pulse, .cursor { animation: none !important; }
+    .wheel, .lift { transition: none; }
+  }
+</style>

@@ -1,0 +1,234 @@
+---
+/**
+ * The production chain as a compass. The stage pins while the track scrolls past;
+ * a brass bezel turns one station per step so the current step always sits under
+ * the lubber mark, and a brass arc fills behind it until the ring closes on the last
+ * step. In the middle, one object per step; a WebGL pass dissolves the outgoing object
+ * into water-like noise while the incoming one condenses out of it (chain-gl.ts).
+ * Without WebGL the same objects cross-fade; without JS (or with reduced motion) the
+ * steps read as a plain list. The text never changes the section height: every step
+ * is stacked in one grid cell, so the tallest one sets the size once.
+ */
+import Asset from './Asset.astro';
+import Arrow from './Arrow.astro';
+import { href, type RouteKey } from '../lib/routes';
+import type { Lang } from '../lib/i18n';
+
+interface Link { word: string; text: string; items?: string[]; route: string; hash?: string }
+interface Props { lang: Lang; index?: string; label: string; lead: string; links: Link[]; close: string; more: string; stepLabel: string }
+const { lang, index = '01', label, lead, links, close, more, stepLabel } = Astro.props;
+
+// one object per step, in order (design-assets/final/ch-*)
+const art = ['ch-idea', 'ch-feasibility', 'ch-funding', 'ch-biology', 'ch-recipe', 'ch-machine', 'ch-install', 'ch-production'];
+// a quiet light pool behind each object, tuned to its material
+const glow = ['#d9e3ee', '#ecd6b1', '#cfe3c4', '#c7e6f4', '#ead8bd', '#d6dde4', '#cde4f2', '#d4e8f1'];
+const n = links.length;
+const pad = (i: number) => String(i + 1).padStart(2, '0');
+const step = 360 / n;
+// bezel geometry (viewBox -500 -500 1000 1000): one tick per station, nothing in between
+const ticks = Array.from({ length: n }, (_, i) => i * step);
+---
+<section class="chain s-light grain" data-surface="light" data-chain style={`--n:${n}`} aria-labelledby="chain-title">
+  <div class="wrap chain__intro">
+    <header class="sec-head">
+      <p class="label"><span>{index}</span></p>
+      <h2 id="chain-title" class="t-h1 rise">{label}</h2>
+      <p class="t-lead rise" style="--d:120ms">{lead}</p>
+    </header>
+  </div>
+
+  <div class="chain__track" data-chain-track>
+    <div class="chain__stage">
+      <div class="chain__grid wrap">
+        <!-- the compass (the box is only a frame on phones: it measures the height left for the dial) -->
+        <div class="chain__dialbox">
+        <div class="chain__dial" data-chain-dial aria-hidden="true">
+          <div class="chain__pool" data-chain-pool style={`--glow:${glow[0]}`}></div>
+          <svg class="chain__bezel" viewBox="-500 -500 1000 1000">
+            <circle class="chain__hair" r="372" />
+            <g class="chain__ring" data-chain-ring>
+              <circle class="chain__track-arc" r="396" />
+              <circle class="chain__arc" data-chain-arc r="396" pathLength="360" />
+              {ticks.map((a) => (
+                <line class="tk" x1="0" y1="-408" x2="0" y2="-436" transform={`rotate(${a})`} />
+              ))}
+              {links.map((l, i) => (
+                <g class="chain__tag" data-chain-tag transform={`rotate(${i * step})`}>
+                  <circle class="chain__bead" cy="-396" r="7" />
+                  <text y="-452" text-anchor="middle" direction="ltr"><tspan class="chain__tag-n">{pad(i)}</tspan><tspan dx="10">{l.word}</tspan></text>
+                </g>
+              ))}
+            </g>
+            <path class="chain__lubber" d="M0 -478 L-9 -494 L9 -494 Z" />
+          </svg>
+          <div class="chain__objects" data-chain-objects>
+            {art.slice(0, n).map((a, i) => (
+              <Asset name={a} alt="" class="chain__obj" sizes="(max-width: 960px) 72vw, 560px" data-chain-obj defer={i > 0} style={i ? '' : 'opacity:1'} />
+            ))}
+          </div>
+          <canvas class="chain__gl" data-chain-gl></canvas>
+        </div>
+        </div>
+
+        <!-- the reading -->
+        <div class="chain__read">
+          <p class="chain__meta label">
+            <span class="chain__odo" aria-hidden="true"><span class="chain__odo-strip" data-chain-odo>{links.map((_, i) => <span>{pad(i)}</span>)}</span></span>
+            <span class="faint" aria-hidden="true">/ {pad(n - 1)}</span>
+          </p>
+          <ol class="chain__steps" role="list" data-chain-steps>
+            {links.map((l, i) => (
+              <li class={`chain__step${i === 0 ? ' is-on' : ''}`} data-chain-step>
+                <h3 class="chain__word serif"><span class="sr-only">{stepLabel} {i + 1}: </span><span class="chain__word-in">{l.word}</span></h3>
+                <p class="chain__text">{l.text}</p>
+                <a class="chain__more" href={href(l.route as RouteKey, lang, undefined, l.hash)}>{more}<Arrow /></a>
+              </li>
+            ))}
+          </ol>
+          <nav class="chain__nav" aria-label={label}>
+            {links.map((l, i) => (
+              <button type="button" class="chain__seg" data-chain-go={i} aria-label={`${pad(i)} ${l.word}`}><i></i></button>
+            ))}
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap chain__outro">
+    <p class="chain__close t-h2 rise" set:html={close} />
+  </div>
+</section>
+
+<script>
+  import { mountChain } from '../scripts/chain';
+  document.querySelectorAll<HTMLElement>('[data-chain]').forEach(mountChain);
+</script>
+
+<style>
+  /* scroll per step: about half a screen, so an easy swipe turns a step or two and a slow drag reads each one */
+  .chain { --step-h: 58svh; --dial: min(74svh, 46vw, 700px); padding-top: calc(var(--sec-y) * 0.5); }
+  .chain__intro .sec-head { margin-bottom: clamp(16px, 3vw, 40px); }
+
+  /* ---- track & stage ---- */
+  :global(.js) .chain__track { height: calc(var(--n) * var(--step-h) + 100svh); }
+  .chain__stage { position: relative; }
+  :global(.js) .chain__stage { position: sticky; top: 0; height: 100svh; overflow: clip; display: grid; align-items: center; }
+  .chain__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--col-gap); align-items: center; padding-top: calc(var(--header-h) * 0.5); }
+  .chain__dialbox { display: contents; }
+  .chain__dial { grid-column: 2; grid-row: 1; justify-self: center; position: relative; width: var(--dial); aspect-ratio: 1; }
+  .chain__read { grid-column: 1; grid-row: 1; position: relative; z-index: 2; }
+
+  /* ---- dial ---- */
+  .chain__pool {
+    position: absolute; inset: 14%; border-radius: 50%;
+    background: radial-gradient(closest-side, var(--glow), color-mix(in srgb, var(--glow) 30%, transparent) 62%, transparent);
+    transition: background 900ms var(--ease-water);
+  }
+  .chain__bezel { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .chain__hair { fill: none; stroke: var(--rule); stroke-width: 1.2; }
+  .chain__ring { transform: rotate(var(--rot, 0deg)); transform-origin: 0 0; will-change: transform; }
+  .chain__track-arc { fill: none; stroke: var(--rule); stroke-width: 1.2; }
+  .chain__arc { fill: none; stroke: var(--brass); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: var(--arc, 0) 360; transform: rotate(-90deg); }
+  .tk { stroke: var(--ink); stroke-width: 2.2; opacity: 0.85; }
+  .chain__tag text { font-family: var(--f-mono); font-size: 17px; letter-spacing: 0.12em; text-transform: uppercase; fill: var(--ink-3); transition: fill 500ms var(--ease-water), opacity 500ms; opacity: 0.55; }
+  .chain__tag-n { fill: var(--brass); }
+  .chain__bead { fill: var(--foam); stroke: var(--rule-strong); stroke-width: 1.5; transition: fill 400ms, stroke 400ms; }
+  .chain__tag.is-past .chain__bead { fill: var(--brass); stroke: var(--brass); }
+  .chain__tag.is-on text { fill: var(--navy); opacity: 1; }
+  .chain__tag.is-on .chain__bead { fill: var(--foam); stroke: var(--brass); stroke-width: 3; r: 10px; }
+  .chain__lubber { fill: var(--brass); }
+  :global(html[dir='rtl']) .chain__tag text { direction: ltr; unicode-bidi: isolate; font-family: 'IBM Plex Sans Arabic', var(--f-mono); letter-spacing: 0; font-size: 20px; }
+
+  .chain__objects, .chain__gl { position: absolute; inset: 9%; width: 82%; height: 82%; }
+  .chain__objects { animation: chain-float 9s ease-in-out infinite; }
+  .chain__gl { animation: chain-float 9s ease-in-out infinite; opacity: 0; transition: opacity 600ms var(--ease-water); pointer-events: none; }
+  .chain__obj { position: absolute; inset: 0; margin: auto; width: 90%; height: 90%; object-fit: contain; opacity: 0; filter: drop-shadow(0 24px 22px rgba(13, 27, 44, 0.16)); }
+  .chain__gl { filter: drop-shadow(0 24px 22px rgba(13, 27, 44, 0.16)); }
+  .chain.is-gl .chain__gl { opacity: 1; }
+  .chain.is-gl .chain__obj { visibility: hidden; }
+  @keyframes chain-float { 0%, 100% { transform: translateY(-0.6%); } 50% { transform: translateY(0.9%); } }
+
+  /* ---- reading ---- */
+  .chain__meta { display: flex; align-items: baseline; gap: 0.6rem; margin-bottom: clamp(0.8rem, 2vh, 1.6rem); }
+  .chain__odo { display: inline-block; height: 1.4em; line-height: 1.4em; overflow: hidden; color: var(--brass); font-weight: 500; }
+  .chain__odo-strip { display: grid; transform: translateY(calc(var(--odo, 0) * -1.4em)); will-change: transform; }
+  .chain__steps { display: grid; }
+  .chain__step { grid-area: 1 / 1; display: grid; align-content: start; gap: clamp(0.8rem, 1.8vh, 1.3rem); }
+  .chain__word { font-size: clamp(3rem, 1.6rem + 4.4vw, 6.4rem); line-height: 0.95; letter-spacing: -0.03em; font-weight: 330; overflow: hidden; clip-path: inset(0); padding-block: 0.2em 0.14em; margin-block: -0.2em -0.14em; }
+  .chain__word-in { display: inline-block; }
+  .chain__text { font-size: var(--t-lead); line-height: 1.5; color: var(--ink-2); max-width: 30ch; }
+  .chain__more { justify-self: start; display: inline-flex; align-items: center; gap: 0.55rem; font-weight: 500; color: var(--navy); padding-block: 0.4rem; border-bottom: 1px solid var(--rule-strong); transition: border-color 300ms, gap 400ms var(--ease-water); }
+  .chain__more:hover, .chain__more:focus-visible { border-color: var(--brass); gap: 0.8rem; }
+
+  .chain__nav { display: flex; gap: 6px; margin-top: clamp(1.4rem, 4vh, 2.6rem); max-width: 340px; }
+  .chain__seg { flex: 1; height: 28px; display: grid; align-items: center; }
+  .chain__seg i { display: block; height: 3px; border-radius: 2px; background: var(--rule); position: relative; overflow: hidden; }
+  .chain__seg i::after { content: ''; position: absolute; inset: 0; background: var(--brass); transform: scaleX(var(--f, 0)); transform-origin: left; }
+  :global(html[dir='rtl']) .chain__seg i::after { transform-origin: right; }
+  .chain__seg:hover i, .chain__seg:focus-visible i { background: var(--rule-strong); }
+
+  /* step switching (JS sets .is-on and data-dir on the list) */
+  :global(.js) .chain__step { pointer-events: none; }
+  :global(.js) .chain__step > * { opacity: 0; transform: translateY(calc(var(--dir, 1) * 18px)); transition: opacity 380ms var(--ease-water), transform 520ms var(--ease-water); }
+  :global(.js) .chain__step .chain__word-in { transform: translateY(185%); transition: transform 640ms var(--ease-water); }
+  :global(.js) .chain__step > .chain__word { opacity: 1; transform: none; }
+  :global(.js) .chain__step.is-on { pointer-events: auto; }
+  :global(.js) .chain__step.is-on > * { opacity: 1; transform: none; transition-delay: calc(var(--k, 0) * 70ms + 120ms); }
+  :global(.js) .chain__step.is-on .chain__word-in { transform: none; transition-delay: 60ms; }
+  :global(.js) .chain__step.is-on > :nth-child(2) { --k: 1; }
+  :global(.js) .chain__step.is-on > :nth-child(3) { --k: 2; }
+    :global(.js) .chain__step:not(.is-on) .chain__word-in { transform: translateY(-185%); }
+  :global(.js) .chain__step.is-ahead:not(.is-on) .chain__word-in { transform: translateY(185%); }
+
+  .chain__outro { padding-bottom: calc(var(--sec-y) * 0.5); }
+  .chain__close { max-width: 20ch; margin-inline-start: auto; text-align: end; }
+
+  /* ---- no JS: a plain, complete list ---- */
+  :global(html:not(.js)) .chain__dial { display: none; }
+  :global(html:not(.js)) .chain__grid { grid-template-columns: 1fr; }
+  :global(html:not(.js)) .chain__read { grid-column: 1; }
+  :global(html:not(.js)) .chain__step { grid-area: auto; padding-block: 2rem; border-top: 1px solid var(--rule); }
+  :global(html:not(.js)) .chain__nav, :global(html:not(.js)) .chain__meta { display: none; }
+
+  /* ---- tablet & phone: dial on top, reading below ---- */
+  @media (max-width: 960px) {
+    .chain { --step-h: 45svh; --dial: min(84vw, 44svh, 460px); }
+    .chain__grid { grid-template-columns: 1fr; row-gap: clamp(0.4rem, 1.5svh, 1.2rem); padding-top: 0; }
+    .chain__dial, .chain__read { grid-column: 1; grid-row: auto; }
+    /* the stage follows the dynamic viewport (taller once the browser bars collapse on the way down,
+       easing there) and takes the header's band while the header is hidden; the dial gets every bit of
+       height the reading leaves, as large as the screen width allows */
+    :global(.js) .chain__stage {
+      height: 100svh; height: 100dvh; align-items: stretch;
+      padding-top: calc(var(--header-h) + 0.6rem); padding-bottom: clamp(1rem, 3svh, 2rem);
+      transition: height 480ms var(--ease-water), padding-top 520ms var(--ease-water);
+    }
+    :global(html.js:has(.hdr.is-hidden:not(.is-open))) .chain__stage { padding-top: 0.8rem; }
+    :global(.js) .chain__grid { grid-template-rows: minmax(0, 1fr) auto; align-items: stretch; min-height: 0; }
+    :global(.js) .chain__dialbox { display: grid; place-items: center; container-type: size; min-height: 0; }
+    /* the ring's labels sit inside its square, so it can reach into the side gutters */
+    :global(.js) .chain__dial { width: min(calc(100cqw + 2 * var(--gutter) - 20px), 100cqh, 600px); }
+    .chain__word { font-size: clamp(2.5rem, 1.6rem + 5vw, 3.6rem); }
+    .chain__text { font-size: 1rem; max-width: 40ch; }
+    .chain__step { gap: 0.7rem; }
+    .chain__meta { margin-bottom: 0.6rem; }
+    .chain__nav { margin-top: 1rem; max-width: none; }
+    .chain__tag text { font-size: 24px; }
+    :global(html[dir='rtl']) .chain__tag text { font-size: 26px; }
+  }
+  @media (max-width: 400px) {
+  }
+  /* the phone tab bar (MobileBar) sits over the last ~70px */
+  @media (max-width: 760px) {
+    :global(.js) .chain__stage { padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
+  }
+  @media (max-width: 960px) and (max-height: 720px) {
+    .chain__text { font-size: 0.94rem; }
+    .chain__nav { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chain__objects, .chain__gl { animation: none; }
+  }
+</style>

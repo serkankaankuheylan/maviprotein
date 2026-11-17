@@ -1,0 +1,142 @@
+---
+/**
+ * A product "specimen": the output of a line. Each category has its own ground so the three families
+ * read apart at a glance — feed sits on cool water rings, pet food on warm clay, food on wheat-gold.
+ * On hover the loose product gives way to the same product packed by the line's packaging machine.
+ */
+import Asset from './Asset.astro';
+import Arrow from './Arrow.astro';
+import manifest from '../generated/assets.json';
+import { t, type Lang } from '../lib/i18n';
+import { href } from '../lib/routes';
+import { fmtRange, type Line } from '../lib/data';
+interface Props { line: Line & { asset: string; pack?: string | null }; lang: Lang; showMeta?: boolean }
+const { line, lang, showMeta = false } = Astro.props;
+const CAT = {
+  feed: { tr: 'Yem', en: 'Feed', ar: 'أعلاف' },
+  pet: { tr: 'Evcil hayvan', en: 'Pet food', ar: 'حيوانات أليفة' },
+  food: { tr: 'Gıda', en: 'Food', ar: 'أغذية' },
+};
+const CTA = { tr: 'Hattı incele', en: 'View the line', ar: 'استعرض الخط' };
+const pack = line.pack && (manifest as Record<string, unknown>)[line.pack] ? line.pack : null;
+const sizes = '(max-width: 640px) 46vw, (max-width: 1200px) 30vw, 18vw';
+---
+<a class:list={['spec', { 'spec--meta': showMeta, 'spec--pack': pack }]} href={href('line', lang, line.slug)} data-cat={line.category}>
+  <span class="spec__top">
+    <span class="spec__no" aria-hidden="true">{line.order}</span>
+    <span class="spec__cat">{t(CAT[line.category], lang)}</span>
+  </span>
+  <span class="spec__img">
+    <Asset name={line.asset} alt={t(line.shortName, lang)} class="spec__prod" sizes={sizes} vt={`spec-${line.slug}`} />
+    {pack && <Asset name={pack} alt="" class="spec__pack" sizes={sizes} aria-hidden="true" />}
+  </span>
+  <span class="spec__name serif">{t(line.shortName, lang)}</span>
+  {showMeta ? (
+    <span class="spec__meta">
+      <span class="mono">{line.specs.models.join(' · ')}</span>
+      <span class="mono">{fmtRange(line.capacityRange, 'kg/saat', lang)}</span>
+    </span>
+  ) : (
+    <span class="spec__cta-row" aria-hidden="true">
+      <span class="spec__cta">{t(CTA, lang)}<Arrow /></span>
+    </span>
+  )}
+</a>
+<style>
+  .spec {
+    /* category grounds (overridden per data-cat below) */
+    --c-bg: var(--foam); --c-bg-2: #fbf9f5; --c-ink: var(--brass); --c-pat: none; --c-pat-mask: none;
+    --c-shadow: 60, 38, 14;
+    position: relative; isolation: isolate; display: grid; grid-template-rows: auto 1fr auto auto;
+    aspect-ratio: 4 / 5; padding: 0.95rem 1.05rem 1.1rem; gap: 0.4rem;
+    background: radial-gradient(120% 70% at 50% 58%, var(--c-bg-2), var(--c-bg) 72%);
+    color: var(--ink); overflow: hidden;
+  }
+  /* pattern layer: sits under the content, faded by a per-category mask */
+  .spec::before {
+    content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: var(--c-pat);
+    -webkit-mask-image: var(--c-pat-mask); mask-image: var(--c-pat-mask);
+    transition: opacity 700ms var(--ease-water), transform 1400ms var(--ease-water);
+  }
+
+  /* YEM: cool sea-glass ground with water rings spreading from under the heap */
+  .spec[data-cat='feed'] {
+    --c-bg: #dfe9ec; --c-bg-2: #edf3f4; --c-ink: #1f5f7d; --c-shadow: 18, 48, 66;
+    --c-pat: repeating-radial-gradient(ellipse 150% 62% at 50% 64%, transparent 0 15px, rgba(31, 95, 125, 0.11) 15px 16px);
+    --c-pat-mask: radial-gradient(ellipse 78% 54% at 50% 62%, #000 30%, transparent 100%);
+  }
+  /* EVCİL HAYVAN: warm clay ground with a soft halftone of kibble-sized dots rising from the bottom */
+  .spec[data-cat='pet'] {
+    --c-bg: #efdfd3; --c-bg-2: #f7ece4; --c-ink: #a24f2c; --c-shadow: 92, 40, 18;
+    --c-pat: radial-gradient(circle, rgba(162, 79, 44, 0.2) 1.3px, transparent 1.8px) 0 0 / 13px 13px;
+    --c-pat-mask: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.55) 34%, transparent 70%);
+  }
+  /* GIDA: wheat-gold ground with fine diagonal stalk lines */
+  .spec[data-cat='food'] {
+    --c-bg: #f0e5c9; --c-bg-2: #f8f1de; --c-ink: #8a6417; --c-shadow: 84, 60, 12;
+    --c-pat: repeating-linear-gradient(116deg, transparent 0 8px, rgba(138, 100, 23, 0.12) 8px 9px);
+    --c-pat-mask: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.5) 38%, transparent 74%);
+  }
+
+  .spec__top { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; color: var(--c-ink); }
+  .spec__no {
+    font-family: var(--f-serif); font-optical-sizing: auto; font-weight: 300;
+    font-size: clamp(2.5rem, 1.5rem + 2vw, 3.9rem); line-height: 0.76; letter-spacing: -0.04em;
+    font-variant-numeric: lining-nums proportional-nums;
+  }
+  .spec__cat {
+    display: inline-flex; align-items: center; gap: 0.45em; margin-top: 0.1rem;
+    font-family: var(--f-mono); font-size: clamp(0.74rem, 0.66rem + 0.2vw, 0.88rem); font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;
+  }
+  .spec__cat::before { content: ''; width: 0.5em; height: 0.5em; border-radius: 50%; background: currentColor; }
+
+  .spec__img { position: relative; display: block; min-height: 0; overflow: visible; }
+  .spec__img :global(img) {
+    position: absolute; inset: 6% 4%; width: 92%; height: 88%; object-fit: contain;
+    filter: drop-shadow(0 14px 14px rgba(var(--c-shadow), 0.2)) drop-shadow(0 2px 3px rgba(var(--c-shadow), 0.22));
+    transition: transform 1100ms var(--ease-water), opacity 600ms var(--ease-water);
+  }
+  .spec__img :global(.spec__pack) { inset: 0 4% 2%; height: 98%; opacity: 0; transform: translateY(10px) scale(0.94); }
+
+  .spec__name { text-align: center; text-wrap: balance; font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.3rem); line-height: 1.15; letter-spacing: -0.01em; }
+  .spec__meta { display: grid; gap: 0.15rem; font-size: 0.66rem; letter-spacing: 0.03em; color: var(--ink-2); max-height: 0; opacity: 0; transition: max-height 600ms var(--ease-water), opacity 500ms; }
+  /* the whole card is the link; the "button" is a visual cue revealed on hover */
+  /* collapsed at rest; on hover it opens and pushes image + name up, like the old meta row */
+  .spec__cta-row { display: block; text-align: center; max-height: 0; opacity: 0; transition: max-height 600ms var(--ease-water), opacity 450ms var(--ease-water); }
+  .spec__cta {
+    display: inline-flex; align-items: center; gap: 0.5em; margin-top: 0.35rem;
+    height: 2.15rem; padding-inline: 0.95rem 0.8rem; border-radius: 999px;
+    background: var(--c-ink); color: #fff;
+    font-family: var(--f-sans); font-size: 0.84rem; font-weight: 550; letter-spacing: 0.005em; white-space: nowrap;
+    transform: translateY(6px); transition: transform 600ms var(--ease-water), filter 300ms;
+  }
+  .spec__cta :global(.arr) { transition: transform 420ms var(--ease-water); }
+  :global(html[dir='rtl']) .spec__cta :global(.arr) { transform: scaleX(-1); }
+  .spec::after { content: ''; position: absolute; inset-inline-start: 1.05rem; inset-inline-end: 1.05rem; bottom: 0; height: 2px; background: var(--c-ink); transform: scaleX(0); transform-origin: left; transition: transform 700ms var(--ease-water); }
+
+  @media (hover: hover) {
+    .spec:hover::before { transform: scale(1.06); }
+    .spec:hover .spec__img :global(.spec__prod) { transform: translateY(-6px) scale(1.04); }
+    .spec--pack:hover .spec__img :global(.spec__prod) { opacity: 0; transform: translateY(-8px) scale(0.9); }
+    .spec--pack:hover .spec__img :global(.spec__pack) { opacity: 1; transform: none; }
+    .spec:hover .spec__meta { max-height: 3rem; opacity: 1; }
+    .spec:hover .spec__cta-row { max-height: 2.5rem; opacity: 1; }
+    .spec:hover .spec__cta { transform: none; }
+    .spec:hover .spec__cta :global(.arr) { transform: translateX(3px); }
+    :global(html[dir='rtl']) .spec:hover .spec__cta :global(.arr) { transform: scaleX(-1) translateX(3px); }
+    .spec:hover::after { transform: scaleX(1); }
+  }
+  .spec--meta .spec__meta { max-height: 3rem; opacity: 1; }
+  .spec:focus-visible .spec__meta { max-height: 3rem; opacity: 1; }
+  .spec:focus-visible .spec__cta-row { max-height: 2.5rem; opacity: 1; }
+  .spec:focus-visible .spec__cta { transform: none; }
+  @media (hover: none) {
+    .spec__meta { max-height: 3rem; opacity: 1; }
+    .spec__cta-row { opacity: 1; max-height: 2.25rem; }
+    .spec__cta { transform: none; height: 1.9rem; padding-inline: 0.75rem 0.6rem; font-size: 0.76rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .spec__img :global(img), .spec::before { transition-duration: 1ms; } }
+  @media (max-width: 640px) { .spec { aspect-ratio: auto; grid-template-rows: auto 120px auto auto; } }
+</style>

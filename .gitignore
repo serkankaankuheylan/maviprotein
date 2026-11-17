@@ -1,0 +1,14 @@
+# Build çıktıları ve bağımlılıklar
+node_modules/
+dist/
+.astro/
+.wrangler/
+
+# public/assets ve src/generated/assets.json commit edilir: kaynakları
+# (../design-assets/final) bu repoda yok, build onları olduğu gibi kullanır.
+
+# Ortam ve sistem dosyaları
+.env
+.env.*
+.vercel/
+.DS_Store

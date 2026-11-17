@@ -1,0 +1,103 @@
+---
+import Base from '../layouts/Base.astro';
+import Intro from '../components/Intro.astro';
+import { pagesCopy } from '../i18n/pages';
+import { pick, t, formatDate, type Lang } from '../lib/i18n';
+import { archive } from '../lib/data';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = pick(pagesCopy, lang).archive;
+// Real ALGOPHYCO pack photos print a health claim on the front; they stay out until reshot (TASARIM.md §1.6).
+const items = archive.filter((a: any) => a.showInArchive !== false && !/algophyco-\d+g/.test(a.file));
+const cats = (['all', 'fuar', 'saha', 'urun', 'spirulina'] as const).filter((k) => k === 'all' || items.some((a: any) => a.category === k));
+---
+<Base lang={lang} title={c.meta.title} description={c.meta.description} route="archive" startDark={false} gauge={false}>
+  <Intro lang={lang} surface="sand" kicker={c.kicker} title={c.title} lead={c.lead} />
+  <section class="ar s-light section" data-surface="light" aria-label={c.kicker} data-archive>
+    <div class="wrap">
+      <div class="ar__f" role="group">
+        {cats.map((k) => <button type="button" aria-pressed={k === 'all' ? 'true' : 'false'} data-c={k}>{c.cats[k]} <span class="mono">{k === 'all' ? items.length : items.filter((a: any) => a.category === k).length}</span></button>)}
+      </div>
+      <ul class="ar__grid" role="list">
+        {items.map((a: any, i: number) => (
+          <li data-cat={a.category}>
+            <button type="button" class="ar__item" data-i={i} data-src={a.file} data-cap={t(a.caption, lang)} data-date={a.date ? formatDate(a.date + '-15', lang, { month: 'long', year: 'numeric' }) : ''}>
+              <span class:list={['ar__img', { 'ar__img--photo': a.file.endsWith('.jpg') }]}><img src={a.file} alt={t(a.caption, lang)} loading="lazy" width={a.width} height={a.height} /></span>
+              <span class="ar__meta"><span class="mono">{a.date ?? '—'}</span><span class="label">{c.cats[a.category as keyof typeof c.cats]}</span></span>
+              <span class="ar__cap">{t(a.caption, lang)}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <dialog class="lb" data-lb aria-label={c.kicker}>
+      <figure>
+        <img alt="" data-lb-img />
+        <figcaption><span class="mono" data-lb-date></span><span data-lb-cap></span></figcaption>
+      </figure>
+      <div class="lb__nav">
+        <button type="button" data-lb-prev>{c.prev}</button>
+        <button type="button" data-lb-next>{c.next}</button>
+        <button type="button" data-lb-close>{c.close}</button>
+      </div>
+    </dialog>
+  </section>
+</Base>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-archive]');
+  if (root) {
+    const btns = [...root.querySelectorAll<HTMLButtonElement>('[data-c]')];
+    const lis = [...root.querySelectorAll<HTMLElement>('[data-cat]')];
+    btns.forEach((b) => b.addEventListener('click', () => {
+      btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      lis.forEach((li) => { li.hidden = b.dataset.c !== 'all' && li.dataset.cat !== b.dataset.c; });
+    }));
+    const lb = root.querySelector<HTMLDialogElement>('[data-lb]')!;
+    const img = lb.querySelector<HTMLImageElement>('[data-lb-img]')!;
+    const cap = lb.querySelector<HTMLElement>('[data-lb-cap]')!;
+    const date = lb.querySelector<HTMLElement>('[data-lb-date]')!;
+    const items = [...root.querySelectorAll<HTMLButtonElement>('.ar__item')];
+    let cur = 0;
+    const show = (i: number) => {
+      const vis = items.filter((x) => !x.closest('li')!.hidden);
+      const k = (vis.indexOf(items[i]) + vis.length) % vis.length;
+      cur = items.indexOf(vis[k]);
+      const it = items[cur];
+      img.src = it.dataset.src!; img.alt = it.dataset.cap!; cap.textContent = it.dataset.cap!; date.textContent = it.dataset.date!;
+    };
+    const step = (d: number) => { const vis = items.filter((x) => !x.closest('li')!.hidden); const k = vis.indexOf(items[cur]); show(items.indexOf(vis[(k + d + vis.length) % vis.length])); };
+    items.forEach((it, i) => it.addEventListener('click', () => { show(i); lb.showModal(); }));
+    lb.querySelector('[data-lb-close]')!.addEventListener('click', () => lb.close());
+    lb.querySelector('[data-lb-prev]')!.addEventListener('click', () => step(-1));
+    lb.querySelector('[data-lb-next]')!.addEventListener('click', () => step(1));
+    lb.addEventListener('click', (e) => { if (e.target === lb) lb.close(); });
+    lb.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') step(document.dir === 'rtl' ? -1 : 1); if (e.key === 'ArrowLeft') step(document.dir === 'rtl' ? 1 : -1); });
+  }
+</script>
+
+<style>
+  .ar__f { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 2rem; }
+  .ar__f button { min-height: 42px; padding: 0.4rem 0.9rem; border: 1px solid var(--rule-strong); border-radius: 99px; font-size: 0.9rem; font-weight: 500; display: inline-flex; gap: 0.4rem; }
+  .ar__f button .mono { font-size: 0.7rem; opacity: 0.6; }
+  .ar__f button[aria-pressed='true'] { background: var(--navy); color: var(--foam); border-color: var(--navy); }
+  .ar__grid { columns: 4 260px; column-gap: var(--col-gap); }
+  .ar__grid li { break-inside: avoid; margin-bottom: 2rem; }
+  .ar__grid li[hidden] { display: none; }
+  .ar__item { display: grid; gap: 0.6rem; text-align: start; width: 100%; }
+  .ar__img { display: block; background: var(--sand); padding: 6%; border-radius: 2px; overflow: hidden; }
+  .ar__img img { width: 100%; transition: transform 900ms var(--ease-water), filter 600ms; }
+  .ar__img--photo { padding: 0; background: #e9e2d4; }
+  .ar__img--photo img { filter: sepia(0.28) saturate(0.8) contrast(1.05); mix-blend-mode: multiply; }
+  .ar__item:hover .ar__img img { transform: scale(1.03); filter: none; }
+  .ar__meta { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--ink-3); }
+  .ar__cap { font-size: 0.95rem; color: var(--ink-2); }
+  .lb { border: 0; padding: 0; background: transparent; max-width: min(1200px, 94vw); max-height: 94vh; color: var(--aegean-pale); }
+  .lb::backdrop { background: rgba(6, 26, 51, 0.92); backdrop-filter: blur(6px); }
+  .lb figure { display: grid; gap: 0.8rem; }
+  .lb img { max-height: 78vh; width: auto; margin-inline: auto; border-radius: 2px; }
+  .lb figcaption { display: flex; gap: 1rem; font-size: 0.95rem; }
+  .lb__nav { display: flex; gap: 1.2rem; justify-content: flex-end; margin-top: 0.8rem; font-family: var(--f-mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .lb__nav button { min-height: 44px; }
+</style>

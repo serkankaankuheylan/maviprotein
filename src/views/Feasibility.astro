@@ -1,0 +1,268 @@
+---
+import Base from '../layouts/Base.astro';
+import Intro from '../components/Intro.astro';
+import Asset from '../components/Asset.astro';
+import Arrow from '../components/Arrow.astro';
+import ClosingCta from '../components/ClosingCta.astro';
+import ReportFigure from '../components/ReportFigure.astro';
+import { servicesCopy } from '../i18n/services';
+import { common } from '../i18n/common';
+import { pick, t, type Lang } from '../lib/i18n';
+import { href, type RouteKey } from '../lib/routes';
+import { services } from '../lib/data';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = pick(servicesCopy, lang).feasibility;
+const cc = pick(common, lang);
+const svc = services['feasibility'] ?? {};
+const pad = (i: number) => String(i + 1).padStart(2, '0');
+const N = c.report.chapters.length;
+// "Ürün, talep, rakipler, fiyat." → "Ürün · talep · rakipler · fiyat"
+const keys = (d: string) => d.replace(/[.。]$/, '').split(/[,،;؛]\s*/).join(' · ');
+// One object per starting point, from the same studio set as the home page chain.
+const caseArt = ['ch-idea', 'aq-ras-unit', 'ch-install'];
+// Item 3 (agriculture) is repeated word for word by item 5 (agriculture + livestock); show the broader one.
+const scope = (svc.items ?? []).filter((_: any, i: number) => i !== 3);
+const sectorRoute: Record<string, RouteKey | undefined> = { aquaculture: 'aquaculture', agriculture: 'agri', livestock: 'agri' };
+const sectorNames: Record<string, string> = c.sectors;
+const sectorLabel = (a: string) => sectorNames[a] ?? a;
+---
+<Base lang={lang} title={c.meta.title} description={c.meta.description} route="feasibility" startDark={false} gaugeMax={70}>
+  <Intro lang={lang} surface="light" snug kicker={c.kicker} title={c.title} lead={t(svc.intro?.[0], lang)} crumbs={[[cc.nav.services, 'feasibility']]}>
+    <!-- Feasibility as a balance: investment (weights) against return (the product, feed pellets); a level beam is break-even. -->
+    <figure class="scale" aria-hidden="true">
+      <Asset name="ch-feasibility" alt="" class="scale__img" sizes="(max-width: 960px) 84vw, 44vw" loading="eager" fetchpriority="high" />
+      <svg class="scale__marks" viewBox="0 0 600 550">
+        <path class="scale__lead" d="M118 300L64 420" />
+        <path class="scale__lead" d="M482 320L536 420" />
+        <path class="scale__lead" d="M318 100L376 46" />
+        <path class="scale__level" d="M108 100H492" />
+      </svg>
+      <span class="scale__pin" style="--x:19.7%;--y:54.5%"></span>
+      <span class="scale__pin" style="--x:80.3%;--y:58.2%"></span>
+      <span class="scale__pin" style="--x:53%;--y:18.2%"></span>
+      <!-- each tag sits on the end of its leader; its underline carries the line on (viewBox 600 × 550 → %) -->
+      <span class="scale__tag scale__tag--l label" style="--x:10.67%;--y:76.36%">{c.scale.invest}</span>
+      <span class="scale__tag label" style="--x:89.33%;--y:76.36%">{c.scale.ret}</span>
+      <span class="scale__tag label" style="--x:62.67%;--y:8.36%">{c.scale.even}</span>
+    </figure>
+  </Intro>
+
+  <!-- signature: the report, chapter by chapter; one plate on the drafting table follows the reading -->
+  <section class="rep s-steel" data-surface="dark" aria-labelledby="rep-title">
+    <div class="rep__grid-bg blueprint" aria-hidden="true"></div>
+    <div class="wrap">
+      <header class="sec-head rep__head">
+        <h2 id="rep-title" class="t-h1 rise">{c.report.label}</h2>
+      </header>
+      <div class="rep__body" data-rep>
+        <ol class="rep__chapters" role="list">
+          {c.report.chapters.map((ch, i) => (
+            <li class:list={['rep__ch', { 'is-on': i === 0 }]} data-rep-ch={i}>
+              <p class="rep__no mono"><span>{pad(i)}</span><span class="faint">/ {pad(N - 1)}</span></p>
+              <h3 class="rep__t">{ch.t}</h3>
+              <p class="rep__q">{ch.q}</p>
+              <p class="rep__d label">{keys(ch.d)}</p>
+              {i === N - 1 && <a class="rep__link link" href={href('funding', lang)}>{c.report.funding}<Arrow /></a>}
+              <figure class="rep__inline">
+                <div class="rep__sheet sheet"><ReportFigure kind={i} uid={`rfm${i}`} L={c.report.figs} /></div>
+                <figcaption class="rep__cap mono"><span>{c.report.fig} {i + 1}</span>{ch.t}</figcaption>
+              </figure>
+            </li>
+          ))}
+        </ol>
+        <div class="rep__stage" aria-hidden="true">
+          <div class="rep__plate">
+            {c.report.chapters.map((ch, i) => (
+              <figure class:list={['rep__layer', { 'is-on': i === 0 }]} data-rep-fig={i}>
+                <div class="rep__sheet sheet">
+                  <span class="rep__tab mono">{pad(i)}</span>
+                  <ReportFigure kind={i} uid={`rfd${i}`} L={c.report.figs} />
+                </div>
+                <figcaption class="rep__cap mono"><span>{c.report.fig} {i + 1}</span>{ch.t}</figcaption>
+              </figure>
+            ))}
+          </div>
+          <ol class="rep__ticks" role="list">{c.report.chapters.map((_, i) => <li class:list={{ 'is-on': i === 0 }} data-rep-tick={i}></li>)}</ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- three starting points -->
+  <section class="start s-light grain section" data-surface="light" aria-labelledby="start-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="label">{c.start.label}</p>
+        <h2 id="start-title" class="t-h1 rise" set:html={c.start.title} />
+      </header>
+      <ol class="start__grid" role="list">
+        {c.start.cases.map((k, i) => (
+          <li class="case rise" style={`--d:${i * 90}ms`}>
+            <div class:list={['case__plate sheet', `case__plate--${i}`]}>
+              <Asset name={caseArt[i]} alt="" class="case__img" sizes="(max-width: 900px) 80vw, 28vw" />
+            </div>
+            <div class="case__body">
+              <span class="num">{i + 1}</span>
+              <h3 class="case__t">{k.t}</h3>
+              <ul class="case__list" role="list">{k.items.map((x) => <li>{x}</li>)}</ul>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- scope, as recorded in the inventory, with the fields it applies to -->
+  <section class="scope s-sand grain section" data-surface="light" aria-labelledby="scope-title">
+    <div class="wrap scope__grid">
+      <header class="scope__head">
+        <h2 id="scope-title" class="t-h1">{c.items.label}</h2>
+        <p class="label">{scope.length} {c.items.count}</p>
+      </header>
+      <ol class="scope__rows" role="list">
+        {scope.map((it: any, i: number) => (
+          <li class="rise" style={`--d:${i * 50}ms`}>
+            <span class="scope__n mono">{pad(i)}</span>
+            <span class="scope__t">{t(it.title, lang)}</span>
+            <span class="scope__tags">
+              {(it.appliesTo ?? []).map((a: string) => {
+                const r = sectorRoute[a];
+                const label = sectorLabel(a);
+                return r ? <a class="tag" href={href(r, lang)}>{label}</a> : <span class="tag tag--all">{label}</span>;
+              })}
+            </span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <ClosingCta lang={lang} title={c.close} primaryHref={`${href('start', lang)}?asama=fizibilite`} />
+</Base>
+
+<script>
+  // The plate follows the reading: the chapter crossing the middle of the screen owns the plate.
+  // Phones: the plate sits inside each chapter and simply draws once it is seen.
+  const root = document.querySelector<HTMLElement>('[data-rep]');
+  if (root && 'IntersectionObserver' in window) {
+    const chs = [...root.querySelectorAll<HTMLElement>('[data-rep-ch]')];
+    const figs = [...root.querySelectorAll<HTMLElement>('[data-rep-fig]')];
+    const ticks = [...root.querySelectorAll<HTMLElement>('[data-rep-tick]')];
+    const wide = matchMedia('(min-width: 901px)');
+    let current = 0;
+    const set = (i: number) => {
+      if (i === current) return;
+      current = i;
+      [chs, figs, ticks].forEach((list) => list.forEach((el, k) => el.classList.toggle('is-on', k === i)));
+    };
+    const center = new IntersectionObserver((es) => {
+      if (!wide.matches) return;
+      for (const e of es) if (e.isIntersecting) set(Number((e.target as HTMLElement).dataset.repCh));
+    }, { rootMargin: '-50% 0px -50% 0px' });
+    const seen = new IntersectionObserver((es) => {
+      if (wide.matches) return;
+      for (const e of es) if (e.isIntersecting) { e.target.classList.add('is-on'); seen.unobserve(e.target); }
+    }, { threshold: 0.35 });
+    chs.forEach((el) => { center.observe(el); seen.observe(el); });
+  }
+</script>
+
+<style>
+  /* ---------- intro: the balance ---------- */
+  .scale { position: relative; width: min(100%, var(--art-h, 9999px) * 1.09); margin-inline: auto; aspect-ratio: 600 / 550; }
+  .scale :global(.scale__img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 26px 30px rgba(70, 44, 14, 0.22)) drop-shadow(0 4px 6px rgba(70, 44, 14, 0.14)); }
+  .scale__marks { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+  .scale__lead { fill: none; stroke: var(--ink-3); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+  .scale__level { fill: none; stroke: var(--brass); stroke-width: 1px; stroke-dasharray: 2 5; vector-effect: non-scaling-stroke; opacity: 0.85; }
+  .scale__pin { position: absolute; left: var(--x); top: var(--y); width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; border-radius: 50%; background: var(--brass); box-shadow: 0 0 0 3px rgba(184, 116, 47, 0.18); }
+  .scale__tag { position: absolute; left: var(--x); top: var(--y); transform: translateY(-100%); padding: 0 0.2rem 0.3rem; border-bottom: 1px solid var(--ink-3); color: var(--ink-2); white-space: nowrap; }
+  .scale__tag--l { left: auto; right: calc(100% - var(--x)); }
+  /* the annotations settle in once the balance is there */
+  :global(.js) :is(.scale__marks, .scale__pin, .scale__tag) { opacity: 0; animation: scale-in 1100ms 900ms var(--ease-water) forwards; }
+  @keyframes scale-in { to { opacity: 1; } }
+  @media (max-width: 960px) { .scale { width: min(88%, 460px, var(--art-h, 9999px) * 1.09); margin-bottom: 0.5rem; } }
+  @media (prefers-reduced-motion: reduce) { :global(.js) :is(.scale__marks, .scale__pin, .scale__tag) { opacity: 1; animation: none; } }
+
+  /* ---------- report: drafting table ---------- */
+  .rep { position: relative; isolation: isolate; padding-block: var(--sec-y) clamp(72px, 9vw, 140px); overflow: clip; }
+  .rep__grid-bg { position: absolute; inset: 0; z-index: -1; opacity: 0.5; -webkit-mask-image: radial-gradient(120% 70% at 70% 40%, #000 25%, transparent 80%); mask-image: radial-gradient(120% 70% at 70% 40%, #000 25%, transparent 80%); }
+  .rep__head h2 { max-width: 14ch; }
+  .rep__body { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); }
+  .rep__chapters { grid-column: 1 / span 5; }
+  .rep__ch { min-height: 58vh; display: grid; align-content: center; gap: 0.9rem; padding-block: 2rem; border-top: 1px solid var(--line); transition: opacity 700ms var(--ease-water); }
+  .rep__ch:last-child { min-height: 70vh; }
+  .rep__no { display: flex; gap: 0.6rem; font-size: 0.8rem; letter-spacing: 0.1em; color: var(--brass-2); }
+  .rep__t { font-family: var(--f-serif); font-weight: 500; font-size: var(--t-h1); line-height: 0.95; letter-spacing: -0.004em; color: #eef2f5; }
+  .rep__q { font-size: var(--t-lead); line-height: 1.4; color: var(--fg); max-width: 26ch; }
+  .rep__d { color: var(--fg-3); }
+  .rep__link { justify-self: start; display: inline-flex; gap: 0.5rem; align-items: center; color: var(--fg); margin-top: 0.4rem; }
+  .rep__link :global(.arr) { color: var(--brass-2); }
+  :global(html[dir='rtl']) .rep__link :global(.arr) { scale: -1 1; }
+
+  .rep__stage { grid-column: 6 / -1; position: sticky; top: calc(var(--header-h) + 5vh); align-self: start; display: grid; gap: 1rem; margin-top: 2rem; }
+  .rep__plate { position: relative; display: grid; width: min(100%, (100vh - var(--header-h) - 9rem) * 1.414); justify-self: end; }
+  .rep__layer { grid-area: 1 / 1; margin: 0; display: grid; gap: 0.8rem; opacity: 0; visibility: hidden; transition: opacity 600ms var(--ease-water), visibility 0s 600ms; }
+  .rep__layer.is-on { opacity: 1; visibility: visible; transition: opacity 600ms var(--ease-water), visibility 0s; }
+  .rep__sheet { position: relative; aspect-ratio: 480 / 340; padding: 4.5% 5% 4%; box-shadow: inset 0 0 0 1px var(--rule), 0 40px 70px -30px rgba(0, 0, 0, 0.65), 0 2px 4px rgba(0, 0, 0, 0.25); --plate: #fbf9f4; }
+  .rep__sheet :global(.rf) { position: absolute; inset: 6% 6% 5%; width: auto; height: auto; }
+  .rep__tab { position: absolute; top: 0.9rem; inset-inline-end: 1.2rem; font-size: 0.72rem; letter-spacing: 0.1em; color: var(--brass); }
+  .rep__cap { display: flex; gap: 0.9rem; align-items: baseline; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-2); }
+  .rep__cap span { color: var(--brass-2); }
+  :global(html[dir='rtl']) .rep__cap { text-transform: none; letter-spacing: 0; }
+  .rep__ticks { display: flex; gap: 6px; justify-self: end; }
+  .rep__ticks li { width: 22px; height: 2px; background: var(--line-strong); transition: background 500ms var(--ease-water), width 500ms var(--ease-water); }
+  .rep__ticks li.is-on { width: 44px; background: var(--brass-2); }
+  .rep__inline { display: none; }
+
+  /* desktop: the chapter at the reading line is lit, the others wait in the dark */
+  @media (min-width: 901px) {
+    :global(.js) .rep__ch { opacity: 0.32; }
+    :global(.js) .rep__ch.is-on { opacity: 1; }
+  }
+  @media (max-width: 900px) {
+    .rep__chapters { grid-column: 1 / -1; }
+    .rep__stage { display: none; }
+    .rep__ch { min-height: 0; padding-block: 2.2rem 2.6rem; }
+    .rep__ch:last-child { min-height: 0; }
+    .rep__inline { display: grid; gap: 0.7rem; margin: 1rem 0 0; }
+    .rep__inline .rep__sheet { padding: 0; }
+  }
+
+  /* ---------- three starting points ---------- */
+  .start__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(2rem, 3vw, 3rem) var(--col-gap); }
+  .case { display: grid; grid-template-rows: auto 1fr; gap: 1.6rem; }
+  .case__plate { aspect-ratio: 4 / 3; display: grid; place-items: center; padding: 8% 9%; --ti: 12px; }
+  .case__plate :global(.case__img) { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 18px 22px rgba(13, 27, 44, 0.16)) drop-shadow(0 3px 5px rgba(13, 27, 44, 0.1)); transition: transform 900ms var(--ease-water); }
+  .case__plate--0 { padding: 12% 10%; }
+  .case:hover .case__plate :global(.case__img) { transform: translateY(-6px); }
+  .case__body { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 1rem; row-gap: 0.9rem; align-content: start; }
+  .case__body .num { margin-top: 0.2rem; }
+  .case__t { font-family: var(--f-sans); font-size: var(--t-h3); font-weight: 500; line-height: 1.2; letter-spacing: -0.01em; }
+  .case__list { grid-column: 2; border-top: 1px solid var(--rule-strong); }
+  .case__list li { padding-block: 0.7rem; border-bottom: 1px solid var(--rule); color: var(--ink-2); }
+  @media (max-width: 900px) {
+    .start__grid { grid-template-columns: 1fr; gap: 3rem; }
+    .case { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); grid-template-rows: none; align-items: start; gap: 1.2rem; }
+  }
+  @media (max-width: 600px) { .case { grid-template-columns: 1fr; } }
+
+  /* ---------- scope ---------- */
+  .scope__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); }
+  .scope__head { grid-column: 1 / span 4; display: grid; gap: 1rem; align-content: start; position: sticky; top: calc(var(--header-h) + 2rem); align-self: start; }
+  .scope__rows { grid-column: 5 / -1; border-top: 1px solid var(--rule-strong); }
+  .scope__rows li { display: grid; grid-template-columns: 3rem minmax(0, 1fr) auto; gap: 0.6rem 1.2rem; align-items: baseline; padding-block: 1.25rem; border-bottom: 1px solid var(--rule); }
+  .scope__n { font-size: 0.8rem; color: var(--brass); letter-spacing: 0.06em; }
+  .scope__t { font-size: 1.12rem; line-height: 1.45; }
+  .scope__tags { display: flex; flex-wrap: wrap; gap: 0.35rem; justify-content: flex-end; }
+  .tag { font-family: var(--f-mono); font-size: 0.74rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.3rem 0.6rem; border: 1px solid var(--rule-strong); border-radius: 99px; color: var(--ink-2); white-space: nowrap; transition: color 300ms, border-color 300ms, background 300ms; }
+  a.tag:hover, a.tag:focus-visible { color: var(--navy); border-color: var(--navy); background: rgba(255, 255, 255, 0.4); }
+  .tag--all { border-color: color-mix(in srgb, var(--brass) 60%, transparent); color: var(--brass); }
+  :global(html[dir='rtl']) .tag { text-transform: none; letter-spacing: 0; font-family: 'IBM Plex Sans Arabic', var(--f-mono); }
+  @media (max-width: 900px) {
+    .scope__head, .scope__rows { grid-column: 1 / -1; position: static; }
+    .scope__rows li { grid-template-columns: 2.4rem minmax(0, 1fr); }
+    .scope__tags { grid-column: 2; justify-content: flex-start; }
+  }
+</style>

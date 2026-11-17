@@ -1,0 +1,324 @@
+---
+import Base from '../layouts/Base.astro';
+import Asset from '../components/Asset.astro';
+import Arrow from '../components/Arrow.astro';
+import FacilitySet from '../components/FacilitySet.astro';
+import ClosingCta from '../components/ClosingCta.astro';
+import { solutionsCopy } from '../i18n/solutions';
+import { common } from '../i18n/common';
+import { pick, t, type Lang } from '../lib/i18n';
+import { href, type RouteKey } from '../lib/routes';
+import { services, grouped, lineBySlug } from '../lib/data';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = pick(solutionsCopy, lang).agri;
+const cc = pick(common, lang);
+const svc = services['agriculture-livestock'] ?? {};
+const homeLabel = { tr: 'Anasayfa', en: 'Home', ar: 'الرئيسية' }[lang];
+
+// Every service shown here is an inventory item (services.json), found by its Turkish title.
+const pool: any[] = [...(svc.items ?? []), ...(svc.agriculture?.items ?? []), ...(svc.livestock?.items ?? [])];
+const item = (tr: string) => t(pool.find((i) => i.title?.tr === tr)?.title, lang) || tr;
+const sub = (key: string) => t((svc.subgroups ?? []).find((g: any) => g.key === key)?.title, lang);
+
+/**
+ * The cycle: field → feed → animal → waste → compost → field. Each stop carries its material (studio cut-outs:
+ * design-assets/final/ag-*) and the services that act on it. `plate` links an item to its turnkey drawing below.
+ * Figure geometry, in % of the square figure: ring radius 36, stops clockwise from the top; `w` is the cut-out's
+ * width (balanced by eye: a tall glass cone is narrow, heaps are wide), `gap` the half-angle the ring leaves open.
+ */
+const LIVESTOCK_LINE = lineBySlug('hayvancilik-yemi');
+const STOPS = [
+  { asset: 'ag-soil', w: 17, gap: 15, items: [{ tr: 'Toprak analizleri ve değerlendirilmesi' }, { tr: 'Etkin mikroorganizmaların tarımda kullanımı' }, { tr: 'Doğal katkı maddelerinin kullanım danışmanlığı' }] },
+  { asset: 'ag-silage', w: 21, gap: 19, items: [{ tr: 'Silaj hazırlığı ve üretimi' }, { tr: 'Yem sanayi sistemleri ve mekanizasyonu', plate: 'yem-sanayi' }],
+    more: LIVESTOCK_LINE && { label: t(LIVESTOCK_LINE.shortName, lang), href: href('line', lang, LIVESTOCK_LINE.slug) } },
+  { asset: 'ag-cattle', w: 23, gap: 21, items: [{ tr: 'Besi çiftlikleri', plate: 'besi-ciftligi' }, { tr: 'Kümes hayvanları tüm sistemler kurulumu', plate: 'kumes' }, { tr: 'Etkin mikroorganizmaların hayvancılıkta kullanımı ve geliştirilmesi' }, { tr: 'Doğal katkı maddelerinin kullanım danışmanlığı ve eğitimi' }] },
+  { asset: 'ag-imhoff', w: 7.4, gap: 13, items: [{ tr: 'Kesimhanelerin atık arıtım sistemleri kurulumu', plate: 'kesimhane' }, { tr: 'Biyolojik atık değerlendirme sistemleri' }] },
+  { asset: 'ag-compost', w: 21, gap: 19, items: [{ tr: 'Kompost malzeme hazırlığı ve üretimi' }] },
+].map((s, i) => {
+  const a = -90 + i * 72;
+  const rad = (a * Math.PI) / 180;
+  // one `sizes` for the figure and the track below: both pick the same file, so the track costs no download
+  const sizes = `(max-width: 960px) ${+(s.w * 0.92).toFixed(1)}vw, ${+(s.w * 0.55).toFixed(1)}vw`;
+  return { ...s, i, a, sizes, name: c.cycle.stops[i], x: +(50 + 36 * Math.cos(rad)).toFixed(2), y: +(50 + 36 * Math.sin(rad)).toFixed(2) };
+});
+
+// The ring between the stops (viewBox 0 0 100 100): an open arc from one cut-out to the next, arrowhead clockwise.
+const R = 36;
+const P = (deg: number, r = R) => [50 + r * Math.cos((deg * Math.PI) / 180), 50 + r * Math.sin((deg * Math.PI) / 180)].map((v) => +v.toFixed(2));
+const arcs = STOPS.map((s, i) => {
+  const next = STOPS[(i + 1) % STOPS.length];
+  const a0 = s.a + s.gap, a1 = s.a + 72 - next.gap;
+  const [x0, y0] = P(a0), [x1, y1] = P(a1);
+  // chevron at the end, along the clockwise tangent
+  const r1 = (a1 * Math.PI) / 180, tx = -Math.sin(r1), ty = Math.cos(r1), nx = Math.cos(r1), ny = Math.sin(r1);
+  const h = (u: number, v: number) => `${+(x1 - tx * u + nx * v).toFixed(2)} ${+(y1 - ty * u + ny * v).toFixed(2)}`;
+  return { d: `M${x0} ${y0}A${R} ${R} 0 0 1 ${x1} ${y1}`, head: `M${h(1.7, 1.05)}L${x1} ${y1}L${h(1.7, -1.05)}` };
+});
+
+// Across the whole cycle: the firm's cross-cutting services, each with its inventory wording.
+const EVERY: { route: RouteKey; title: string; text: string }[] = [
+  { route: 'feasibility', title: cc.mega.services[1].title, text: item('Tarımsal ve hayvansal üretimlerin fizibilite ve rantabilite analizlerinin, mühendislik ölçümlerinin yapılması') },
+  { route: 'funding', title: cc.mega.services[0].title, text: sub('support-programs') },
+  { route: 'machines', title: cc.nav.machines, text: sub('machine-lines') },
+  { route: 'supply', title: cc.mega.services[2].title, text: [item('İthalat-ihracat ve gümrükleme işlemleri'), item('Bakım ve teknik hizmet destekleri')].join(' · ') },
+];
+
+// Turnkey: the agriculture and livestock lists share cold stores; one plate per facility type.
+const ag = grouped(svc.agriculture ?? {});
+const lv = grouped(svc.livestock ?? {});
+const turnkey = [...ag, ...lv].filter((g: any) => g.key === 'turnkey').flatMap((g: any) => g.items)
+  .filter((it: any, i: number, a: any[]) => a.findIndex((x) => x.title.tr === it.title.tr) === i);
+
+const titleWords = [...c.title.matchAll(/<em>(.*?)<\/em>|([^<]+)/g)].flatMap((m) =>
+  (m[1] ?? m[2]).trim().split(/\s+/).filter(Boolean).map((w) => ({ w, em: m[1] != null })));
+---
+<Base lang={lang} title={c.meta.title} description={c.meta.description} route="agri" startDark={false} gaugeMax={80}>
+  <!-- HERO · the cycle, with the microbes that drive it at its centre -->
+  <section class="ah s-sand grain" data-surface="light" aria-labelledby="ah-title">
+    <div class="wrap ah__grid">
+      <div class="ah__words">
+        <nav class="ah__crumbs label" aria-label="breadcrumb">
+          <a href={href('home', lang)}>{homeLabel}</a><span class="sep">/</span><a href={href('agri', lang)}>{cc.nav.solutions}</a>
+        </nav>
+        <p class="label ah__kicker"><span class="dot"></span>{c.kicker}</p>
+        <h1 id="ah-title" class="t-display ah__title">
+          {titleWords.map((tw, i) => <><span class="ah__w" style={`--i:${i}`}>{tw.em ? <em>{tw.w}</em> : tw.w}</span>{' '}</>)}
+        </h1>
+        <p class="t-lead ah__lead">{c.lead}</p>
+      </div>
+
+      <figure class="cyc" aria-label={c.cycle.label}>
+        <svg class="cyc__ring" viewBox="0 0 100 100" aria-hidden="true">
+          {arcs.map((a, i) => <g class="cyc__arc" style={`--k:${i}`}><path d={a.d} /><path d={a.head} /></g>)}
+        </svg>
+        <span class="cyc__orbit" aria-hidden="true"><i></i></span>
+        <div class="cyc__eye" aria-hidden="true">
+          <Asset name="ag-em-micro" alt="" sizes="(max-width: 960px) 36vw, 21vw" loading="eager" />
+        </div>
+        <ol class="cyc__stops" role="list">
+          {STOPS.map((s) => (
+            <li class="cyc__stop" style={`--x:${s.x}%;--y:${s.y}%;--w:${s.w}%;--i:${s.i}`}>
+              <a href={`#d-${s.i + 1}`}>
+                <Asset name={s.asset} alt="" class="cyc__img" sizes={s.sizes} loading="eager" />
+                <span class="cyc__name"><span class="mono">{String(s.i + 1).padStart(2, '0')}</span>{s.name}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </figure>
+    </div>
+  </section>
+
+  <!-- THE CYCLE, unrolled: forward along the top, back to the field along the bottom -->
+  <section class="st s-light grain section" id="dongu" data-surface="light" aria-labelledby="st-title">
+    <div class="wrap">
+      <h2 id="st-title" class="label st__label"><span>01</span><span class="sep">·</span><span>{c.cycle.label}</span></h2>
+      <ol class="st__track" role="list">
+        {STOPS.map((s) => (
+          <li class="st__stop rise" id={`d-${s.i + 1}`} style={`--d:${s.i * 70}ms`}>
+            <span class="st__no num">{s.i + 1}</span>
+            <span class="st__img"><Asset name={s.asset} alt="" sizes={s.sizes} /></span>
+            <h3 class="st__name">{s.name}</h3>
+            <ul class="st__svc" role="list">
+              {s.items.map((it) => <li>{it.plate ? <a class="link" href={`#tk-${it.plate}`}>{item(it.tr)}</a> : item(it.tr)}</li>)}
+            </ul>
+            {s.more && <a class="st__more" href={s.more.href}><span>{s.more.label}</span><Arrow /></a>}
+          </li>
+        ))}
+      </ol>
+      <p class="sr-only">{c.cycle.back}</p>
+
+      <div class="st__every">
+        <h3 class="label st__elabel">{c.cycle.every}</h3>
+        <ul class="st__links" role="list">
+          {EVERY.map((e) => (
+            <li><a href={href(e.route, lang)}><span class="st__lt">{e.title}<Arrow /></span><span class="st__ld">{e.text}</span></a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {turnkey.length > 0 && (
+    <section class="tk s-sand grain section" id="kurulumlar" data-surface="light" aria-labelledby="tk-title">
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="label"><span>02</span><span class="sep">·</span><span>{c.turnkey.label}</span></p>
+          <h2 id="tk-title" class="t-h1 rise" set:html={c.turnkey.title} />
+        </header>
+        <FacilitySet lang={lang} items={turnkey} order={['sera', 'sebze-meyve', 'zeytin', 'besi-ciftligi', 'kumes', 'yem-sanayi', 'kesimhane', 'et-sut', 'soguk-depo']} />
+      </div>
+    </section>
+  )}
+
+  <ClosingCta lang={lang} title={c.close} primaryHref={`${href('start', lang)}?alan=tarim-hayvancilik`} />
+</Base>
+
+<style>
+  /* ---------------- HERO ----------------
+     Paper: the cycle drawn as a figure — five materials on a ring, the microbes that turn each one into the
+     next at the centre. All motion is composited (transform/opacity), no script. */
+  .ah {
+    position: relative; overflow: clip;
+    min-height: max(100svh, 700px);
+    display: grid; align-items: center;
+    padding-block: calc(var(--header-h) + clamp(8px, 2vh, 28px)) clamp(24px, 4vh, 56px);
+    background:
+      radial-gradient(46% 60% at 73% 52%, rgba(255, 252, 244, 0.6), rgba(255, 252, 244, 0) 72%),
+      linear-gradient(180deg, #ebe5da 0%, var(--sand) 60%, #e2dacb 100%);
+  }
+  .ah.grain::before { opacity: 0.75; }
+  .ah__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); align-items: center; }
+  .ah__words { grid-column: 1 / span 5; display: grid; gap: clamp(1.1rem, 2vw, 1.7rem); justify-items: start; position: relative; z-index: 1; }
+  .ah__crumbs { gap: 0.55rem; color: var(--fg-3); }
+  .ah__crumbs a:hover { color: var(--fg); }
+  .ah__kicker { color: var(--fg-2); }
+  .ah__title { max-width: 7.2em; }
+  .ah__w { display: inline-block; animation: ah-rise 1500ms var(--ease-water) both; animation-delay: calc(140ms + var(--i) * 110ms); }
+  .ah__lead { max-width: 40ch; animation: ah-rise 1300ms 560ms var(--ease-water) both; }
+  @keyframes ah-rise { from { opacity: 0; transform: translateY(0.32em); filter: blur(8px); } 60% { filter: blur(1px); } to { opacity: 1; transform: none; filter: blur(0); } }
+
+  /* the figure: a square; everything inside is placed in % of its side */
+  .cyc { grid-column: 6 / -1; justify-self: end; position: relative; margin: 0; width: min(100%, calc(100svh - var(--header-h) - 8vh), 820px); aspect-ratio: 1; }
+  .cyc__ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .cyc__arc { fill: none; stroke: var(--ink); stroke-opacity: 0.34; stroke-linecap: round; stroke-linejoin: round; animation: cyc-fade 900ms var(--ease-water) both; animation-delay: calc(700ms + var(--k) * 110ms); }
+  .cyc__arc path { stroke-width: 1.15; vector-effect: non-scaling-stroke; }
+  /* material moving round the ring: a brass grain on a turning arm (composited rotation) */
+  .cyc__orbit { position: absolute; inset: 0; animation: cyc-orbit 40s linear infinite; }
+  .cyc__orbit i { position: absolute; left: 50%; top: 14%; width: 7px; height: 7px; margin: -3.5px; border-radius: 50%; background: var(--brass); box-shadow: 0 0 0 4px rgba(184, 116, 47, 0.16); }
+  @keyframes cyc-orbit { to { transform: rotate(360deg); } }
+
+  /* the eyepiece: a phase-contrast field of lactic acid bacteria and yeast, drifting under the lens */
+  .cyc__eye {
+    position: absolute; left: 31%; top: 31%; width: 38%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; isolation: isolate;
+    background: #a9a294;
+    box-shadow: 0 0 0 1px rgba(13, 27, 44, 0.24), 0 0 0 7px rgba(231, 224, 212, 0.9), 0 0 0 8px rgba(13, 27, 44, 0.12), 0 34px 60px -30px rgba(60, 38, 14, 0.5);
+    animation: cyc-eye 1500ms 320ms var(--ease-water) both;
+  }
+  .cyc__eye::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle, rgba(52, 40, 26, 0) 56%, rgba(52, 40, 26, 0.42) 100%); pointer-events: none; }
+  .cyc__eye :global(img) { position: absolute; inset: -9%; width: 118%; height: 118%; max-width: none; object-fit: cover; animation: cyc-drift 48s ease-in-out infinite alternate; }
+  @keyframes cyc-drift { from { transform: translate3d(-2.6%, 1.6%, 0) rotate(-3deg); } to { transform: translate3d(2.6%, -2%, 0) rotate(3deg); } }
+  @keyframes cyc-eye { from { opacity: 0; transform: scale(0.94); } }
+
+  .cyc__stops { position: absolute; inset: 0; }
+  .cyc__stop { position: absolute; left: var(--x); top: var(--y); width: var(--w); translate: -50% -50%; z-index: 1; animation: cyc-in 1100ms var(--ease-water) both; animation-delay: calc(560ms + var(--i) * 130ms); }
+  .cyc__stop a { display: block; position: relative; }
+  .cyc__stop :global(.cyc__img) {
+    display: block; width: 100%; height: auto;
+    filter: drop-shadow(0 16px 12px rgba(60, 38, 14, 0.22)) drop-shadow(0 3px 3px rgba(60, 38, 14, 0.16));
+    animation: cyc-float 7s ease-in-out infinite alternate; animation-delay: calc(var(--i) * -1.45s);
+    transition: translate 700ms var(--ease-water);
+  }
+  .cyc__stop a:hover :global(.cyc__img), .cyc__stop a:focus-visible :global(.cyc__img) { translate: 0 -6px; }
+  .cyc__name {
+    position: absolute; top: 100%; left: 50%; translate: -50% 0; margin-top: 0.6rem;
+    display: flex; gap: 0.45em; align-items: baseline; white-space: nowrap;
+    font-size: 0.94rem; font-weight: 500; color: var(--ink); transition: color 300ms;
+  }
+  .cyc__name .mono { font-size: 0.72rem; color: var(--brass); }
+  .cyc__stop a:hover .cyc__name { color: var(--phyco); }
+  @keyframes cyc-float { from { transform: translateY(-3px); } to { transform: translateY(4px); } }
+  @keyframes cyc-in { from { opacity: 0; transform: translateY(16px); } }
+  @keyframes cyc-fade { from { opacity: 0; } }
+
+  /* leaving: the words rise away, the figure settles back */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .ah__words { animation: ah-out linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
+      .cyc { animation: cyc-out linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
+    }
+  }
+  @keyframes ah-out { to { transform: translateY(-9vh); opacity: 0; } }
+  @keyframes cyc-out { to { transform: translateY(-4vh) scale(0.96); opacity: 0.4; } }
+
+  /* phones and tablets: the figure first, as wide as the screen allows, the words under it */
+  @media (max-width: 960px) {
+    .ah { min-height: 0; align-items: start; padding-block: calc(var(--header-h) + 4px) clamp(40px, 9vw, 72px); }
+    .ah__grid { grid-template-columns: minmax(0, 1fr); row-gap: clamp(0.6rem, 3vw, 1.6rem); }
+    .ah__words { grid-column: 1; gap: 0.95rem; }
+    .cyc { grid-column: 1; order: -1; justify-self: center; width: min(100%, 560px, 60svh); }
+    .cyc__name { font-size: 0.74rem; margin-top: 0.3rem; gap: 0.35em; }
+    .cyc__name .mono { font-size: 0.6rem; }
+    .cyc__orbit i { width: 5px; height: 5px; margin: -2.5px; box-shadow: 0 0 0 3px rgba(184, 116, 47, 0.16); }
+    .cyc__eye { box-shadow: 0 0 0 1px rgba(13, 27, 44, 0.24), 0 0 0 4px rgba(231, 224, 212, 0.9), 0 0 0 5px rgba(13, 27, 44, 0.12), 0 20px 40px -22px rgba(60, 38, 14, 0.5); }
+  }
+
+  /* ---------------- THE CYCLE, UNROLLED ----------------
+     A closed track: the stops run forward along its top edge (brass discs on the line), the dashed bottom edge
+     carries the return to the field. On phones the track stands upright: down the start side, back up the end. */
+  .st__label { margin-bottom: clamp(36px, 4vw, 64px); }
+  .st__track {
+    --r: clamp(28px, 3vw, 46px);
+    position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); column-gap: var(--col-gap);
+    padding: 0 clamp(22px, 2.6vw, 44px) clamp(44px, 4.6vw, 72px);
+  }
+  .st__track::before { content: ''; position: absolute; inset: 0; border: 1px solid var(--rule-strong); border-bottom-style: dashed; border-radius: var(--r); pointer-events: none; }
+  /* direction marks: forward on the top edge between stops, back on the bottom edge */
+  .st__stop + .st__stop::before, .st__track::after {
+    content: ''; position: absolute; width: 9px; height: 9px; border-top: 1px solid var(--ink-2); border-inline-end: 1px solid var(--ink-2);
+  }
+  .st__stop + .st__stop::before { top: 0; inset-inline-start: calc(var(--col-gap) / -2); translate: -50% -50%; rotate: 45deg; }
+  .st__track::after { bottom: 0; left: 50%; translate: -50% 50%; rotate: -135deg; }
+  :global(html[dir='rtl']) .st__stop + .st__stop::before { translate: 50% -50%; rotate: -45deg; }
+  :global(html[dir='rtl']) .st__track::after { rotate: 135deg; }
+
+  .st__stop { position: relative; display: grid; align-content: start; gap: 0.85rem; padding-top: clamp(30px, 2.8vw, 44px); min-width: 0; }
+  .st__no { position: absolute; top: 0; inset-inline-start: 0; translate: 0 -50%; background: var(--foam); }
+  :global(html[dir='rtl']) .st__no { translate: 0 -50%; }
+  .st__img { height: clamp(72px, 6.4vw, 104px); display: flex; align-items: flex-end; }
+  .st__img :global(img) { height: 100%; width: auto; max-width: 100%; object-fit: contain; object-position: left bottom; filter: drop-shadow(0 10px 9px rgba(60, 38, 14, 0.2)); }
+  :global(html[dir='rtl']) .st__img :global(img) { object-position: right bottom; }
+  .st__name { font-family: var(--f-serif); font-weight: 500; font-size: clamp(1.7rem, 1.2rem + 1vw, 2.4rem); line-height: 1; letter-spacing: -0.005em; }
+  .st__svc { display: grid; border-top: 1px solid var(--rule); }
+  .st__svc li { padding-block: 0.6rem; border-bottom: 1px solid var(--rule); color: var(--ink-2); font-size: 0.95rem; line-height: 1.42; }
+  .st__svc .link { color: var(--ink); }
+  .st__more { display: inline-flex; align-items: center; gap: 0.5rem; justify-self: start; font-weight: 560; font-size: 0.95rem; color: var(--navy); }
+  .st__more :global(.arr) { transition: transform 420ms var(--ease-water); }
+  .st__more:hover :global(.arr) { transform: translateX(4px); }
+  :global(html[dir='rtl']) .st__more :global(.arr) { transform: scaleX(-1); }
+
+  /* at every step: the cross-cutting services */
+  .st__every { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); margin-top: clamp(56px, 6vw, 96px); }
+  .st__elabel { grid-column: 1 / span 3; align-self: start; padding-top: 1.15rem; }
+  .st__links { grid-column: 4 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--col-gap); border-top: 1px solid var(--rule-strong); }
+  .st__links a { display: grid; gap: 0.35rem; padding-block: 1.1rem 1.2rem; border-bottom: 1px solid var(--rule); height: 100%; }
+  .st__lt { display: flex; justify-content: space-between; align-items: center; gap: 1rem; font-family: var(--f-serif); font-weight: 500; font-size: clamp(1.35rem, 1.1rem + 0.6vw, 1.75rem); line-height: 1.05; }
+  .st__lt :global(.arr) { flex: none; opacity: 0.55; transition: transform 420ms var(--ease-water), opacity 300ms; }
+  .st__links a:hover .st__lt { color: var(--phyco); }
+  .st__links a:hover :global(.arr) { opacity: 1; transform: translateX(4px); }
+  :global(html[dir='rtl']) .st__lt :global(.arr) { transform: scaleX(-1); }
+  .st__ld { color: var(--ink-3); font-size: 0.9rem; line-height: 1.45; }
+
+  @media (max-width: 1100px) and (min-width: 961px) {
+    .st__track { column-gap: 14px; padding-inline: 18px; }
+    .st__svc li { font-size: 0.88rem; }
+  }
+  @media (max-width: 960px) {
+    /* upright track: forward down the start side (discs on the line), back up the dashed end side */
+    .st__track { grid-template-columns: minmax(0, 1fr); row-gap: 2.4rem; padding: 2.2rem clamp(20px, 5vw, 36px) 2.2rem clamp(40px, 10vw, 56px); --r: 26px; }
+    .st__track::before { border-bottom-style: solid; border-inline-end-style: dashed; }
+    .st__stop { padding-top: 0; grid-template-columns: clamp(64px, 18vw, 96px) minmax(0, 1fr); column-gap: 1rem; row-gap: 0.7rem; align-items: start; }
+    .st__no { top: 0.2rem; inset-inline-start: calc(-1 * clamp(40px, 10vw, 56px)); translate: -50% 0; }
+    :global(html[dir='rtl']) .st__no { translate: 50% 0; }
+    .st__img { grid-row: 1 / span 3; height: auto; align-items: flex-start; }
+    .st__img :global(img) { width: 100%; height: auto; max-height: 96px; object-position: center top; }
+    .st__name { font-size: 1.7rem; }
+    .st__svc li { font-size: 0.92rem; }
+    .st__stop + .st__stop::before { top: -1.2rem; inset-inline-start: calc(-1 * clamp(40px, 10vw, 56px)); translate: -50% -50%; rotate: 135deg; }
+    :global(html[dir='rtl']) .st__stop + .st__stop::before { translate: 50% -50%; rotate: 135deg; }
+    .st__track::after { bottom: auto; top: 50%; left: auto; inset-inline-end: 0; translate: 50% -50%; rotate: -45deg; }
+    :global(html[dir='rtl']) .st__track::after { translate: -50% -50%; rotate: -45deg; }
+    .st__every { grid-template-columns: minmax(0, 1fr); row-gap: 0.4rem; }
+    .st__elabel, .st__links { grid-column: 1; }
+    .st__elabel { padding-top: 0; }
+  }
+  @media (max-width: 640px) {
+    .st__links { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cyc__orbit, .cyc__eye :global(img), .cyc__stop :global(.cyc__img) { animation: none; }
+  }
+</style>

@@ -1,0 +1,211 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import NoteCard from '../components/NoteCard.astro';
+import { pagesCopy } from '../i18n/pages';
+import { common, CONTACT } from '../i18n/common';
+import { pick, t, LANG_META, LANGS, type Lang } from '../lib/i18n';
+import { href } from '../lib/routes';
+import { lines, allModels, postsSorted } from '../lib/data';
+import { FORM_ENDPOINT, FORM_TO } from '../lib/config';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = pick(pagesCopy, lang).start;
+const f = pick(pagesCopy, lang).form;
+const cc = pick(common, lang);
+const msgs = { sending: f.sending, ok: f.ok, err: f.err, mailto: f.mailto, required: f.required, invalidEmail: f.invalidEmail };
+const notes = [64, 67].map((id) => postsSorted.find((p) => p.id === id)).filter(Boolean) as typeof postsSorted;
+---
+<Base lang={lang} title={c.meta.title} description={c.meta.description} route="start" startDark={false} gauge={false}>
+  <section class="sp s-light grain" data-surface="light" aria-labelledby="sp-title">
+    <div class="wrap sp__grid">
+      <header class="sp__head">
+        <p class="label"><span class="dot"></span>{c.kicker}</p>
+        <h1 id="sp-title" class="t-display" set:html={c.title} />
+        <p class="t-lead">{c.lead}</p>
+        <ol class="sp__prog" role="list" aria-label={c.kicker} data-prog>
+          {c.steps.map((s, i) => <li data-p={i}><span class="num">{i + 1}</span><span>{s}</span></li>)}
+        </ol>
+        <p class="sp__direct t-small muted">{CONTACT.phone} · {CONTACT.email}</p>
+      </header>
+
+      <form class="sp__form" novalidate data-wizard data-endpoint={FORM_ENDPOINT} data-to={FORM_TO} data-msgs={JSON.stringify(msgs)} data-subject="Web · Proje Başlat">
+        <!-- 1 -->
+        <fieldset class="step" data-step="0">
+          <legend class="t-h2">{c.q1}</legend>
+          <div class="cards">
+            {c.areas.map((a, i) => (
+              <label class="card"><input type="radio" name="alan" value={a.v} required data-auto /><span class="mono faint">0{i + 1}</span><strong class="serif">{a.t}</strong><span class="faint t-small">{a.d}</span></label>
+            ))}
+          </div>
+        </fieldset>
+        <!-- 2 -->
+        <fieldset class="step" data-step="1" hidden>
+          <legend class="t-h2">{c.q2}</legend>
+          <div class="cards">
+            {c.stages.map((a, i) => (
+              <label class="card"><input type="radio" name="asama" value={a.v} required data-auto /><span class="mono faint">0{i + 1}</span><strong class="serif">{a.t}</strong><span class="faint t-small">{a.d}</span></label>
+            ))}
+          </div>
+          <div class="nav"><button type="button" class="btn btn--ghost" data-back>{c.back}</button></div>
+        </fieldset>
+        <!-- 3 -->
+        <fieldset class="step" data-step="2" hidden>
+          <legend class="t-h2">{c.q3}</legend>
+          <div class="fields">
+            <div class="fld" data-when="hat">
+              <label for="sp-line">{c.line}</label>
+              <select id="sp-line" name="hat">
+                <option value="">{c.lineAny}</option>
+                {lines.map((l) => <option value={l.slug}>{t(l.shortName, lang)}</option>)}
+              </select>
+            </div>
+            <div class="fld" data-when="hat"><label for="sp-model">Model <span class="faint">({f.optional})</span></label>
+              <select id="sp-model" name="makine"><option value="">—</option>{allModels.map((m: any) => <option value={m.slug}>{m.model ?? t(m.name, lang)}</option>)}</select>
+            </div>
+            <div class="fld" data-when="hat"><label for="sp-cap">{c.capacity}</label><input id="sp-cap" name="kapasite" inputmode="numeric" /></div>
+            <div class="fld" data-when="hat"><label for="sp-prod">{c.product}</label><input id="sp-prod" name="urun" /></div>
+            <div class="fld" data-when="su-urunleri tarim-hayvancilik"><label for="sp-species">{c.species}</label><input id="sp-species" name="tur" /></div>
+            <div class="fld" data-when="tedarik"><label for="sp-item">{c.item}</label><input id="sp-item" name="kalem" /></div>
+            <div class="fld"><label for="sp-loc">{c.location}</label><input id="sp-loc" name="konum" autocomplete="address-level2" /></div>
+            <div class="fld"><label for="sp-budget">{c.budget} <span class="faint">({f.optional})</span></label><input id="sp-budget" name="butce" /></div>
+            <div class="fld fld--wide"><label for="sp-notes">{c.notes} <span class="faint">({f.optional})</span></label><textarea id="sp-notes" name="notlar" rows="4"></textarea></div>
+          </div>
+          <div class="nav"><button type="button" class="btn btn--ghost" data-back>{c.back}</button><button type="button" class="btn" data-next>{c.next}<Arrow /></button></div>
+        </fieldset>
+        <!-- 4 -->
+        <fieldset class="step" data-step="3" hidden>
+          <legend class="t-h2">{c.q4}</legend>
+          <div class="fields">
+            <div class="fld"><label for="sp-name">{f.name}</label><input id="sp-name" name="ad" autocomplete="name" required /><span class="fld__err" aria-live="polite"></span></div>
+            <div class="fld"><label for="sp-company">{f.company} <span class="faint">({f.optional})</span></label><input id="sp-company" name="firma" autocomplete="organization" /></div>
+            <div class="fld"><label for="sp-email">{f.email}</label><input id="sp-email" name="eposta" type="email" autocomplete="email" required /><span class="fld__err" aria-live="polite"></span></div>
+            <div class="fld"><label for="sp-phone">{f.phone} <span class="faint">({f.optional})</span></label><input id="sp-phone" name="telefon" type="tel" autocomplete="tel" /></div>
+            <div class="fld"><label for="sp-country">{f.country}</label><input id="sp-country" name="ulke" autocomplete="country-name" /></div>
+            <div class="fld"><label for="sp-lang">{f.lang}</label>
+              <select id="sp-lang" name="dil">{LANGS.map((l) => <option value={l} selected={l === lang}>{LANG_META[l].label}</option>)}</select>
+            </div>
+            <div class="fld fld--check fld--wide"><input id="sp-kvkk" type="checkbox" name="kvkk" required /><label for="sp-kvkk"><a class="link" href={href('privacy', lang)} target="_blank">{f.kvkk}</a></label><span class="fld__err" aria-live="polite"></span></div>
+          </div>
+          <div class="sum" data-sum><p class="label">{c.summary}</p><dl></dl></div>
+          <div class="nav"><button type="button" class="btn btn--ghost" data-back>{c.back}</button><button type="submit" class="btn" data-submit>{c.submit}<Arrow /></button></div>
+          <p class="frm__status" role="status" data-status></p>
+        </fieldset>
+        <!-- done -->
+        <div class="step done" data-step="4" hidden tabindex="-1">
+          <h2 class="t-h1" set:html={c.doneTitle} />
+          <p class="t-lead">{c.doneText}</p>
+          <div class="done__grid">{notes.map((p) => <NoteCard post={p} lang={lang} />)}</div>
+          <a class="btn btn--ghost" href={href('catalog', lang)}>{cc.catalog}<Arrow dir="down" /></a>
+        </div>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { validate, send } from '../scripts/forms';
+  const form = document.querySelector<HTMLFormElement>('[data-wizard]');
+  if (form) {
+    const msgs = JSON.parse(form.dataset.msgs!);
+    const steps = [...form.querySelectorAll<HTMLElement>('[data-step]')];
+    const prog = [...document.querySelectorAll<HTMLElement>('[data-p]')];
+    const status = form.querySelector<HTMLElement>('[data-status]')!;
+    let cur = 0;
+    const go = (i: number) => {
+      cur = i;
+      steps.forEach((s, k) => { s.hidden = k !== i; });
+      prog.forEach((p, k) => { p.classList.toggle('is-done', k < i); p.classList.toggle('is-on', k === i); });
+      const area = (form.elements.namedItem('alan') as RadioNodeList).value;
+      form.querySelectorAll<HTMLElement>('[data-when]').forEach((el) => { el.hidden = !el.dataset.when!.split(' ').includes(area); });
+      if (i === 3) renderSummary();
+      const legend = steps[i].querySelector<HTMLElement>('legend, h2');
+      steps[i].animate([{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }], { duration: 600, easing: 'cubic-bezier(0.22,0.61,0.24,1)' });
+      (legend ?? steps[i]).setAttribute('tabindex', '-1');
+      (legend ?? steps[i]).focus({ preventScroll: true });
+      if (steps[i].getBoundingClientRect().top < 0) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    const renderSummary = () => {
+      const dl = form.querySelector('[data-sum] dl')!;
+      const fd = new FormData(form);
+      const labels: Record<string, string> = {};
+      form.querySelectorAll('label[for]').forEach((l) => { const el = document.getElementById(l.getAttribute('for')!) as HTMLInputElement; if (el) labels[el.name] = l.textContent!.replace(/\(.*\)/, '').trim(); });
+      const radioText = (name: string) => (form.querySelector<HTMLInputElement>(`input[name="${name}"]:checked`)?.closest('label')?.querySelector('strong')?.textContent) ?? '';
+      const rows: [string, string][] = [[prog[0].textContent!.trim().slice(1), radioText('alan')], [prog[1].textContent!.trim().slice(1), radioText('asama')]];
+      for (const [k, v] of fd.entries()) if (!['alan', 'asama', 'kvkk', 'ad', 'eposta', 'telefon', 'firma', 'ulke', 'dil'].includes(k) && String(v).trim()) {
+        const sel = form.querySelector<HTMLSelectElement>(`select[name="${k}"]`);
+        rows.push([labels[k] ?? k, sel ? sel.selectedOptions[0].textContent! : String(v)]);
+      }
+      dl.innerHTML = rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${v.replace(/</g, '&lt;')}</dd></div>`).join('');
+    };
+    form.querySelectorAll<HTMLInputElement>('[data-auto]').forEach((r) => r.addEventListener('change', () => setTimeout(() => go(cur + 1), 260)));
+    form.querySelectorAll('[data-back]').forEach((b) => b.addEventListener('click', () => go(Math.max(0, cur - 1))));
+    form.querySelectorAll('[data-next]').forEach((b) => b.addEventListener('click', () => { if (validate(form, msgs, steps[cur])) go(cur + 1); }));
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!validate(form, msgs, steps[3])) return;
+      const btn = form.querySelector<HTMLButtonElement>('[data-submit]')!;
+      btn.disabled = true; status.dataset.state = 'sending'; status.textContent = msgs.sending;
+      const fd = Object.fromEntries(new FormData(form)) as Record<string, string>;
+      const r = await send(fd, form.dataset.endpoint!, form.dataset.to!, `${form.dataset.subject} · ${fd.alan ?? ''}`);
+      btn.disabled = false;
+      if (r === 'err') { status.dataset.state = 'err'; status.textContent = msgs.err; return; }
+      status.textContent = '';
+      go(4);
+    });
+    // Prefill from context (?hat=, ?makine=, ?alan=, ?asama=, ?kalem=, ?olcek=)
+    const q = new URLSearchParams(location.search);
+    const set = (name: string, v: string | null) => { if (!v) return; const el = form.elements.namedItem(name) as any; if (el instanceof RadioNodeList) { const r = [...el].find((x: any) => x.value === v) as HTMLInputElement; if (r) r.checked = true; } else if (el) el.value = v; };
+    if (q.get('hat') || q.get('makine') || q.get('olcek')) set('alan', 'hat');
+    set('alan', q.get('alan')); set('asama', q.get('asama')); set('hat', q.get('hat')); set('makine', q.get('makine')); set('kalem', q.get('kalem'));
+    if (q.get('olcek') === 'pilot') set('notlar', 'Pilot / laboratuvar ölçek');
+    let start = 0;
+    if ((form.elements.namedItem('alan') as RadioNodeList).value) start = 1;
+    if (start && (form.elements.namedItem('asama') as RadioNodeList).value) start = 2;
+    steps.forEach((s, k) => { s.hidden = k !== start; });
+    cur = start;
+    prog.forEach((p, k) => { p.classList.toggle('is-done', k < start); p.classList.toggle('is-on', k === start); });
+    const area = (form.elements.namedItem('alan') as RadioNodeList).value;
+    form.querySelectorAll<HTMLElement>('[data-when]').forEach((el) => { el.hidden = !el.dataset.when!.split(' ').includes(area); });
+  }
+</script>
+
+<style>
+  .sp { padding-top: calc(var(--header-h) + clamp(40px, 6vw, 96px)); padding-bottom: var(--sec-y); min-height: 100svh; }
+  .sp__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); align-items: start; }
+  .sp__head { grid-column: 1 / span 4; display: grid; gap: 1.4rem; position: sticky; top: calc(var(--header-h) + 2rem); }
+  .sp__head h1 { font-size: clamp(2.4rem, 1.6rem + 3vw, 4.6rem); }
+  .sp__prog { display: grid; gap: 0; margin-top: 1rem; position: relative; }
+  .sp__prog::before { content: ''; position: absolute; inset-inline-start: 0.92rem; top: 1rem; bottom: 1rem; border-inline-start: 1px dashed var(--rule-strong); }
+  .sp__prog li { display: flex; align-items: center; gap: 1rem; padding-block: 0.55rem; color: var(--ink-3); position: relative; font-weight: 500; }
+  .sp__prog .num { background: var(--foam); }
+  .sp__prog li.is-on { color: var(--ink); }
+  .sp__prog li.is-on .num, .sp__prog li.is-done .num { background: var(--brass); color: #fff; border-color: var(--brass); }
+  .sp__form { grid-column: 6 / -1; }
+  @media (max-width: 960px) { .sp__head, .sp__form { grid-column: 1 / -1; position: static; } .sp__prog { display: flex; gap: 0.6rem; } .sp__prog::before { display: none; } .sp__prog li span:last-child { display: none; } .sp__prog li.is-on span:last-child { display: inline; } }
+  .step { border: 0; padding: 0; margin: 0; display: grid; gap: 2rem; min-width: 0; }
+  .step legend { padding: 0; margin-bottom: 2rem; float: left; width: 100%; }
+  .step legend + * { clear: both; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.7rem; }
+  .card { position: relative; display: grid; gap: 0.35rem; padding: 1.3rem 1.3rem 1.4rem; min-height: 132px; align-content: start; background: var(--foam); border: 1px solid var(--rule-strong); border-radius: 2px; cursor: pointer; transition: border-color 300ms, background 300ms, transform 500ms var(--ease-water); }
+  .card:hover { border-color: var(--navy); transform: translateY(-2px); }
+  .card input { position: absolute; opacity: 0; pointer-events: none; }
+  .card strong { font-size: 1.45rem; font-weight: 400; line-height: 1.1; letter-spacing: -0.01em; margin-top: 0.6rem; }
+  .card:has(:checked) { background: var(--navy); color: var(--foam); border-color: var(--navy); }
+  .card:has(:checked) .faint { color: rgba(246, 243, 238, 0.7); }
+  .card:has(:focus-visible) { outline: 2px solid var(--phyco); outline-offset: 3px; }
+  .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem var(--col-gap); }
+  .fields [hidden] { display: none; }
+  .fld--wide { grid-column: 1 / -1; }
+  @media (max-width: 640px) { .fields { grid-template-columns: 1fr; } }
+  .nav { display: flex; justify-content: space-between; gap: 1rem; }
+  .sum { padding: 1.2rem 1.4rem; background: var(--sand); border-radius: 2px; }
+  .sum :global(dl) { display: grid; gap: 0.2rem; margin-top: 0.6rem; }
+  .sum :global(dl > div) { display: grid; grid-template-columns: 12rem 1fr; gap: 1rem; padding-block: 0.4rem; border-bottom: 1px solid var(--rule); font-size: 0.95rem; }
+  .sum :global(dt) { color: var(--ink-3); }
+  .sum :global(dd) { margin: 0; }
+  .done { gap: 1.6rem; justify-items: start; }
+  .done__grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--col-gap); width: 100%; }
+  @media (max-width: 640px) { .done__grid { grid-template-columns: 1fr; } .sum :global(dl > div) { grid-template-columns: 1fr; gap: 0; } }
+</style>

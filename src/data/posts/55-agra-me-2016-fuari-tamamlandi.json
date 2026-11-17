@@ -1,0 +1,75 @@
+{
+  "id": 55,
+  "slug": "agra-me-2016-fuari-tamamlandi",
+  "date": "2016-03-25",
+  "category": "saha",
+  "originalCategory": {
+    "tr": "Fuar",
+    "en": "Fair",
+    "ar": "معرض"
+  },
+  "title": {
+    "tr": "AGRA ME 2016 fuarımız başarı ile tamamlanmıştır",
+    "en": "AGRA ME 2016 fair successfully completed",
+    "ar": "اختتام معرض AGRA ME 2016 بنجاح"
+  },
+  "excerpt": {
+    "tr": "Oldukça verimli geçen Dubai Fuarı esnasında, uluslararası birçok yatırımcı ile görüşmeler ve tanışmalar gerçekleştirdik.",
+    "en": "During the fruitful Dubai fair, we met and held talks with many international investors.",
+    "ar": "خلال معرض دبي المثمر، التقينا بالعديد من المستثمرين الدوليين وأجرينا معهم المباحثات."
+  },
+  "body": {
+    "tr": [
+      {
+        "type": "p",
+        "text": "Birleşik Arap Emirlikleri'nden, Hindistan'dan, İran'dan, Nepal'den, Somali'den, Nijerya'dan, Uganda'dan, Kore'den, Portekiz'den, Kamerun'dan birçok yatırımcı ve iş insanı ile görüşmeler yapılmıştır."
+      },
+      {
+        "type": "p",
+        "text": "Oldukça verimli geçen Dubai Fuarı esnasında, uluslararası birçok yatırımcı ile görüşmeler ve tanışmalar gerçekleştirdik. Geleceğe dönük birçok proje konusunda ön görüşmeler gerçekleştirilmiştir. İnşallah vatanımıza milletimize hayırlı işler nasip olur."
+      }
+    ],
+    "en": [
+      {
+        "type": "p",
+        "text": "We held meetings with many investors and business people from the United Arab Emirates, India, Iran, Nepal, Somalia, Nigeria, Uganda, Korea, Portugal and Cameroon."
+      },
+      {
+        "type": "p",
+        "text": "During the fruitful Dubai fair, we met and held talks with many international investors. Preliminary discussions were held on many future-oriented projects. We hope they bring good work for our country."
+      }
+    ],
+    "ar": [
+      {
+        "type": "p",
+        "text": "عقدنا لقاءات مع العديد من المستثمرين ورجال الأعمال من الإمارات العربية المتحدة والهند وإيران ونيبال والصومال ونيجيريا وأوغندا وكوريا والبرتغال والكاميرون."
+      },
+      {
+        "type": "p",
+        "text": "خلال معرض دبي المثمر، التقينا بالعديد من المستثمرين الدوليين وأجرينا معهم المباحثات، كما أُجريت مباحثات أولية حول العديد من المشاريع المستقبلية. نأمل أن تعود بالخير على بلدنا."
+      }
+    ]
+  },
+  "readingMinutes": 1,
+  "oldUrls": [
+    "/AGRA-ME-2016-FUARIMIZ-BASARI-ILE-TAMAMLANMISTIR/55",
+    "/AGRA-ME-2016-FUARIMIZ-BASARI-ILE-TAMAMLANMISTIR/default.aspx",
+    "/en-US/blogicerik.aspx?MakaleID=55"
+  ],
+  "images": [
+    {
+      "file": "/img/archive/agra-me-2016-dubai-stand.jpg",
+      "caption": {
+        "tr": "AGRA ME 2016, Dubai: Mavi Protein standı",
+        "en": "AGRA ME 2016, Dubai: the Mavi Protein stand",
+        "ar": "AGRA ME 2016، دبي: جناح Mavi Protein"
+      },
+      "cover": true
+    }
+  ],
+  "fair": "agra-me-2016",
+  "notes": [
+    "Ülke listesi paragrafı EN sitede yok; EN metin çeviridir. EN sitedeki bozuk son cümle ('we will share our nation's homeland righteousness') yeniden çevrildi.",
+    "'iş adamları' ifadesi 'iş insanı' olarak yazıldı."
+  ]
+}

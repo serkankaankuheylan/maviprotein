@@ -1,0 +1,445 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import ClosingCta from '../components/ClosingCta.astro';
+import { pagesCopy } from '../i18n/pages';
+import { pick, t, type Lang } from '../lib/i18n';
+import { href } from '../lib/routes';
+import { company, archive } from '../lib/data';
+import { EMBLEM } from '../lib/emblem';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = pick(pagesCopy, lang).about;
+const founder = company.founder ?? {};
+const founded = String(company.founded?.year ?? 2015);
+const now = new Date().getFullYear();
+const pad = (n: number) => String(n).padStart(2, '0');
+const homeLabel = { tr: 'Anasayfa', en: 'Home', ar: 'الرئيسية' }[lang];
+const tocLabel = { tr: 'Bu sayfada', en: 'On this page', ar: 'في هذه الصفحة' }[lang];
+const toc: [string, string][] = [['olcek', c.depthLabel], ['kurucu', c.founderLabel], ['ilkeler', c.principlesLabel], ['ag', c.networkLabel]];
+const mission = Array.isArray(company.mission) ? company.mission : [company.mission];
+
+// Hero plate: the company emblem (gear · waves · DNA fish) as one line drawing, read as the title's three words.
+// Anchors in emblem units (disc centre = 0,0; plate = 160 × 160): on the waves, where the DNA strands cross, a gear tooth.
+const V = 80;
+const at = (u: number) => `${(((u + V) / (2 * V)) * 100).toFixed(2)}%`;
+const callouts = [
+  { x: 44, y: -17, text: c.mark.field },
+  { x: 13.5, y: 11.8, text: c.mark.science },
+  { x: 66.6, y: 32.4, text: c.mark.industry },
+];
+// The waves sit in their own clipped layer so they can drift by one scallop on the compositor. The drawn
+// strip (x −91.6…91.7) is wider than the sea (±54.9) by more than one scallop, so a shift of one is seamless.
+const sea = EMBLEM.sea;
+const strip = 92;
+const seaBox = `${-strip} ${-sea} ${2 * strip} ${2 * sea}`;
+const drift = ((EMBLEM.wavePeriod / (2 * strip)) * 100).toFixed(3);
+
+// Founder: Future Fish Eurasia 2016, İzmir (archive; identified by his name badge). Cropped to him and toned
+// from site-audit/assets/images/img/works/5c54Resim6.jpg (extract 1085,315 520×650 · grayscale · cool tint).
+// TASLAK: replace with the client's portrait when it arrives (TASARIM.md §10).
+const shot = archive.find((a) => String(a.file).endsWith('future-fish-2016-izmir-06.jpg'));
+const shotCap = String(t(shot?.caption, lang)).split(':')[0];
+const founderName = t(founder.displayName, lang) || 'Doç. Dr. Fatih Başaran';
+---
+<Base lang={lang} title={c.meta.title} description={c.meta.description} route="about" gaugeMax={60}>
+  <!-- 01 · HERO: no canvas, no image. Light, type and one inline drawing. -->
+  <section class="ah s-dark" data-surface="dark" aria-labelledby="ah-title">
+    <div class="wrap ah__grid">
+      <div class="ah__words">
+        <nav class="ah__crumbs label" aria-label="breadcrumb"><a href={href('home', lang)}>{homeLabel}</a></nav>
+        <p class="label ah__kicker"><span class="dot"></span>{c.kicker}</p>
+        <h1 id="ah-title" class="t-display ah__title" set:html={c.title} />
+        <p class="t-lead ah__lead">{t(company.about, lang)}</p>
+      </div>
+
+      <figure class="mk" aria-hidden="true" data-mark>
+        <div class="mk__plate">
+          <svg class="mk__gear" viewBox="-80 -80 160 160">
+            <circle class="mk__disc" r={EMBLEM.disc} pathLength="1" />
+            <path class="mk__teeth" d={EMBLEM.gear} pathLength="1" />
+          </svg>
+          <div class="mk__sea" style={`--sea:${((2 * sea) / (2 * V)) * 100}%`}>
+            <svg class="mk__waves" viewBox={seaBox} style={`--drift:-${drift}%;--w:${((strip / sea) * 100).toFixed(3)}%`}>
+              <path class="mk__w mk__w--top" d={EMBLEM.waveTop} />
+              <path class="mk__w mk__w--low" d={EMBLEM.waveLow} />
+            </svg>
+          </div>
+          <svg class="mk__fish" viewBox="-80 -80 160 160">
+            <path d={EMBLEM.fish} />
+            <path d={EMBLEM.rungs} />
+          </svg>
+          {callouts.map((m, i) => (
+            <span class="mk__c" style={`--x:${at(m.x)};--y:${at(m.y)};--i:${i}`}>
+              <i class="mk__line"></i>
+              <i class="mk__dot"></i>
+              <span class="mk__txt">{m.text}</span>
+            </span>
+          ))}
+        </div>
+      </figure>
+    </div>
+
+    <nav class="wrap ah__toc" aria-label={tocLabel}>
+      <ol role="list">
+        {toc.map(([id, label], i) => (
+          <li style={`--i:${i}`}>
+            <a href={`#${id}`}>
+              <span class="mono">{pad(i + 1)}</span>
+              <span class="ah__toc-t">{label}</span>
+              <Arrow dir="down" />
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  </section>
+
+  <!-- 02 · DEPTH SCALE (signature): a sounding line pays out as you read; each year lights when it is reached -->
+  <section class="ds s-dark" id="olcek" data-surface="dark" aria-labelledby="ds-title">
+    <div class="wrap">
+      <header class="ds__head">
+        <p class="label">{c.depthLabel}</p>
+        <h2 id="ds-title" class="t-display ds__title">1990 <span class="ds__to">→</span> {now}</h2>
+      </header>
+      <div class="ds__body">
+        <span class="ds__rail" aria-hidden="true"><i class="ds__lead"></i></span>
+        <ol class="ds__list" role="list">
+          {c.timeline.map((e) => (
+            <li class:list={['ds__row', { 'is-founding': e.y === founded, 'is-span': e.y.length > 4 }]}>
+              <span class="ds__y">{e.y}</span>
+              <h3 class="ds__t">{e.t}</h3>
+              <p class="ds__d">{e.d}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+    <svg class="ds__seam" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 120V70c140-26 280-40 420-30s260 38 400 38 250-30 380-36 170 4 240 14v74Z" />
+    </svg>
+  </section>
+
+  <!-- 03 · FOUNDER -->
+  <section class="fd s-light grain section" id="kurucu" data-surface="light" aria-labelledby="fd-title">
+    <div class="wrap fd__grid">
+      <figure class="fd__plate sheet rise">
+        <img
+          src="/img/photos/kurucu-portre-520.webp"
+          srcset="/img/photos/kurucu-portre-360.webp 360w, /img/photos/kurucu-portre-520.webp 520w"
+          sizes="(max-width: 900px) 78vw, 30vw"
+          width="520" height="650" loading="lazy" decoding="async"
+          alt={`${founderName} · ${t(shot?.caption, lang)}`}
+        />
+        <figcaption class="fd__cap">{shotCap}</figcaption>
+      </figure>
+      <div class="fd__words">
+        <p class="label">{c.founderLabel}</p>
+        <h2 id="fd-title" class="t-display fd__name rise">{founderName}</h2>
+        <p class="label fd__role">{c.founderRole}<span class="sep">·</span><b>{founder.aquacultureSince ?? 1990}</b></p>
+        <p class="fd__sum rise" style="--d:120ms">{t(founder.summary, lang)}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · PRINCIPLES & VISION -->
+  <section class="pr s-sand grain section" id="ilkeler" data-surface="light" aria-labelledby="pr-title">
+    <div class="wrap">
+      <header class="pr__head">
+        <p class="label">{c.principlesLabel}</p>
+        <h2 id="pr-title" class="sr-only">{c.principlesLabel}</h2>
+      </header>
+      <ol class="pr__list" role="list">
+        {c.principles.map((p, i) => (
+          <li class="rise" style={`--d:${i * 90}ms`}>
+            <span class="num">{i + 1}</span>
+            <h3 class="pr__t">{p.t}</h3>
+            <p class="pr__d">{p.d}</p>
+          </li>
+        ))}
+      </ol>
+
+      <figure class="chef">
+        <p class="label">{c.chefIntro}</p>
+        <blockquote class="chef__q rise" set:html={{ tr: `“… <em>${c.chef}</em> olmak.”`, en: `“… to be an <em>${c.chef}</em>.”`, ar: `«… أن نكون <em>${c.chef}</em>.»` }[lang]} />
+        <figcaption class="chef__cap rise" style="--d:120ms">{t(company.vision, lang)}</figcaption>
+      </figure>
+
+      <details class="full">
+        <summary><span class="label">{c.fullText}</span><span class="full__x" aria-hidden="true"></span></summary>
+        <div class="full__body">
+          <div class="prose">
+            <h3>{c.mission}</h3>
+            {mission.map((m: any) => <p>{t(m, lang)}</p>)}
+          </div>
+          <div class="prose">
+            <h3>{c.vision}</h3>
+            <p>{t(company.vision, lang)}</p>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- 05 · PARTNER NETWORK: one bracket, six staves — the conductor reads the whole score -->
+  <section class="net s-light section" id="ag" data-surface="light" aria-labelledby="net-title">
+    <div class="wrap net__grid">
+      <div class="net__words">
+        <p class="label">{c.networkLabel}</p>
+        <h2 id="net-title" class="t-h1 rise" set:html={c.networkTitle} />
+        <p class="t-lead rise" style="--d:120ms">{c.networkText}</p>
+      </div>
+      <div class="net__score">
+        <p class="net__brace"><span>Mavi Protein</span></p>
+        <ul class="net__staves" role="list">
+          {c.nodes.map((n, i) => (
+            <li class="rise" style={`--d:${i * 70}ms`}>
+              <span class="net__n mono" aria-hidden="true">{pad(i + 1)}</span>
+              <strong class="net__t">{n.t}</strong>
+              <span class="net__d">{n.d}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <ClosingCta lang={lang} title={c.close} />
+</Base>
+
+<script>
+  // The only script on the hero: the waves stop drifting while the plate is off screen.
+  const mark = document.querySelector<HTMLElement>('[data-mark]');
+  if (mark && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([e]) => mark.classList.toggle('is-still', !e.isIntersecting)).observe(mark);
+  }
+</script>
+
+<style>
+  /* ---------------- HERO ---------------- */
+  /* Paint is all CSS: the home hero's water (light from above, ripples, depth) as a still. The light pools
+     over the emblem; the first paint is the final one, so the title is the largest paint and lands at once. */
+  .ah {
+    --lx: 74%;
+    position: relative; isolation: isolate; overflow: clip;
+    min-height: max(min(100svh, 1040px), 640px);
+    display: grid; grid-template-rows: 1fr auto;
+    padding-top: var(--header-h);
+    background:
+      radial-gradient(58% 54% at var(--lx) 2%, rgba(130, 204, 240, 0.2), transparent 70%),
+      linear-gradient(180deg, #0c3a67 0%, var(--abyss-2) 46%, var(--abyss) 100%);
+  }
+  /* ripples of the home hero, fading out before the depth scale so the two sections read as one descent */
+  .ah::before {
+    content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: repeating-radial-gradient(ellipse at 18% -42%, transparent 0 22px, rgba(130, 204, 240, 0.045) 23px 25px);
+    -webkit-mask-image: linear-gradient(180deg, #000 25%, transparent 88%);
+    mask-image: linear-gradient(180deg, #000 25%, transparent 88%);
+  }
+  :global(html[dir='rtl']) .ah { --lx: 26%; }
+  :global(html[dir='rtl']) .ah::before { transform: scaleX(-1); }
+  .ah__grid { align-self: center; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); align-items: center; padding-block: clamp(28px, 6vh, 88px); }
+  /* The words are not animated: they are there on the first frame (that paint is the LCP); the plate carries the motion. */
+  .ah__words { grid-column: 1 / span 6; display: grid; gap: clamp(1rem, 2.2vh, 1.5rem); justify-items: start; }
+  .ah__crumbs { gap: 0.55rem; color: var(--fg-3); }
+  .ah__crumbs a { transition: color 300ms; }
+  .ah__crumbs a:hover { color: var(--fg); }
+  .ah__kicker { color: var(--aegean); margin-top: -0.35rem; }
+  .ah__title { color: #eaf6fd; max-width: 12ch; font-size: clamp(2.9rem, 1.3rem + 4.6vw, 6.4rem); }
+  .ah__title :global(em) { display: block; }
+  /* Arabic sets taller (line-height 1.25) and its words are longer: a wider measure keeps it to three lines */
+  :global(html[dir='rtl']) .ah__title { max-width: 17ch; font-size: clamp(2.5rem, 1.2rem + 3.6vw, 5.2rem); }
+  .ah__lead { color: rgba(207, 234, 248, 0.8); max-width: 50ch; font-size: clamp(1.04rem, 0.96rem + 0.32vw, 1.2rem); }
+
+  /* The plate. Every layer is the same 160-unit square, so the drawing lines up without measuring. */
+  .mk { grid-column: 7 / -1; margin: 0; display: grid; justify-items: center; }
+  .mk__plate { position: relative; width: min(calc(100% - 7.5rem), 60vh, 520px); aspect-ratio: 1; margin-inline-end: 7.5rem; }
+  .mk svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; fill: none; }
+  .mk__gear { stroke-linejoin: round; }
+  .mk__teeth { stroke: rgba(207, 234, 248, 0.66); stroke-width: 0.45; stroke-dasharray: 1; animation: mk-draw 2200ms 100ms var(--ease-water) both; }
+  .mk__disc { stroke: rgba(207, 234, 248, 0.26); stroke-width: 0.4; stroke-dasharray: 1; animation: mk-draw 1700ms 420ms var(--ease-water) both; }
+  @keyframes mk-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  /* The sea: a circle of the original clip radius. Its waves are one scallop wider each way and slide by
+     exactly one scallop, so the loop never shows a seam. transform only → stays on the compositor. */
+  .mk__sea { position: absolute; left: 50%; top: 50%; width: var(--sea); aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; overflow: hidden; animation: mk-fade 1400ms 700ms var(--ease-water) both; }
+  .mk__waves { inset: 0 auto 0 50% !important; width: var(--w) !important; max-width: none; height: 100%; translate: -50% 0; overflow: hidden !important; }
+  .mk__w { stroke-width: 0.55; stroke-linejoin: round; }
+  .mk__w--top { stroke: rgba(207, 234, 248, 0.92); }
+  .mk__w--low { stroke: var(--phyco-soft); }
+  .mk__fish { stroke: var(--aegean); stroke-width: 0.42; stroke-linejoin: round; animation: mk-fade 1200ms 1050ms var(--ease-water) both; }
+  @keyframes mk-fade { from { opacity: 0; } }
+  /* callouts: brass point on the drawing, hairline out to a column of labels */
+  .mk__c { position: absolute; inset-inline-start: var(--x); top: var(--y); width: calc(100% - var(--x) + 1.6rem); height: 0; animation: mk-fade 900ms calc(1500ms + var(--i) * 150ms) var(--ease-water) both; }
+  .mk__line { position: absolute; inset-inline: 0; top: 0; height: 1px; background: rgba(207, 234, 248, 0.32); transform-origin: left; animation: mk-line 1000ms calc(1500ms + var(--i) * 150ms) var(--ease-steel) both; }
+  :global(html[dir='rtl']) .mk__line { transform-origin: right; }
+  @keyframes mk-line { from { transform: scaleX(0); } }
+  .mk__dot { position: absolute; inset-inline-start: -3.5px; top: -3.5px; width: 7px; height: 7px; border-radius: 50%; background: var(--brass-2); box-shadow: 0 0 0 3px rgba(210, 145, 76, 0.2); }
+  .mk__txt { position: absolute; inset-inline-start: calc(100% + 0.75rem); top: 0; translate: 0 -50%; white-space: nowrap; font-family: var(--f-mono); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--aegean-pale); }
+  :global(html[dir='rtl']) .mk__txt { letter-spacing: 0; text-transform: none; font-family: 'IBM Plex Sans Arabic', var(--f-mono); font-size: 0.9rem; }
+
+  .ah__toc { padding-bottom: clamp(1.4rem, 4vh, 3rem); }
+  .ah__toc ol { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--rule-light-strong); }
+  .ah__toc li + li { border-inline-start: 1px solid var(--rule-light); }
+  .ah__toc a { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 0.9rem; min-height: 70px; padding: 1.05rem 1.1rem 1.05rem 0; transition: background 500ms var(--ease-water); }
+  .ah__toc li + li a { padding-inline-start: 1.1rem; }
+  .ah__toc a:hover, .ah__toc a:focus-visible { background: linear-gradient(180deg, rgba(130, 204, 240, 0.1), transparent); }
+  .ah__toc .mono { font-size: 0.72rem; color: var(--brass-2); }
+  .ah__toc-t { font-size: 1rem; font-weight: 500; color: #eaf6fd; }
+  .ah__toc .arr { opacity: 0.5; transition: translate 500ms var(--ease-water), opacity 300ms; }
+  .ah__toc a:hover .arr { opacity: 1; translate: 0 3px; }
+
+  .mk:global(.is-still) .mk__waves { animation-play-state: paused; }
+  @media (prefers-reduced-motion: no-preference) {
+    .mk__waves { animation: mk-drift 7s linear infinite; }
+  }
+  /* one scallop of the strip (--drift is set from the geometry) */
+  @keyframes mk-drift { to { transform: translateX(var(--drift)); } }
+  /* leaving: the words and the plate drift up and fade, as on the home hero (wide screens, where the hero is one screen) */
+  @supports (animation-timeline: view()) {
+    @media (min-width: 961px) {
+      .ah__grid, .ah__toc { animation: ah-out linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
+    }
+  }
+  @keyframes ah-out { to { transform: translateY(-9vh); opacity: 0; } }
+
+  @media (max-width: 960px) {
+    .ah__words { grid-column: 1 / -1; }
+    .mk { grid-column: 1 / -1; justify-items: start; margin-top: clamp(1.6rem, 5vw, 2.4rem); }
+    .mk__plate { width: min(58vw, 340px); margin-inline-end: 0; }
+    /* a smaller plate: thicker strokes in drawing units keep the hairlines at ~1px */
+    .mk__teeth { stroke-width: 0.8; }
+    .mk__disc { stroke-width: 0.7; }
+    .mk__w { stroke-width: 0.95; }
+    .mk__fish { stroke-width: 0.75; }
+    .mk__c { width: calc(100% - var(--x) + 1rem); }
+    .mk__txt { font-size: 0.7rem; }
+    .ah__toc ol { grid-template-columns: 1fr 1fr; }
+    .ah__toc li:nth-child(3) { border-inline-start: 0; }
+    .ah__toc li:nth-child(n + 3) { border-top: 1px solid var(--rule-light); }
+    .ah__toc li:nth-child(3) a { padding-inline-start: 0; }
+  }
+  @media (max-width: 520px) {
+    .ah__toc ol { grid-template-columns: 1fr; }
+    .ah__toc li + li { border-inline-start: 0; border-top: 1px solid var(--rule-light); }
+    .ah__toc li a { padding-inline-start: 0 !important; min-height: 56px; }
+  }
+
+  /* ---------------- DEPTH SCALE ---------------- */
+  .ds { position: relative; padding-block: clamp(72px, 9vw, 150px) calc(var(--sec-y) + clamp(40px, 6vw, 100px)); background: linear-gradient(180deg, var(--abyss) 0%, #04142a 100%); }
+  .ds__head { display: grid; gap: 1rem; margin-bottom: clamp(40px, 5vw, 80px); }
+  .ds__title { color: #eaf6fd; font-variant-numeric: lining-nums; }
+  .ds__to { display: inline-block; color: var(--aegean); }
+  :global(html[dir='rtl']) .ds__to { transform: scaleX(-1); }
+  /* Years on one side of the line, records on the other — the line runs in the gap after the year column. */
+  .ds__body { --g: var(--col-gap); position: relative; }
+  /* the line: a dotted rail, the paid-out part above the lead, the lead held at reading height (sticky, no JS) */
+  .ds__rail { position: absolute; inset-block: 0; inset-inline-start: calc((100% - 2 * var(--g)) / 3 + var(--g) / 2 - 5.5px); width: 11px; overflow: clip; pointer-events: none; z-index: 1; }
+  .ds__rail::before { content: ''; position: absolute; inset-block: 0; inset-inline-start: 5px; width: 1px; background: repeating-linear-gradient(180deg, var(--rule-light-strong) 0 1px, transparent 1px 9px); }
+  .ds__lead { position: sticky; top: 56svh; display: block; height: 0; }
+  .ds__lead::before { content: ''; position: absolute; inset-inline-start: 5px; bottom: 0; width: 1px; height: 400vh; background: linear-gradient(to top, var(--aegean) 0%, rgba(130, 204, 240, 0.35) 30%, rgba(130, 204, 240, 0.12)); }
+  .ds__lead::after { content: ''; position: absolute; inset-inline-start: 0; top: -5.5px; width: 11px; height: 11px; border-radius: 50%; background: var(--brass-2); box-shadow: 0 0 0 4px rgba(210, 145, 76, 0.18), 0 0 18px rgba(210, 145, 76, 0.45); }
+  .ds__list { border-bottom: 1px solid var(--rule-light); }
+  .ds__row {
+    display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 3fr) minmax(0, 5fr); column-gap: var(--g); align-items: baseline;
+    padding-block: clamp(1.8rem, 3.4vw, 3rem);
+    border-top: 1px solid var(--rule-light);
+  }
+  .ds__row > :nth-child(2) { padding-inline-start: clamp(0.6rem, 1.4vw, 1.4rem); }
+  .ds__y { justify-self: end; text-align: end; padding-inline-end: clamp(0.6rem, 1.4vw, 1.4rem); font-family: var(--f-serif); font-weight: 500; font-size: clamp(2.6rem, 1.5rem + 3.4vw, 5.2rem); line-height: 0.9; color: #eaf6fd; font-variant-numeric: lining-nums tabular-nums; letter-spacing: -0.005em; }
+  .ds__row.is-span .ds__y { font-size: clamp(1.9rem, 1.2rem + 2.2vw, 3.4rem); line-height: 0.98; }
+  .ds__row.is-founding .ds__y { color: var(--brass-2); }
+  .ds__t { margin: 0; font-size: var(--t-h3); line-height: 1.2; font-weight: 500; color: #eaf6fd; }
+  .ds__d { color: var(--fg-2); max-width: 46ch; }
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .ds__row { animation: ds-lit linear both; animation-timeline: view(); animation-range: cover 22% cover 42%; }
+    }
+  }
+  @keyframes ds-lit { from { opacity: 0.42; } to { opacity: 1; } }
+  .ds__seam { position: absolute; inset-inline: 0; bottom: -1px; width: 100%; height: clamp(40px, 7vw, 110px); fill: var(--foam); pointer-events: none; }
+  @media (max-width: 900px) {
+    /* one column: the line moves to the edge, everything reads from it */
+    .ds__rail { inset-inline-start: 0; }
+    .ds__row { grid-template-columns: 1fr; row-gap: 0.7rem; padding-inline-start: 2.2rem; }
+    .ds__row > :nth-child(2) { padding-inline-start: 0; }
+    .ds__y { justify-self: start; text-align: start; padding-inline-end: 0; }
+    .ds__d { margin-top: -0.2rem; }
+  }
+
+  /* ---------------- FOUNDER ---------------- */
+  .fd { padding-top: clamp(64px, 8vw, 128px); }
+  .fd__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); align-items: center; }
+  .fd__plate { grid-column: 2 / span 4; margin: 0; padding: clamp(14px, 1.8vw, 26px) clamp(14px, 1.8vw, 26px) 0; display: grid; }
+  .fd__plate img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+  /* no uppercase: the Turkish İ would turn "Fish" into "FİSH" */
+  .fd__cap { padding-block: 0.85rem 1rem; font-family: var(--f-mono); font-size: 0.86rem; font-weight: 500; letter-spacing: 0.03em; color: var(--ink-3); }
+  :global(html[dir='rtl']) .fd__cap { letter-spacing: 0; }
+  .fd__words { grid-column: 7 / -1; display: grid; gap: 1.3rem; justify-items: start; }
+  .fd__name { color: var(--navy); max-width: 11ch; }
+  .fd__role b { font-weight: 500; color: var(--brass); }
+  .fd__sum { font-size: var(--t-lead); line-height: 1.55; color: var(--ink-2); max-width: 40ch; padding-top: 1.3rem; border-top: 1px solid var(--rule-strong); }
+  @media (max-width: 900px) {
+    .fd__plate { grid-column: 1 / span 10; max-width: 380px; }
+    .fd__words { grid-column: 1 / -1; margin-top: 2.4rem; }
+  }
+
+  /* ---------------- PRINCIPLES & VISION ---------------- */
+  .pr__head { margin-bottom: clamp(28px, 3.6vw, 48px); }
+  .pr__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--col-gap); }
+  .pr__list li { display: grid; gap: 1.1rem; align-content: start; padding-top: 1.6rem; border-top: 1px solid var(--rule-strong); }
+  .pr__t { font-family: var(--f-serif); font-weight: 500; font-size: clamp(1.75rem, 1.2rem + 1.4vw, 2.6rem); line-height: 1.02; color: var(--ink); max-width: 14ch; }
+  .pr__d { color: var(--ink-2); max-width: 36ch; }
+  @media (max-width: 900px) { .pr__list { grid-template-columns: 1fr; row-gap: 2.6rem; } }
+
+  .chef { margin: clamp(5rem, 11vw, 10rem) 0 0; display: grid; gap: 1.6rem; justify-items: center; text-align: center; }
+  .chef__q { margin: 0; font-family: var(--f-serif); font-weight: 500; font-size: clamp(2.8rem, 1.2rem + 6vw, 8rem); line-height: 0.95; letter-spacing: -0.01em; color: var(--navy); text-wrap: balance; }
+  .chef__q :global(em) { font-style: normal; color: var(--brass); }
+  .chef__cap { max-width: 60ch; color: var(--ink-2); font-size: 1.05rem; }
+  :global(html[dir='rtl']) .chef__q { line-height: 1.25; font-weight: 400; }
+
+  .full { margin-top: clamp(4rem, 8vw, 7rem); border-block: 1px solid var(--rule-strong); }
+  .full summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 64px; }
+  .full summary::-webkit-details-marker { display: none; }
+  .full summary .label { color: var(--ink); }
+  .full__x { position: relative; flex: none; width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 1px solid var(--rule-strong); transition: transform 600ms var(--ease-water), background 400ms, border-color 400ms; }
+  .full__x::before, .full__x::after { content: ''; position: absolute; left: 50%; top: 50%; width: 0.85rem; height: 1.5px; margin: -0.75px 0 0 -0.425rem; background: var(--ink); }
+  .full__x::after { transform: rotate(90deg); }
+  .full summary:hover .full__x { border-color: var(--navy); }
+  .full[open] .full__x { transform: rotate(45deg); background: var(--navy); border-color: var(--navy); }
+  .full[open] .full__x::before, .full[open] .full__x::after { background: var(--foam); }
+  .full__body { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--col-gap); padding-block: 0.6rem 2.6rem; }
+  .full__body .prose h3 { margin-top: 1.2rem; }
+  @media (max-width: 900px) { .full__body { grid-template-columns: 1fr; } }
+
+  /* ---------------- NETWORK ---------------- */
+  .net__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); align-items: start; }
+  .net__words { grid-column: 1 / span 5; display: grid; gap: 1.3rem; position: sticky; top: calc(var(--header-h) + 2rem); }
+  .net__score { grid-column: 7 / -1; display: grid; grid-template-columns: auto minmax(0, 1fr); }
+  /* the system bracket of a score: one stroke with turned-out ends, the conductor's name along it */
+  .net__brace {
+    position: relative; width: clamp(2.6rem, 3.6vw, 3.4rem); margin: 0;
+    border-inline-start: 3px solid var(--navy);
+    display: grid; place-items: center;
+  }
+  .net__brace::before, .net__brace::after { content: ''; position: absolute; inset-inline-start: -3px; width: 1.1rem; height: 0.8rem; border-inline-start: 3px solid var(--navy); }
+  .net__brace::before { top: -0.8rem; border-top: 2px solid var(--navy); border-start-start-radius: 100% 100%; }
+  .net__brace::after { bottom: -0.8rem; border-bottom: 2px solid var(--navy); border-end-start-radius: 100% 100%; }
+  .net__brace span { writing-mode: vertical-rl; rotate: 180deg; font-family: 'Newsreader Variable', Georgia, serif; font-size: 1.2rem; font-weight: 480; letter-spacing: 0.02em; color: var(--navy); white-space: nowrap; }
+  :global(html[dir='rtl']) .net__brace span { rotate: none; }
+  .net__staves { border-top: 1px solid var(--rule-strong); }
+  .net__staves li { display: grid; grid-template-columns: 2.4rem minmax(0, 1fr) minmax(0, 1.25fr); column-gap: 1rem; align-items: baseline; padding-block: 1.35rem; border-bottom: 1px solid var(--rule); }
+  .net__n { font-size: 0.72rem; color: var(--brass); }
+  .net__t { font-family: var(--f-serif); font-weight: 500; font-size: clamp(1.45rem, 1.15rem + 0.8vw, 2rem); line-height: 1.05; color: var(--ink); }
+  .net__d { color: var(--ink-2); font-size: 0.98rem; }
+  @media (max-width: 960px) {
+    .net__words, .net__score { grid-column: 1 / -1; position: static; }
+    .net__score { margin-top: 2.6rem; }
+    .net__staves li { grid-template-columns: 2rem minmax(0, 1fr); row-gap: 0.3rem; }
+    .net__d { grid-column: 2; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ds__row { animation: none; opacity: 1; }
+  }
+</style>

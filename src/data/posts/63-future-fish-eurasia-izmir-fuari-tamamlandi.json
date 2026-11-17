@@ -1,0 +1,79 @@
+{
+  "id": 63,
+  "slug": "future-fish-eurasia-izmir-fuari-tamamlandi",
+  "date": "2016-06-13",
+  "category": "saha",
+  "originalCategory": {
+    "tr": "Fuar",
+    "en": "Fair",
+    "ar": "معرض"
+  },
+  "title": {
+    "tr": "Future Fish Eurasia İzmir fuarını başarı ile tamamladık",
+    "en": "We successfully completed the Future Fish Eurasia Izmir fair",
+    "ar": "اختتمنا معرض Future Fish Eurasia في إزمير بنجاح"
+  },
+  "excerpt": {
+    "tr": "Bizim açımızdan oldukça başarılı geçen Future Fish Eurasia İzmir Fuarı'nı geride bıraktık.",
+    "en": "We have left behind a very successful Future Fish Eurasia Izmir fair.",
+    "ar": "طوينا صفحة معرض Future Fish Eurasia في إزمير الذي كان ناجحًا للغاية."
+  },
+  "body": {
+    "tr": [
+      {
+        "type": "p",
+        "text": "Bizim açımızdan oldukça başarılı geçen Future Fish Eurasia İzmir Fuarı'nı geride bıraktık."
+      },
+      {
+        "type": "p",
+        "text": "Future Fish Eurasia Fuarı esnasında tüm dostlarla sohbet edebilme şansını yakaladık. Çok keyifli sohbetler gerçekleştirdik ve çok sevgili dostlarımızı standımızda ağırladık, önemli ticari görüşmeler yaptık; herkese teşekkür ediyoruz. İyi ki varsınız."
+      }
+    ],
+    "en": [
+      {
+        "type": "p",
+        "text": "We have left behind a very successful Future Fish Eurasia Izmir fair."
+      },
+      {
+        "type": "p",
+        "text": "During Future Fish Eurasia we had the chance to talk with all our friends. We had very enjoyable conversations, welcomed dear friends at our stand and held important business meetings; thank you all. We are glad you are with us."
+      }
+    ],
+    "ar": [
+      {
+        "type": "p",
+        "text": "طوينا صفحة معرض Future Fish Eurasia في إزمير الذي كان ناجحًا للغاية."
+      },
+      {
+        "type": "p",
+        "text": "أُتيحت لنا خلال معرض Future Fish Eurasia فرصة الحديث مع جميع أصدقائنا؛ فقد أجرينا أحاديث ممتعة للغاية، واستقبلنا أصدقاءنا الأعزاء في جناحنا، وعقدنا لقاءات عمل مهمة. شكرًا لكم جميعًا، ويسعدنا وجودكم معنا."
+      }
+    ]
+  },
+  "readingMinutes": 1,
+  "oldUrls": [
+    "/Future-Fish-Eurasia-Izmir-Fuarini-basari-ile-tamamladik/63",
+    "/Future-Fish-Eurasia-Izmir-Fuarini-basari-ile-tamamladik/default.aspx",
+    "/en-US/blogicerik.aspx?MakaleID=63"
+  ],
+  "images": [
+    {
+      "file": "/img/archive/future-fish-2016-izmir-03.jpg",
+      "caption": {
+        "tr": "Future Fish Eurasia 2016, İzmir: Mavi Protein standı",
+        "en": "Future Fish Eurasia 2016, Izmir: the Mavi Protein stand",
+        "ar": "Future Fish Eurasia 2016، إزمير: جناح Mavi Protein"
+      },
+      "afterBlock": {
+        "tr": 0,
+        "en": 0,
+        "ar": 0
+      }
+    }
+  ],
+  "fair": "future-fish-eurasia-2016",
+  "notes": [
+    "EN yazı sayfasında başlık ve gövde yok; EN metin çeviridir.",
+    "'geçekleştirdik' ve 'İyiki' yazım hataları düzeltildi."
+  ]
+}

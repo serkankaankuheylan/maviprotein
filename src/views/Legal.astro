@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import { pagesCopy } from '../i18n/pages';
+import { legalCopy } from '../i18n/legal';
+import { pick, formatDate, type Lang } from '../lib/i18n';
+
+interface Props { lang: Lang; kind: 'privacy' | 'cookies' }
+const { lang, kind } = Astro.props;
+const c = pick(pagesCopy, lang).legal;
+const head = c[kind];
+const body = pick(legalCopy, lang);
+---
+<Base lang={lang} title={head.meta.title} description={head.meta.description} route={kind} startDark={false} gauge="reading">
+  <article class="lg s-light grain" data-surface="light">
+    <div class="wrap-narrow">
+      <p class="label"><span class="dot"></span>{head.kicker}</p>
+      <h1 class="t-h1">{head.title}</h1>
+      <p class="mono faint lg__upd">{c.updated}: {formatDate(body.updated, lang)}</p>
+      <div class="prose">
+        {body[kind].map((s) => (<><h2>{s.h}</h2>{s.p.map((p) => <p>{p}</p>)}</>))}
+      </div>
+    </div>
+  </article>
+</Base>
+<style>
+  .lg { padding-top: calc(var(--header-h) + clamp(40px, 6vw, 96px)); padding-bottom: var(--sec-y); }
+  .lg h1 { margin-top: 1rem; }
+  .lg__upd { margin-top: 1rem; font-size: 0.78rem; }
+</style>

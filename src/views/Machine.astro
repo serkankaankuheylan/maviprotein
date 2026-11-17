@@ -1,0 +1,324 @@
+---
+import Base from '../layouts/Base.astro';
+import Asset from '../components/Asset.astro';
+import Arrow from '../components/Arrow.astro';
+import MachineFigure from '../components/MachineFigure.astro';
+import SpecimenCard from '../components/SpecimenCard.astro';
+import ClosingCta from '../components/ClosingCta.astro';
+import { machinesCopy } from '../i18n/machines';
+import { pick, t, type Lang } from '../lib/i18n';
+import { href } from '../lib/routes';
+import { modelBySlug, lines, MODEL_ASSET, FAMILY_KEY, FAMILY_HASH } from '../lib/data';
+import { anatomyFor } from '../data/anatomy';
+
+interface Props { lang: Lang; slug: string }
+const { lang, slug } = Astro.props;
+const m = modelBySlug(slug)!;
+const c = pick(machinesCopy, lang).item;
+const famName = t(m.family.name, lang);
+const label = m.model ?? t(m.name, lang);
+const asset = MODEL_ASSET[slug];
+const used = (m.usedInLines ?? []).map((u: any) => lines.find((l) => l.slug === (typeof u === 'string' ? u : u.slug))).filter(Boolean);
+const siblings = m.family.models.filter((x: any) => x.slug !== slug).slice(0, 6);
+/** Numbered parts on the studio image (see data/anatomy.ts for sources). */
+const hs = anatomyFor(slug, asset);
+
+/* Details section: description/features + spec sheet + lines, composed by what the catalogue gives. */
+const desc: any[] = (m.description ?? []).filter(Boolean);
+const feats: any[] = m.features ?? [];
+const specs: any[] = m.specs ?? [];
+const variants: any[] = m.variants ?? [];
+const varCols: any[] = variants[0]?.specs ?? [];
+const hasText = desc.length > 0 || feats.length > 0;
+const hasLines = used.length > 0;
+const hasSheet = specs.length > 0 || variants.length > 0;
+/* with a description the sheet sits beside the text (sticky); without one it becomes a full-width band above the lines */
+const band = !hasText;
+const productJson = {
+  '@context': 'https://schema.org', '@type': 'Product', name: t(m.name, lang), model: m.model, category: famName,
+  brand: { '@type': 'Brand', name: 'Sunpring' }, description: t(m.description?.[0], lang)?.slice(0, 300),
+};
+---
+<Base lang={lang} title={`${label} · ${famName}`} description={(t(m.description?.[0], lang) || t(m.name, lang)).slice(0, 158)} route="machine" slug={slug} startDark={false} jsonLd={[productJson]}>
+  <section class="mh s-light grain" data-surface="light" aria-labelledby="mh-title">
+    <div class="wrap">
+      <nav class="label mh__crumbs" aria-label="breadcrumb">
+        <a href={href('machines', lang)}>{pick(machinesCopy, lang).list.kicker}</a><span class="sep">/</span>
+        <a href={href('machines', lang, undefined, FAMILY_HASH[m.family.key])}>{famName}</a>
+      </nav>
+      <h1 id="mh-title" class="mh__model mono">{label}</h1>
+      <p class="mh__name t-h3">{t(m.name, lang)}</p>
+    </div>
+    <div class="mh__stage" data-anatomy>
+      <div class="mh__frame">
+        {asset
+          ? <Asset name={asset} alt={t(m.name, lang)} sizes="(max-width: 960px) 96vw, 80vw" loading="eager" fetchpriority="high" vt={`mc-${slug}`} class="mh__img" />
+          : <MachineFigure machineKey={FAMILY_KEY[m.family.key]} alt={t(m.name, lang)} class="mh__glyph" />}
+        {asset && hs && hs.map((h, i) => (
+          <button type="button" class:list={['hot', { 'hot--flip': h.x > 60 }]} style={`--x:${h.x}%;--y:${h.y}%`} aria-describedby={`hot-${i}`} data-hot={i}>
+            <span class="num">{i + 1}</span>
+            <span class="hot__tip" aria-hidden="true">{h.name[lang]}</span>
+            <span class="sr-only">{h.name[lang]}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {((asset && hs) || m.components?.length > 0) && (
+    <section class="anat s-dark section" data-surface="dark" aria-labelledby="anat-title">
+      <div class="wrap anat__grid">
+        <header>
+          <h2 id="anat-title" class="t-display anat__title">{c.anatomy.title}</h2>
+          {m.materials && <p class="anat__mat"><span class="label">{c.materials}</span><span>{t(m.materials, lang)}</span></p>}
+        </header>
+        <ol class="anat__list" role="list">
+          {asset && hs
+            ? hs.map((h, i) => (
+                <li id={`hot-${i}`} data-hot-item={i}><span class="num">{i + 1}</span><div><h3 class="t-h4">{h.name[lang]}</h3>{h.d && <p class="muted t-small">{h.d[lang]}</p>}</div></li>
+              ))
+            : m.components.map((x: any, i: number) => (
+                <li><span class="num">{i + 1}</span><div><h3 class="t-h4">{t(x, lang)}</h3></div></li>
+              ))}
+        </ol>
+      </div>
+    </section>
+  )}
+
+  <section class:list={['md s-light section', band ? 'md--band' : 'md--side']} data-surface="light" aria-labelledby="md-title">
+    <div class="wrap md__grid">
+      <h2 id="md-title" class="sr-only">{t(m.name, lang)}</h2>
+      {(hasText || hasLines) && (
+        <div class="md__main">
+          {hasText && (
+            <div class="md__text">
+              {desc.length > 0 && (
+                <div class="prose">
+                  {desc.map((p: any, i: number) => <p class:list={{ lead: i === 0 }}>{t(p, lang)}</p>)}
+                </div>
+              )}
+              {feats.length > 0 && (
+                <div class="md__feat">
+                  <p class="label">{c.features}</p>
+                  <ul role="list">{feats.map((f: any) => <li>{t(f, lang)}</li>)}</ul>
+                </div>
+              )}
+            </div>
+          )}
+          {hasLines && (
+            <div class="md__lines">
+              <h2 id="mu-title" class="t-h3 md__lines-title">{c.usedIn}<span class="mono faint">{String(used.length).padStart(2, '0')}</span></h2>
+              <ul class="md__cards" role="list">{used.map((l: any) => <li><SpecimenCard line={l} lang={lang} showMeta /></li>)}</ul>
+            </div>
+          )}
+        </div>
+      )}
+      <aside class="md__specs" aria-label={c.specs}>
+        <p class="label md__specs-title">{c.specs}</p>
+        {specs.length > 0 && (
+          <dl>
+            {specs.map((s: any) => (<div><dt>{t(s.label, lang)}</dt><dd class="mono">{t(s.value, lang)}</dd></div>))}
+          </dl>
+        )}
+        {variants.length > 0 && (
+          <div class="md__var-wrap">
+            <table class="md__var">
+              <thead>
+                <tr><th scope="col">{c.model}</th>{varCols.map((s: any) => <th scope="col">{t(s.label, lang)}</th>)}</tr>
+              </thead>
+              <tbody>
+                {variants.map((v: any) => (
+                  <tr><th scope="row" class="mono">{v.model}</th>{varCols.map((col: any) => <td class="mono">{t(v.specs.find((s: any) => s.key === col.key)?.value, lang)}</td>)}</tr>
+                ))}
+              </tbody>
+            </table>
+            {m.capacityBasis && <p class="t-small faint md__basis">{t(m.capacityBasis, lang)}</p>}
+          </div>
+        )}
+        {!hasSheet && <p class="md__empty muted">{c.noSpecs}</p>}
+        <div class="md__foot">
+          {hasSheet && <p class="t-small faint">{c.note}</p>}
+          <div class="md__acts">
+            <a class="btn" href={`${href('start', lang)}?makine=${slug}`}>{label} {c.cta}<Arrow /></a>
+            <a class="link t-small" href={href('catalog', lang, undefined, `s-${m.catalogPage}`)}>PDF · {({ tr: 's.', en: 'p.', ar: 'ص' })[lang]} {m.catalogPage}</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  {siblings.length > 0 && (
+    <section class="sib s-sand section" data-surface="light" aria-labelledby="sib-title">
+      <div class="wrap">
+        <h2 id="sib-title" class="t-h3">{c.family} · {famName}</h2>
+        <ul class="sib__row" role="list">
+          {siblings.map((x: any) => (
+            <li><a href={href('machine', lang, x.slug)}><span class="mono">{x.model ?? t(x.name, lang)}</span><span class="faint t-small">{t(x.name, lang)}</span><Arrow /></a></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <ClosingCta lang={lang} title={c.close} primary={`${label} ${c.cta}`} primaryHref={`${href('start', lang)}?makine=${slug}`} />
+</Base>
+
+<script>
+  const stage = document.querySelector<HTMLElement>('[data-anatomy]');
+  if (stage) {
+    const hots = [...stage.querySelectorAll<HTMLElement>('[data-hot]')];
+    const items = [...document.querySelectorAll<HTMLElement>('[data-hot-item]')];
+    const set = (i: number | null) => {
+      hots.forEach((h) => h.classList.toggle('is-on', i !== null && +h.dataset.hot! === i));
+      items.forEach((it) => it.classList.toggle('is-on', i !== null && +it.dataset.hotItem! === i));
+    };
+    // a clicked part stays active (on the image and in the list) until another part is chosen
+    let pinned: number | null = null;
+    hots.forEach((h) => {
+      const i = +h.dataset.hot!;
+      h.addEventListener('pointerenter', () => set(i));
+      h.addEventListener('pointerleave', () => set(pinned));
+      h.addEventListener('focus', () => set(i));
+      h.addEventListener('blur', () => set(pinned));
+      h.addEventListener('click', () => {
+        pinned = i;
+        set(i);
+        document.getElementById(`hot-${i}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
+    items.forEach((it) => {
+      const i = +it.dataset.hotItem!;
+      it.addEventListener('pointerenter', () => set(i));
+      it.addEventListener('pointerleave', () => set(pinned));
+      it.addEventListener('click', () => { pinned = i; set(i); });
+    });
+    // numbers light in sequence once, like a conveyor
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      hots.forEach((h, k) => { h.style.animationDelay = `${600 + k * 160}ms`; h.classList.add('hot--in'); });
+    }
+  }
+</script>
+
+<style>
+  .mh { padding-top: calc(var(--header-h) + clamp(28px, 4vw, 60px)); overflow: hidden; }
+  /* name above the ghost model number: the machine rises into the ghost number only, never into the name or its hotspots */
+  .mh > .wrap { display: flex; flex-direction: column; align-items: flex-start; }
+  .mh__crumbs { gap: 0.5rem; color: var(--ink-3); }
+  .mh__model { order: 2; font-size: clamp(3.6rem, 2rem + 12vw, 16rem); line-height: 0.86; letter-spacing: -0.05em; font-weight: 400; color: color-mix(in srgb, var(--navy) 16%, var(--foam)); margin-top: 0.25rem; position: relative; z-index: 0; white-space: nowrap; }
+  .mh__name { order: 1; color: var(--ink); margin-top: 1.1rem; max-width: 30ch; position: relative; z-index: 2; }
+  .mh__stage { padding: 0 var(--gutter) clamp(40px, 6vw, 96px); margin-top: clamp(-9rem, -8vw, -2rem); position: relative; z-index: 1; }
+  .mh__frame { position: relative; width: fit-content; max-width: min(1200px, 100%); margin-inline: auto; }
+  /* Tall machines (e.g. vertical packers) are capped by height so they don't fill several screens. */
+  .mh__frame :global(.mh__img) { display: block; width: auto; height: auto; max-width: 100%; max-height: min(78vh, 760px); margin-inline: auto; filter: drop-shadow(0 50px 50px rgba(13, 27, 44, 0.24)) drop-shadow(0 6px 8px rgba(13, 27, 44, 0.18)); }
+  @supports (animation-timeline: view()) {
+    .mh__frame { animation: machine-approach linear both; animation-timeline: view(); animation-range: cover 0% cover 60%; }
+  }
+  @keyframes machine-approach { from { transform: scale(0.94); } to { transform: scale(1.04); } }
+  /* on phones the name would sit on the machine (and its numbers): keep the image below it */
+  @media (max-width: 640px) { .mh__stage { margin-top: 1.25rem; } .mh__frame :global(.mh__img) { max-height: 60vh; } }
+  .mh__frame :global(.mh__glyph) { width: min(520px, 80%); margin-inline: auto; color: var(--ink-3); }
+
+  /* hotspots: positioned in % of the studio image, so they stay on their part at every size */
+  .hot { position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%); z-index: 2; display: block; padding: 0; background: none; border: 0; cursor: pointer; }
+  .hot.hot--in { animation: hot-pop 700ms var(--ease-steel) both; }
+  @keyframes hot-pop { from { opacity: 0; transform: translate(-50%, -50%) scale(0.4); } }
+  .hot .num { --s: 2.2rem; background: var(--brass); color: #fff; border-color: var(--brass); box-shadow: 0 0 0 6px rgba(184, 116, 47, 0.22), 0 6px 14px rgba(13, 27, 44, 0.25); }
+  .hot.is-on, .hot:hover, .hot:focus-visible { z-index: 3; }
+  .hot.is-on .num, .hot:hover .num { background: var(--navy); border-color: var(--navy); color: #fff; box-shadow: 0 0 0 10px rgba(0, 47, 99, 0.18); }
+  .hot:focus-visible { outline: none; }
+  .hot:focus-visible .num { outline: 2px solid var(--phyco); outline-offset: 4px; }
+  /* part name next to the number (pointer devices); flips to the left on the right half of the image */
+  .hot__tip {
+    position: absolute; top: 50%; left: calc(100% + 0.75rem); transform: translate(-4px, -50%);
+    padding: 0.4rem 0.7rem; border-radius: 2px; background: var(--navy); color: #fff;
+    font-family: var(--f-sans); font-size: 0.85rem; font-weight: 500; line-height: 1.2; white-space: nowrap;
+    box-shadow: 0 8px 20px rgba(13, 27, 44, 0.22); opacity: 0; pointer-events: none;
+    transition: opacity 260ms var(--ease-water), transform 360ms var(--ease-water);
+  }
+  .hot--flip .hot__tip { left: auto; right: calc(100% + 0.75rem); transform: translate(4px, -50%); }
+  @media (hover: hover) and (min-width: 641px) {
+    .hot.is-on .hot__tip, .hot:hover .hot__tip, .hot:focus-visible .hot__tip { opacity: 1; transform: translate(0, -50%); }
+  }
+  @media (max-width: 640px), (hover: none) { .hot__tip { display: none; } }
+  @media (max-width: 640px) {
+    .hot .num { --s: 1.6rem; box-shadow: 0 0 0 4px rgba(184, 116, 47, 0.22), 0 4px 10px rgba(13, 27, 44, 0.25); }
+    .hot.is-on .num, .hot:hover .num { box-shadow: 0 0 0 6px rgba(0, 47, 99, 0.18); }
+  }
+
+  .anat__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); }
+  .anat__grid > header { grid-column: 1 / span 5; display: grid; gap: 1.2rem; align-content: start; }
+  .anat__title { color: var(--fg); }
+  .anat__mat { display: grid; gap: 0.5rem; color: var(--fg-2); max-width: 44ch; margin-top: 1rem; padding-top: 1.2rem; border-top: 1px solid var(--line); }
+  .anat__list { grid-column: 7 / -1; display: grid; border-top: 1px solid var(--line-strong); }
+  .anat__list li { display: flex; gap: 1.1rem; padding: 1.2rem 0.6rem; margin-inline: -0.6rem; border-bottom: 1px solid var(--line); box-shadow: inset 3px 0 0 transparent; transition: background 400ms, box-shadow 400ms; cursor: default; }
+  .anat__list li p { margin-top: 0.25rem; transition: color 400ms; }
+  .anat__list li h3 { transition: color 400ms; }
+  .anat__list li.is-on { background: linear-gradient(90deg, rgba(210, 145, 76, 0.24), rgba(210, 145, 76, 0.04)); box-shadow: inset 3px 0 0 var(--brass-2); }
+  :global(html[dir='rtl']) .anat__list li.is-on { background: linear-gradient(-90deg, rgba(210, 145, 76, 0.24), rgba(210, 145, 76, 0.04)); box-shadow: inset -3px 0 0 var(--brass-2); }
+  .anat__list li.is-on h3 { color: var(--brass-2); }
+  .anat__list li.is-on p { color: var(--fg); }
+  .anat__list li.is-on .num { background: var(--brass-2); color: var(--abyss); border-color: var(--brass-2); }
+  @media (max-width: 960px) { .anat__grid > header, .anat__list { grid-column: 1 / -1; } .anat__grid { row-gap: 2rem; } }
+
+  /* details: text + lines on the left, the spec sheet beside them (sticky) */
+  .md__grid { display: grid; grid-template-columns: minmax(0, 1fr) clamp(300px, 28vw, 400px); column-gap: clamp(32px, 5vw, 96px); align-items: start; }
+  .md__main { display: grid; gap: clamp(56px, 6vw, 96px); min-width: 0; }
+  .md__text { display: grid; gap: 3rem; }
+  .md__text .prose .lead { font-family: var(--f-serif); font-size: 1.5rem; line-height: 1.4; color: var(--ink); }
+  .md__feat ul { display: grid; gap: 0.7rem; margin-top: 1rem; max-width: var(--read); }
+  .md__feat li { padding-inline-start: 1.4rem; position: relative; color: var(--ink-2); }
+  .md__feat li::before { content: ''; position: absolute; inset-inline-start: 0; top: 0.72em; width: 0.7rem; height: 1px; background: var(--brass); }
+
+  .md__lines-title { display: flex; align-items: baseline; gap: 0.8rem; margin-bottom: 1.6rem; }
+  .md__lines-title .mono { font-size: 0.9rem; letter-spacing: 0.06em; }
+  /* each card carries its own ground: no container fill, so a short list leaves clean space, not grey cells */
+  .md__cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(190px, 100%), 1fr)); gap: clamp(10px, 1.2vw, 16px); }
+  .md__cards > li { min-width: 0; }
+
+  .md__specs { position: sticky; top: calc(var(--header-h) + 1.5rem); display: grid; gap: 1.2rem; padding: 1.6rem; background: var(--sand); border-radius: var(--radius); min-width: 0; }
+  .md__specs dl { width: 100%; }
+  .md__specs dl > div { display: grid; gap: 0.2rem; padding-block: 0.8rem; border-bottom: 1px solid var(--rule); }
+  .md__specs dt { font-size: 0.8rem; color: var(--ink-3); }
+  .md__specs dd { margin: 0; font-size: 1rem; }
+  /* values carry their own direction: "18.5 / 22 kW" stays LTR inside Arabic pages, Arabic units stay RTL */
+  .md__specs dd, .md__var :is(th, td) { unicode-bidi: plaintext; }
+  :global(html[dir='rtl']) :is(.md__specs dd, .md__var th, .md__var td) { text-align: right; }
+  .md__var-wrap { display: grid; gap: 0.8rem; }
+  .md__var { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  .md__var th, .md__var td { text-align: start; padding: 0.65rem 0.6rem 0.65rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .md__var thead th { font-family: var(--f-sans); font-size: 0.75rem; font-weight: 500; color: var(--ink-3); padding-top: 0; border-bottom-color: var(--rule-strong); }
+  .md__var tbody th { font-weight: 500; color: var(--navy); white-space: nowrap; }
+  .md__var :is(th, td):last-child { padding-inline-end: 0; }
+  .md__empty { font-size: 1rem; line-height: 1.5; }
+  .md__foot { display: grid; gap: 1.1rem; }
+  .md__acts { display: flex; flex-wrap: wrap; align-items: center; gap: 0.9rem 1.4rem; }
+
+  /* no description to set the sheet beside: it becomes a full-width spec band, the lines run below it */
+  .md--band .md__grid { grid-template-columns: minmax(0, 1fr); row-gap: clamp(56px, 6vw, 96px); }
+  .md--band .md__specs { order: -1; position: static; padding: clamp(1.6rem, 3vw, 2.8rem); row-gap: 1.6rem; }
+  .md--band .md__specs dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); column-gap: clamp(16px, 2.5vw, 40px); }
+  .md--band .md__specs dl > div { border-bottom: 0; border-top: 1px solid var(--rule-strong); padding-block: 0.9rem 0.4rem; }
+  .md--band .md__specs dd { font-size: 1.3rem; }
+  .md--band .md__empty { max-width: 60ch; font-size: 1.15rem; }
+  .md--band .md__foot { grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 2rem; }
+  .md--band .md__foot > :only-child { grid-column: 1 / -1; }
+  @media (max-width: 760px) { .md--band .md__foot { grid-template-columns: minmax(0, 1fr); } }
+
+  @media (max-width: 960px) {
+    .md__grid { grid-template-columns: minmax(0, 1fr); row-gap: 3rem; }
+    /* mobile order stays: text → spec sheet → lines */
+    .md__main { display: contents; }
+    .md__text { order: 1; }
+    .md__specs { order: 2; position: static; }
+    .md__lines { order: 3; }
+  }
+  @media (max-width: 640px) {
+    .md__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  .sib__row { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); margin-top: 1.6rem; border-top: 1px solid var(--rule-strong); }
+  .sib__row a { display: grid; grid-template-columns: 1fr auto; gap: 0.2rem 1rem; padding: 1.1rem 1rem 1.1rem 0; border-bottom: 1px solid var(--rule); }
+  .sib__row a .mono { font-size: 1.1rem; color: var(--navy); }
+  .sib__row a .faint { grid-column: 1; }
+  .sib__row a :global(.arr) { grid-row: 1 / span 2; grid-column: 2; align-self: center; color: var(--brass); }
+</style>

@@ -1,0 +1,66 @@
+{
+  "id": 62,
+  "slug": "future-fish-eurasia-2016-fuarindayiz",
+  "date": "2016-05-09",
+  "category": "saha",
+  "originalCategory": {
+    "tr": "Fuar",
+    "en": "Fair",
+    "ar": "معرض"
+  },
+  "title": {
+    "tr": "Future Fish Eurasia (2–4 Haziran 2016) fuarındayız",
+    "en": "We are joining Future Fish Eurasia fair in Izmir (2–4 June 2016)",
+    "ar": "نشارك في معرض Future Fish Eurasia في إزمير (2–4 يونيو 2016)"
+  },
+  "excerpt": {
+    "tr": "Mavi Protein Danışmanlık olarak İzmir'de düzenlenen (2–4 Haziran 2016) Future Fish Eurasia, 8. Uluslararası Su Ürünleri İhracat ve İşleme, Akuakültür ve Balıkçılık Teknolojileri Fuarı'nda 228 nolu stanttayız.",
+    "en": "Mavi Protein Consultancy invites you to Future Fish Eurasia, the 8th International Aquaculture and Fisheries Technologies Fair, held in Izmir on 2–4 June 2016.",
+    "ar": "تدعوكم Mavi Protein للاستشارات إلى معرض Future Fish Eurasia، المعرض الدولي الثامن لتقنيات الاستزراع المائي ومصايد الأسماك، الذي يُقام في إزمير خلال الفترة 2–4 يونيو 2016."
+  },
+  "body": {
+    "tr": [
+      {
+        "type": "p",
+        "text": "Mavi Protein Danışmanlık olarak İzmir'de düzenlenen (2–4 Haziran 2016) Future Fish Eurasia, 8. Uluslararası Su Ürünleri İhracat ve İşleme, Akuakültür ve Balıkçılık Teknolojileri Fuarı'nda 228 nolu stanttayız."
+      },
+      {
+        "type": "p",
+        "text": "Ulusal ve uluslararası birçok firmanın temsil edileceği Avrupa'nın en görkemli akuakültür fuarında, siz değerli dostlarımızı misafir etmekten onur duyarız. Çinli ve İranlı iş ortaklarımızla sizleri 228 nolu standımızda tanışmaya bekliyoruz."
+      }
+    ],
+    "en": [
+      {
+        "type": "p",
+        "text": "Mavi Protein Consultancy invites you to Izmir Future Fish Eurasia, the 8th International Aquaculture and Fisheries Technologies Fair, held on 2–4 June 2016."
+      },
+      {
+        "type": "p",
+        "text": "At Europe's most impressive aquaculture fair, where many national and international companies will be represented, we are honoured to host you, our valued friends. Together with our Chinese and Iranian business partners, we look forward to meeting you at stand 228."
+      }
+    ],
+    "ar": [
+      {
+        "type": "p",
+        "text": "تدعوكم Mavi Protein للاستشارات إلى معرض Future Fish Eurasia في إزمير، المعرض الدولي الثامن لتقنيات الاستزراع المائي ومصايد الأسماك، الذي يُقام خلال الفترة 2–4 يونيو 2016."
+      },
+      {
+        "type": "p",
+        "text": "في أكثر معارض الاستزراع المائي إبهارًا في أوروبا، حيث تشارك العديد من الشركات الوطنية والدولية، يشرّفنا أن نستضيفكم، أصدقاءنا الأعزاء. ونتطلع، مع شركائنا في العمل من الصين وإيران، إلى لقائكم في الجناح 228."
+      }
+    ]
+  },
+  "readingMinutes": 1,
+  "oldUrls": [
+    "/FUTURE-FISH-EURASIA-2-4-HAZIRAN-2016-FUARINDAYIZ/62",
+    "/FUTURE-FISH-EURASIA-2-4-HAZIRAN-2016-FUARINDAYIZ/default.aspx",
+    "/en-US/blogicerik.aspx?MakaleID=62"
+  ],
+  "images": [],
+  "fair": "future-fish-eurasia-2016",
+  "coverNote": "Eski kapak görseli (img/works/807e2016 Future Fish Fair İzmir.jpg) metni gömülü bir davet afişi; kopyalanmadı.",
+  "notes": [
+    "İlk paragraf eski blog listesindeki özet metindir; yazı sayfasında yalnız ikinci paragraf vardı.",
+    "EN yazı sayfası gövdesiz; EN ilk paragraf EN blog listesindeki özetten, ikinci paragraf çeviri."
+  ]
+}

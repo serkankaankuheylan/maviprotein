@@ -1,0 +1,1029 @@
+{
+  "id": 64,
+  "slug": "akuakultur-ekstrude-yemlerinin-uretimi",
+  "date": "2016-07-22",
+  "category": "teknik",
+  "originalCategory": {
+    "tr": "Mavi Protein diyor ki...",
+    "en": "Mavi Protein says...",
+    "ar": "Mavi Protein تقول..."
+  },
+  "title": {
+    "tr": "Akuakültür ekstrüde yemlerinin üretimi",
+    "en": "Aquaculture fish feed production",
+    "ar": "إنتاج أعلاف أسماك الاستزراع المائي"
+  },
+  "excerpt": {
+    "tr": "Akuakültür, su ürünleri yetiştiriciliğinde kullanılan ekstrüde yemlerin üretimi: hammaddeden paketlemeye dokuz adım.",
+    "en": "How are extruded fish feeds produced? Nine steps from raw material to packaging.",
+    "ar": "كيف تُنتج أعلاف الأسماك المبثوقة؟ تسع خطوات من المادة الخام إلى التعبئة."
+  },
+  "body": {
+    "tr": [
+      {
+        "type": "p",
+        "text": "Ülkemizde önemli bir sektör olan ve uluslararası çapta tanındığımız kültür balıkçılığında kullanılan balık yemlerinin rasyonları (formülasyonları), balığın türüne, yaşam ortamına (tatlı su, tuzlu su, acı su), yaşam evresine (larva, genç ve ergin) ve balığın besin ihtiyaçlarına göre çeşitlilik arz etmektedir. Dünyada sindirilebilir kaliteli yem üretiminde en iyi yöntem ekstrüzyon yöntemidir. Ekstrüzyon, yemin yüksek basınç altında sıkıştırılıp şekillendirilmesi ve pişirilmesi yöntemine verilen addır."
+      },
+      {
+        "type": "p",
+        "text": "Kültür balığı ekstrüde yemi üretimindeki aşamalar sırasıyla şöyle sınıflandırılabilir:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Hammadde tedariki",
+          "Dozajlama",
+          "Öğütüm",
+          "Homojen karıştırma",
+          "Ekstrüzyon",
+          "Kurutma",
+          "Yağlama ve aromalandırma",
+          "Kırma ve eleme",
+          "Paketleme"
+        ]
+      },
+      {
+        "type": "h",
+        "text": "Hammadde tedariki"
+      },
+      {
+        "type": "p",
+        "text": "Kültür balığı yemi rasyonunda yer alan hammaddeler, yurt içi veya yurt dışı tedarik firmalarından elde edilir. Hammaddelerin yüksek kalitede ve belirli prosedürlere uygun olarak getirilmesi ve muhafaza edilmesi önem arz eder. Hammaddelerin muhafaza edildiği silolar çeşitli tipte, ebatta ve cinste (krom, polyester vb.) olabilir."
+      },
+      {
+        "type": "h",
+        "text": "Dozajlama"
+      },
+      {
+        "type": "p",
+        "text": "Hammaddeler, kültür balığı yemi için hazırlanacak olan rasyona göre, muhafaza edildikleri silolardan helezonlu veya bantlı taşıyıcılarla dozajlanarak öğütülmek üzere değirmen sistemine gönderilir."
+      },
+      {
+        "type": "h",
+        "text": "Öğütüm"
+      },
+      {
+        "type": "p",
+        "text": "Öğütüm işlemi, kaliteli ekstrüde yem elde etmek için önemli bir adımdır. Hammadde partikül boyutlarının mikron seviyesinde öğütülmesi pelet kalitesini doğrudan etkilemektedir."
+      },
+      {
+        "type": "p",
+        "text": "Değirmen sistemi ve makineleri çeşitli tiplerdedir. 1. kuşak olarak kabul edilen standart öğütme değirmeni makineleri, yüksek miktarda öğütme yapmak için uygun, granül yapıda tahıl ürünlerinin temel öğütülmesinde kullanılan çekiçli öğütme değirmenidir."
+      },
+      {
+        "type": "p",
+        "text": "2. kuşak olarak kabul edilen gelişmiş ince öğütme değirmeni makinesi yeni tasarım çekice sahip olup daha ince öğütme yapmak için uygun; yem, tahıl, gıda, çevre koruma ve kimya endüstrilerinde kullanılabilen bir öğütme değirmeni türüdür."
+      },
+      {
+        "type": "p",
+        "text": "Son kuşak olarak kabul edilen mikro öğütme değirmeni, mikro öğütme yapmak için uygun; yem, tahıl, gıda, çevre koruma ve kimya endüstrilerinde kullanılabilen ve öğütüm inceliği 10–100 µm arasında ayarlanabilir yapıda olan, mikro pulverize balık yemi üretiminde kullanılan değirmen türüdür."
+      },
+      {
+        "type": "h",
+        "text": "Homojen karıştırma"
+      },
+      {
+        "type": "p",
+        "text": "Homojen karıştırma işlemi, elde edilecek mikropartikül yemlerde her bir yem partikülünün homojen besin değerine sahip olmasını sağlamak için son derece önemli bir adımdır. Bu nedenle mikserler, hammaddelerin homojen bir biçimde karıştırılması için gerekli sistem ekipmanlarındandır."
+      },
+      {
+        "type": "p",
+        "text": "Değirmen sisteminde öğütülmüş ve mikserde homojen olarak karıştırılmış, un halindeki balık yemi hammadde karışımı yem yapılacağı ana kadar ayrı bir siloda stoklanır."
+      },
+      {
+        "type": "h",
+        "text": "Ekstrüzyon"
+      },
+      {
+        "type": "p",
+        "text": "Silodan gelen balık yemi hammadde karışımı helezonlu taşıyıcı ile şartlandırıcıya (conditioner) gönderilir. Balık yemi hammadde karışımı şartlandırıcıda belirli oranlarda su ile karıştırılarak tavlanır ve elde edilen su-hammadde karışımı ekstruder makinesine gönderilir. Şartlandırıcı ve ekstruder birbirini destekleyen önemli ekstrüzyon sistemi ekipmanlarındandır. Şartlandırıcıya gelen su ve hammadde miktarı, helezonlu taşıyıcının devir hızı ve su dozaj pompası ile ayarlanmakta ve dengeli bir karışım eldesi hedeflenmektedir."
+      },
+      {
+        "type": "p",
+        "text": "Şartlandırıcıdan ekstruder makinesine gelen hammadde hamur karışımı, ekstruder sistemi içinde yer alan çift veya tek vida sistemi yardımı ile yüksek basınç altında sıkıştırılır ve pişirilir. Ekstruder çıkışında yer alan özel bıçaklar ile kesilir; bıçak hızı ve ekstruder makinesi hızına bağlı olarak karma yem şekillendirilerek hazırlanmış olur."
+      },
+      {
+        "type": "p",
+        "text": "Ekstruder makinesi sistemleri tek ve çift vidalı olmak üzere iki tiptir. Çift vidalı ekstrüder, malzeme akış yönünde açılı buhar enjektörleri sayesinde buharın ürünlere karışmasına izin veren özel vida profiliyle çeşitli köpek mamaları, akvaryum yemleri, et benzeri ürünler ve tek vidalı ekstrüder tarafından işlenemeyen ürünlerin pişirilmesine ve kalıplanmasına uygundur. Segmentlerin değişen düzeneği sayesinde (karıştırma elemanı, yoğurma elemanı ve buhar bloğu) ekstrüder farklı ürünlerin gereksinimlerini karşılayabilir. Ekstrüder bağımsız bir kontrol paneli tarafından kontrol edilir."
+      },
+      {
+        "type": "p",
+        "text": "Ekstrüder sistemi aşağıdaki parçalardan oluşmaktadır:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Şartlandırıcı sistemi",
+          "Ekstrüzyon sistemi",
+          "Kesme sistemi",
+          "Yağlama sistemi"
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Ekstruder sisteminden çıkan 1–3 mm çaplı pelet yemler havalı taşıyıcı (pnömatik taşıyıcı) ve blower makinesi ile, yem çapı 3 mm'den fazla olan pelet yemler ise bantlı taşıyıcı yardımı ile çok katmanlı kurutucu fırına gönderilir."
+      },
+      {
+        "type": "p",
+        "text": "Havalı taşıma sistemi, oluşturduğu kuvvetli hava akımı yardımı ile ekstruderden çıkan pelet yemlerin hem ön soğutmasına hem de kurutma fırınına kapalı ortamda taşınmasına yardımcı olmaktadır."
+      },
+      {
+        "type": "p",
+        "text": "Bantlı taşıyıcılar da pelet yemlerin hem ön soğutmasını hem de mekanik olarak aşındırılmadan çok katmanlı kurutucu fırına gönderilmesini sağlar."
+      },
+      {
+        "type": "h",
+        "text": "Kurutma"
+      },
+      {
+        "type": "p",
+        "text": "Kurutma fırınları elektrikli, gazlı ve buharlı olmak üzere 3 tiptir. İçerdiği 5 katman ve ayarlanabilir hızı sayesinde pelet yemlerin istenildiği şekilde kurutulması gerçekleştirilmektedir."
+      },
+      {
+        "type": "p",
+        "text": "Çok katmanlı fırında termostat ayarı ile istenilen sıcaklıkta kurutulan pelet yemler bantlı taşıyıcı ile yağlama/aromalandırma tamburuna gönderilir."
+      },
+      {
+        "type": "h",
+        "text": "Yağlama ve aromalandırma"
+      },
+      {
+        "type": "p",
+        "text": "Yağlama tamburu, balık yemi peletlerinin yağlandırılması veya aromalandırılmasında kullanılan ve dönüş hızı ayarlanabilen ardışık 2 silindirden ve sıcaklık ayarlı bir yağ tankından oluşmaktadır."
+      },
+      {
+        "type": "p",
+        "text": "Kurutma fırınından yağlama tamburuna gelen pelet yemlere dozaj pompası yardımıyla istenilen miktarda yağ/toz/aroma püskürtülür ve yağlama tamburu belirli bir hızda döndürülerek karışımın homojen ve maksimum düzeyde olması sağlanır."
+      },
+      {
+        "type": "p",
+        "text": "Yağlama tamburundan çıkan pelet yemler, depolanacakları silolara soğutmalı taşıyıcı yardımı ile gönderilir. Pelet yemler paketlenmeden önce 1 gün süreyle silolarda dinlendirilir."
+      },
+      {
+        "type": "h",
+        "text": "Kırma ve eleme"
+      },
+      {
+        "type": "p",
+        "text": "1 mm'den küçük boyutlu pelet yem eldesi için silodan alınan pelet yemler krumble kırma makinesinde kırılır. Krumble kırma makinesi, ayarlanabilir kırma silindiri genişliğiyle pelet yemleri istenilen boyutlara kadar kırarak küçültmektedir."
+      },
+      {
+        "type": "p",
+        "text": "Krumble kırma makinesinde kırılan pelet yemler, mikron düzeyinde boyutlarına ayrılması ve tozdan arındırılması amacıyla titreşimli elek makinesinde elenir. Titreşimli elek makinesi kuvvetli bir vibrasyon oluşturarak kırılan yemleri içinde yer alan elek çaplarına göre eler ve mikropartikül yemler elde edilir."
+      },
+      {
+        "type": "p",
+        "text": "Titreşimli elekten çıkan mikropartikül yemler kovalanır veya paketlenir ve kullanıma hazır hale gelir."
+      },
+      {
+        "type": "h",
+        "text": "Paketleme"
+      },
+      {
+        "type": "p",
+        "text": "Nihai aşamada hızlı paketleme makineleri yardımı ile üretim el değmeden, hızlıca ve ekonomik yoldan tamamlanır."
+      }
+    ],
+    "en": [
+      {
+        "type": "p",
+        "text": "Formulation of the feeds used in aquaculture varies according to fish species, habitat (freshwater, saltwater, brackish water), life phase (larvae, juveniles and adults) and the fish's nutritional needs. The best method in the world for producing digestible, high-quality feed is extrusion. Extrusion is the compressing, shaping and cooking of the feed under high pressure."
+      },
+      {
+        "type": "p",
+        "text": "Aquaculture fish feed production processes may be classified as:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Raw material supply",
+          "Dosing",
+          "Grinding",
+          "Homogeneous mixing",
+          "Extrusion",
+          "Drying",
+          "Oil adding and flavoring",
+          "Crumbling and sieving",
+          "Packaging"
+        ]
+      },
+      {
+        "type": "h",
+        "text": "Raw material supply"
+      },
+      {
+        "type": "p",
+        "text": "Raw materials used in aquaculture fish feed rations are obtained from domestic or international suppliers. Bringing in raw materials of high quality and in accordance with certain procedures is very important, as is their preservation; they can be stored in silos of various types and sizes."
+      },
+      {
+        "type": "h",
+        "text": "Dosing"
+      },
+      {
+        "type": "p",
+        "text": "According to the formulation of the feed, raw materials are dosed from the silos by screw or belt conveyors and sent to the grinding system."
+      },
+      {
+        "type": "h",
+        "text": "Grinding"
+      },
+      {
+        "type": "p",
+        "text": "Grinding is an important step to obtain high-quality extruded feed. Grinding raw materials to micron particle size directly influences the quality of the pellets."
+      },
+      {
+        "type": "p",
+        "text": "Grinding machines come in various types. The standard grinding machine, considered the first generation, is a hammermill suitable for grinding large amounts and is used for the basic grinding of granular grains."
+      },
+      {
+        "type": "p",
+        "text": "The fine grinder, considered the second generation, has a newly designed hammer and is suitable for finer grinding in the feed, food, environmental protection and chemical industries."
+      },
+      {
+        "type": "p",
+        "text": "The micro grinder (micro pulveriser), considered the last generation, is suitable for micro grinding in the feed, grain, food, environmental protection and chemical industries. Its grinding range can be set between 10 and 100 µm; this type is essentially used in the production of micro-pulverised fish feed."
+      },
+      {
+        "type": "h",
+        "text": "Homogeneous mixing"
+      },
+      {
+        "type": "p",
+        "text": "Homogeneous mixing is a very important step for microparticulate feed, ensuring that every feed particle has the same nutritional value. Mixers are therefore essential equipment for mixing the raw materials homogeneously."
+      },
+      {
+        "type": "p",
+        "text": "The ground and homogeneously mixed fish feed raw material is stored in a separate silo until feed production."
+      },
+      {
+        "type": "h",
+        "text": "Extrusion"
+      },
+      {
+        "type": "p",
+        "text": "The fish feed raw material mixture is sent from the silo to the conditioner by screw conveyor. In the conditioner the mixture is tempered with water in set proportions, and the resulting raw dough is sent to the extruder. The conditioner and extruder are important, mutually supporting extrusion system equipment. The amount of raw material and water entering the conditioner is adjusted by the screw conveyor's rotation speed and a water dosing pump to achieve a uniform mix."
+      },
+      {
+        "type": "p",
+        "text": "The raw dough coming from the conditioner is compressed and cooked under high pressure by the extruder's twin or single screw system. It is cut by special knives at the extruder outlet; pellets are shaped depending on knife speed and extruder speed."
+      },
+      {
+        "type": "p",
+        "text": "Extruder systems are of two types: single and twin screw. The twin-screw extruder is suitable for cooking and moulding various kinds of dog food, aqua feeds, meat analogues and products that cannot be processed by a single-screw extruder. By changing the arrangement of segments (mixing elements, kneading elements and steam block), the extruder can meet the needs of different products. The extruder is controlled by an independent control panel."
+      },
+      {
+        "type": "p",
+        "text": "The extruder system consists of the following parts:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Conditioning (feeding) system",
+          "Extrusion system",
+          "Cutting system",
+          "Lubrication system"
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Pellets of 1–3 mm diameter are transferred from the extruder to the multi-layer dryer by pneumatic conveyor with a blower; pellets larger than 3 mm are transferred by belt conveyor."
+      },
+      {
+        "type": "p",
+        "text": "The strong airflow of the pneumatic conveyor helps both pre-cool the pellets leaving the extruder and carry them to the multi-layer dryer in a closed system."
+      },
+      {
+        "type": "p",
+        "text": "Belt conveyors also pre-cool the pellets and carry them to the multi-layer dryer without mechanical abrasion."
+      },
+      {
+        "type": "h",
+        "text": "Drying"
+      },
+      {
+        "type": "p",
+        "text": "Dryers come in three types: electric, gas and steam. Their 5 layers and adjustable speed allow pellets to be dried as required."
+      },
+      {
+        "type": "p",
+        "text": "Pellets dried in the multi-layer dryer at the temperature set by thermostat are sent by belt conveyor to the flavouring drum for oil adding."
+      },
+      {
+        "type": "h",
+        "text": "Oil adding and flavoring"
+      },
+      {
+        "type": "p",
+        "text": "The flavouring and oiling drum is used for oiling or flavouring fish feed pellets and consists of two consecutive cylinders with adjustable rotation speed and a temperature-controlled oil tank."
+      },
+      {
+        "type": "p",
+        "text": "Oil, powder or aroma is sprayed onto the pellets coming from the dryer with a dosing pump, and the drum rotates at a set speed for a maximally homogeneous mixture."
+      },
+      {
+        "type": "p",
+        "text": "After flavouring, the pellets are carried by cooling conveyor to storage silos and rested there for 1 day before packaging."
+      },
+      {
+        "type": "h",
+        "text": "Crumbling and sieving"
+      },
+      {
+        "type": "p",
+        "text": "To obtain pellets smaller than 1 mm, pellets from the silo are broken in a crumbler, which reduces them to the desired size with an adjustable roller gap."
+      },
+      {
+        "type": "p",
+        "text": "The crumbled pellets are sieved on a vibrating sieve to separate sizes and remove dust, producing microparticle feeds of different sizes."
+      },
+      {
+        "type": "p",
+        "text": "The microparticle feeds leaving the sieve are bucketed or packaged and ready for use."
+      },
+      {
+        "type": "h",
+        "text": "Packaging"
+      },
+      {
+        "type": "p",
+        "text": "In the final stage, rapid packaging machines complete production quickly, economically and untouched by hand."
+      }
+    ],
+    "ar": [
+      {
+        "type": "p",
+        "text": "تختلف تركيبة الأعلاف المستخدمة في الاستزراع المائي باختلاف نوع الأسماك وبيئتها (مياه عذبة، مياه مالحة، مياه مويلحة) ومرحلة حياتها (يرقات، أسماك يافعة، أسماك بالغة) واحتياجاتها الغذائية. والبثق هو أفضل طريقة في العالم لإنتاج أعلاف عالية الجودة سهلة الهضم، ويُقصد به ضغط العلف وتشكيله وطهيه تحت ضغط مرتفع."
+      },
+      {
+        "type": "p",
+        "text": "يمكن تصنيف مراحل إنتاج أعلاف أسماك الاستزراع على النحو التالي:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "توريد المواد الخام",
+          "الجرعات",
+          "الطحن",
+          "الخلط المتجانس",
+          "البثق",
+          "التجفيف",
+          "إضافة الزيت والنكهات",
+          "التكسير والغربلة",
+          "التعبئة"
+        ]
+      },
+      {
+        "type": "h",
+        "text": "توريد المواد الخام"
+      },
+      {
+        "type": "p",
+        "text": "تُورَّد المواد الخام المستخدمة في علائق أعلاف أسماك الاستزراع من موردين محليين أو دوليين. ومن الأهمية بمكان استقدام مواد خام عالية الجودة ووفق إجراءات محددة، وكذلك حفظها؛ إذ يمكن تخزينها في صوامع بأنواع وأحجام مختلفة."
+      },
+      {
+        "type": "h",
+        "text": "الجرعات"
+      },
+      {
+        "type": "p",
+        "text": "وفقًا لتركيبة العلف، تُوزَّن جرعات المواد الخام من الصوامع بواسطة نواقل لولبية أو حزامية وتُرسل إلى نظام الطحن."
+      },
+      {
+        "type": "h",
+        "text": "الطحن"
+      },
+      {
+        "type": "p",
+        "text": "الطحن خطوة مهمة للحصول على أعلاف مبثوقة عالية الجودة، إذ يؤثر طحن المواد الخام إلى جسيمات بحجم الميكرون تأثيرًا مباشرًا في جودة الحبيبات."
+      },
+      {
+        "type": "p",
+        "text": "تتوفر آلات الطحن بأنواع متعددة. فآلة الطحن القياسية، التي تُعدّ الجيل الأول، طاحونة مطرقية مناسبة لطحن كميات كبيرة، وتُستخدم في الطحن الأساسي للحبوب الحبيبية."
+      },
+      {
+        "type": "p",
+        "text": "أما المطحنة الناعمة، التي تُعدّ الجيل الثاني، فمزودة بمطرقة بتصميم جديد ومناسبة للطحن الأنعم في صناعات الأعلاف والأغذية وحماية البيئة والكيماويات."
+      },
+      {
+        "type": "p",
+        "text": "وأما المطحنة الدقيقة (المسحِّقة الدقيقة)، التي تُعدّ أحدث جيل، فمناسبة للطحن الدقيق جدًا في صناعات الأعلاف والحبوب والأغذية وحماية البيئة والكيماويات. ويمكن ضبط نطاق الطحن فيها بين 10 و100 µm، ويُستخدم هذا النوع أساسًا في إنتاج أعلاف الأسماك المسحوقة سحقًا دقيقًا."
+      },
+      {
+        "type": "h",
+        "text": "الخلط المتجانس"
+      },
+      {
+        "type": "p",
+        "text": "الخلط المتجانس خطوة بالغة الأهمية للأعلاف الدقيقة الجسيمات، إذ يضمن أن تحمل كل جسيمة من العلف القيمة الغذائية نفسها. ولذلك تُعدّ الخلاطات معدات أساسية لخلط المواد الخام خلطًا متجانسًا."
+      },
+      {
+        "type": "p",
+        "text": "تُخزَّن المواد الخام المطحونة والمخلوطة خلطًا متجانسًا في صومعة منفصلة حتى موعد إنتاج العلف."
+      },
+      {
+        "type": "h",
+        "text": "البثق"
+      },
+      {
+        "type": "p",
+        "text": "يُرسل خليط المواد الخام لأعلاف الأسماك من الصومعة إلى وحدة التكييف بواسطة ناقل لولبي. وفي وحدة التكييف يُعالَج الخليط بالماء بنسب محددة، ثم تُرسل العجينة الخام الناتجة إلى الباثقة. ووحدة التكييف والباثقة معدتان مهمتان في نظام البثق تدعم إحداهما الأخرى. وتُضبط كمية المواد الخام والماء الداخلة إلى وحدة التكييف بواسطة سرعة دوران الناقل اللولبي ومضخة جرعات المياه للحصول على خليط متجانس."
+      },
+      {
+        "type": "p",
+        "text": "تُضغط العجينة الخام القادمة من وحدة التكييف وتُطهى تحت ضغط مرتفع بواسطة نظام اللولب المزدوج أو الأحادي في الباثقة، ثم تُقطع بسكاكين خاصة عند مخرج الباثقة، وتتشكل الحبيبات بحسب سرعة السكين وسرعة الباثقة."
+      },
+      {
+        "type": "p",
+        "text": "تنقسم أنظمة الباثقات إلى نوعين: أحادية اللولب وثنائية اللولب. وتناسب الباثقة ثنائية اللولب طهي وتشكيل أنواع مختلفة من أغذية الكلاب وأعلاف الأحياء المائية وبدائل اللحوم، والمنتجات التي لا يمكن معالجتها بالباثقة أحادية اللولب. وبتغيير ترتيب المقاطع (عناصر الخلط، وعناصر العجن، وكتلة البخار) يمكن للباثقة تلبية احتياجات المنتجات المختلفة. ويُتحكم بالباثقة عبر لوحة تحكم مستقلة."
+      },
+      {
+        "type": "p",
+        "text": "يتكون نظام الباثقة من الأجزاء التالية:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "نظام التكييف (التغذية)",
+          "نظام البثق",
+          "نظام القطع",
+          "نظام التزييت"
+        ]
+      },
+      {
+        "type": "p",
+        "text": "تُنقل الحبيبات التي يتراوح قطرها بين 1 و3 mm من الباثقة إلى المجفف متعدد الطبقات بواسطة ناقل هوائي مزوّد بنافخ، أما الحبيبات التي يزيد قطرها على 3 mm فتُنقل بواسطة ناقل حزامي."
+      },
+      {
+        "type": "p",
+        "text": "يساعد تيار الهواء القوي في الناقل الهوائي على التبريد المسبق للحبيبات الخارجة من الباثقة ونقلها إلى المجفف متعدد الطبقات في نظام مغلق."
+      },
+      {
+        "type": "p",
+        "text": "كما تُبرّد النواقل الحزامية الحبيبات تبريدًا مسبقًا وتنقلها إلى المجفف متعدد الطبقات دون تآكل ميكانيكي."
+      },
+      {
+        "type": "h",
+        "text": "التجفيف"
+      },
+      {
+        "type": "p",
+        "text": "تتوفر المجففات بثلاثة أنواع: كهربائية وغازية وبخارية. وتتيح طبقاتها الخمس وسرعتها القابلة للضبط تجفيف الحبيبات حسب المطلوب."
+      },
+      {
+        "type": "p",
+        "text": "تُرسل الحبيبات المجففة في المجفف متعدد الطبقات عند درجة الحرارة المضبوطة بالثرموستات بواسطة ناقل حزامي إلى أسطوانة النكهات لإضافة الزيت."
+      },
+      {
+        "type": "h",
+        "text": "إضافة الزيت والنكهات"
+      },
+      {
+        "type": "p",
+        "text": "تُستخدم أسطوانة إضافة النكهات والتزييت لتزييت حبيبات أعلاف الأسماك أو إضافة النكهة إليها، وتتكون من أسطوانتين متتاليتين بسرعة دوران قابلة للضبط وخزان زيت يُتحكم في درجة حرارته."
+      },
+      {
+        "type": "p",
+        "text": "يُرش الزيت أو المسحوق أو المنكّه على الحبيبات القادمة من المجفف بواسطة مضخة جرعات، وتدور الأسطوانة بسرعة محددة للحصول على أقصى قدر من التجانس في الخليط."
+      },
+      {
+        "type": "p",
+        "text": "بعد إضافة النكهات تُنقل الحبيبات بواسطة ناقل التبريد إلى صوامع التخزين، وتُترك فيها لمدة يوم واحد قبل التعبئة."
+      },
+      {
+        "type": "h",
+        "text": "التكسير والغربلة"
+      },
+      {
+        "type": "p",
+        "text": "للحصول على حبيبات أصغر من 1 mm، تُكسَّر الحبيبات القادمة من الصومعة في آلة التكسير، التي تقلّصها إلى الحجم المطلوب بفضل فجوة البكرات القابلة للضبط."
+      },
+      {
+        "type": "p",
+        "text": "تُغربل الحبيبات المكسّرة على غربال اهتزازي لفصل الأحجام وإزالة الغبار، فتُنتج أعلاف دقيقة الجسيمات بأحجام مختلفة."
+      },
+      {
+        "type": "p",
+        "text": "تُعبأ الأعلاف الدقيقة الجسيمات الخارجة من الغربال في دلاء أو عبوات وتصبح جاهزة للاستخدام."
+      },
+      {
+        "type": "h",
+        "text": "التعبئة"
+      },
+      {
+        "type": "p",
+        "text": "في المرحلة النهائية تُنجز آلات التعبئة السريعة الإنتاج بسرعة وبتكلفة اقتصادية ودون تدخل يدوي."
+      }
+    ]
+  },
+  "readingMinutes": 5,
+  "oldUrls": [
+    "/AKUAKULTUR-EKTRUDE-YEMLERININ-URETIMI/64",
+    "/AKUAKULTUR-EKTRUDE-YEMLERININ-URETIMI/default.aspx",
+    "/en-US/blogicerik.aspx?MakaleID=64"
+  ],
+  "images": [
+    {
+      "file": "/img/archive/ekstrude-pelet-yem-dokulari.jpg",
+      "caption": {
+        "tr": "Dört renkte ekstrüde pelet yem dokuları",
+        "en": "Extruded feed pellet textures in four colours",
+        "ar": "أنسجة حبيبات علف مبثوقة بأربعة ألوان"
+      },
+      "cover": true,
+      "asset": "n64-cover"
+    },
+    {
+      "file": "/img/archive/not64-01-resim1.png",
+      "caption": {
+        "tr": "Hammadde silosu ve dozajlama",
+        "en": "Raw material silo and dosing",
+        "ar": "صومعة المواد الخام ووحدة الجرعات"
+      },
+      "afterBlock": {
+        "tr": 6,
+        "en": 6,
+        "ar": 6
+      },
+      "asset": "n-raw-silo"
+    },
+    {
+      "file": "/img/archive/not64-02-resim2.png",
+      "caption": {
+        "tr": "Standart öğütme değirmeni (1. kuşak)",
+        "en": "Normal hammermill (first generation)",
+        "ar": "الطاحونة المطرقية القياسية (الجيل الأول)"
+      },
+      "afterBlock": {
+        "tr": 9,
+        "en": 9,
+        "ar": 9
+      },
+      "asset": "m-hammer-mill"
+    },
+    {
+      "file": "/img/archive/not64-03-resim3.png",
+      "caption": {
+        "tr": "Gelişmiş ince öğütme değirmeni (2. kuşak)",
+        "en": "Fine grinder (second generation)",
+        "ar": "المطحنة الناعمة (الجيل الثاني)"
+      },
+      "afterBlock": {
+        "tr": 10,
+        "en": 10,
+        "ar": 10
+      },
+      "asset": "n-fine-mill"
+    },
+    {
+      "file": "/img/archive/not64-04-resim4.png",
+      "caption": {
+        "tr": "Mikro öğütme değirmeni (son kuşak)",
+        "en": "Micro pulveriser (latest generation)",
+        "ar": "مطحنة دقيقة (الجيل الأحدث)"
+      },
+      "afterBlock": {
+        "tr": 11,
+        "en": 11,
+        "ar": 11
+      },
+      "asset": "n-micro-mill"
+    },
+    {
+      "file": "/img/archive/not64-05-resim5.png",
+      "caption": {
+        "tr": "Mikser",
+        "en": "Mixer",
+        "ar": "خلاط"
+      },
+      "afterBlock": {
+        "tr": 13,
+        "en": 13,
+        "ar": 13
+      },
+      "asset": "m-mixer"
+    },
+    {
+      "file": "/img/archive/not64-06-resim6.png",
+      "caption": {
+        "tr": "Stok silosu",
+        "en": "Storage silo",
+        "ar": "صومعة التخزين"
+      },
+      "afterBlock": {
+        "tr": 14,
+        "en": 14,
+        "ar": 14
+      },
+      "asset": "n-stock-silo"
+    },
+    {
+      "file": "/img/archive/not64-07-resim7.png",
+      "caption": {
+        "tr": "Helezonlu taşıyıcı",
+        "en": "Screw conveyor",
+        "ar": "ناقل لولبي"
+      },
+      "afterBlock": {
+        "tr": 16,
+        "en": 16,
+        "ar": 16
+      },
+      "asset": "m-screw-conveyor"
+    },
+    {
+      "file": "/img/archive/not64-08-resim8.jpg",
+      "caption": {
+        "tr": "Şartlandırıcı ve ekstruder (SP95-II çift vidalı ekstruder sistemi)",
+        "en": "Conditioner and extruder (SP95-II double screw extruder system)",
+        "ar": "وحدة التكييف والباثقة (نظام الباثقة ثنائية اللولب SP95-II)"
+      },
+      "afterBlock": {
+        "tr": 17,
+        "en": 17,
+        "ar": 17
+      },
+      "asset": "m-sp95-ii"
+    },
+    {
+      "file": "/img/archive/not64-09-resim9.png",
+      "caption": {
+        "tr": "Fırın serileri",
+        "en": "Dryer series",
+        "ar": "سلسلة المجففات"
+      },
+      "afterBlock": {
+        "tr": 25,
+        "en": 25,
+        "ar": 25
+      },
+      "asset": "m-dryer"
+    },
+    {
+      "file": "/img/archive/not64-10-resim10.png",
+      "caption": {
+        "tr": "Yağlama tamburu",
+        "en": "Oiling drum",
+        "ar": "أسطوانة التزييت"
+      },
+      "afterBlock": {
+        "tr": 28,
+        "en": 28,
+        "ar": 28
+      },
+      "asset": "m-flavoring-drum"
+    },
+    {
+      "file": "/img/archive/not64-11-resim11.jpg",
+      "caption": {
+        "tr": "Dozaj pompası",
+        "en": "Dosing pump",
+        "ar": "مضخة الجرعات"
+      },
+      "afterBlock": {
+        "tr": 29,
+        "en": 29,
+        "ar": 29
+      },
+      "asset": "n-dosing-pump"
+    },
+    {
+      "file": "/img/archive/not64-12-resim12.png",
+      "caption": {
+        "tr": "Soğutmalı taşıyıcı",
+        "en": "Cooling conveyor",
+        "ar": "ناقل تبريد"
+      },
+      "afterBlock": {
+        "tr": 30,
+        "en": 30,
+        "ar": 30
+      },
+      "asset": "m-cooling-conveyor"
+    },
+    {
+      "file": "/img/archive/not64-13-resim13.png",
+      "caption": {
+        "tr": "Krumble kırma makinesi",
+        "en": "Crumbler",
+        "ar": "آلة التكسير"
+      },
+      "afterBlock": {
+        "tr": 32,
+        "en": 32,
+        "ar": 32
+      },
+      "asset": "n-crumbler"
+    },
+    {
+      "file": "/img/archive/not64-14-resim14.jpg",
+      "caption": {
+        "tr": "Titreşimli elek makinesi",
+        "en": "Vibrating sieve",
+        "ar": "غربال اهتزازي"
+      },
+      "afterBlock": {
+        "tr": 33,
+        "en": 33,
+        "ar": 33
+      },
+      "asset": "n-vibro-sieve"
+    },
+    {
+      "file": "/img/archive/not64-15-resim15.png",
+      "caption": {
+        "tr": "Paketleme makinesi serileri",
+        "en": "Packing machinery series",
+        "ar": "سلسلة آلات التعبئة"
+      },
+      "afterBlock": {
+        "tr": 36,
+        "en": 36,
+        "ar": 36
+      },
+      "asset": "m-packaging"
+    }
+  ],
+  "steps": [
+    {
+      "n": 1,
+      "key": "raw-material-supply",
+      "title": {
+        "tr": "Hammadde tedariki",
+        "en": "Raw material supply",
+        "ar": "توريد المواد الخام"
+      },
+      "summary": {
+        "tr": "Rasyondaki hammaddeler yurt içi ve yurt dışı tedarikçilerden kaliteli ve prosedüre uygun biçimde getirilir, silolarda muhafaza edilir.",
+        "en": "Ration ingredients are sourced from domestic and international suppliers to set procedures and stored in silos.",
+        "ar": "تُورَّد مكونات العليقة من موردين محليين ودوليين وفق إجراءات محددة وتُخزَّن في صوامع."
+      },
+      "machineKeys": [
+        "silo"
+      ],
+      "machines": []
+    },
+    {
+      "n": 2,
+      "key": "dosing",
+      "title": {
+        "tr": "Dozajlama",
+        "en": "Dosing",
+        "ar": "الجرعات"
+      },
+      "summary": {
+        "tr": "Hammaddeler rasyona göre silolardan helezonlu veya bantlı taşıyıcılarla dozajlanıp değirmene gönderilir.",
+        "en": "Raw materials are dosed from the silos by screw or belt conveyors according to the ration and sent to the mill.",
+        "ar": "تُوزَّن جرعات المواد الخام من الصوامع بواسطة نواقل لولبية أو حزامية وفق العليقة وتُرسل إلى المطحنة."
+      },
+      "machineKeys": [
+        "screw-conveyor",
+        "belt-conveyor"
+      ],
+      "machines": [],
+      "image": "/img/archive/not64-01-resim1.png"
+    },
+    {
+      "n": 3,
+      "key": "grinding",
+      "title": {
+        "tr": "Öğütüm",
+        "en": "Grinding",
+        "ar": "الطحن"
+      },
+      "summary": {
+        "tr": "Hammaddeler mikron seviyesinde öğütülür; partikül boyutu pelet kalitesini doğrudan belirler.",
+        "en": "Raw materials are ground to micron size; particle size directly determines pellet quality.",
+        "ar": "تُطحن المواد الخام إلى حجم الميكرون؛ ويحدد حجم الجسيمات جودة الحبيبات مباشرة."
+      },
+      "machineKeys": [
+        "mill"
+      ],
+      "machines": [
+        "standart-ogutme-degirmeni",
+        "ince-ogutme-degirmeni",
+        "mikro-ogutme-degirmeni"
+      ],
+      "image": "/img/archive/not64-04-resim4.png"
+    },
+    {
+      "n": 4,
+      "key": "mixing",
+      "title": {
+        "tr": "Homojen karıştırma",
+        "en": "Homogeneous mixing",
+        "ar": "الخلط المتجانس"
+      },
+      "summary": {
+        "tr": "Mikserde homojen karıştırılan un halindeki karışım, yem yapılana kadar ayrı bir siloda stoklanır.",
+        "en": "The mixture is blended homogeneously in a mixer and stored in a separate silo until feed production.",
+        "ar": "يُخلط الخليط خلطًا متجانسًا في الخلاط ويُخزَّن في صومعة منفصلة حتى موعد إنتاج العلف."
+      },
+      "machineKeys": [
+        "mixer",
+        "silo"
+      ],
+      "machines": [],
+      "image": "/img/archive/not64-05-resim5.png"
+    },
+    {
+      "n": 5,
+      "key": "extrusion",
+      "title": {
+        "tr": "Ekstrüzyon",
+        "en": "Extrusion",
+        "ar": "البثق"
+      },
+      "summary": {
+        "tr": "Şartlandırıcıda su ile tavlanan hamur, tek veya çift vidalı ekstruderde yüksek basınç altında pişirilir ve çıkıştaki bıçaklarla kesilir.",
+        "en": "Dough tempered with water in the conditioner is cooked under high pressure in a single or twin-screw extruder and cut by knives at the outlet.",
+        "ar": "تُطهى العجينة المعالجة بالماء في وحدة التكييف تحت ضغط مرتفع في باثقة أحادية أو ثنائية اللولب، وتُقطع بالسكاكين عند المخرج."
+      },
+      "machineKeys": [
+        "screw-conveyor",
+        "conditioner",
+        "extruder",
+        "pneumatic-conveyor",
+        "belt-conveyor"
+      ],
+      "machines": [
+        "sp95-ii",
+        "sp85-ii",
+        "sp70-ii",
+        "sp65-iii"
+      ],
+      "image": "/img/archive/not64-08-resim8.jpg"
+    },
+    {
+      "n": 6,
+      "key": "drying",
+      "title": {
+        "tr": "Kurutma",
+        "en": "Drying",
+        "ar": "التجفيف"
+      },
+      "summary": {
+        "tr": "Peletler 5 katmanlı, hızı ayarlanabilen elektrikli, gazlı veya buharlı fırında termostatla ayarlanan sıcaklıkta kurutulur.",
+        "en": "Pellets are dried at a thermostat-set temperature in a 5-layer electric, gas or steam dryer with adjustable speed.",
+        "ar": "تُجفَّف الحبيبات عند درجة حرارة مضبوطة بالثرموستات في مجفف كهربائي أو غازي أو بخاري من 5 طبقات بسرعة قابلة للضبط."
+      },
+      "machineKeys": [
+        "dryer"
+      ],
+      "machines": [
+        "dkx3",
+        "dkx5",
+        "okx3",
+        "okx5",
+        "buharli-kurutma-firini"
+      ],
+      "image": "/img/archive/not64-09-resim9.png"
+    },
+    {
+      "n": 7,
+      "key": "oiling-flavoring",
+      "title": {
+        "tr": "Yağlama ve aromalandırma",
+        "en": "Oil adding and flavoring",
+        "ar": "إضافة الزيت والنكهات"
+      },
+      "summary": {
+        "tr": "Dozaj pompasıyla yağ, toz veya aroma püskürtülen peletler iki silindirli tamburda homojen kaplanır, soğutmalı taşıyıcıyla silolara gider ve 1 gün dinlendirilir.",
+        "en": "Pellets sprayed with oil, powder or aroma by a dosing pump are coated in a two-cylinder drum, carried to silos by cooling conveyor and rested for 1 day.",
+        "ar": "تُكسى الحبيبات المرشوشة بالزيت أو المسحوق أو المنكّه بواسطة مضخة جرعات في أسطوانة ثنائية، ثم تُنقل إلى الصوامع بواسطة ناقل التبريد وتُترك لمدة يوم واحد."
+      },
+      "machineKeys": [
+        "flavoring",
+        "dosing-pump",
+        "cooling-conveyor"
+      ],
+      "machines": [
+        "sgt-ii"
+      ],
+      "image": "/img/archive/not64-10-resim10.png"
+    },
+    {
+      "n": 8,
+      "key": "crumbling-sieving",
+      "title": {
+        "tr": "Kırma ve eleme",
+        "en": "Crumbling and sieving",
+        "ar": "التكسير والغربلة"
+      },
+      "summary": {
+        "tr": "1 mm'den küçük yem için peletler krumble makinesinde kırılır, titreşimli elekte boyutlarına ayrılıp tozdan arındırılır.",
+        "en": "For feed below 1 mm, pellets are broken in a crumbler, then sized and de-dusted on a vibrating sieve.",
+        "ar": "للأعلاف التي يقل حجمها عن 1 mm، تُكسَّر الحبيبات في آلة التكسير، ثم تُصنَّف حسب الحجم ويُزال غبارها على غربال اهتزازي."
+      },
+      "machineKeys": [
+        "crumbler",
+        "vibrating-screen"
+      ],
+      "machines": [],
+      "image": "/img/archive/not64-13-resim13.png"
+    },
+    {
+      "n": 9,
+      "key": "packaging",
+      "title": {
+        "tr": "Paketleme",
+        "en": "Packaging",
+        "ar": "التعبئة"
+      },
+      "summary": {
+        "tr": "Hızlı paketleme makineleriyle üretim el değmeden, hızlı ve ekonomik biçimde tamamlanır.",
+        "en": "Rapid packaging machines complete production quickly, economically and untouched by hand.",
+        "ar": "تُنجز آلات التعبئة السريعة الإنتاج بسرعة وبتكلفة اقتصادية ودون تدخل يدوي."
+      },
+      "machineKeys": [
+        "packaging"
+      ],
+      "machines": [
+        "spk-398",
+        "spk-520",
+        "spk-720",
+        "spf-398",
+        "spk-500",
+        "sp-350",
+        "sp-50"
+      ],
+      "image": "/img/archive/not64-15-resim15.png"
+    }
+  ],
+  "millGenerations": [
+    {
+      "generation": 1,
+      "name": {
+        "tr": "Standart öğütme değirmeni",
+        "en": "Standard grinding machine (hammermill)",
+        "ar": "آلة الطحن القياسية (طاحونة مطرقية)"
+      },
+      "text": {
+        "tr": "Yüksek miktarda öğütme yapmak için uygun, granül yapıda tahıl ürünlerinin temel öğütülmesinde kullanılan çekiçli öğütme değirmeni.",
+        "en": "A hammermill suitable for grinding large amounts, used for the basic grinding of granular grains.",
+        "ar": "طاحونة مطرقية مناسبة لطحن كميات كبيرة، تُستخدم في الطحن الأساسي للحبوب الحبيبية."
+      },
+      "machine": "standart-ogutme-degirmeni",
+      "series": "SFSP56 / SFSP112",
+      "capacity": {
+        "tr": "2,5–16 ton/saat",
+        "en": "2.5–16 t/h",
+        "ar": "2.5–16 طن/ساعة"
+      },
+      "sieve": "3 mm",
+      "image": "/img/archive/not64-02-resim2.png"
+    },
+    {
+      "generation": 2,
+      "name": {
+        "tr": "Gelişmiş ince öğütme değirmeni",
+        "en": "Fine grinder",
+        "ar": "المطحنة الناعمة"
+      },
+      "text": {
+        "tr": "Yeni tasarım çekice sahip, daha ince öğütme için uygun; yem, tahıl, gıda, çevre koruma ve kimya endüstrilerinde kullanılır.",
+        "en": "Has a newly designed hammer, suitable for finer grinding in the feed, grain, food, environmental protection and chemical industries.",
+        "ar": "مزودة بمطرقة بتصميم جديد، ومناسبة للطحن الأنعم في صناعات الأعلاف والحبوب والأغذية وحماية البيئة والكيماويات."
+      },
+      "machine": "ince-ogutme-degirmeni",
+      "series": "SFSP65 A",
+      "capacity": {
+        "tr": "1,7–16,6 ton/saat",
+        "en": "1.7–16.6 t/h",
+        "ar": "1.7–16.6 طن/ساعة"
+      },
+      "sieve": "0,8 mm",
+      "image": "/img/archive/not64-03-resim3.png"
+    },
+    {
+      "generation": 3,
+      "name": {
+        "tr": "Mikro öğütme değirmeni",
+        "en": "Micro grinder (micro pulveriser)",
+        "ar": "المطحنة الدقيقة (المسحِّقة الدقيقة)"
+      },
+      "text": {
+        "tr": "Mikro öğütme için uygun, öğütüm inceliği ayarlanabilir; mikro pulverize balık yemi üretiminde kullanılır.",
+        "en": "Suitable for micro grinding with adjustable fineness; used in micro-pulverised fish feed production.",
+        "ar": "مناسبة للطحن الدقيق جدًا بنعومة قابلة للضبط؛ تُستخدم في إنتاج أعلاف الأسماك المسحوقة سحقًا دقيقًا."
+      },
+      "machine": "mikro-ogutme-degirmeni",
+      "series": "SFWL",
+      "capacity": {
+        "tr": "1,7–7 ton/saat",
+        "en": "1.7–7 t/h",
+        "ar": "1.7–7 طن/ساعة"
+      },
+      "fineness": {
+        "post": "10–100 µm",
+        "catalog": "30–140 µm"
+      },
+      "image": "/img/archive/not64-04-resim4.png"
+    }
+  ],
+  "featured": true,
+  "notes": [
+    "Başlıktaki 'EKTRUDE' yazım hatası 'ekstrüde' olarak düzeltildi; metindeki 'ekstruzyon' yazımları 'ekstrüzyon' olarak birleştirildi.",
+    "Mikro değirmen inceliği yazıda 10–100 µm, katalogda 30–140 µm.",
+    "Süreç görselleri (not64-*) katalog kırpıntıları; yeni tasarımda makine sayfalarındaki görsellerle değiştirilmesi önerilir. Görsel altyazıları archive.json'da."
+  ]
+}

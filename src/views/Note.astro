@@ -1,0 +1,375 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import Asset from '../components/Asset.astro';
+import MachineFigure from '../components/MachineFigure.astro';
+import NoteCard from '../components/NoteCard.astro';
+import NoteFigure from '../components/NoteFigure.astro';
+import manifest from '../generated/assets.json';
+import { pagesCopy } from '../i18n/pages';
+import { pick, t, formatDate, type Lang } from '../lib/i18n';
+import { href, type RouteKey } from '../lib/routes';
+import { postBySlug, postsSorted, NOTE_CATS } from '../lib/data';
+
+interface Props { lang: Lang; slug: string }
+const { lang, slug } = Astro.props;
+const p = postBySlug(slug)!;
+const c = pick(pagesCopy, lang).note;
+const blocks: any[] = p.body?.[lang] ?? (lang === 'ar' ? p.body?.en : undefined) ?? p.body?.tr ?? [];
+const images: any[] = p.images ?? [];
+const cover = images.find((i) => i.cover);
+const coverAsset: string | undefined = cover?.asset;
+const at = (i: any) => i.afterBlock?.[lang] ?? i.afterBlock?.tr;
+const inline = images.filter((i) => !i.cover && at(i) != null);
+const loose = images.filter((i) => !i.cover && at(i) == null);
+
+// Sections: every heading gets an anchor; a list whose items are exactly the headings becomes the note's process index.
+const heads = blocks.map((b, i) => ({ b, i })).filter((x) => x.b.type === 'h').map((x, n) => ({ i: x.i, n: n + 1, id: `s${n + 1}`, text: x.b.text as string }));
+const headAt = (i: number) => heads.find((h) => h.i === i);
+const idOf = (text: string) => heads.find((h) => h.text.trim().toLocaleLowerCase(lang) === String(text).trim().toLocaleLowerCase(lang))?.id;
+const isIndexList = (b: any) => b.type === 'list' && b.items.length > 2 && b.items.every((x: string) => idOf(x));
+const showToc = heads.length >= 3;
+
+// Figures are numbered in reading order.
+let figN = 0;
+const figsAfter = (idx: number) => inline.filter((i) => at(i) === idx).map((im) => ({ im, n: ++figN }));
+const rendered = blocks.map((b, i) => ({ b, i, head: headAt(i), figs: figsAfter(i) }));
+
+// The excerpt is shown as a standfirst only when it is not just the opening paragraph again.
+const excerpt: string = t(p.excerpt, lang) ?? '';
+const showDek = blocks.length >= 4 && excerpt && !String(blocks[0]?.text ?? '').startsWith(excerpt.slice(0, 40));
+
+const related: Record<number, [RouteKey, string | undefined, any][]> = {
+  64: [['lines', undefined, { tr: 'Yem ve gıda hatları', en: 'Feed & food lines', ar: 'خطوط الأعلاف والأغذية' }], ['line', 'kultur-baligi-yemi', { tr: 'Kültür balığı yemi hattı', en: 'Fish feed line', ar: 'خط أعلاف الأسماك' }], ['machine', 'sp85-ii', { tr: 'SP85-II ekstruder', en: 'SP85-II extruder', ar: 'آلة البثق SP85-II' }]],
+  65: [['algophyco', undefined, { tr: 'ALGOPHYCO spirulina', en: 'ALGOPHYCO spirulina', ar: 'سبيرولينا ALGOPHYCO' }]],
+  67: [['projects', undefined, { tr: 'Rotika vakası', en: 'The Rotika case', ar: 'حالة Rotika' }], ['line', 'evcil-hayvan-mamasi', { tr: 'Evcil hayvan maması hattı', en: 'Pet food line', ar: 'خط أغذية الحيوانات الأليفة' }]],
+};
+const rel = related[p.id] ?? [['projects', undefined, { tr: 'Projeler', en: 'Projects', ar: 'المشاريع' }]];
+const ML = { cap: { tr: 'Kapasite', en: 'Capacity', ar: 'السعة' }, sieve: { tr: 'Elek', en: 'Sieve', ar: 'المنخل' } };
+const millAsset = ['m-hammer-mill', 'n-fine-mill', 'n-micro-mill'];
+
+// Next = the next older note (wraps to the newest); the rest fill "more notes".
+const idx = postsSorted.findIndex((x) => x.id === p.id);
+const next = postsSorted[(idx + 1) % postsSorted.length];
+const others = postsSorted.filter((x) => x.id !== p.id && x.id !== next.id).slice(0, 3);
+
+const largest = (name?: string) => { const v = name ? (manifest as any)[name] : undefined; return v?.[v.length - 1]?.src; };
+const ogImg = largest(coverAsset) ?? cover?.file;
+const article = { '@context': 'https://schema.org', '@type': 'Article', headline: t(p.title, lang), datePublished: p.date, author: { '@type': 'Organization', name: 'Mavi Protein Danışmanlık' }, image: ogImg ? Astro.site!.origin + ogImg : undefined };
+const minLabel = { tr: 'dk okuma', en: 'min read', ar: 'دقائق قراءة' };
+---
+<Base lang={lang} title={t(p.title, lang)} description={excerpt.slice(0, 158)} route="note" slug={slug} startDark={false} gauge="reading" jsonLd={[article]}>
+  <article class="art s-light" data-surface="light">
+    <!-- Head: number and facts in the margin, the title given the whole measure, the plate below. -->
+    <header class="hd wrap">
+      <a class="label hd__back" href={href('notes', lang)}><Arrow dir="up" class="hd__ba" />{c.back}</a>
+      <div class="hd__grid">
+        <dl class="hd__facts mono">
+          <div><dt class="sr-only">No</dt><dd class="hd__no">MP·{p.id}</dd></div>
+          <div><dt class="sr-only">{lang === 'tr' ? 'Tarih' : lang === 'ar' ? 'التاريخ' : 'Date'}</dt><dd><time datetime={p.date}>{formatDate(p.date, lang)}</time></dd></div>
+          <div><dt class="sr-only">{lang === 'tr' ? 'Konu' : lang === 'ar' ? 'الموضوع' : 'Topic'}</dt><dd>{t(NOTE_CATS[p.category] ?? NOTE_CATS.firma, lang)}</dd></div>
+          {p.readingMinutes && <div><dt class="sr-only">{t(minLabel, lang)}</dt><dd>{p.readingMinutes} {t(minLabel, lang)}</dd></div>}
+        </dl>
+        <div class="hd__main">
+          <h1 class="hd__title">{t(p.title, lang)}</h1>
+          {showDek && <p class="hd__dek">{excerpt}</p>}
+        </div>
+      </div>
+    </header>
+
+    <figure class:list={['hd__plate wrap', { 'hd__plate--cover': cover }]}>
+      <div class="hd__sheet sheet" style={`view-transition-name:np-${p.id}`}>
+        <NoteFigure post={p} class="hd__fig" fit="meet" />
+        {coverAsset && <Asset name={coverAsset} alt={t(cover.caption, lang)} class="hd__cover" sizes="(max-width: 900px) 92vw, 70vw" loading="eager" fetchpriority="high" />}
+        {cover && !coverAsset && <img class="hd__cover hd__print" src={cover.file} alt={t(cover.caption, lang)} loading="eager" decoding="async" />}
+      </div>
+      {cover && <figcaption class="cap"><span class="cap__n mono">MP·{p.id}</span>{t(cover.caption, lang)}</figcaption>}
+    </figure>
+
+    <!-- Body: a single reading column; on wide screens the note's sections stay in the margin. -->
+    <div class:list={['rd wrap', { 'rd--toc': showToc }]}>
+      {showToc && (
+        <nav class="toc" aria-label={c.toc} data-toc>
+          <p class="label toc__l">{c.toc}</p>
+          <ol role="list">
+            {heads.map((h) => <li><a href={`#${h.id}`}><span class="mono">{String(h.n).padStart(2, '0')}</span>{h.text}</a></li>)}
+          </ol>
+        </nav>
+      )}
+      <div class="prose rd__text">
+        {rendered.map(({ b, i, head, figs }) => (
+          <>
+            {b.type === 'p' && <p class:list={{ lede: i === 0 }}>{b.text}</p>}
+            {b.type === 'h' && head && <h2 id={head.id} data-sec><span class="h2__n mono" aria-hidden="true">{String(head.n).padStart(2, '0')}</span>{b.text}</h2>}
+            {b.type === 'quote' && <blockquote>{b.text}</blockquote>}
+            {b.type === 'list' && (isIndexList(b)
+              ? <ol class="idx" role="list">{b.items.map((x: string, n: number) => <li><a href={`#${idOf(x)}`}><span class="mono">{String(n + 1).padStart(2, '0')}</span>{x}</a></li>)}</ol>
+              : <ul>{b.items.map((x: string) => <li>{x}</li>)}</ul>)}
+            {figs.map(({ im, n }) => im.asset ? (
+              <figure class="fig">
+                <div class="fig__sheet sheet"><Asset name={im.asset} alt={t(im.caption, lang)} class="fig__img" sizes="(max-width: 760px) 86vw, 640px" /></div>
+                <figcaption class="cap"><span class="cap__n mono">{c.fig} {n}</span>{t(im.caption, lang)}</figcaption>
+              </figure>
+            ) : (
+              <figure class="photo">
+                <img src={im.file} alt={t(im.caption, lang)} loading="lazy" decoding="async" />
+                <figcaption class="cap"><span class="cap__n mono">{c.fig} {n}</span>{t(im.caption, lang)}</figcaption>
+              </figure>
+            ))}
+          </>
+        ))}
+
+        {loose.length > 0 && (
+          <div class="gal">
+            {loose.map((im) => (
+              <figure class="gal__it">
+                <img src={im.file} alt={t(im.caption, lang)} loading="lazy" decoding="async" />
+                <figcaption class="cap">{t(im.caption, lang)}</figcaption>
+              </figure>
+            ))}
+          </div>
+        )}
+
+      </div>
+    </div>
+
+    {p.steps?.length > 0 && (
+      <section class="steps s-dark section" data-surface="dark" aria-labelledby="steps-title">
+        <div class="wrap">
+          <h2 id="steps-title" class="t-h2">{c.steps}</h2>
+          <ol class="steps__row" role="list">
+            {p.steps.map((s: any) => {
+              const key = s.machineKeys?.includes('extruder') ? 'extruder' : s.machineKeys?.[0];
+              const target = idOf(t(s.title, lang));
+              return (
+                <li>
+                  <a href={target ? `#${target}` : undefined}>
+                    <span class="steps__fig"><MachineFigure machineKey={key} alt="" /></span>
+                    <span class="steps__n mono">{String(s.n).padStart(2, '0')}</span>
+                    <h3 class="steps__t">{t(s.title, lang)}</h3>
+                    <p class="steps__s">{t(s.summary, lang)}</p>
+                  </a>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+      </section>
+    )}
+
+    {p.millGenerations?.length > 0 && (
+      <section class="mills section" aria-labelledby="mills-title">
+        <div class="wrap">
+          <h2 id="mills-title" class="t-h2">{c.mills}</h2>
+          <ol class="mills__row" role="list">
+            {p.millGenerations.map((g: any, k: number) => (
+              <li>
+                <div class="mills__sheet sheet"><span class="mills__gen mono">{g.generation}. {c.gen}</span>{millAsset[k] && <Asset name={millAsset[k]} alt="" class="mills__img" sizes="(max-width: 900px) 80vw, 28vw" />}</div>
+                <h3 class="mills__t serif">{t(g.name, lang)}</h3>
+                <p class="mills__x">{t(g.text, lang)}</p>
+                <dl>
+                  {g.series && <div><dt class="label">Model</dt><dd class="mono">{g.series}</dd></div>}
+                  {g.capacity && <div><dt class="label">{t(ML.cap, lang)}</dt><dd class="mono">{t(g.capacity, lang)}</dd></div>}
+                  {g.sieve && <div><dt class="label">{t(ML.sieve, lang)}</dt><dd class="mono">{g.sieve}</dd></div>}
+                </dl>
+                {g.machine && <a class="link" href={href('machine', lang, g.machine)}>{g.series ?? t(g.name, lang)} <Arrow /></a>}
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+    )}
+
+    <footer class="ft wrap">
+      <div class="ft__rel">
+        <p class="label">{c.related}</p>
+        <ul role="list">
+          {rel.map(([k, s, label]) => <li><a href={href(k, lang, s)}><span class="serif">{t(label, lang)}</span><Arrow /></a></li>)}
+        </ul>
+      </div>
+      <a class="nx" href={href('note', lang, next.slug)}>
+        <span class="nx__plate sheet" style={`view-transition-name:np-${next.id}`}><NoteFigure post={next} /></span>
+        <span class="nx__txt">
+          <span class="label">{c.nextNote}</span>
+          <span class="nx__t serif">{t(next.title, lang)}</span>
+          <span class="nx__go"><Arrow /></span>
+        </span>
+      </a>
+    </footer>
+  </article>
+
+  <section class="more section" aria-labelledby="more-title">
+    <div class="wrap">
+      <h2 id="more-title" class="label more__t">{c.next}</h2>
+      <div class="more__grid">{others.map((o) => <NoteCard post={o} lang={lang} />)}</div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Margin index follows the reader: the section whose heading last crossed the upper third is current.
+  const toc = document.querySelector<HTMLElement>('[data-toc]');
+  if (toc) {
+    const links = new Map([...toc.querySelectorAll<HTMLAnchorElement>('a')].map((a) => [a.hash.slice(1), a]));
+    const secs = [...document.querySelectorAll<HTMLElement>('[data-sec]')];
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const line = innerHeight * 0.33;
+      let cur: HTMLElement | undefined;
+      for (const s of secs) if (s.getBoundingClientRect().top < line) cur = s;
+      links.forEach((a, id) => a.toggleAttribute('aria-current', id === cur?.id));
+    };
+    addEventListener('scroll', () => { raf ||= requestAnimationFrame(update); }, { passive: true });
+    update();
+    // While the in-text process index is on screen the margin copy would only repeat it.
+    const idx = document.querySelector('.idx');
+    if (idx) new IntersectionObserver(([e]) => toc.toggleAttribute('data-quiet', e.isIntersecting)).observe(idx);
+  }
+</script>
+
+<style>
+  :global(html:has(.art)) { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { :global(html:has(.art)) { scroll-behavior: auto; } }
+
+  /* ---------- head ---------- */
+  .art { --measure: 40rem; padding-top: calc(var(--header-h) + clamp(28px, 4vw, 64px)); }
+  .hd__back { gap: 0.45rem; color: var(--ink-3); transition: color 300ms ease; }
+  .hd__back:hover { color: var(--ink); }
+  .hd__back :global(.hd__ba) { rotate: -90deg; width: 0.85rem; }
+  :global(html[dir='rtl']) .hd__back :global(.hd__ba) { rotate: 90deg; }
+  .hd__grid { display: grid; grid-template-columns: minmax(10rem, 1fr) minmax(0, 3.2fr); gap: 1.4rem var(--col-gap); margin-top: clamp(2.2rem, 5vw, 4.5rem); padding-bottom: clamp(2rem, 4vw, 3.5rem); }
+  .hd__facts { display: grid; gap: 0.35rem; align-content: start; margin: 0; padding-top: 0.9rem; border-top: 1px solid var(--rule-strong); font-size: 0.74rem; letter-spacing: 0.04em; color: var(--ink-2); text-transform: uppercase; }
+  .hd__facts dd { margin: 0; }
+  .hd__no { color: var(--brass); margin-bottom: 0.4rem !important; }
+  .hd__main { display: grid; gap: clamp(1.2rem, 2vw, 1.8rem); align-content: start; }
+  .hd__title {
+    font-family: var(--f-serif); font-optical-sizing: auto; font-weight: 330;
+    font-size: clamp(2.5rem, 1.3rem + 4.2vw, 5.6rem); line-height: 1; letter-spacing: -0.03em;
+    color: var(--ink); max-width: 17ch; text-wrap: balance;
+  }
+  .hd__dek { font-family: var(--f-serif); font-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.5rem); line-height: 1.45; color: var(--ink-2); max-width: 46ch; text-wrap: pretty; }
+  :global(html[dir='rtl']) .hd__title { font-weight: 500; letter-spacing: 0; line-height: 1.25; }
+  :global(html[dir='rtl']) .hd__facts { text-transform: none; letter-spacing: 0; }
+  @media (max-width: 760px) {
+    .hd__grid { grid-template-columns: 1fr; }
+    .hd__facts { order: 2; display: flex; flex-wrap: wrap; gap: 0.3rem 1.1rem; }
+    .hd__no { margin: 0 !important; }
+  }
+
+  /* plate */
+  .hd__plate { display: grid; gap: 0.8rem; margin-bottom: clamp(3rem, 6vw, 5.5rem); }
+  .hd__sheet { aspect-ratio: 21 / 9; --ti: 16px; }
+  .hd__sheet :global(.hd__fig) { position: absolute; inset: 0; }
+  .hd__sheet :global(.hd__fig) { --k: 0.5; inset: 6% 0; }
+  /* with a cover, the line figure becomes a small inset diagram in the corner */
+  .hd__plate--cover .hd__sheet :global(.hd__fig) { inset: auto 2.2% 4% auto; width: 19%; height: 34%; --k: 1.2; }
+  .hd__plate--cover .hd__sheet :global(.hd__cover) { inset: 8% 22% 8% 4%; width: 74%; height: 84%; }
+  .hd__sheet :global(.hd__cover) {
+    position: absolute; inset: 9% 8%; width: 84%; height: 82%; object-fit: contain;
+    filter: drop-shadow(0 26px 30px rgba(13, 27, 44, 0.16)) drop-shadow(0 4px 6px rgba(13, 27, 44, 0.12));
+    animation: hd-in 1400ms var(--ease-water) 120ms both;
+  }
+  @keyframes hd-in { from { opacity: 0; translate: 0 18px; scale: 0.985; } }
+  @media (max-width: 760px) { .hd__sheet { aspect-ratio: 4 / 3; } .hd__plate--cover .hd__sheet :global(.hd__fig) { width: 30%; height: 28%; } .hd__plate--cover .hd__sheet :global(.hd__cover) { inset: 6% 6% 26% 6%; width: 88%; height: 68%; } }
+
+  .cap { display: flex; gap: 0.9rem; align-items: baseline; font-size: 0.86rem; line-height: 1.45; color: var(--ink-3); text-wrap: pretty; }
+  .cap__n { flex: none; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brass); }
+
+  .photo { display: grid; gap: 0.7rem; margin-block: 2.4rem; }
+  .photo img { width: auto; max-width: 100%; max-height: min(72vh, 640px); height: auto; margin-inline: auto; border-radius: 2px; background: var(--foam-2); }
+
+  /* ---------- reading column ---------- */
+  .rd { display: grid; grid-template-columns: minmax(0, 1fr) min(var(--measure), 100%) minmax(0, 1fr); column-gap: var(--col-gap); padding-bottom: clamp(4rem, 8vw, 7rem); }
+  .rd__text { grid-column: 2; max-width: none; }
+  .toc { grid-column: 1; grid-row: 1; align-self: start; position: sticky; top: calc(var(--header-h) + 2rem); max-width: 15rem; }
+  .toc { transition: opacity 500ms var(--ease-water), translate 500ms var(--ease-water); }
+  .toc[data-quiet] { opacity: 0; translate: 0 8px; pointer-events: none; }
+  .toc__l { color: var(--ink-3); margin-bottom: 0.9rem; }
+  .toc ol { display: grid; gap: 0.15rem; border-inline-start: 1px solid var(--rule); }
+  .toc a { display: flex; gap: 0.7rem; padding: 0.32rem 0.9rem; margin-inline-start: -1px; border-inline-start: 1px solid transparent; font-size: 0.86rem; line-height: 1.35; color: var(--ink-3); transition: color 300ms ease, border-color 300ms ease; }
+  .toc a .mono { font-size: 0.68rem; padding-top: 0.15em; opacity: 0.7; }
+  .toc a:hover { color: var(--ink); }
+  .toc a[aria-current] { color: var(--ink); border-inline-start-color: var(--brass); }
+  .toc a[aria-current] .mono { color: var(--brass); opacity: 1; }
+  @media (max-width: 1180px) { .rd { grid-template-columns: minmax(0, 1fr); } .rd__text { grid-column: 1; max-width: var(--measure); margin-inline: auto; width: 100%; } .toc { display: none; } }
+
+  /* type tuned for long reading */
+  .rd__text { font-size: clamp(1.08rem, 1rem + 0.3vw, 1.2rem); line-height: 1.75; color: color-mix(in oklab, var(--ink) 82%, var(--ink-2)); font-kerning: normal; hyphens: auto; -webkit-hyphens: auto; hanging-punctuation: first; }
+  .rd__text :global(p) { text-wrap: pretty; }
+  .rd__text > :global(* + *) { margin-top: 1.15em; }
+  .rd__text .lede { font-family: var(--f-serif); font-size: clamp(1.35rem, 1.1rem + 0.8vw, 1.7rem); line-height: 1.45; color: var(--ink); letter-spacing: -0.01em; hyphens: manual; margin-bottom: 0.4em; }
+  .rd__text h2 { display: grid; gap: 0.55rem; font-size: clamp(1.6rem, 1.3rem + 1vw, 2.15rem); line-height: 1.15; letter-spacing: -0.015em; margin-top: 2.6em; padding-top: 1.1rem; border-top: 1px solid var(--rule); scroll-margin-top: calc(var(--header-h) + 1.5rem); hyphens: manual; }
+  .h2__n { font-size: 0.72rem; letter-spacing: 0.08em; color: var(--brass); font-weight: 400; }
+  .rd__text h2 + :global(p) { margin-top: 0.8em; }
+  .rd__text blockquote { margin-block: 2em; font-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.9rem); line-height: 1.3; font-style: normal; border-inline-start: 2px solid var(--brass); }
+  .rd__text ul { padding-inline-start: 1.1em; }
+
+  /* process index: the opening list turned into links to each section */
+  .idx { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(15rem, 100%), 1fr)); border-top: 1px solid var(--rule-strong); margin-block: 1.6em 0.6em !important; }
+  .idx li { margin: 0 !important; border-bottom: 1px solid var(--rule); }
+  .idx a { display: flex; gap: 0.9rem; align-items: baseline; padding: 0.7rem 0.2rem; font-size: 1rem; line-height: 1.3; color: var(--ink); transition: color 300ms ease, padding 400ms var(--ease-water); }
+  .idx a .mono { font-size: 0.7rem; color: var(--brass); }
+  .idx a:hover { color: var(--phyco); padding-inline-start: 0.6rem; }
+
+  /* figures: the machine set on its own plate */
+  .fig { display: grid; gap: 0.75rem; margin-block: 2.6em !important; }
+  .fig__sheet { aspect-ratio: 16 / 10; display: grid; place-items: center; }
+  .fig__sheet :global(.fig__img) { width: 82%; height: 80%; object-fit: contain; filter: drop-shadow(0 18px 22px rgba(13, 27, 44, 0.14)) drop-shadow(0 3px 5px rgba(13, 27, 44, 0.1)); }
+
+  .gal { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; margin-top: 2.6em !important; }
+  .gal__it { display: grid; gap: 0.5rem; align-content: start; }
+  .gal__it img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 2px; background: var(--foam-2); }
+  .gal__it .cap { font-size: 0.78rem; }
+
+
+  /* ---------- process strip ---------- */
+  .steps__row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 var(--col-gap); margin-top: 2.6rem; counter-reset: st; }
+  .steps__row a { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); grid-template-rows: auto auto 1fr; column-gap: 1.2rem; row-gap: 0.35rem; align-content: start; height: 100%; padding-block: 1.4rem 1.8rem; border-top: 1px solid var(--rule-light-strong); }
+  .steps__fig { grid-row: 1 / span 3; height: 6.5rem; display: grid; place-items: center; }
+  .steps__fig :global(.mfig) { height: 6.5rem; width: 100%; object-fit: contain; filter: drop-shadow(0 10px 12px rgba(0, 0, 0, 0.45)); transition: translate 600ms var(--ease-water); }
+  .steps__row a:hover :global(.mfig) { translate: 0 -5px; }
+  .steps__n { font-size: 0.72rem; color: var(--brass-2); letter-spacing: 0.08em; }
+  .steps__t { font-family: var(--f-serif); font-size: 1.3rem; font-weight: 400; line-height: 1.2; transition: color 300ms ease; }
+  .steps__row a:hover .steps__t { color: var(--phyco-soft); }
+  .steps__s { font-size: 0.9rem; line-height: 1.55; opacity: 0.7; }
+  @media (max-width: 1100px) { .steps__row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 680px) { .steps__row { grid-template-columns: 1fr; } .steps__row a { grid-template-columns: 6rem minmax(0, 1fr); } .steps__fig, .steps__fig :global(.mfig) { height: 5rem; } }
+
+  /* ---------- mill generations ---------- */
+  .mills__row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.4rem var(--col-gap); margin-top: 2.6rem; }
+  .mills__row li { display: grid; gap: 0.8rem; align-content: start; }
+  .mills__sheet { aspect-ratio: 4 / 3; display: grid; place-items: center; }
+  .mills__gen { position: absolute; top: 1rem; inset-inline-start: 1.5rem; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brass); }
+  .mills__sheet :global(.mills__img) { width: 76%; height: 74%; object-fit: contain; filter: drop-shadow(0 16px 18px rgba(13, 27, 44, 0.14)); }
+  .mills__t { font-size: 1.45rem; line-height: 1.2; margin-top: 0.4rem; }
+  .mills__x { color: var(--ink-2); line-height: 1.6; }
+  .mills__row dl { display: grid; gap: 0.3rem; border-top: 1px solid var(--rule); padding-top: 0.8rem; margin: 0; }
+  .mills__row dl > div { display: flex; justify-content: space-between; gap: 1rem; }
+  .mills__row dd { margin: 0; }
+  .mills__row .link { justify-self: start; display: inline-flex; align-items: center; gap: 0.45rem; margin-top: 0.3rem; }
+  .mills__row .link :global(svg) { width: 0.9em; }
+  @media (max-width: 900px) { .mills__row { grid-template-columns: 1fr; } }
+
+  /* ---------- foot ---------- */
+  .ft { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: 3rem var(--col-gap); padding-block: clamp(3.5rem, 7vw, 6rem); border-top: 1px solid var(--rule-strong); }
+  .ft__rel ul { margin-top: 1rem; border-top: 1px solid var(--rule); }
+  .ft__rel a { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-block: 1rem; border-bottom: 1px solid var(--rule); font-size: 1.25rem; transition: color 300ms ease; }
+  .ft__rel a:hover { color: var(--phyco); }
+  .nx { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: var(--col-gap); align-items: end; }
+  .nx__plate { display: block; aspect-ratio: 16 / 10; transition: box-shadow 500ms var(--ease-water); }
+  .nx__plate :global(.nfig) { position: absolute; inset: 0; }
+  .nx:hover .nx__plate { box-shadow: inset 0 0 0 1px var(--rule-strong); }
+  .nx__txt { display: grid; gap: 0.8rem; }
+  .nx__txt .label { color: var(--ink-3); }
+  .nx__t { font-size: clamp(1.5rem, 1.2rem + 1vw, 2.2rem); line-height: 1.12; letter-spacing: -0.015em; text-wrap: balance; }
+  .nx__go { color: var(--brass); transition: translate 500ms var(--ease-water); }
+  .nx:hover .nx__go { translate: 8px 0; }
+  :global(html[dir='rtl']) .nx__go { scale: -1 1; }
+  @media (max-width: 900px) { .ft, .nx { grid-template-columns: 1fr; } }
+
+  .more { border-top: 1px solid var(--rule); padding-top: clamp(3rem, 6vw, 5rem); }
+  .more__t { color: var(--ink-3); margin-bottom: 2rem; }
+  .more__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.4rem var(--col-gap); }
+  @media (max-width: 900px) { .more__grid { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,49 @@
+---
+/**
+ * Responsive <picture> for pipeline assets (design-assets/final → public/assets).
+ * Shadows are never baked in; add them with CSS `filter: drop-shadow()` per context.
+ */
+import manifest from '../generated/assets.json';
+interface Props {
+  name: string;
+  alt: string;
+  sizes?: string;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  style?: string;
+  vt?: string;
+  /** Ship the sources as data-src / data-srcset: a script decides when to fetch (e.g. the chain's later steps). */
+  defer?: boolean;
+  [key: string]: any;
+}
+const { name, alt, sizes = '(max-width: 760px) 92vw, 50vw', class: cls = '', loading = 'lazy', fetchpriority, style, vt, defer = false, ...rest } = Astro.props;
+const variants = (manifest as Record<string, { src: string; w: number; h: number }[]>)[name];
+const largest = variants?.[variants.length - 1];
+const vtStyle = vt ? `view-transition-name:${vt};` : '';
+const srcset = variants?.map((v) => `${v.src} ${v.w}w`).join(', ');
+---
+{variants ? (
+  <img
+    class:list={['asset', cls]}
+    src={defer ? undefined : largest!.src}
+    srcset={defer ? undefined : srcset}
+    data-src={defer ? largest!.src : undefined}
+    data-srcset={defer ? srcset : undefined}
+    sizes={sizes}
+    width={largest!.w}
+    height={largest!.h}
+    alt={alt}
+    loading={loading}
+    decoding="async"
+    fetchpriority={fetchpriority}
+    style={vtStyle + (style ?? '')}
+    data-asset={name}
+    {...rest}
+  />
+) : (
+  <span class:list={['asset asset--missing', cls]} role="img" aria-label={alt} data-asset={name} style={vtStyle + (style ?? '')} {...rest}></span>
+)}
+<style>
+  .asset--missing { display: block; aspect-ratio: 4 / 3; width: 100%; }
+</style>

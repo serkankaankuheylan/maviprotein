@@ -1,0 +1,3084 @@
+{
+  "families": [
+    {
+      "key": "extruders",
+      "name": {
+        "tr": "Ekstruderler",
+        "en": "Extruders",
+        "ar": "الباثقات"
+      },
+      "intro": [
+        {
+          "tr": "Çift vidalı ekstrüder, malzeme akış yönünde açılı buhar enjektörleri sayesinde buharın ürünlere karışmasına izin veren özel vida profili ile çeşitli balık yemleri, köpek mamaları, akvaryum yemleri, et benzeri ürünler ve tek vidalı ekstrüder tarafından işlenemeyen ürünlerin pişirilmesine ve kalıplanmasına uygundur. Özel köpek mamaları üretmek için %50'ye kadar taze et (kuru tarifin yüzdesi olarak) ve değişiklik yapmadan %40'a kadar nem ile çalışabilir.",
+          "en": "The twin-screw extruder is suitable for cooking and moulding various kinds of fish feed, dog food, aquarium feed, meat analogues and products that cannot be processed by a single-screw extruder, thanks to angled steam injector ports oriented in the direction of material flow and a unique screw profile that allows steam to be mixed into the product. It can be used to produce special dog foods and treats with up to 50 percent fresh meat (as a percent of the dry recipe) and up to 40 percent moisture without changes.",
+          "ar": "تناسب الباثقة ثنائية اللولب طهي وتشكيل أنواع مختلفة من أعلاف الأسماك وأغذية الكلاب وأعلاف أسماك الزينة وبدائل اللحوم، والمنتجات التي لا يمكن معالجتها بالباثقة أحادية اللولب، وذلك بفضل فتحات حقن البخار المائلة الموجّهة في اتجاه تدفق المادة، وتصميم لولب فريد يتيح مزج البخار بالمنتج. ويمكن استخدامها لإنتاج أغذية ومكافآت خاصة للكلاب تحتوي على ما يصل إلى 50 بالمئة من اللحم الطازج (نسبةً إلى الوصفة الجافة) وما يصل إلى 40 بالمئة من الرطوبة دون الحاجة إلى تعديلات."
+        },
+        {
+          "tr": "Ana gövde (kovan), içinde vidanın çok küçük açıklıkla döndüğü bir silindirdir. Genellikle kovan aşınımı azaltmak için direnç kaplamasıyla sertleştirilmiştir. Vida, çoğu zaman nitrürlenerek, bazen de çeşitli vida adımlarıyla hassasiyetle işlenmiştir. Segmentlerin değişen düzeneği sayesinde (karıştırma elemanı, yoğurma elemanı ve buhar bloğu) ekstrüder farklı ürünlerin gereksinimlerini karşılayabilir. Yüksek tork koşulları altında olsa bile özel dişli kutusu tasarımı yardımıyla maksimum iletim verimliliğiyle motorun hareketi vidaya aktarılır. Dişli kutusunun içindeki tahrik ve baskı yatağı özel tasarımdır. Rulmanların yağlanması ve soğutulması için soğutma sistemi içeren bir hazne mevcuttur. Ekstrüder bağımsız bir kontrol paneli tarafından kontrol edilir.",
+          "en": "The barrel is a cylinder within which the screw turns with very close clearance. The barrel is usually hardened to reduce wear, with a resistance jacket. The screw is precisely machined, often with nitriding treatment and sometimes with varying pitch. By changing the assembly of segments (mixing element, kneading element and steam block), the extruder can meet the requirements of different products. The movement of the motor is transferred to the screw through a specially designed gearbox for maximum transmission efficiency even under adverse high-torque conditions. The drive and thrust bearing in the gearbox are of a special design. A sump including a cooling system is available for the lubrication and cooling of the bearings. The extruder is controlled through an independent control panel.",
+          "ar": "الأسطوانة (البرميل) أنبوب يدور داخله اللولب بخلوص ضئيل جدًا، وتُقسّى عادةً للحد من التآكل وتُزوَّد بغلاف مقاوم. أما اللولب فيُشغَّل بدقة، وغالبًا ما يُعالج بالنترجة، وأحيانًا بخطوة متغيرة. وبتغيير تجميع المقاطع (عنصر الخلط، وعنصر العجن، وكتلة البخار) يمكن للباثقة تلبية متطلبات المنتجات المختلفة. تنتقل حركة المحرك إلى اللولب عبر علبة تروس مصممة خصيصًا لتحقيق أقصى كفاءة نقل حتى في ظروف عزم الدوران العالي الصعبة، وتتميز محامل الإدارة والدفع في علبة التروس بتصميم خاص. ويتوفر حوض يضم نظام تبريد لتزييت المحامل وتبريدها. ويُتحكم بالباثقة عبر لوحة تحكم مستقلة."
+        }
+      ],
+      "models": [
+        {
+          "slug": "sp95-ii",
+          "model": "SP95-II",
+          "name": {
+            "tr": "SP95-II çift vidalı ekstruder sistemi",
+            "en": "SP95-II double screw extruder system",
+            "ar": "نظام الباثقة ثنائية اللولب SP95-II"
+          },
+          "description": [
+            {
+              "tr": "Çift vidalı ekstrüder, malzeme akış yönünde açılı buhar enjektörleri sayesinde buharın ürünlere karışmasına izin veren özel vida profili ile çeşitli balık yemleri, köpek mamaları, akvaryum yemleri, et benzeri ürünler ve tek vidalı ekstrüder tarafından işlenemeyen ürünlerin pişirilmesine ve kalıplanmasına uygundur. Özel köpek mamaları üretmek için %50'ye kadar taze et (kuru tarifin yüzdesi olarak) ve değişiklik yapmadan %40'a kadar nem ile çalışabilir.",
+              "en": "The twin-screw extruder is suitable for cooking and moulding various kinds of fish feed, dog food, aquarium feed, meat analogues and products that cannot be processed by a single-screw extruder, thanks to angled steam injector ports oriented in the direction of material flow and a unique screw profile that allows steam to be mixed into the product. It can be used to produce special dog foods and treats with up to 50 percent fresh meat (as a percent of the dry recipe) and up to 40 percent moisture without changes.",
+              "ar": "تناسب الباثقة ثنائية اللولب طهي وتشكيل أنواع مختلفة من أعلاف الأسماك وأغذية الكلاب وأعلاف أسماك الزينة وبدائل اللحوم، والمنتجات التي لا يمكن معالجتها بالباثقة أحادية اللولب، وذلك بفضل فتحات حقن البخار المائلة الموجّهة في اتجاه تدفق المادة، وتصميم لولب فريد يتيح مزج البخار بالمنتج. ويمكن استخدامها لإنتاج أغذية ومكافآت خاصة للكلاب تحتوي على ما يصل إلى 50 بالمئة من اللحم الطازج (نسبةً إلى الوصفة الجافة) وما يصل إلى 40 بالمئة من الرطوبة دون الحاجة إلى تعديلات."
+            },
+            {
+              "tr": "Ana gövde (kovan), içinde vidanın çok küçük açıklıkla döndüğü bir silindirdir. Genellikle kovan aşınımı azaltmak için direnç kaplamasıyla sertleştirilmiştir. Vida, çoğu zaman nitrürlenerek, bazen de çeşitli vida adımlarıyla hassasiyetle işlenmiştir. Segmentlerin değişen düzeneği sayesinde (karıştırma elemanı, yoğurma elemanı ve buhar bloğu) ekstrüder farklı ürünlerin gereksinimlerini karşılayabilir. Yüksek tork koşulları altında olsa bile özel dişli kutusu tasarımı yardımıyla maksimum iletim verimliliğiyle motorun hareketi vidaya aktarılır. Dişli kutusunun içindeki tahrik ve baskı yatağı özel tasarımdır. Rulmanların yağlanması ve soğutulması için soğutma sistemi içeren bir hazne mevcuttur. Ekstrüder bağımsız bir kontrol paneli tarafından kontrol edilir.",
+              "en": "The barrel is a cylinder within which the screw turns with very close clearance. The barrel is usually hardened to reduce wear, with a resistance jacket. The screw is precisely machined, often with nitriding treatment and sometimes with varying pitch. By changing the assembly of segments (mixing element, kneading element and steam block), the extruder can meet the requirements of different products. The movement of the motor is transferred to the screw through a specially designed gearbox for maximum transmission efficiency even under adverse high-torque conditions. The drive and thrust bearing in the gearbox are of a special design. A sump including a cooling system is available for the lubrication and cooling of the bearings. The extruder is controlled through an independent control panel.",
+              "ar": "الأسطوانة (البرميل) أنبوب يدور داخله اللولب بخلوص ضئيل جدًا، وتُقسّى عادةً للحد من التآكل وتُزوَّد بغلاف مقاوم. أما اللولب فيُشغَّل بدقة، وغالبًا ما يُعالج بالنترجة، وأحيانًا بخطوة متغيرة. وبتغيير تجميع المقاطع (عنصر الخلط، وعنصر العجن، وكتلة البخار) يمكن للباثقة تلبية متطلبات المنتجات المختلفة. تنتقل حركة المحرك إلى اللولب عبر علبة تروس مصممة خصيصًا لتحقيق أقصى كفاءة نقل حتى في ظروف عزم الدوران العالي الصعبة، وتتميز محامل الإدارة والدفع في علبة التروس بتصميم خاص. ويتوفر حوض يضم نظام تبريد لتزييت المحامل وتبريدها. ويُتحكم بالباثقة عبر لوحة تحكم مستقلة."
+            }
+          ],
+          "features": [],
+          "components": [
+            {
+              "tr": "Besleme sistemi",
+              "en": "Feeding system",
+              "ar": "نظام التغذية"
+            },
+            {
+              "tr": "Ekstrüzyon sistemi",
+              "en": "Extrusion system",
+              "ar": "نظام البثق"
+            },
+            {
+              "tr": "Kesme sistemi",
+              "en": "Cutting system",
+              "ar": "نظام القطع"
+            },
+            {
+              "tr": "Yağlama sistemi",
+              "en": "Lubrication system",
+              "ar": "نظام التزييت"
+            }
+          ],
+          "materials": null,
+          "specs": [
+            {
+              "key": "installedPower",
+              "label": {
+                "tr": "Kurulu güç",
+                "en": "Installed power",
+                "ar": "القدرة المركّبة"
+              },
+              "value": "98 kW"
+            },
+            {
+              "key": "mainMotor",
+              "label": {
+                "tr": "Ana motor gücü",
+                "en": "Main motor power",
+                "ar": "قدرة المحرك الرئيسي"
+              },
+              "value": "90 kW / 110 kW"
+            },
+            {
+              "key": "screwDiameter",
+              "label": {
+                "tr": "Vida çapı",
+                "en": "Screw diameter",
+                "ar": "قطر اللولب"
+              },
+              "value": "95 mm"
+            },
+            {
+              "key": "capacity",
+              "label": {
+                "tr": "Kapasite",
+                "en": "Capacity",
+                "ar": "الطاقة الإنتاجية"
+              },
+              "value": {
+                "tr": "800–1200 kg/saat",
+                "en": "800–1200 kg/h",
+                "ar": "800–1200 كغ/ساعة"
+              }
+            },
+            {
+              "key": "dimensions",
+              "label": {
+                "tr": "Boyutlar (U × G × Y)",
+                "en": "Dimensions (L × W × H)",
+                "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+              },
+              "value": "5000 × 1700 × 2100 mm"
+            }
+          ],
+          "catalogPage": 40,
+          "usedInLines": [],
+          "type": "twin-screw",
+          "capacityKgH": {
+            "min": 800,
+            "max": 1200
+          }
+        },
+        {
+          "slug": "sp85-ii",
+          "model": "SP85-II",
+          "name": {
+            "tr": "SP85-II çift vidalı ekstruder sistemi",
+            "en": "SP85-II double screw extruder system",
+            "ar": "نظام الباثقة ثنائية اللولب SP85-II"
+          },
+          "description": [
+            {
+              "tr": "Çift vidalı ekstrüder, malzeme akış yönünde açılı buhar enjektörleri sayesinde buharın ürünlere karışmasına izin veren özel vida profili ile çeşitli balık yemleri, köpek mamaları, akvaryum yemleri, et benzeri ürünler ve tek vidalı ekstrüder tarafından işlenemeyen ürünlerin pişirilmesine ve kalıplanmasına uygundur. Özel köpek mamaları üretmek için %50'ye kadar taze et (kuru tarifin yüzdesi olarak) ve değişiklik yapmadan %40'a kadar nem ile çalışabilir.",
+              "en": "The twin-screw extruder is suitable for cooking and moulding various kinds of fish feed, dog food, aquarium feed, meat analogues and products that cannot be processed by a single-screw extruder, thanks to angled steam injector ports oriented in the direction of material flow and a unique screw profile that allows steam to be mixed into the product. It can be used to produce special dog foods and treats with up to 50 percent fresh meat (as a percent of the dry recipe) and up to 40 percent moisture without changes.",
+              "ar": "تناسب الباثقة ثنائية اللولب طهي وتشكيل أنواع مختلفة من أعلاف الأسماك وأغذية الكلاب وأعلاف أسماك الزينة وبدائل اللحوم، والمنتجات التي لا يمكن معالجتها بالباثقة أحادية اللولب، وذلك بفضل فتحات حقن البخار المائلة الموجّهة في اتجاه تدفق المادة، وتصميم لولب فريد يتيح مزج البخار بالمنتج. ويمكن استخدامها لإنتاج أغذية ومكافآت خاصة للكلاب تحتوي على ما يصل إلى 50 بالمئة من اللحم الطازج (نسبةً إلى الوصفة الجافة) وما يصل إلى 40 بالمئة من الرطوبة دون الحاجة إلى تعديلات."
+            },
+            {
+              "tr": "Ana gövde (kovan), içinde vidanın çok küçük açıklıkla döndüğü bir silindirdir. Genellikle kovan aşınımı azaltmak için direnç kaplamasıyla sertleştirilmiştir. Vida, çoğu zaman nitrürlenerek, bazen de çeşitli vida adımlarıyla hassasiyetle işlenmiştir. Segmentlerin değişen düzeneği sayesinde (karıştırma elemanı, yoğurma elemanı ve buhar bloğu) ekstrüder farklı ürünlerin gereksinimlerini karşılayabilir. Yüksek tork koşulları altında olsa bile özel dişli kutusu tasarımı yardımıyla maksimum iletim verimliliğiyle motorun hareketi vidaya aktarılır. Dişli kutusunun içindeki tahrik ve baskı yatağı özel tasarımdır. Rulmanların yağlanması ve soğutulması için soğutma sistemi içeren bir hazne mevcuttur. Ekstrüder bağımsız bir kontrol paneli tarafından kontrol edilir.",
+              "en": "The barrel is a cylinder within which the screw turns with very close clearance. The barrel is usually hardened to reduce wear, with a resistance jacket. The screw is precisely machined, often with nitriding treatment and sometimes with varying pitch. By changing the assembly of segments (mixing element, kneading element and steam block), the extruder can meet the requirements of different products. The movement of the motor is transferred to the screw through a specially designed gearbox for maximum transmission efficiency even under adverse high-torque conditions. The drive and thrust bearing in the gearbox are of a special design. A sump including a cooling system is available for the lubrication and cooling of the bearings. The extruder is controlled through an independent control panel.",
+              "ar": "الأسطوانة (البرميل) أنبوب يدور داخله اللولب بخلوص ضئيل جدًا، وتُقسّى عادةً للحد من التآكل وتُزوَّد بغلاف مقاوم. أما اللولب فيُشغَّل بدقة، وغالبًا ما يُعالج بالنترجة، وأحيانًا بخطوة متغيرة. وبتغيير تجميع المقاطع (عنصر الخلط، وعنصر العجن، وكتلة البخار) يمكن للباثقة تلبية متطلبات المنتجات المختلفة. تنتقل حركة المحرك إلى اللولب عبر علبة تروس مصممة خصيصًا لتحقيق أقصى كفاءة نقل حتى في ظروف عزم الدوران العالي الصعبة، وتتميز محامل الإدارة والدفع في علبة التروس بتصميم خاص. ويتوفر حوض يضم نظام تبريد لتزييت المحامل وتبريدها. ويُتحكم بالباثقة عبر لوحة تحكم مستقلة."
+            }
+          ],
+          "features": [
+            {
+              "tr": "Ana motor, kesici ve besleyicideki frekans hız kontrol sistemi, makine performansının sabitliğini ve korunmasını sağlar.",
+              "en": "Frequency speed control on the main motor, cutter and feeder ensures stable machine performance and savings.",
+              "ar": "يضمن التحكم في السرعة بمحوّل التردد في المحرك الرئيسي والقاطع والمغذّي أداءً مستقرًا للآلة وتوفيرًا في الطاقة."
+            },
+            {
+              "tr": "Zorlanmış yağlama sistemi, ekipmanlardaki aktarımın uzun ömürlü olmasını garanti eder. Yağ kutusu 3 mm çelik plakadan yapılır; 12 mm'lik kapalı boru yüksek basınca (300 psi) dayanır, bağlantı şekli kelepçelidir.",
+              "en": "The forced lubrication system guarantees a longer transmission life. The oil box is made of 3 mm steel plate; the sealed 12 mm tube withstands high pressure (300 psi), with clip-type connections.",
+              "ar": "يضمن نظام التزييت القسري عمرًا أطول لمجموعة النقل. صندوق الزيت مصنوع من صفيحة فولاذية بسماكة 3 mm، والأنبوب المحكم بقطر 12 mm يتحمل ضغطًا عاليًا (300 psi)، مع وصلات من نوع المشابك."
+            },
+            {
+              "tr": "Görünür otomatik sıcaklık kontrol sistemi, sıcaklık kontrolünü daha doğru ve kesin hale getirir.",
+              "en": "The visible automatic temperature control system makes temperature control more direct and parameters more precise.",
+              "ar": "يجعل نظام التحكم الأوتوماتيكي المرئي في درجة الحرارة ضبطَ الحرارة أكثر مباشرة والمعايير أكثر دقة."
+            },
+            {
+              "tr": "Kendini temizleyen, segmentli 38CrMoAl ikiz vida.",
+              "en": "Self-cleaning, segmented 38CrMoAl twin screw.",
+              "ar": "لولب مزدوج مقطّعي ذاتي التنظيف من 38CrMoAl."
+            },
+            {
+              "tr": "Gerekirse su soğutma; opsiyonel dökme alüminyum ısıtıcı.",
+              "en": "Water cooling when required; optional cast aluminium heater.",
+              "ar": "تبريد مائي عند الحاجة؛ سخان اختياري من الألومنيوم المصبوب."
+            }
+          ],
+          "components": [
+            {
+              "tr": "Besleme sistemi",
+              "en": "Feeding system",
+              "ar": "نظام التغذية"
+            },
+            {
+              "tr": "Ekstrüzyon sistemi",
+              "en": "Extrusion system",
+              "ar": "نظام البثق"
+            },
+            {
+              "tr": "Kesme sistemi",
+              "en": "Cutting system",
+              "ar": "نظام القطع"
+            },
+            {
+              "tr": "Yağlama sistemi",
+              "en": "Lubrication system",
+              "ar": "نظام التزييت"
+            }
+          ],
+          "materials": {
+            "tr": "Kovan ve ikiz vida 38CrMoAl (vida nitrürlenmiş), kovan sertliği ~HRC60; besleme silosu ve bant ısıtıcılar paslanmaz çelik; yağ kutusu 3 mm çelik plaka; platform 10 mm çelik plaka ve 7 takviye çubuğu.",
+            "en": "Barrel and twin screw in 38CrMoAl (screw nitrided), barrel hardness ~HRC60; feeding hopper and band heaters in stainless steel; oil box of 3 mm steel plate; platform of 10 mm steel plate with 7 reinforcing bars.",
+            "ar": "الأسطوانة واللولب المزدوج من 38CrMoAl (اللولب معالج بالنترجة)، وصلادة الأسطوانة نحو HRC60؛ قمع التغذية والسخانات الحزامية من الفولاذ المقاوم للصدأ؛ صندوق الزيت من صفيحة فولاذية بسماكة 3 mm؛ المنصة من صفيحة فولاذية بسماكة 10 mm مع 7 قضبان تقوية."
+          },
+          "specs": [
+            {
+              "key": "installedPower",
+              "label": {
+                "tr": "Kurulu güç",
+                "en": "Installed power",
+                "ar": "القدرة المركّبة"
+              },
+              "value": "100 kW"
+            },
+            {
+              "key": "mainMotor",
+              "label": {
+                "tr": "Ana motor gücü",
+                "en": "Main motor power",
+                "ar": "قدرة المحرك الرئيسي"
+              },
+              "value": "75 kW / 110 kW"
+            },
+            {
+              "key": "screwDiameter",
+              "label": {
+                "tr": "Vida çapı",
+                "en": "Screw diameter",
+                "ar": "قطر اللولب"
+              },
+              "value": "85 mm"
+            },
+            {
+              "key": "capacity",
+              "label": {
+                "tr": "Kapasite",
+                "en": "Capacity",
+                "ar": "الطاقة الإنتاجية"
+              },
+              "value": {
+                "tr": "450–500 kg/saat",
+                "en": "450–500 kg/h",
+                "ar": "450–500 كغ/ساعة"
+              }
+            },
+            {
+              "key": "dimensions",
+              "label": {
+                "tr": "Boyutlar (U × G × Y)",
+                "en": "Dimensions (L × W × H)",
+                "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+              },
+              "value": "4600 × 1100 × 2000 mm"
+            }
+          ],
+          "catalogPage": 41,
+          "usedInLines": [
+            "hayvancilik-yemi",
+            "akvaryum-yemi",
+            "kultur-baligi-yemi",
+            "evcil-hayvan-mamasi",
+            "misir-gevregi-kahvaltilik-tahil",
+            "bebek-mamasi",
+            "jelatinize-modifiye-nisasta",
+            "yapay-pirinc"
+          ],
+          "type": "twin-screw",
+          "capacityKgH": {
+            "min": 450,
+            "max": 500
+          },
+          "anatomy": [
+            {
+              "key": "feeding",
+              "title": {
+                "tr": "Besleme silosu",
+                "en": "Feeding hopper",
+                "ar": "قمع التغذية"
+              },
+              "text": {
+                "tr": "Vida besleme silosu paslanmaz çelikten yapılmış olup 0,75 kW güç üreten bir motora sahiptir. Besleme silosunun içinde 2 adet karıştırıcı bulunur.",
+                "en": "The screw feeding hopper is made of stainless steel and driven by a 0.75 kW motor. There are 2 mixing agitators in the feeding hopper.",
+                "ar": "قمع التغذية اللولبي مصنوع من الفولاذ المقاوم للصدأ ويُدار بمحرك بقدرة 0.75 kW، ويحتوي على خلّاطين للتقليب."
+              },
+              "facts": [
+                {
+                  "label": {
+                    "tr": "Malzeme",
+                    "en": "Material",
+                    "ar": "المادة"
+                  },
+                  "value": {
+                    "tr": "Paslanmaz çelik",
+                    "en": "Stainless steel",
+                    "ar": "الفولاذ المقاوم للصدأ"
+                  }
+                },
+                {
+                  "label": {
+                    "tr": "Motor",
+                    "en": "Motor",
+                    "ar": "المحرك"
+                  },
+                  "value": {
+                    "tr": "0,75 kW",
+                    "en": "0.75 kW",
+                    "ar": "0.75 kW"
+                  }
+                },
+                {
+                  "label": {
+                    "tr": "Karıştırıcı",
+                    "en": "Agitators",
+                    "ar": "خلّاطات التقليب"
+                  },
+                  "value": "2"
+                }
+              ]
+            },
+            {
+              "key": "barrel",
+              "title": {
+                "tr": "Ekstrüzyon kovanı",
+                "en": "Extrusion barrel",
+                "ar": "أسطوانة البثق"
+              },
+              "text": {
+                "tr": "Ekstrüzyon kovanı 38CrMoAl'dan yapılır. Sertlik derecesi HRC60 civarındadır. Kovanı tutan 3 destek kolu vardır. Çelik plaka 10 mm kalınlığındadır. Çelik platformun dayanımını artırmak ve redüktör ile dişli kutusu arasındaki dengeyi sağlamak için 7 çelik çubuk mevcuttur.",
+                "en": "The extrusion barrel is made of 38CrMoAl. The hardness is around HRC60. There are three barrel supports holding the barrel. The steel plate is 10 mm thick. Seven steel bars strengthen the steel platform and balance the reducer and the gearbox.",
+                "ar": "أسطوانة البثق مصنوعة من 38CrMoAl، وتبلغ صلادتها نحو HRC60. وتحمل الأسطوانةَ ثلاثةُ دعامات، وتبلغ سماكة الصفيحة الفولاذية 10 mm، فيما تُقوّي سبعة قضبان فولاذية المنصةَ الفولاذية وتحقق التوازن بين المخفّض وعلبة التروس."
+              },
+              "facts": [
+                {
+                  "label": {
+                    "tr": "Malzeme",
+                    "en": "Material",
+                    "ar": "المادة"
+                  },
+                  "value": "38CrMoAl"
+                },
+                {
+                  "label": {
+                    "tr": "Sertlik",
+                    "en": "Hardness",
+                    "ar": "الصلادة"
+                  },
+                  "value": "~HRC60"
+                },
+                {
+                  "label": {
+                    "tr": "Destek kolu",
+                    "en": "Barrel supports",
+                    "ar": "دعامات الأسطوانة"
+                  },
+                  "value": "3"
+                },
+                {
+                  "label": {
+                    "tr": "Çelik plaka",
+                    "en": "Steel plate",
+                    "ar": "صفيحة فولاذية"
+                  },
+                  "value": "10 mm"
+                },
+                {
+                  "label": {
+                    "tr": "Takviye çubuğu",
+                    "en": "Reinforcing bars",
+                    "ar": "قضبان التقوية"
+                  },
+                  "value": "7"
+                }
+              ]
+            },
+            {
+              "key": "extrusion",
+              "title": {
+                "tr": "Ekstrüzyon sistemi",
+                "en": "Extrusion system",
+                "ar": "نظام البثق"
+              },
+              "text": {
+                "tr": "Ekstrüzyon mekanizması 75 kW'lık bir motora sahiptir. Kaplama ve vida özel olarak sertleştirilmiş ve temperlenmiş çelikten yapılır. Bu özel çelik işlemenin türü ve kalitesi parçalara daha uzun ömür sağlar. Daha pürüzsüz, parlak ve sert olması için redüktörün içindeki dişli ısıl işlemden geçirilmiş ve taşlanmıştır.",
+                "en": "The extrusion mechanism is driven by a 75 kW motor. The jacket and the screw are made of specially hardened and tempered steel; the type and quality of this steel treatment give the parts a longer service life. The gear in the reducer is heat-treated for hardness and finished on a grinding machine, so the surface is smoother and shinier.",
+                "ar": "تُدار آلية البثق بمحرك بقدرة 75 kW. والغلاف واللولب مصنوعان من فولاذ مقسّى ومُطبَّع خصيصًا، ويمنح نوع هذه المعالجة وجودتها الأجزاءَ عمرَ خدمة أطول. أما ترس المخفّض فيُعالج حراريًا لزيادة صلادته ثم يُشطَّب على آلة تجليخ، فيصبح سطحه أنعم وأكثر لمعانًا."
+              },
+              "facts": [
+                {
+                  "label": {
+                    "tr": "Ana motor",
+                    "en": "Main motor",
+                    "ar": "المحرك الرئيسي"
+                  },
+                  "value": "75 kW"
+                }
+              ]
+            },
+            {
+              "key": "twin-screw",
+              "title": {
+                "tr": "İkiz vida",
+                "en": "Twin screw",
+                "ar": "اللولب المزدوج"
+              },
+              "text": {
+                "tr": "Vida, özel bir malzeme olan 38CrMoAl'dan yapılmış ve nitrürlenmiştir. Karıştırma elemanı, kesme elemanı, yoğurma elemanı, buhar bloğu gibi özel ürün gereksinimleri için bölünmüş (segmentli) vida mevcuttur. Bağlama çubuğu muhafazası tarafından korunan ekstrüder kovanı ve dişli kutusu arasında 2 bağlama çubuğu bulunur. Vidalar kendini temizleme özelliğine sahiptir.",
+                "en": "The screw is made of 38CrMoAl by a special process and nitrided. Segmented screws are available for special product requirements, including mixing flights, cut flights, kneading elements and steam blocks. Two coupling sticks connect the extruder barrel and the gearbox, protected by a coupling housing. The screws are self-cleaning.",
+                "ar": "يُصنع اللولب من 38CrMoAl بعملية خاصة ويُعالج بالنترجة. وتتوفر لوالب مقطّعية لمتطلبات المنتجات الخاصة، تشمل أجنحة الخلط والأجنحة المقطوعة وعناصر العجن وكتل البخار. ويربط قضيبا اقتران أسطوانةَ الباثقة بعلبة التروس، ويحميهما غلاف الاقتران. واللوالب ذاتية التنظيف."
+              },
+              "facts": [
+                {
+                  "label": {
+                    "tr": "Malzeme",
+                    "en": "Material",
+                    "ar": "المادة"
+                  },
+                  "value": {
+                    "tr": "38CrMoAl, nitrürlenmiş",
+                    "en": "38CrMoAl, nitrided",
+                    "ar": "38CrMoAl، معالج بالنترجة"
+                  }
+                },
+                {
+                  "label": {
+                    "tr": "Bağlama çubuğu",
+                    "en": "Coupling sticks",
+                    "ar": "قضبان الاقتران"
+                  },
+                  "value": "2"
+                },
+                {
+                  "label": {
+                    "tr": "Kendini temizleme",
+                    "en": "Self-cleaning",
+                    "ar": "التنظيف الذاتي"
+                  },
+                  "value": {
+                    "tr": "Var",
+                    "en": "Yes",
+                    "ar": "نعم"
+                  }
+                }
+              ]
+            },
+            {
+              "key": "cutting",
+              "title": {
+                "tr": "Kesme sistemi",
+                "en": "Cutting system",
+                "ar": "نظام القطع"
+              },
+              "text": {
+                "tr": "Çıkış üzerinde buhar tahliyesi bulunan hareketli bir kesme sistemi ve ürün kutusuna düşen ürünün nemini uzaklaştırmak için bir fan mevcuttur.",
+                "en": "A movable cutting system with steam venting above the exit and a fan to remove moisture above the product box.",
+                "ar": "نظام قطع متحرك مع تصريف للبخار فوق المخرج ومروحة لإزالة الرطوبة فوق صندوق المنتج."
+              },
+              "facts": []
+            },
+            {
+              "key": "heating",
+              "title": {
+                "tr": "Isıtma sistemi",
+                "en": "Heating system",
+                "ar": "نظام التسخين"
+              },
+              "text": {
+                "tr": "Kovan bant ısıtıcılarla ısıtılır. Bant ısıtıcıların boyutları 168 × 70 mm ve 198 × 110 mm olup paslanmaz çelikten üretilmiştir. Dökme alüminyum ısıtıcı opsiyon olarak sunulur. Gerekirse suyla soğutma sistemi de mevcuttur.",
+                "en": "The barrel is heated by band heaters measuring 168 × 70 mm and 198 × 110 mm, made of stainless steel. Cast aluminium heaters are available as an option. Water cooling is available when required.",
+                "ar": "تُسخَّن الأسطوانة بسخانات حزامية مقاساتها 168 × 70 mm و198 × 110 mm، مصنوعة من الفولاذ المقاوم للصدأ. وتتوفر سخانات من الألومنيوم المصبوب خيارًا إضافيًا، كما يتوفر التبريد المائي عند الحاجة."
+              },
+              "facts": [
+                {
+                  "label": {
+                    "tr": "Bant ısıtıcı",
+                    "en": "Band heater",
+                    "ar": "سخان حزامي"
+                  },
+                  "value": "168 × 70 / 198 × 110 mm"
+                },
+                {
+                  "label": {
+                    "tr": "Opsiyon",
+                    "en": "Option",
+                    "ar": "خيار إضافي"
+                  },
+                  "value": {
+                    "tr": "Dökme alüminyum ısıtıcı, su soğutma",
+                    "en": "Cast aluminium heater, water cooling",
+                    "ar": "سخان من الألومنيوم المصبوب، تبريد مائي"
+                  }
+                }
+              ]
+            },
+            {
+              "key": "lubrication",
+              "title": {
+                "tr": "Yağlama sistemi",
+                "en": "Lubrication system",
+                "ar": "نظام التزييت"
+              },
+              "text": {
+                "tr": "Zorlanmış yağlama sistemi, ekipmanlardaki aktarımın uzun ömürlü olmasını sağlar. Yağ kutusu 3 mm çelik plakadan yapılır. 12 mm'lik kapalı boru hattı yüksek basınca (300 psi) dayanır; bağlantı şekli kelepçelidir.",
+                "en": "The forced lubrication system guarantees a longer transmission life. The oil box is made of 3 mm steel plate. The sealed 12 mm tube can withstand high pressure (300 psi); connections are clip-type.",
+                "ar": "يضمن نظام التزييت القسري عمرًا أطول لمجموعة النقل. صندوق الزيت مصنوع من صفيحة فولاذية بسماكة 3 mm، ويتحمل الأنبوب المحكم بقطر 12 mm ضغطًا عاليًا (300 psi)، والوصلات من نوع المشابك."
+              },
+              "facts": [
+                {
+                  "label": {
+                    "tr": "Yağ kutusu",
+                    "en": "Oil box",
+                    "ar": "صندوق الزيت"
+                  },
+                  "value": {
+                    "tr": "3 mm çelik plaka",
+                    "en": "3 mm steel plate",
+                    "ar": "صفيحة فولاذية بسماكة 3 mm"
+                  }
+                },
+                {
+                  "label": {
+                    "tr": "Boru",
+                    "en": "Tube",
+                    "ar": "الأنبوب"
+                  },
+                  "value": {
+                    "tr": "12 mm, 300 psi",
+                    "en": "12 mm, 300 psi",
+                    "ar": "12 mm, 300 psi"
+                  }
+                }
+              ]
+            },
+            {
+              "key": "gearbox",
+              "title": {
+                "tr": "Dişli kutusu",
+                "en": "Gearbox",
+                "ar": "علبة التروس"
+              },
+              "text": {
+                "tr": "Özel dişli kutusu tasarımı, yüksek tork koşullarında bile motorun hareketini maksimum iletim verimliliğiyle vidaya aktarır. Tahrik ve baskı yatağı özel tasarımdır; rulmanların yağlanması ve soğutulması için soğutmalı bir hazne vardır.",
+                "en": "A specially designed gearbox transfers motor power to the screw with maximum efficiency even under high torque. The drive and thrust bearing are of special design, and a sump with cooling serves the bearings' lubrication and cooling.",
+                "ar": "تنقل علبة تروس مصممة خصيصًا قدرة المحرك إلى اللولب بأقصى كفاءة حتى تحت عزم دوران عالٍ. وتتميز محامل الإدارة والدفع بتصميم خاص، ويخدم حوضٌ مزوّد بالتبريد تزييتَ المحامل وتبريدها."
+              },
+              "facts": []
+            },
+            {
+              "key": "control",
+              "title": {
+                "tr": "Kontrol paneli",
+                "en": "Control panel",
+                "ar": "لوحة التحكم"
+              },
+              "text": {
+                "tr": "Ekstrüder bağımsız bir kontrol paneli tarafından kontrol edilir. Ana motor, kesici ve besleyicide frekans hız kontrolü; görünür otomatik sıcaklık kontrol sistemi.",
+                "en": "The extruder is controlled from an independent control panel, with frequency speed control on the main motor, cutter and feeder and a visible automatic temperature control system.",
+                "ar": "يُتحكم بالباثقة من لوحة تحكم مستقلة، مع تحكم في السرعة بمحوّل التردد في المحرك الرئيسي والقاطع والمغذّي، ونظام تحكم أوتوماتيكي مرئي في درجة الحرارة."
+              },
+              "facts": []
+            }
+          ],
+          "catalogPages": [
+            40,
+            41
+          ],
+          "notes": [
+            "Teknik tablo s.40'tan, ayrıntılar s.41'den. Web sitesindeki TR 'Makine Sistemleri' sayfası aynı bilgiyi 'varil' (kovan) ve '300 psi'den zarar görebilir' (doğrusu: dayanır) hatalı çevirileriyle veriyor; burada EN katalog esas alındı.",
+            "Kesme sistemi TR katalogda 'buhar çıkışı üzerinde hareketli bir bıçak' diye çevrilmiş; EN metne göre düzenlendi.",
+            "Hatlarda SP85-II kapasitesi 300–500 veya 400–500 kg/saat; makine tablosunda 450–500 kg/saat."
+          ]
+        },
+        {
+          "slug": "sp65-iii",
+          "model": "SP65-III",
+          "name": {
+            "tr": "SP65-III çift vidalı ekstruder",
+            "en": "SP65-III double screw extruder",
+            "ar": "الباثقة ثنائية اللولب SP65-III"
+          },
+          "description": [],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [
+            {
+              "key": "installedPower",
+              "label": {
+                "tr": "Kurulu güç",
+                "en": "Installed power",
+                "ar": "القدرة المركّبة"
+              },
+              "value": "34 kW"
+            },
+            {
+              "key": "mainMotor",
+              "label": {
+                "tr": "Ana motor gücü",
+                "en": "Main motor power",
+                "ar": "قدرة المحرك الرئيسي"
+              },
+              "value": "22 kW"
+            },
+            {
+              "key": "screwDiameter",
+              "label": {
+                "tr": "Vida çapı",
+                "en": "Screw diameter",
+                "ar": "قطر اللولب"
+              },
+              "value": "65 mm"
+            },
+            {
+              "key": "capacity",
+              "label": {
+                "tr": "Kapasite",
+                "en": "Capacity",
+                "ar": "الطاقة الإنتاجية"
+              },
+              "value": {
+                "tr": "100–150 kg/saat",
+                "en": "100–150 kg/h",
+                "ar": "100–150 كغ/ساعة"
+              }
+            },
+            {
+              "key": "dimensions",
+              "label": {
+                "tr": "Boyutlar (U × G × Y)",
+                "en": "Dimensions (L × W × H)",
+                "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+              },
+              "value": "2600 × 1100 × 1800 mm"
+            }
+          ],
+          "catalogPage": 42,
+          "usedInLines": [
+            "hayvancilik-yemi",
+            "akvaryum-yemi",
+            "kultur-baligi-yemi",
+            "evcil-hayvan-mamasi",
+            "ekstrude-cips-kraker",
+            "misir-gevregi-kahvaltilik-tahil",
+            "pofidik-rulokat",
+            "bebek-mamasi",
+            "yapay-pirinc"
+          ],
+          "type": "twin-screw",
+          "capacityKgH": {
+            "min": 100,
+            "max": 150
+          }
+        },
+        {
+          "slug": "sp70-ii",
+          "model": "SP70-II",
+          "name": {
+            "tr": "SP70-II çift vidalı ekstruder",
+            "en": "SP70-II double screw extruder",
+            "ar": "الباثقة ثنائية اللولب SP70-II"
+          },
+          "description": [],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [
+            {
+              "key": "installedPower",
+              "label": {
+                "tr": "Kurulu güç",
+                "en": "Installed power",
+                "ar": "القدرة المركّبة"
+              },
+              "value": "44 kW"
+            },
+            {
+              "key": "mainMotor",
+              "label": {
+                "tr": "Ana motor gücü",
+                "en": "Main motor power",
+                "ar": "قدرة المحرك الرئيسي"
+              },
+              "value": "30 / 37 / 45 kW"
+            },
+            {
+              "key": "screwDiameter",
+              "label": {
+                "tr": "Vida çapı",
+                "en": "Screw diameter",
+                "ar": "قطر اللولب"
+              },
+              "value": "70 mm"
+            },
+            {
+              "key": "capacity",
+              "label": {
+                "tr": "Kapasite",
+                "en": "Capacity",
+                "ar": "الطاقة الإنتاجية"
+              },
+              "value": {
+                "tr": "200–280 kg/saat",
+                "en": "200–280 kg/h",
+                "ar": "200–280 كغ/ساعة"
+              }
+            },
+            {
+              "key": "dimensions",
+              "label": {
+                "tr": "Boyutlar (U × G × Y)",
+                "en": "Dimensions (L × W × H)",
+                "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+              },
+              "value": "3200 × 1100 × 1800 mm"
+            }
+          ],
+          "catalogPage": 42,
+          "usedInLines": [
+            "hayvancilik-yemi",
+            "akvaryum-yemi",
+            "kultur-baligi-yemi",
+            "evcil-hayvan-mamasi",
+            "ekstrude-cips-kraker",
+            "misir-gevregi-kahvaltilik-tahil",
+            "pofidik-rulokat",
+            "bebek-mamasi",
+            "yapay-pirinc"
+          ],
+          "type": "twin-screw",
+          "capacityKgH": {
+            "min": 200,
+            "max": 280
+          }
+        },
+        {
+          "slug": "sp100",
+          "model": "SP100",
+          "name": {
+            "tr": "SP100 tek vidalı ekstruder",
+            "en": "SP100 single screw extruder",
+            "ar": "الباثقة أحادية اللولب SP100"
+          },
+          "description": [],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [
+            {
+              "key": "installedPower",
+              "label": {
+                "tr": "Kurulu güç",
+                "en": "Installed power",
+                "ar": "القدرة المركّبة"
+              },
+              "value": "46 kW"
+            },
+            {
+              "key": "mainMotor",
+              "label": {
+                "tr": "Ana motor gücü",
+                "en": "Main motor power",
+                "ar": "قدرة المحرك الرئيسي"
+              },
+              "value": "30 kW"
+            },
+            {
+              "key": "screwDiameter",
+              "label": {
+                "tr": "Vida çapı",
+                "en": "Screw diameter",
+                "ar": "قطر اللولب"
+              },
+              "value": "100 mm"
+            },
+            {
+              "key": "capacity",
+              "label": {
+                "tr": "Kapasite",
+                "en": "Capacity",
+                "ar": "الطاقة الإنتاجية"
+              },
+              "value": {
+                "tr": "60–100 kg/saat",
+                "en": "60–100 kg/h",
+                "ar": "60–100 كغ/ساعة"
+              }
+            },
+            {
+              "key": "dimensions",
+              "label": {
+                "tr": "Boyutlar (U × G × Y)",
+                "en": "Dimensions (L × W × H)",
+                "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+              },
+              "value": "3200 × 1500 × 1700 mm"
+            }
+          ],
+          "catalogPage": 42,
+          "usedInLines": [
+            "evcil-hayvan-odul-mamasi",
+            "kizartilmis-halka-3d-pelet"
+          ],
+          "type": "single-screw",
+          "capacityKgH": {
+            "min": 60,
+            "max": 100
+          }
+        },
+        {
+          "slug": "sp130",
+          "model": "SP130",
+          "name": {
+            "tr": "SP130 tek vidalı ekstruder",
+            "en": "SP130 single screw extruder",
+            "ar": "الباثقة أحادية اللولب SP130"
+          },
+          "description": [],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [
+            {
+              "key": "installedPower",
+              "label": {
+                "tr": "Kurulu güç",
+                "en": "Installed power",
+                "ar": "القدرة المركّبة"
+              },
+              "value": "75 kW"
+            },
+            {
+              "key": "mainMotor",
+              "label": {
+                "tr": "Ana motor gücü",
+                "en": "Main motor power",
+                "ar": "قدرة المحرك الرئيسي"
+              },
+              "value": "60 kW"
+            },
+            {
+              "key": "screwDiameter",
+              "label": {
+                "tr": "Vida çapı",
+                "en": "Screw diameter",
+                "ar": "قطر اللولب"
+              },
+              "value": "130 mm"
+            },
+            {
+              "key": "capacity",
+              "label": {
+                "tr": "Kapasite",
+                "en": "Capacity",
+                "ar": "الطاقة الإنتاجية"
+              },
+              "value": {
+                "tr": "300–600 kg/saat",
+                "en": "300–600 kg/h",
+                "ar": "300–600 كغ/ساعة"
+              }
+            },
+            {
+              "key": "dimensions",
+              "label": {
+                "tr": "Boyutlar (U × G × Y)",
+                "en": "Dimensions (L × W × H)",
+                "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+              },
+              "value": "3000 × 1000 × 1700 mm"
+            }
+          ],
+          "catalogPage": 42,
+          "usedInLines": [
+            "jelatinize-modifiye-nisasta"
+          ],
+          "type": "single-screw",
+          "capacityKgH": {
+            "min": 300,
+            "max": 600
+          },
+          "catalogPages": [
+            35,
+            42
+          ]
+        },
+        {
+          "slug": "sp-tfx",
+          "model": "SP-TFX",
+          "name": {
+            "tr": "SP-TFX makarna - hamur ekstruderi",
+            "en": "SP-TFX macaroni / pasta extruder",
+            "ar": "باثقة المعكرونة / العجائن SP-TFX"
+          },
+          "description": [],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [
+            {
+              "key": "installedPower",
+              "label": {
+                "tr": "Kurulu güç",
+                "en": "Installed power",
+                "ar": "القدرة المركّبة"
+              },
+              "value": "16 kW"
+            },
+            {
+              "key": "mainMotor",
+              "label": {
+                "tr": "Ana motor gücü",
+                "en": "Main motor power",
+                "ar": "قدرة المحرك الرئيسي"
+              },
+              "value": "15 kW"
+            },
+            {
+              "key": "capacity",
+              "label": {
+                "tr": "Kapasite",
+                "en": "Capacity",
+                "ar": "الطاقة الإنتاجية"
+              },
+              "value": {
+                "tr": "100–300 kg/saat",
+                "en": "100–300 kg/h",
+                "ar": "100–300 كغ/ساعة"
+              }
+            },
+            {
+              "key": "dimensions",
+              "label": {
+                "tr": "Boyutlar (U × G × Y)",
+                "en": "Dimensions (L × W × H)",
+                "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+              },
+              "value": "2800 × 1600 × 2200 mm"
+            }
+          ],
+          "catalogPage": 42,
+          "usedInLines": [],
+          "type": "pasta",
+          "capacityKgH": {
+            "min": 100,
+            "max": 300
+          },
+          "notes": [
+            "Vida çapı katalogda boş bırakılmış."
+          ]
+        },
+        {
+          "slug": "sp76",
+          "model": "SP76",
+          "name": {
+            "tr": "SP76 döner başlı ekstruder",
+            "en": "SP76 rotary head extruder",
+            "ar": "الباثقة ذات الرأس الدوّار SP76"
+          },
+          "description": [
+            {
+              "tr": "Döner başlı ekstrüderde mısır irmiği, pirinçten yapılmış iki döner plaka tarafından sıkılarak ve döndürülerek kıvrık forma sokulur (bkz. çıtır atıştırmalıklar hattı).",
+              "en": "In the rotary head extruder, corn grits are squeezed and twisted into curls by two rotary brass plates (see the crispy snacks line).",
+              "ar": "في الباثقة ذات الرأس الدوّار تضغط صفيحتان دوّارتان من النحاس الأصفر جريشَ الذرة وتلفّانه على شكل لفائف (انظر خط الوجبات الخفيفة المقرمشة)."
+            }
+          ],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [
+            {
+              "key": "installedPower",
+              "label": {
+                "tr": "Kurulu güç",
+                "en": "Installed power",
+                "ar": "القدرة المركّبة"
+              },
+              "value": "21 kW"
+            },
+            {
+              "key": "mainMotor",
+              "label": {
+                "tr": "Ana motor gücü",
+                "en": "Main motor power",
+                "ar": "قدرة المحرك الرئيسي"
+              },
+              "value": "15 kW"
+            },
+            {
+              "key": "screwDiameter",
+              "label": {
+                "tr": "Vida çapı",
+                "en": "Screw diameter",
+                "ar": "قطر اللولب"
+              },
+              "value": "76 mm"
+            },
+            {
+              "key": "capacity",
+              "label": {
+                "tr": "Kapasite",
+                "en": "Capacity",
+                "ar": "الطاقة الإنتاجية"
+              },
+              "value": {
+                "tr": "150–200 kg/saat",
+                "en": "150–200 kg/h",
+                "ar": "150–200 كغ/ساعة"
+              }
+            },
+            {
+              "key": "dimensions",
+              "label": {
+                "tr": "Boyutlar (U × G × Y)",
+                "en": "Dimensions (L × W × H)",
+                "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+              },
+              "value": "2300 × 1150 × 2000 mm"
+            }
+          ],
+          "catalogPage": 42,
+          "usedInLines": [
+            "citir-atistirmalik"
+          ],
+          "type": "rotary-head",
+          "capacityKgH": {
+            "min": 150,
+            "max": 200
+          }
+        }
+      ],
+      "notes": [
+        "Hat tablolarında geçen SP45-II (müsli hattı), SP65-IV ve SP85-III (bitkisel protein hattı) modelleri makine serisi sayfalarında yok; bu yüzden ayrı makine kaydı açılmadı.",
+        "TR katalog ve web sayfasındaki 'nitritlenmiş' ifadesi teknik doğru karşılığı olan 'nitrürlenmiş' olarak yazıldı."
+      ]
+    },
+    {
+      "key": "dryers",
+      "name": {
+        "tr": "Kurutma fırınları",
+        "en": "Dryers",
+        "ar": "المجففات"
+      },
+      "intro": [
+        {
+          "tr": "Kurutma fırınları elektrikli, gazlı ve buharlı olmak üzere 3 tiptir. İçerdiği 5 katman ve ayarlanabilir hızı sayesinde pelet yemlerin istenildiği şekilde kurutulması gerçekleştirilir. Çok katmanlı fırında termostat ayarı ile istenilen sıcaklıkta kurutma yapılır.",
+          "en": "Dryers come in three types: electric, gas and steam. Thanks to their 5 layers and adjustable speed, pellets are dried exactly as required. The multi-layer dryer dries at the desired temperature set by thermostat.",
+          "ar": "تتوفر المجففات بثلاثة أنواع: كهربائية وغازية وبخارية. وبفضل طبقاتها الخمس وسرعتها القابلة للضبط تُجفَّف الحبيبات بالدقة المطلوبة تمامًا. ويُجفف المجفف متعدد الطبقات عند درجة الحرارة المطلوبة المضبوطة بواسطة الثرموستات."
+        }
+      ],
+      "models": [
+        {
+          "slug": "dkx3",
+          "model": "DKX3",
+          "name": {
+            "tr": "DKX3 çok katmanlı elektrikli kurutma fırını",
+            "en": "DKX3 multi-layer electric dryer",
+            "ar": "المجفف الكهربائي متعدد الطبقات DKX3"
+          },
+          "description": [],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [
+            {
+              "key": "energy",
+              "label": {
+                "tr": "Elektrik / gaz tüketimi",
+                "en": "Electric / gas consumption",
+                "ar": "استهلاك الكهرباء / الغاز"
+              },
+              "value": "28 kW"
+            },
+            {
+              "key": "temperature",
+              "label": {
+                "tr": "Isıtma sıcaklığı",
+                "en": "Heating temperature",
+                "ar": "درجة حرارة التسخين"
+              },
+              "value": "~200 °C"
+            },
+            {
+              "key": "capacity",
+              "label": {
+                "tr": "Kapasite",
+                "en": "Capacity",
+                "ar": "الطاقة الإنتاجية"
+              },
+              "value": {
+                "tr": "120–180 kg/saat",
+                "en": "120–180 kg/h",
+                "ar": "120–180 كغ/ساعة"
+              }
+            },
+            {
+              "key": "dimensions",
+              "label": {
+                "tr": "Boyutlar (U × G × Y)",
+                "en": "Dimensions (L × W × H)",
+                "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+              },
+              "value": "5200 × 1250 × 1800 mm"
+            }
+          ],
+          "catalogPage": 43,
+          "usedInLines": [
+            "hayvancilik-yemi",
+            "akvaryum-yemi",
+            "kultur-baligi-yemi",
+            "evcil-hayvan-mamasi",
+            "evcil-hayvan-odul-mamasi",
+            "misir-gevregi-kahvaltilik-tahil",
+            "kizartilmis-halka-3d-pelet",
+            "pofidik-rulokat",
+            "bebek-mamasi",
+            "yapay-pirinc",
+            "bitkisel-protein-dokusu"
+          ],
+          "capacityKgH": {
+            "min": 120,
+            "max": 180
+          },
+          "heating": "electric",
+          "usedInLinesBasis": "component-type"
+        },
+        {
+          "slug": "dkx5",
+          "model": "DKX5",
+          "name": {
+            "tr": "DKX5 çok katmanlı elektrikli kurutma fırını",
+            "en": "DKX5 multi-layer electric dryer",
+            "ar": "المجفف الكهربائي متعدد الطبقات DKX5"
+          },
+          "description": [],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [
+            {
+              "key": "energy",
+              "label": {
+                "tr": "Elektrik / gaz tüketimi",
+                "en": "Electric / gas consumption",
+                "ar": "استهلاك الكهرباء / الغاز"
+              },
+              "value": "42 kW"
+            },
+            {
+              "key": "temperature",
+              "label": {
+                "tr": "Isıtma sıcaklığı",
+                "en": "Heating temperature",
+                "ar": "درجة حرارة التسخين"
+              },
+              "value": "~200 °C"
+            },
+            {
+              "key": "capacity",
+              "label": {
+                "tr": "Kapasite",
+                "en": "Capacity",
+                "ar": "الطاقة الإنتاجية"
+              },
+              "value": {
+                "tr": "150–200 kg/saat",
+                "en": "150–200 kg/h",
+                "ar": "150–200 كغ/ساعة"
+              }
+            },
+            {
+              "key": "dimensions",
+              "label": {
+                "tr": "Boyutlar (U × G × Y)",
+                "en": "Dimensions (L × W × H)",
+                "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+              },
+              "value": "5500 × 1250 × 2200 mm"
+            }
+          ],
+          "catalogPage": 43,
+          "usedInLines": [
+            "hayvancilik-yemi",
+            "akvaryum-yemi",
+            "kultur-baligi-yemi",
+            "evcil-hayvan-mamasi",
+            "evcil-hayvan-odul-mamasi",
+            "misir-gevregi-kahvaltilik-tahil",
+            "kizartilmis-halka-3d-pelet",
+            "pofidik-rulokat",
+            "bebek-mamasi",
+            "yapay-pirinc",
+            "bitkisel-protein-dokusu"
+          ],
+          "capacityKgH": {
+            "min": 150,
+            "max": 200
+          },
+          "heating": "electric",
+          "notes": [
+            "Katalogda yalnız tabloda geçiyor; 'elektrikli' tanımı DKX serisinden (DKX3) çıkarım."
+          ],
+          "usedInLinesBasis": "component-type"
+        },
+        {
+          "slug": "okx3",
+          "model": "OKX3",
+          "name": {
+            "tr": "OKX3 çok katmanlı dizel / gazlı kurutma fırını",
+            "en": "OKX3 multi-layer diesel oil / gas dryer",
+            "ar": "المجفف متعدد الطبقات بالديزل / الغاز OKX3"
+          },
+          "description": [],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [
+            {
+              "key": "energy",
+              "label": {
+                "tr": "Elektrik / gaz tüketimi",
+                "en": "Electric / gas consumption",
+                "ar": "استهلاك الكهرباء / الغاز"
+              },
+              "value": {
+                "tr": "5–10 kg/saat gaz",
+                "en": "5–10 kg/h gas",
+                "ar": "5–10 كغ/ساعة غاز"
+              }
+            },
+            {
+              "key": "temperature",
+              "label": {
+                "tr": "Isıtma sıcaklığı",
+                "en": "Heating temperature",
+                "ar": "درجة حرارة التسخين"
+              },
+              "value": "~200 °C"
+            },
+            {
+              "key": "capacity",
+              "label": {
+                "tr": "Kapasite",
+                "en": "Capacity",
+                "ar": "الطاقة الإنتاجية"
+              },
+              "value": {
+                "tr": "150–250 kg/saat",
+                "en": "150–250 kg/h",
+                "ar": "150–250 كغ/ساعة"
+              }
+            },
+            {
+              "key": "dimensions",
+              "label": {
+                "tr": "Boyutlar (U × G × Y)",
+                "en": "Dimensions (L × W × H)",
+                "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+              },
+              "value": "5800 × 1500 × 2000 mm"
+            }
+          ],
+          "catalogPage": 43,
+          "usedInLines": [
+            "hayvancilik-yemi",
+            "akvaryum-yemi",
+            "kultur-baligi-yemi",
+            "evcil-hayvan-mamasi",
+            "evcil-hayvan-odul-mamasi",
+            "misir-gevregi-kahvaltilik-tahil",
+            "kizartilmis-halka-3d-pelet",
+            "pofidik-rulokat",
+            "bebek-mamasi",
+            "yapay-pirinc",
+            "bitkisel-protein-dokusu"
+          ],
+          "capacityKgH": {
+            "min": 150,
+            "max": 250
+          },
+          "heating": "diesel-gas",
+          "usedInLinesBasis": "component-type"
+        },
+        {
+          "slug": "okx5",
+          "model": "OKX5",
+          "name": {
+            "tr": "OKX5 çok katmanlı dizel / gazlı kurutma fırını",
+            "en": "OKX5 multi-layer diesel oil / gas dryer",
+            "ar": "المجفف متعدد الطبقات بالديزل / الغاز OKX5"
+          },
+          "description": [],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [
+            {
+              "key": "energy",
+              "label": {
+                "tr": "Elektrik / gaz tüketimi",
+                "en": "Electric / gas consumption",
+                "ar": "استهلاك الكهرباء / الغاز"
+              },
+              "value": {
+                "tr": "15–20 kg/saat gaz",
+                "en": "15–20 kg/h gas",
+                "ar": "15–20 كغ/ساعة غاز"
+              }
+            },
+            {
+              "key": "temperature",
+              "label": {
+                "tr": "Isıtma sıcaklığı",
+                "en": "Heating temperature",
+                "ar": "درجة حرارة التسخين"
+              },
+              "value": "~200 °C"
+            },
+            {
+              "key": "capacity",
+              "label": {
+                "tr": "Kapasite",
+                "en": "Capacity",
+                "ar": "الطاقة الإنتاجية"
+              },
+              "value": {
+                "tr": "200–500 kg/saat",
+                "en": "200–500 kg/h",
+                "ar": "200–500 كغ/ساعة"
+              }
+            },
+            {
+              "key": "dimensions",
+              "label": {
+                "tr": "Boyutlar (U × G × Y)",
+                "en": "Dimensions (L × W × H)",
+                "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+              },
+              "value": "8000 × 1500 × 2500 mm"
+            }
+          ],
+          "catalogPage": 43,
+          "usedInLines": [
+            "hayvancilik-yemi",
+            "akvaryum-yemi",
+            "kultur-baligi-yemi",
+            "evcil-hayvan-mamasi",
+            "evcil-hayvan-odul-mamasi",
+            "misir-gevregi-kahvaltilik-tahil",
+            "kizartilmis-halka-3d-pelet",
+            "pofidik-rulokat",
+            "bebek-mamasi",
+            "yapay-pirinc",
+            "bitkisel-protein-dokusu"
+          ],
+          "capacityKgH": {
+            "min": 200,
+            "max": 500
+          },
+          "heating": "diesel-gas",
+          "notes": [
+            "Katalogda (TR ve EN) '715 - 20 kg/s gaz' basılı; '15–20' olarak okunması gereken bir dizgi hatası olduğu varsayıldı. Teyit edilmeli.",
+            "'Dizel / gazlı' tanımı OKX serisinden (OKX3) çıkarım."
+          ],
+          "usedInLinesBasis": "component-type"
+        },
+        {
+          "slug": "buharli-kurutma-firini",
+          "model": "Buharlı",
+          "name": {
+            "tr": "Buharlı kurutma fırını",
+            "en": "Steam dryer",
+            "ar": "مجفف بخاري"
+          },
+          "description": [],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [
+            {
+              "key": "energy",
+              "label": {
+                "tr": "Elektrik / gaz tüketimi",
+                "en": "Electric / gas consumption",
+                "ar": "استهلاك الكهرباء / الغاز"
+              },
+              "value": {
+                "tr": "12–28 kW güç / 100–300 kg buhar/saat",
+                "en": "12–28 kW power / 100–300 kg steam/h",
+                "ar": "قدرة 12–28 kW / بخار 100–300 كغ/ساعة"
+              }
+            },
+            {
+              "key": "temperature",
+              "label": {
+                "tr": "Isıtma sıcaklığı",
+                "en": "Heating temperature",
+                "ar": "درجة حرارة التسخين"
+              },
+              "value": "~180 °C"
+            },
+            {
+              "key": "capacity",
+              "label": {
+                "tr": "Kapasite",
+                "en": "Capacity",
+                "ar": "الطاقة الإنتاجية"
+              },
+              "value": {
+                "tr": "200–2000 kg/saat",
+                "en": "200–2000 kg/h",
+                "ar": "200–2000 كغ/ساعة"
+              }
+            },
+            {
+              "key": "dimensions",
+              "label": {
+                "tr": "Boyutlar (U × G × Y)",
+                "en": "Dimensions (L × W × H)",
+                "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+              },
+              "value": "11000 × 1700 × 2200 mm"
+            }
+          ],
+          "catalogPage": 43,
+          "usedInLines": [
+            "hayvancilik-yemi",
+            "akvaryum-yemi",
+            "kultur-baligi-yemi",
+            "evcil-hayvan-mamasi",
+            "evcil-hayvan-odul-mamasi",
+            "misir-gevregi-kahvaltilik-tahil",
+            "kizartilmis-halka-3d-pelet",
+            "pofidik-rulokat",
+            "bebek-mamasi",
+            "yapay-pirinc",
+            "bitkisel-protein-dokusu"
+          ],
+          "capacityKgH": {
+            "min": 200,
+            "max": 2000
+          },
+          "heating": "steam",
+          "modelLabel": {
+            "tr": "Buharlı kurutucu / fırın",
+            "en": "Steam dryer / dryer",
+            "ar": "مجفف بخاري / مجفف"
+          },
+          "usedInLinesBasis": "component-type"
+        }
+      ],
+      "notes": [
+        "Fırın serileri tablosundaki 'kg/s' değerleri saat başına normalize edildi (EN katalog 'kg/h')."
+      ]
+    },
+    {
+      "key": "frying-flavoring",
+      "name": {
+        "tr": "Kızartma ve tatlandırma makineleri",
+        "en": "Fryer and flavoring machinery",
+        "ar": "آلات القلي وإضافة النكهات"
+      },
+      "intro": [
+        {
+          "tr": "Yağlama / tatlandırma tamburu, pelet yemlerin yağlandırılması veya aromalandırılmasında kullanılan, dönüş hızı ayarlanabilen ardışık 2 silindirden ve sıcaklık ayarlı bir yağ tankından oluşur. Dozaj pompası yardımıyla istenen miktarda yağ, toz veya aroma püskürtülür; tambur belirli bir hızda dönerek karışımın homojen olmasını sağlar.",
+          "en": "The oiling / flavouring drum, used for oiling or flavouring feed pellets, consists of two consecutive cylinders with adjustable rotation speed and a temperature-controlled oil tank. A dosing pump sprays the required amount of oil, powder or aroma while the drum rotates at a set speed for a homogeneous mix.",
+          "ar": "تتكون أسطوانة التزييت / إضافة النكهات، المستخدمة لتزييت حبيبات العلف أو إضافة النكهة إليها، من أسطوانتين متتاليتين بسرعة دوران قابلة للضبط وخزان زيت يُتحكم في درجة حرارته. وترش مضخة جرعات الكمية المطلوبة من الزيت أو المسحوق أو المنكّه بينما تدور الأسطوانة بسرعة محددة للحصول على خليط متجانس."
+        }
+      ],
+      "models": [
+        {
+          "slug": "lxy-ii",
+          "model": "LXY-II",
+          "name": {
+            "tr": "LXY-II kontinu kızartıcı sistem",
+            "en": "LXY-II continuous fryer",
+            "ar": "المقلاة المستمرة LXY-II"
+          },
+          "description": [],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [
+            {
+              "key": "voltage",
+              "label": {
+                "tr": "Giriş gerilimi",
+                "en": "Input voltage",
+                "ar": "جهد الدخل"
+              },
+              "value": "380 V / 50 Hz"
+            },
+            {
+              "key": "installedPower",
+              "label": {
+                "tr": "Kurulu güç",
+                "en": "Installed power",
+                "ar": "القدرة المركّبة"
+              },
+              "value": "60 kW"
+            },
+            {
+              "key": "consumption",
+              "label": {
+                "tr": "Güç tüketimi",
+                "en": "Power consumption",
+                "ar": "استهلاك الطاقة"
+              },
+              "value": "45 kW"
+            },
+            {
+              "key": "capacity",
+              "label": {
+                "tr": "Kapasite",
+                "en": "Capacity",
+                "ar": "الطاقة الإنتاجية"
+              },
+              "value": {
+                "tr": "200–300 kg/saat",
+                "en": "200–300 kg/h",
+                "ar": "200–300 كغ/ساعة"
+              }
+            },
+            {
+              "key": "dimensions",
+              "label": {
+                "tr": "Boyutlar (U × G × Y)",
+                "en": "Dimensions (L × W × H)",
+                "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+              },
+              "value": "3000 × 1200 × 2500 mm"
+            }
+          ],
+          "catalogPage": 44,
+          "usedInLines": [
+            "ekstrude-cips-kraker",
+            "citir-atistirmalik",
+            "kizartilmis-halka-3d-pelet"
+          ],
+          "capacityKgH": {
+            "min": 200,
+            "max": 300
+          },
+          "usedInLinesBasis": "component-type"
+        },
+        {
+          "slug": "sgt-ii",
+          "model": "SGT-II",
+          "name": {
+            "tr": "SGT-II 2 bölümlü tatlandırma hattı",
+            "en": "SGT-II double-drum flavoring line",
+            "ar": "خط إضافة النكهات ثنائي الأسطوانة SGT-II"
+          },
+          "description": [],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [
+            {
+              "key": "voltage",
+              "label": {
+                "tr": "Giriş gerilimi",
+                "en": "Input voltage",
+                "ar": "جهد الدخل"
+              },
+              "value": "380 V / 50 Hz"
+            },
+            {
+              "key": "installedPower",
+              "label": {
+                "tr": "Kurulu güç",
+                "en": "Installed power",
+                "ar": "القدرة المركّبة"
+              },
+              "value": {
+                "tr": "3,5 kW",
+                "en": "3.5 kW",
+                "ar": "3.5 kW"
+              }
+            },
+            {
+              "key": "consumption",
+              "label": {
+                "tr": "Güç tüketimi",
+                "en": "Power consumption",
+                "ar": "استهلاك الطاقة"
+              },
+              "value": {
+                "tr": "1,5 kW",
+                "en": "1.5 kW",
+                "ar": "1.5 kW"
+              }
+            },
+            {
+              "key": "capacity",
+              "label": {
+                "tr": "Kapasite",
+                "en": "Capacity",
+                "ar": "الطاقة الإنتاجية"
+              },
+              "value": {
+                "tr": "500 kg/saat",
+                "en": "500 kg/h",
+                "ar": "500 كغ/ساعة"
+              }
+            },
+            {
+              "key": "dimensions",
+              "label": {
+                "tr": "Boyutlar (U × G × Y)",
+                "en": "Dimensions (L × W × H)",
+                "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+              },
+              "value": "5000 × 1500 × 2000 mm"
+            }
+          ],
+          "catalogPage": 44,
+          "usedInLines": [
+            "hayvancilik-yemi",
+            "akvaryum-yemi",
+            "evcil-hayvan-mamasi",
+            "ekstrude-cips-kraker",
+            "citir-atistirmalik",
+            "kizartilmis-halka-3d-pelet",
+            "pofidik-rulokat"
+          ],
+          "capacityKgH": {
+            "min": 500,
+            "max": 500
+          },
+          "usedInLinesBasis": "component-type"
+        }
+      ],
+      "notes": [
+        "Aile tanıtım metni 64 numaralı blog yazısındaki 'Yağlama ve aromalandırma' bölümünden alındı; katalogda bu sayfada metin yok."
+      ]
+    },
+    {
+      "key": "auxiliary",
+      "name": {
+        "tr": "Yardımcı makineler",
+        "en": "Auxiliary machines",
+        "ar": "آلات مساعدة"
+      },
+      "intro": [],
+      "models": [
+        {
+          "slug": "pyj-iii",
+          "model": "PYJ-III",
+          "name": {
+            "tr": "PYJ-III şurup püskürtme makinesi",
+            "en": "PYJ-III syrup / slurry sprayer",
+            "ar": "آلة رش الشراب / المعلّق PYJ-III"
+          },
+          "description": [],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [],
+          "catalogPage": 45,
+          "usedInLines": []
+        },
+        {
+          "slug": "jxj-ii",
+          "model": "JXJ-II",
+          "name": {
+            "tr": "JXJ-II iç dolgu makinesi",
+            "en": "JXJ-II core filler",
+            "ar": "آلة الحشو الداخلي JXJ-II"
+          },
+          "description": [],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [],
+          "catalogPage": 45,
+          "usedInLines": [
+            "pofidik-rulokat"
+          ],
+          "usedInLinesBasis": "component-type"
+        },
+        {
+          "slug": "cxj",
+          "model": "CXJ",
+          "name": {
+            "tr": "CXJ kalıplama makinesi",
+            "en": "CXJ molding machine",
+            "ar": "آلة القولبة CXJ"
+          },
+          "description": [],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [],
+          "catalogPage": 45,
+          "usedInLines": [
+            "musli-tahil-bar"
+          ],
+          "usedInLinesBasis": "component-type"
+        },
+        {
+          "slug": "tjj-ii",
+          "model": "TJJ-II",
+          "name": {
+            "tr": "TJJ-II yağ püskürtme makinesi",
+            "en": "TJJ-II oil sprayer",
+            "ar": "آلة رش الزيت TJJ-II"
+          },
+          "description": [],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [],
+          "catalogPage": 45,
+          "usedInLines": []
+        },
+        {
+          "slug": "qdj-ii",
+          "model": "QDJ-II",
+          "name": {
+            "tr": "QDJ-II çekme ve kesme makinesi",
+            "en": "QDJ-II pulling & cutting machine",
+            "ar": "آلة السحب والقطع QDJ-II"
+          },
+          "description": [],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [],
+          "catalogPage": 45,
+          "usedInLines": [
+            "ekstrude-cips-kraker",
+            "kizartilmis-halka-3d-pelet"
+          ],
+          "usedInLinesBasis": "component-type"
+        },
+        {
+          "slug": "tava-ekmegi-sekillendirme",
+          "model": null,
+          "name": {
+            "tr": "Tava ekmeği şekillendirme makinesi",
+            "en": "Bread pan shaper",
+            "ar": "آلة تشكيل خبز القوالب"
+          },
+          "description": [],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [],
+          "catalogPage": 45,
+          "usedInLines": []
+        }
+      ],
+      "notes": [
+        "Katalog s.45 yalnız ad ve fotoğraf veriyor; teknik değer ve açıklama yok."
+      ]
+    },
+    {
+      "key": "mills",
+      "name": {
+        "tr": "Değirmenler",
+        "en": "Hammermills and grinders",
+        "ar": "الطواحين المطرقية والمطاحن"
+      },
+      "intro": [
+        {
+          "tr": "Öğütüm, kaliteli ekstrüde yem elde etmek için önemli bir adımdır. Hammadde partikül boyutlarının mikron seviyesinde öğütülmesi pelet kalitesini doğrudan etkiler. Değirmen sistemi ve makineleri çeşitli tiplerdedir.",
+          "en": "Grinding is an important step in obtaining high-quality extruded feed. Grinding raw materials to micron particle size directly influences pellet quality. Grinding systems and machines come in various types.",
+          "ar": "يُعدّ الطحن خطوة مهمة للحصول على أعلاف مبثوقة عالية الجودة، إذ يؤثر طحن المواد الخام إلى جسيمات بحجم الميكرون تأثيرًا مباشرًا في جودة الحبيبات. وتتوفر أنظمة وآلات الطحن بأنواع متعددة."
+        }
+      ],
+      "models": [
+        {
+          "slug": "standart-ogutme-degirmeni",
+          "model": "SFSP56 / SFSP112",
+          "name": {
+            "tr": "Standart öğütme değirmeni makinesi (1. kuşak)",
+            "en": "Normal hammermill (first generation)",
+            "ar": "الطاحونة المطرقية القياسية (الجيل الأول)"
+          },
+          "description": [
+            {
+              "tr": "İnce öğütme yapmak için uygun, yem, tahıl ve gıda sanayinde kullanılabilen 1. kuşak öğütme değirmenidir.",
+              "en": "A first-generation hammermill suitable for fine grinding in the feed, grain and food industries.",
+              "ar": "طاحونة مطرقية من الجيل الأول مناسبة للطحن الناعم في صناعات الأعلاف والحبوب والأغذية."
+            }
+          ],
+          "features": [
+            {
+              "tr": "Mısır, sorgum, buğday veya fasulye gibi granül yapıdaki ürünleri öğütebilir.",
+              "en": "Grinds granular materials such as maize, sorghum, wheat and beans.",
+              "ar": "تطحن المواد الحبيبية مثل الذرة والذرة الرفيعة والقمح والبقوليات."
+            },
+            {
+              "tr": "Doğrudan tahrik; yapısı kompakt ve pratiktir, elek kolayca değiştirilebilir.",
+              "en": "Direct drive; compact structure, convenient and quick sieve replacement.",
+              "ar": "إدارة مباشرة؛ بنية مدمجة واستبدال سهل وسريع للمنخل."
+            },
+            {
+              "tr": "Farklı besleme tipleri seçilebilir: kendini temizleyen çark beslemeli veya kayış mıknatısla ayıklamalı besleme.",
+              "en": "Choice of feeding type: self-cleaning impeller feeding or belt magnet removing feeding.",
+              "ar": "إمكانية اختيار نوع التغذية: تغذية بدوّارة ذاتية التنظيف أو تغذية بحزام مغناطيسي لإزالة الشوائب."
+            }
+          ],
+          "components": [],
+          "materials": null,
+          "specs": [],
+          "catalogPage": 46,
+          "usedInLines": [
+            "bebek-mamasi"
+          ],
+          "generation": 1,
+          "variants": [
+            {
+              "model": "SFSP56×36",
+              "specs": [
+                {
+                  "key": "power",
+                  "label": {
+                    "tr": "Güç",
+                    "en": "Power",
+                    "ar": "القدرة"
+                  },
+                  "value": {
+                    "tr": "18,5 / 22 kW",
+                    "en": "18.5 / 22 kW",
+                    "ar": "18.5 / 22 kW"
+                  }
+                },
+                {
+                  "key": "capacity",
+                  "label": {
+                    "tr": "Kapasite",
+                    "en": "Capacity",
+                    "ar": "الطاقة الإنتاجية"
+                  },
+                  "value": {
+                    "tr": "2,5–3 ton/saat",
+                    "en": "2.5–3 t/h",
+                    "ar": "2.5–3 طن/ساعة"
+                  }
+                }
+              ],
+              "powerKw": [
+                18.5,
+                22
+              ],
+              "capacityTH": {
+                "min": 2.5,
+                "max": 3
+              }
+            },
+            {
+              "model": "SFSP56×40",
+              "specs": [
+                {
+                  "key": "power",
+                  "label": {
+                    "tr": "Güç",
+                    "en": "Power",
+                    "ar": "القدرة"
+                  },
+                  "value": {
+                    "tr": "30 / 37 kW",
+                    "en": "30 / 37 kW",
+                    "ar": "30 / 37 kW"
+                  }
+                },
+                {
+                  "key": "capacity",
+                  "label": {
+                    "tr": "Kapasite",
+                    "en": "Capacity",
+                    "ar": "الطاقة الإنتاجية"
+                  },
+                  "value": {
+                    "tr": "4–5 ton/saat",
+                    "en": "4–5 t/h",
+                    "ar": "4–5 طن/ساعة"
+                  }
+                }
+              ],
+              "powerKw": [
+                30,
+                37
+              ],
+              "capacityTH": {
+                "min": 4,
+                "max": 5
+              }
+            },
+            {
+              "model": "SFSP112×30",
+              "specs": [
+                {
+                  "key": "power",
+                  "label": {
+                    "tr": "Güç",
+                    "en": "Power",
+                    "ar": "القدرة"
+                  },
+                  "value": {
+                    "tr": "55 / 75 kW",
+                    "en": "55 / 75 kW",
+                    "ar": "55 / 75 kW"
+                  }
+                },
+                {
+                  "key": "capacity",
+                  "label": {
+                    "tr": "Kapasite",
+                    "en": "Capacity",
+                    "ar": "الطاقة الإنتاجية"
+                  },
+                  "value": {
+                    "tr": "7,5–10,5 ton/saat",
+                    "en": "7.5–10.5 t/h",
+                    "ar": "7.5–10.5 طن/ساعة"
+                  }
+                }
+              ],
+              "powerKw": [
+                55,
+                75
+              ],
+              "capacityTH": {
+                "min": 7.5,
+                "max": 10.5
+              }
+            },
+            {
+              "model": "SFSP112×40",
+              "specs": [
+                {
+                  "key": "power",
+                  "label": {
+                    "tr": "Güç",
+                    "en": "Power",
+                    "ar": "القدرة"
+                  },
+                  "value": {
+                    "tr": "90 / 110 kW",
+                    "en": "90 / 110 kW",
+                    "ar": "90 / 110 kW"
+                  }
+                },
+                {
+                  "key": "capacity",
+                  "label": {
+                    "tr": "Kapasite",
+                    "en": "Capacity",
+                    "ar": "الطاقة الإنتاجية"
+                  },
+                  "value": {
+                    "tr": "12,5–16 ton/saat",
+                    "en": "12.5–16 t/h",
+                    "ar": "12.5–16 طن/ساعة"
+                  }
+                }
+              ],
+              "powerKw": [
+                90,
+                110
+              ],
+              "capacityTH": {
+                "min": 12.5,
+                "max": 16
+              }
+            }
+          ],
+          "capacityBasis": {
+            "tr": "Standart kapasite hesapları için hammadde olarak mısır kullanılmış ve elek delik çapı 3 mm'dir.",
+            "en": "Capacity standard: raw material is maize, sieve hole size 3.0 mm.",
+            "ar": "معيار الطاقة الإنتاجية: المادة الخام هي الذرة، وقطر ثقوب المنخل 3.0 mm."
+          },
+          "relatedNote": {
+            "tr": "Hat şemalarında 'değirmen sistemi' olarak geçer; ekstrüde yem üretiminde öğütüm adımı için bkz. 64 numaralı not.",
+            "en": "Appears as 'milling system' in line diagrams; see note 64 for the grinding step in extruded feed production.",
+            "ar": "تظهر باسم «نظام الطحن» في مخططات الخطوط؛ راجع المقالة 64 للاطلاع على مرحلة الطحن في إنتاج الأعلاف المبثوقة."
+          }
+        },
+        {
+          "slug": "ince-ogutme-degirmeni",
+          "model": "SFSP65 A",
+          "name": {
+            "tr": "Gelişmiş ince öğütme değirmeni makinesi (2. kuşak)",
+            "en": "Fine grinder (second generation)",
+            "ar": "المطحنة الناعمة (الجيل الثاني)"
+          },
+          "description": [
+            {
+              "tr": "İnce öğütme yapmak için uygun; yem, tahıl, gıda, çevre koruma ve kimya endüstrilerinde kullanılabilen 2. kuşak gelişmiş öğütme değirmenidir.",
+              "en": "A second-generation grinder suitable for fine grinding in the feed, grain, food, environmental protection and chemical industries.",
+              "ar": "مطحنة من الجيل الثاني مناسبة للطحن الناعم في صناعات الأعلاف والحبوب والأغذية وحماية البيئة والكيماويات."
+            }
+          ],
+          "features": [
+            {
+              "tr": "Dengeli, sağlam ve dayanıklı; kusursuz bir dış görünüme sahiptir.",
+              "en": "Perfect appearance, stable and durable.",
+              "ar": "مظهر متقن، ثابتة ومتينة."
+            },
+            {
+              "tr": "Öğütme odasındaki hava beslemesi, hava besleme kanalı ve kapakta çevreye duyarlı susturucu kullanılmıştır.",
+              "en": "Environmental protection silencers on the air supplement inside the grinding chamber, the air supplement port and the door.",
+              "ar": "كواتم صوت صديقة للبيئة على مدخل الهواء الإضافي داخل غرفة الطحن وعلى فتحة الهواء الإضافي والباب."
+            },
+            {
+              "tr": "Yeni tasarım çekiç: çok köşeli açı, çok noktadan kesme ve öğütme ile öğütme verimi artırılmıştır.",
+              "en": "Newly designed hammer: multi-corner angle, multi-point cutting and grinding for full grinding efficiency.",
+              "ar": "مطرقة بتصميم جديد: زوايا متعددة وقطع وطحن متعدد النقاط لتحقيق كفاءة طحن كاملة."
+            },
+            {
+              "tr": "Küçük boyutlu çoklu elek kolay değiştirilebilir ve verimlidir.",
+              "en": "Small multi-chamber screens are easy to replace and cost-effective.",
+              "ar": "مناخل صغيرة متعددة الحجرات سهلة الاستبدال واقتصادية."
+            }
+          ],
+          "components": [],
+          "materials": null,
+          "specs": [],
+          "catalogPage": 47,
+          "usedInLines": [
+            "bebek-mamasi"
+          ],
+          "generation": 2,
+          "variants": [
+            {
+              "model": "SFSP65×45A",
+              "specs": [
+                {
+                  "key": "power",
+                  "label": {
+                    "tr": "Güç",
+                    "en": "Power",
+                    "ar": "القدرة"
+                  },
+                  "value": {
+                    "tr": "30 / 45 kW",
+                    "en": "30 / 45 kW",
+                    "ar": "30 / 45 kW"
+                  }
+                },
+                {
+                  "key": "capacity",
+                  "label": {
+                    "tr": "Kapasite",
+                    "en": "Capacity",
+                    "ar": "الطاقة الإنتاجية"
+                  },
+                  "value": {
+                    "tr": "1,7–2,4 ton/saat",
+                    "en": "1.7–2.4 t/h",
+                    "ar": "1.7–2.4 طن/ساعة"
+                  }
+                }
+              ],
+              "powerKw": [
+                30,
+                45
+              ],
+              "capacityTH": {
+                "min": 1.7,
+                "max": 2.4
+              }
+            },
+            {
+              "model": "SFSP65×60A",
+              "specs": [
+                {
+                  "key": "power",
+                  "label": {
+                    "tr": "Güç",
+                    "en": "Power",
+                    "ar": "القدرة"
+                  },
+                  "value": {
+                    "tr": "55 / 75 kW",
+                    "en": "55 / 75 kW",
+                    "ar": "55 / 75 kW"
+                  }
+                },
+                {
+                  "key": "capacity",
+                  "label": {
+                    "tr": "Kapasite",
+                    "en": "Capacity",
+                    "ar": "الطاقة الإنتاجية"
+                  },
+                  "value": {
+                    "tr": "3,2–4 ton/saat",
+                    "en": "3.2–4 t/h",
+                    "ar": "3.2–4 طن/ساعة"
+                  }
+                }
+              ],
+              "powerKw": [
+                55,
+                75
+              ],
+              "capacityTH": {
+                "min": 3.2,
+                "max": 4
+              }
+            },
+            {
+              "model": "SFSP65×90A",
+              "specs": [
+                {
+                  "key": "power",
+                  "label": {
+                    "tr": "Güç",
+                    "en": "Power",
+                    "ar": "القدرة"
+                  },
+                  "value": {
+                    "tr": "90 / 132 kW",
+                    "en": "90 / 132 kW",
+                    "ar": "90 / 132 kW"
+                  }
+                },
+                {
+                  "key": "capacity",
+                  "label": {
+                    "tr": "Kapasite",
+                    "en": "Capacity",
+                    "ar": "الطاقة الإنتاجية"
+                  },
+                  "value": {
+                    "tr": "5,2–7 ton/saat",
+                    "en": "5.2–7 t/h",
+                    "ar": "5.2–7 طن/ساعة"
+                  }
+                }
+              ],
+              "powerKw": [
+                90,
+                132
+              ],
+              "capacityTH": {
+                "min": 5.2,
+                "max": 7
+              }
+            },
+            {
+              "model": "SFSP65×120A",
+              "specs": [
+                {
+                  "key": "power",
+                  "label": {
+                    "tr": "Güç",
+                    "en": "Power",
+                    "ar": "القدرة"
+                  },
+                  "value": {
+                    "tr": "132 / 185 kW",
+                    "en": "132 / 185 kW",
+                    "ar": "132 / 185 kW"
+                  }
+                },
+                {
+                  "key": "capacity",
+                  "label": {
+                    "tr": "Kapasite",
+                    "en": "Capacity",
+                    "ar": "الطاقة الإنتاجية"
+                  },
+                  "value": {
+                    "tr": "7,7–9,8 ton/saat",
+                    "en": "7.7–9.8 t/h",
+                    "ar": "7.7–9.8 طن/ساعة"
+                  }
+                }
+              ],
+              "powerKw": [
+                132,
+                185
+              ],
+              "capacityTH": {
+                "min": 7.7,
+                "max": 9.8
+              }
+            },
+            {
+              "model": "SFSP65×150A",
+              "specs": [
+                {
+                  "key": "power",
+                  "label": {
+                    "tr": "Güç",
+                    "en": "Power",
+                    "ar": "القدرة"
+                  },
+                  "value": {
+                    "tr": "200 / 315 kW",
+                    "en": "200 / 315 kW",
+                    "ar": "200 / 315 kW"
+                  }
+                },
+                {
+                  "key": "capacity",
+                  "label": {
+                    "tr": "Kapasite",
+                    "en": "Capacity",
+                    "ar": "الطاقة الإنتاجية"
+                  },
+                  "value": {
+                    "tr": "11,7–16,6 ton/saat",
+                    "en": "11.7–16.6 t/h",
+                    "ar": "11.7–16.6 طن/ساعة"
+                  }
+                }
+              ],
+              "powerKw": [
+                200,
+                315
+              ],
+              "capacityTH": {
+                "min": 11.7,
+                "max": 16.6
+              }
+            }
+          ],
+          "capacityBasis": {
+            "tr": "Standart kapasite hesapları için hammadde olarak mısır kullanılmış ve elek delik çapı 0,8 mm'dir.",
+            "en": "Capacity standard: raw material is maize, sieve hole size 0.8 mm.",
+            "ar": "معيار الطاقة الإنتاجية: المادة الخام هي الذرة، وقطر ثقوب المنخل 0.8 mm."
+          },
+          "relatedNote": {
+            "tr": "Hat şemalarında 'değirmen sistemi' olarak geçer; ekstrüde yem üretiminde öğütüm adımı için bkz. 64 numaralı not.",
+            "en": "Appears as 'milling system' in line diagrams; see note 64 for the grinding step in extruded feed production.",
+            "ar": "تظهر باسم «نظام الطحن» في مخططات الخطوط؛ راجع المقالة 64 للاطلاع على مرحلة الطحن في إنتاج الأعلاف المبثوقة."
+          }
+        },
+        {
+          "slug": "mikro-ogutme-degirmeni",
+          "model": "SFWL",
+          "name": {
+            "tr": "Mikro öğütme değirmeni (son kuşak)",
+            "en": "Micro grinder (last generation)",
+            "ar": "المطحنة الدقيقة (أحدث جيل)"
+          },
+          "description": [
+            {
+              "tr": "Mikro öğütme yapmak için uygun; yem, tahıl, gıda, çevre koruma ve kimya endüstrilerinde kullanılabilen son kuşak gelişmiş öğütme değirmenidir.",
+              "en": "A last-generation grinder suitable for micro grinding in the feed, grain, food, environmental protection and chemical industries.",
+              "ar": "مطحنة من أحدث جيل مناسبة للطحن الدقيق جدًا في صناعات الأعلاف والحبوب والأغذية وحماية البيئة والكيماويات."
+            }
+          ],
+          "features": [
+            {
+              "tr": "Elek kullanılmayan, tıkanmadan öğüten yapı; rüzgârla sınıflandırma ve sekonder öğütme aynı anda tamamlanır.",
+              "en": "Screenless, non-blocking structure; air classification and secondary grinding are completed at the same time.",
+              "ar": "بنية بلا منخل ولا تنسدّ؛ يتم التصنيف الهوائي والطحن الثانوي في آن واحد."
+            },
+            {
+              "tr": "Düşük sıcaklık artışı, çok ince yapı ve yüksek kapasite için özel öğütme levhası.",
+              "en": "Special grinding plate design for high capacity, even fineness and low temperature rise.",
+              "ar": "تصميم خاص لصفيحة الطحن يحقق طاقة إنتاجية عالية ونعومة متجانسة وارتفاعًا منخفضًا في درجة الحرارة."
+            },
+            {
+              "tr": "Öğütme inceliği 30–140 µm arasında ayarlanabilir; özel mikro öğütüm yapılabilir.",
+              "en": "Fineness adjustable from 30 to 140 µm; special micro grinding can be achieved.",
+              "ar": "نعومة قابلة للضبط من 30 إلى 140 µm؛ ويمكن تحقيق طحن دقيق خاص."
+            },
+            {
+              "tr": "Dengeli çalışma, yataklarda düşük sıcaklık artışı, yağ ekleme gerektirmez, bakımı pratiktir.",
+              "en": "Stable running, low bearing temperature rise, no need to add oil, convenient maintenance.",
+              "ar": "تشغيل مستقر، وارتفاع منخفض في حرارة المحامل، ولا حاجة لإضافة الزيت، وصيانة سهلة."
+            },
+            {
+              "tr": "Çekiç başı ve diş halkaları yüksek kaliteli alaşımlı çelikle kaynaklanmıştır; aşınan parçaların ömrü uzundur.",
+              "en": "Hammer heads and teeth rings are welded with high-quality alloy steel for longer wear-part life.",
+              "ar": "رؤوس المطارق وحلقات الأسنان ملحومة بفولاذ سبائكي عالي الجودة لإطالة عمر الأجزاء المعرّضة للتآكل."
+            },
+            {
+              "tr": "Özel susturucu ile gürültü önemli ölçüde azaltılmıştır.",
+              "en": "Special silencer drastically reduces noise.",
+              "ar": "كاتم صوت خاص يخفض الضوضاء بدرجة كبيرة."
+            },
+            {
+              "tr": "Helezonlu besleyici, yüksek özgül ağırlıklı yabancı maddeleri ayırarak tıkanmaları önler.",
+              "en": "The screw feeder removes heavy impurities to keep the machine running normally.",
+              "ar": "يزيل المغذّي اللولبي الشوائب الثقيلة للحفاظ على التشغيل الطبيعي للآلة."
+            }
+          ],
+          "components": [],
+          "materials": null,
+          "specs": [
+            {
+              "key": "fineness",
+              "label": {
+                "tr": "Öğütme inceliği",
+                "en": "Grinding fineness",
+                "ar": "نعومة الطحن"
+              },
+              "value": "30–140 µm"
+            }
+          ],
+          "catalogPage": 48,
+          "usedInLines": [
+            "bebek-mamasi"
+          ],
+          "generation": 3,
+          "variants": [
+            {
+              "model": "SFWL82",
+              "specs": [
+                {
+                  "key": "power",
+                  "label": {
+                    "tr": "Güç",
+                    "en": "Power",
+                    "ar": "القدرة"
+                  },
+                  "value": {
+                    "tr": "55 / 75 kW",
+                    "en": "55 / 75 kW",
+                    "ar": "55 / 75 kW"
+                  }
+                },
+                {
+                  "key": "capacity",
+                  "label": {
+                    "tr": "Kapasite",
+                    "en": "Capacity",
+                    "ar": "الطاقة الإنتاجية"
+                  },
+                  "value": {
+                    "tr": "1,7–2,4 ton/saat",
+                    "en": "1.7–2.4 t/h",
+                    "ar": "1.7–2.4 طن/ساعة"
+                  }
+                }
+              ],
+              "powerKw": [
+                55,
+                75
+              ],
+              "capacityTH": {
+                "min": 1.7,
+                "max": 2.4
+              }
+            },
+            {
+              "model": "SFWL110",
+              "specs": [
+                {
+                  "key": "power",
+                  "label": {
+                    "tr": "Güç",
+                    "en": "Power",
+                    "ar": "القدرة"
+                  },
+                  "value": {
+                    "tr": "90 / 110 kW",
+                    "en": "90 / 110 kW",
+                    "ar": "90 / 110 kW"
+                  }
+                },
+                {
+                  "key": "capacity",
+                  "label": {
+                    "tr": "Kapasite",
+                    "en": "Capacity",
+                    "ar": "الطاقة الإنتاجية"
+                  },
+                  "value": {
+                    "tr": "3,2–4 ton/saat",
+                    "en": "3.2–4 t/h",
+                    "ar": "3.2–4 طن/ساعة"
+                  }
+                }
+              ],
+              "powerKw": [
+                90,
+                110
+              ],
+              "capacityTH": {
+                "min": 3.2,
+                "max": 4
+              }
+            },
+            {
+              "model": "SFWL130",
+              "specs": [
+                {
+                  "key": "power",
+                  "label": {
+                    "tr": "Güç",
+                    "en": "Power",
+                    "ar": "القدرة"
+                  },
+                  "value": {
+                    "tr": "132 / 160 kW",
+                    "en": "132 / 160 kW",
+                    "ar": "132 / 160 kW"
+                  }
+                },
+                {
+                  "key": "capacity",
+                  "label": {
+                    "tr": "Kapasite",
+                    "en": "Capacity",
+                    "ar": "الطاقة الإنتاجية"
+                  },
+                  "value": {
+                    "tr": "5,2–7 ton/saat",
+                    "en": "5.2–7 t/h",
+                    "ar": "5.2–7 طن/ساعة"
+                  }
+                }
+              ],
+              "powerKw": [
+                132,
+                160
+              ],
+              "capacityTH": {
+                "min": 5.2,
+                "max": 7
+              }
+            }
+          ],
+          "capacityBasis": {
+            "tr": "Standart kapasite hesapları için hammadde olarak mısır kullanılmış ve %95'i 150 µm'lik elekten geçmiştir.",
+            "en": "Capacity standard: raw material is maize, 95% passing through an 80-mesh sieve.",
+            "ar": "معيار الطاقة الإنتاجية: المادة الخام هي الذرة، ويمر 95% منها عبر منخل 80 mesh."
+          },
+          "notes": [
+            "64 numaralı blog yazısı mikro değirmenin inceliğini 10–100 µm veriyor; katalog 30–140 µm.",
+            "Kapasite notunda TR '150 µm elek', EN '80 mesh' (~180 µm) yazıyor."
+          ],
+          "relatedNote": {
+            "tr": "Hat şemalarında 'değirmen sistemi' olarak geçer; ekstrüde yem üretiminde öğütüm adımı için bkz. 64 numaralı not.",
+            "en": "Appears as 'milling system' in line diagrams; see note 64 for the grinding step in extruded feed production.",
+            "ar": "تظهر باسم «نظام الطحن» في مخططات الخطوط؛ راجع المقالة 64 للاطلاع على مرحلة الطحن في إنتاج الأعلاف المبثوقة."
+          }
+        }
+      ],
+      "microscopy": {
+        "title": {
+          "tr": "Hammaddelerin öğütümden önce ve sonraki mikroskop altındaki görünümleri",
+          "en": "Raw materials under the light microscope before and after grinding",
+          "ar": "المواد الخام تحت المجهر الضوئي قبل الطحن وبعده"
+        },
+        "materials": [
+          {
+            "tr": "Balık unu",
+            "en": "Fish meal",
+            "ar": "مسحوق السمك"
+          },
+          {
+            "tr": "Mısır gluteni",
+            "en": "Corn gluten meal",
+            "ar": "دقيق جلوتين الذرة"
+          },
+          {
+            "tr": "Soya küspesi",
+            "en": "Soybean meal",
+            "ar": "كسبة فول الصويا"
+          }
+        ],
+        "catalogPage": 49
+      },
+      "notes": [
+        "Katalogdaki 'ton/s' saat başına normalize edildi (EN 'ton/h').",
+        "Güç değerleri iki rakamlı (ör. 18,5 / 22 kW) verilmiş; katalog ne anlama geldiğini açıklamıyor (muhtemelen motor seçenekleri)."
+      ]
+    },
+    {
+      "key": "packaging",
+      "name": {
+        "tr": "Paketleme makineleri",
+        "en": "Packing machinery",
+        "ar": "آلات التعبئة والتغليف"
+      },
+      "intro": [
+        {
+          "tr": "Nihai aşamada hızlı paketleme makineleri yardımı ile üretim el değmeden, hızlıca ve ekonomik yoldan tamamlanır.",
+          "en": "In the final stage, rapid packaging machines complete production quickly, economically and untouched by hand.",
+          "ar": "في المرحلة النهائية تُنجز آلات التعبئة السريعة الإنتاج بسرعة وبتكلفة اقتصادية ودون تدخل يدوي."
+        }
+      ],
+      "models": [
+        {
+          "slug": "spk-398",
+          "model": "SPK-398",
+          "name": {
+            "tr": "SPK-398 tam otomatik dikey granül paketleme hattı",
+            "en": "SPK-398 full automatic vertical granule packaging line",
+            "ar": "خط التعبئة العمودي الأوتوماتيكي بالكامل للحبيبات SPK-398"
+          },
+          "description": [],
+          "features": [
+            {
+              "tr": "Dokunmatik panelli PLC kontrol, adım adım açıklama.",
+              "en": "PLC control with touch panel, step-by-step instructions.",
+              "ar": "تحكم PLC مع لوحة لمس وتعليمات خطوة بخطوة."
+            },
+            {
+              "tr": "Servo sarma sistemi ile donatılmış pnömatik kontrol sistemi.",
+              "en": "Servo winding system with pneumatic control system.",
+              "ar": "نظام لفّ مؤازر (سيرفو) مع نظام تحكم هوائي."
+            },
+            {
+              "tr": "Tüm makine hassasiyet, güvenilirlik ve stabilite açısından en üst düzeye çıkarılarak geliştirilmiştir.",
+              "en": "The whole machine is optimised for precision, reliability and stability.",
+              "ar": "صُمّمت الآلة بأكملها بأعلى درجات الدقة والموثوقية والثبات."
+            },
+            {
+              "tr": "Düzgün sızdırmazlık için yüksek ısıyla çalışan gelişmiş ısı kontrolörü kullanılır.",
+              "en": "An intelligent temperature controller ensures neat sealing at high temperature.",
+              "ar": "وحدة تحكم ذكية في درجة الحرارة تضمن لحامًا متقنًا عند درجات الحرارة العالية."
+            },
+            {
+              "tr": "Kusursuz otomatik alarm güvenlik koruması, az atık.",
+              "en": "Complete automatic alarm safety protection, little waste.",
+              "ar": "حماية أمان متكاملة بإنذار أوتوماتيكي، مع هدر قليل."
+            },
+            {
+              "tr": "Ölçüm, besleme, paketleme, tarih yazdırma, doldurma ve ürün çıkışından oluşan tüm paketleme prosedürünü tamamlar.",
+              "en": "Completes the whole packing procedure: measuring, feeding, bagging, date printing, charging and product output.",
+              "ar": "تُنجز دورة التعبئة كاملة: القياس والتغذية والتكييس وطباعة التاريخ والتعبئة وإخراج المنتج."
+            },
+            {
+              "tr": "Otomatik sayım.",
+              "en": "Automatic counting.",
+              "ar": "عدّ أوتوماتيكي."
+            }
+          ],
+          "components": [],
+          "materials": null,
+          "specs": [
+            {
+              "key": "powerSpec",
+              "label": {
+                "tr": "Güç özellikleri",
+                "en": "Power specification",
+                "ar": "مواصفات الطاقة"
+              },
+              "value": "3,0 kW / 220 V / 50 Hz"
+            },
+            {
+              "key": "speed",
+              "label": {
+                "tr": "Paketleme hızı",
+                "en": "Packing speed",
+                "ar": "سرعة التعبئة"
+              },
+              "value": {
+                "tr": "≤ 45 paket/dk",
+                "en": "≤ 45 bags/min",
+                "ar": "≤ 45 كيسًا/دقيقة"
+              }
+            },
+            {
+              "key": "pouch",
+              "label": {
+                "tr": "Torbalama büyüklüğü",
+                "en": "Pouch size",
+                "ar": "مقاس الكيس"
+              },
+              "value": {
+                "tr": "Uz.: 100–300 mm · Gen.: 50–200 mm",
+                "en": "L: 100–300 mm · W: 50–200 mm",
+                "ar": "الطول: 100–300 mm · العرض: 50–200 mm"
+              }
+            },
+            {
+              "key": "weight",
+              "label": {
+                "tr": "Paketleme ağırlığı",
+                "en": "Packing weight",
+                "ar": "وزن التعبئة"
+              },
+              "value": "10–1000 g"
+            },
+            {
+              "key": "dimensions",
+              "label": {
+                "tr": "Boyutlar (U × G × Y)",
+                "en": "Dimensions (L × W × H)",
+                "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+              },
+              "value": "1400 × 980 × 1700 mm"
+            }
+          ],
+          "catalogPage": 50,
+          "usedInLines": []
+        },
+        {
+          "slug": "spk-520",
+          "model": "SPK-520",
+          "name": {
+            "tr": "SPK-520 tam otomatik dikey granül paketleme hattı",
+            "en": "SPK-520 full automatic vertical granule packaging line",
+            "ar": "خط التعبئة العمودي الأوتوماتيكي بالكامل للحبيبات SPK-520"
+          },
+          "description": [],
+          "features": [
+            {
+              "tr": "Dokunmatik panelli PLC kontrol, adım adım açıklama.",
+              "en": "PLC control with touch panel, step-by-step instructions.",
+              "ar": "تحكم PLC مع لوحة لمس وتعليمات خطوة بخطوة."
+            },
+            {
+              "tr": "Servo sarma sistemi ile donatılmış pnömatik kontrol sistemi.",
+              "en": "Servo winding system with pneumatic control system.",
+              "ar": "نظام لفّ مؤازر (سيرفو) مع نظام تحكم هوائي."
+            },
+            {
+              "tr": "Tüm makine hassasiyet, güvenilirlik ve stabilite açısından en üst düzeye çıkarılarak geliştirilmiştir.",
+              "en": "The whole machine is optimised for precision, reliability and stability.",
+              "ar": "صُمّمت الآلة بأكملها بأعلى درجات الدقة والموثوقية والثبات."
+            },
+            {
+              "tr": "Düzgün sızdırmazlık için yüksek ısıyla çalışan gelişmiş ısı kontrolörü kullanılır.",
+              "en": "An intelligent temperature controller ensures neat sealing at high temperature.",
+              "ar": "وحدة تحكم ذكية في درجة الحرارة تضمن لحامًا متقنًا عند درجات الحرارة العالية."
+            },
+            {
+              "tr": "Kusursuz otomatik alarm güvenlik koruması, az atık.",
+              "en": "Complete automatic alarm safety protection, little waste.",
+              "ar": "حماية أمان متكاملة بإنذار أوتوماتيكي، مع هدر قليل."
+            },
+            {
+              "tr": "Ölçüm, besleme, paketleme, tarih yazdırma, doldurma ve ürün çıkışından oluşan tüm paketleme prosedürünü tamamlar.",
+              "en": "Completes the whole packing procedure: measuring, feeding, bagging, date printing, charging and product output.",
+              "ar": "تُنجز دورة التعبئة كاملة: القياس والتغذية والتكييس وطباعة التاريخ والتعبئة وإخراج المنتج."
+            },
+            {
+              "tr": "Otomatik sayım.",
+              "en": "Automatic counting.",
+              "ar": "عدّ أوتوماتيكي."
+            }
+          ],
+          "components": [],
+          "materials": null,
+          "specs": [
+            {
+              "key": "powerSpec",
+              "label": {
+                "tr": "Güç özellikleri",
+                "en": "Power specification",
+                "ar": "مواصفات الطاقة"
+              },
+              "value": "3,5 kW / 220 V / 50 Hz"
+            },
+            {
+              "key": "speed",
+              "label": {
+                "tr": "Paketleme hızı",
+                "en": "Packing speed",
+                "ar": "سرعة التعبئة"
+              },
+              "value": {
+                "tr": "≤ 45 paket/dk",
+                "en": "≤ 45 bags/min",
+                "ar": "≤ 45 كيسًا/دقيقة"
+              }
+            },
+            {
+              "key": "pouch",
+              "label": {
+                "tr": "Torbalama büyüklüğü",
+                "en": "Pouch size",
+                "ar": "مقاس الكيس"
+              },
+              "value": {
+                "tr": "Uz.: 100–350 mm · Gen.: 100–250 mm",
+                "en": "L: 100–350 mm · W: 100–250 mm",
+                "ar": "الطول: 100–350 mm · العرض: 100–250 mm"
+              }
+            },
+            {
+              "key": "weight",
+              "label": {
+                "tr": "Paketleme ağırlığı",
+                "en": "Packing weight",
+                "ar": "وزن التعبئة"
+              },
+              "value": "10–1000 g"
+            },
+            {
+              "key": "dimensions",
+              "label": {
+                "tr": "Boyutlar (U × G × Y)",
+                "en": "Dimensions (L × W × H)",
+                "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+              },
+              "value": "1430 × 1200 × 1700 mm"
+            }
+          ],
+          "catalogPage": 50,
+          "usedInLines": []
+        },
+        {
+          "slug": "spk-720",
+          "model": "SPK-720",
+          "name": {
+            "tr": "SPK-720 tam otomatik dikey granül paketleme hattı",
+            "en": "SPK-720 full automatic vertical granule packaging line",
+            "ar": "خط التعبئة العمودي الأوتوماتيكي بالكامل للحبيبات SPK-720"
+          },
+          "description": [],
+          "features": [
+            {
+              "tr": "Dokunmatik panelli PLC kontrol, adım adım açıklama.",
+              "en": "PLC control with touch panel, step-by-step instructions.",
+              "ar": "تحكم PLC مع لوحة لمس وتعليمات خطوة بخطوة."
+            },
+            {
+              "tr": "Servo sarma sistemi ile donatılmış pnömatik kontrol sistemi.",
+              "en": "Servo winding system with pneumatic control system.",
+              "ar": "نظام لفّ مؤازر (سيرفو) مع نظام تحكم هوائي."
+            },
+            {
+              "tr": "Tüm makine hassasiyet, güvenilirlik ve stabilite açısından en üst düzeye çıkarılarak geliştirilmiştir.",
+              "en": "The whole machine is optimised for precision, reliability and stability.",
+              "ar": "صُمّمت الآلة بأكملها بأعلى درجات الدقة والموثوقية والثبات."
+            },
+            {
+              "tr": "Düzgün sızdırmazlık için yüksek ısıyla çalışan gelişmiş ısı kontrolörü kullanılır.",
+              "en": "An intelligent temperature controller ensures neat sealing at high temperature.",
+              "ar": "وحدة تحكم ذكية في درجة الحرارة تضمن لحامًا متقنًا عند درجات الحرارة العالية."
+            },
+            {
+              "tr": "Kusursuz otomatik alarm güvenlik koruması, az atık.",
+              "en": "Complete automatic alarm safety protection, little waste.",
+              "ar": "حماية أمان متكاملة بإنذار أوتوماتيكي، مع هدر قليل."
+            },
+            {
+              "tr": "Ölçüm, besleme, paketleme, tarih yazdırma, doldurma ve ürün çıkışından oluşan tüm paketleme prosedürünü tamamlar.",
+              "en": "Completes the whole packing procedure: measuring, feeding, bagging, date printing, charging and product output.",
+              "ar": "تُنجز دورة التعبئة كاملة: القياس والتغذية والتكييس وطباعة التاريخ والتعبئة وإخراج المنتج."
+            },
+            {
+              "tr": "Otomatik sayım.",
+              "en": "Automatic counting.",
+              "ar": "عدّ أوتوماتيكي."
+            }
+          ],
+          "components": [],
+          "materials": null,
+          "specs": [
+            {
+              "key": "powerSpec",
+              "label": {
+                "tr": "Güç özellikleri",
+                "en": "Power specification",
+                "ar": "مواصفات الطاقة"
+              },
+              "value": "4,5 kW / 220 V / 50 Hz"
+            },
+            {
+              "key": "speed",
+              "label": {
+                "tr": "Paketleme hızı",
+                "en": "Packing speed",
+                "ar": "سرعة التعبئة"
+              },
+              "value": {
+                "tr": "≤ 45 paket/dk",
+                "en": "≤ 45 bags/min",
+                "ar": "≤ 45 كيسًا/دقيقة"
+              }
+            },
+            {
+              "key": "pouch",
+              "label": {
+                "tr": "Torbalama büyüklüğü",
+                "en": "Pouch size",
+                "ar": "مقاس الكيس"
+              },
+              "value": {
+                "tr": "Uz.: 150–450 mm · Gen.: 100–350 mm",
+                "en": "L: 150–450 mm · W: 100–350 mm",
+                "ar": "الطول: 150–450 mm · العرض: 100–350 mm"
+              }
+            },
+            {
+              "key": "weight",
+              "label": {
+                "tr": "Paketleme ağırlığı",
+                "en": "Packing weight",
+                "ar": "وزن التعبئة"
+              },
+              "value": "10–1000 g"
+            },
+            {
+              "key": "dimensions",
+              "label": {
+                "tr": "Boyutlar (U × G × Y)",
+                "en": "Dimensions (L × W × H)",
+                "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+              },
+              "value": "1780 × 1350 × 2000 mm"
+            }
+          ],
+          "catalogPage": 50,
+          "usedInLines": []
+        },
+        {
+          "slug": "spf-398",
+          "model": "SPF-398",
+          "name": {
+            "tr": "SPF-398 otomatik un (toz) paketleme makinesi",
+            "en": "SPF-398 automatic powder packaging machine",
+            "ar": "آلة تعبئة المساحيق الأوتوماتيكية SPF-398"
+          },
+          "description": [],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [
+            {
+              "key": "powerSpec",
+              "label": {
+                "tr": "Güç özellikleri",
+                "en": "Power specification",
+                "ar": "مواصفات الطاقة"
+              },
+              "value": "3,0 kW / 220 V / 50 Hz"
+            },
+            {
+              "key": "speed",
+              "label": {
+                "tr": "Paketleme hızı",
+                "en": "Packing speed",
+                "ar": "سرعة التعبئة"
+              },
+              "value": {
+                "tr": "≤ 50 paket/dk",
+                "en": "≤ 50 bags/min",
+                "ar": "≤ 50 كيسًا/دقيقة"
+              }
+            },
+            {
+              "key": "pouch",
+              "label": {
+                "tr": "Torbalama büyüklüğü",
+                "en": "Pouch size",
+                "ar": "مقاس الكيس"
+              },
+              "value": {
+                "tr": "Uz.: 100–300 mm · Gen.: 50–200 mm",
+                "en": "L: 100–300 mm · W: 50–200 mm",
+                "ar": "الطول: 100–300 mm · العرض: 50–200 mm"
+              }
+            },
+            {
+              "key": "weight",
+              "label": {
+                "tr": "Paketleme ağırlığı",
+                "en": "Packing weight",
+                "ar": "وزن التعبئة"
+              },
+              "value": "10–500 g"
+            },
+            {
+              "key": "dimensions",
+              "label": {
+                "tr": "Boyutlar (U × G × Y)",
+                "en": "Dimensions (L × W × H)",
+                "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+              },
+              "value": "1400 × 980 × 1700 mm"
+            }
+          ],
+          "catalogPage": 51,
+          "usedInLines": []
+        },
+        {
+          "slug": "spk-500",
+          "model": "SPK-500",
+          "name": {
+            "tr": "SPK-500 otomatik granül paketleme makinesi",
+            "en": "SPK-500 automatic granule packaging machine",
+            "ar": "آلة تعبئة الحبيبات الأوتوماتيكية SPK-500"
+          },
+          "description": [],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [
+            {
+              "key": "powerSpec",
+              "label": {
+                "tr": "Güç özellikleri",
+                "en": "Power specification",
+                "ar": "مواصفات الطاقة"
+              },
+              "value": "2,0 kW / 220 V / 50 Hz"
+            },
+            {
+              "key": "speed",
+              "label": {
+                "tr": "Paketleme hızı",
+                "en": "Packing speed",
+                "ar": "سرعة التعبئة"
+              },
+              "value": {
+                "tr": "25–70 paket/dk",
+                "en": "25–70 bags/min",
+                "ar": "25–70 كيسًا/دقيقة"
+              }
+            },
+            {
+              "key": "pouch",
+              "label": {
+                "tr": "Torbalama büyüklüğü",
+                "en": "Pouch size",
+                "ar": "مقاس الكيس"
+              },
+              "value": {
+                "tr": "Uz.: 50–160 mm · Gen.: 50–150 mm",
+                "en": "L: 50–160 mm · W: 50–150 mm",
+                "ar": "الطول: 50–160 mm · العرض: 50–150 mm"
+              }
+            },
+            {
+              "key": "weight",
+              "label": {
+                "tr": "Paketleme ağırlığı",
+                "en": "Packing weight",
+                "ar": "وزن التعبئة"
+              },
+              "value": "50–500 ml"
+            },
+            {
+              "key": "dimensions",
+              "label": {
+                "tr": "Boyutlar (U × G × Y)",
+                "en": "Dimensions (L × W × H)",
+                "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+              },
+              "value": "1000 × 800 × 1900 mm"
+            }
+          ],
+          "catalogPage": 51,
+          "usedInLines": []
+        },
+        {
+          "slug": "sp-350",
+          "model": "SP-350",
+          "name": {
+            "tr": "SP-350 hızlı paketleme makinesi",
+            "en": "SP-350 fast pillow packaging machine",
+            "ar": "آلة التعبئة الوسادية السريعة SP-350"
+          },
+          "description": [],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [
+            {
+              "key": "powerSpec",
+              "label": {
+                "tr": "Güç özellikleri",
+                "en": "Power specification",
+                "ar": "مواصفات الطاقة"
+              },
+              "value": "4,2 kW / 220 V / 50 Hz"
+            },
+            {
+              "key": "speed",
+              "label": {
+                "tr": "Paketleme hızı",
+                "en": "Packing speed",
+                "ar": "سرعة التعبئة"
+              },
+              "value": {
+                "tr": "20–200 paket/dk",
+                "en": "20–200 bags/min",
+                "ar": "20–200 كيسًا/دقيقة"
+              }
+            },
+            {
+              "key": "pouch",
+              "label": {
+                "tr": "Torbalama büyüklüğü",
+                "en": "Pouch size",
+                "ar": "مقاس الكيس"
+              },
+              "value": {
+                "tr": "Uz.: 150–330 mm · Gen.: 100–260 mm",
+                "en": "L: 150–330 mm · W: 100–260 mm",
+                "ar": "الطول: 150–330 mm · العرض: 100–260 mm"
+              }
+            },
+            {
+              "key": "weight",
+              "label": {
+                "tr": "Paketleme ağırlığı",
+                "en": "Packing weight",
+                "ar": "وزن التعبئة"
+              },
+              "value": "10–500 g"
+            },
+            {
+              "key": "dimensions",
+              "label": {
+                "tr": "Boyutlar (U × G × Y)",
+                "en": "Dimensions (L × W × H)",
+                "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+              },
+              "value": "4380 × 880 × 1500 mm"
+            }
+          ],
+          "catalogPage": 51,
+          "usedInLines": []
+        },
+        {
+          "slug": "sp-50",
+          "model": "SP-50",
+          "name": {
+            "tr": "SP-50 elektronik sayımlı paketleme terazisi",
+            "en": "SP-50 electronic quantitative packaging scale",
+            "ar": "ميزان التعبئة الكمّي الإلكتروني SP-50"
+          },
+          "description": [],
+          "features": [],
+          "components": [],
+          "materials": null,
+          "specs": [
+            {
+              "key": "powerSpec",
+              "label": {
+                "tr": "Güç özellikleri",
+                "en": "Power specification",
+                "ar": "مواصفات الطاقة"
+              },
+              "value": "1,1 kW / 220 V / 50 Hz"
+            },
+            {
+              "key": "speed",
+              "label": {
+                "tr": "Paketleme hızı",
+                "en": "Packing speed",
+                "ar": "سرعة التعبئة"
+              },
+              "value": {
+                "tr": "240 paket/dk",
+                "en": "240 bags/min",
+                "ar": "240 كيسًا/دقيقة"
+              }
+            },
+            {
+              "key": "air",
+              "label": {
+                "tr": "Hava kaynağı",
+                "en": "Air source",
+                "ar": "مصدر الهواء"
+              },
+              "value": {
+                "tr": "0,3–0,5 MPa",
+                "en": "0.3–0.5 MPa",
+                "ar": "0.3–0.5 MPa"
+              }
+            },
+            {
+              "key": "weight",
+              "label": {
+                "tr": "Paketleme ağırlığı",
+                "en": "Packing weight",
+                "ar": "وزن التعبئة"
+              },
+              "value": "5–50 kg"
+            },
+            {
+              "key": "dimensions",
+              "label": {
+                "tr": "Boyutlar (U × G × Y)",
+                "en": "Dimensions (L × W × H)",
+                "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+              },
+              "value": "1200 × 700 × 2000 mm"
+            }
+          ],
+          "catalogPage": 51,
+          "usedInLines": []
+        }
+      ],
+      "notes": [
+        "s.51'deki dört model ile makine adlarının eşleşmesi katalogda açıkça yapılmamış; fotoğraf sırası ve teknik değerlerden çıkarıldı (SPF = un/toz, SPK-500 = hacimsel granül, SP-350 = 4380 mm yatay hızlı paketleme, SP-50 = 5–50 kg terazi). Teyit edilmeli.",
+        "SP-50 için '240 paket/dk' değeri 5–50 kg'lık torbalar için gerçekçi değil; katalog değeri aynen aktarıldı, teyit edilmeli.",
+        "s.50'deki özellik maddeleri SPK serisine ait tanıtım metni; s.51 modelleri için ayrı açıklama yok."
+      ]
+    }
+  ]
+}

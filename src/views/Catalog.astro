@@ -1,0 +1,102 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import ClosingCta from '../components/ClosingCta.astro';
+import { pagesCopy } from '../i18n/pages';
+import { home } from '../i18n/home';
+import { pick, t, type Lang } from '../lib/i18n';
+import { href, type RouteKey } from '../lib/routes';
+import { company } from '../lib/data';
+import CatalogReader from '../components/CatalogReader.astro';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = pick(pagesCopy, lang).catalog;
+const kw = company.catalogCover?.keywords ?? [];
+const files = [
+  { l: c.tr, href: '/docs/MaviProtein_Katalog_TR.pdf', size: '6,5 MB', pages: 56 },
+  { l: c.en, href: '/docs/MaviProtein_Catalogue_EN.pdf', size: '5,0 MB', pages: 56 },
+];
+---
+<Base lang={lang} title={c.meta.title} description={c.meta.description} route="catalog" startDark={false} gauge={false}>
+  <section class="cv s-light grain" data-surface="light" aria-labelledby="cv-title">
+    <div class="wrap cv__grid">
+      <div class="cv__words">
+        <h1 id="cv-title" class="t-display">{c.title}</h1>
+        <a class="btn cv__read" href="#s-1" data-cr-open="1">{c.reader.open}<Arrow /></a>
+        <ul class="cv__files" role="list">
+          {files.map((f) => (
+            <li><a href={f.href} download class="cv__dl"><span class="serif">{f.l}</span><span class="mono faint">PDF · {f.size} · {f.pages} {c.pages}</span><span class="cv__btn">{c.dl}<Arrow dir="down" /></span></a></li>
+          ))}
+          <li class="cv__na"><span class="serif">{c.ar}</span><span class="mono faint">{c.arNote}</span></li>
+        </ul>
+      </div>
+      <a class="cv__book" href="#s-1" data-cr-open="1" aria-label={c.reader.open}>
+        <div class="cover">
+          <div class="cover__band"><span class="mono">MAVİ PROTEİN DANIŞMANLIK</span><span class="mono">2016</span></div>
+          <div class="cover__globe" aria-hidden="true">
+            <svg viewBox="0 0 200 200">
+              <circle cx="100" cy="100" r="80" fill="none" stroke="currentColor" stroke-width="0.8" />
+              {[0, 30, 60, 90, 120, 150].map((r) => <ellipse cx="100" cy="100" rx={Math.abs(Math.cos((r * Math.PI) / 180)) * 80 + 0.1} ry="80" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.6" />)}
+              {[-50, -25, 0, 25, 50].map((y) => <ellipse cx="100" cy={100 + y} rx={Math.sqrt(6400 - y * y)} ry={Math.sqrt(6400 - y * y) * 0.18} fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.6" />)}
+            </svg>
+          </div>
+          <ul class="cover__kw" role="list" aria-hidden="true">{kw.slice(0, 16).map((k: any) => <li>{t(k, lang)}</li>)}</ul>
+          <p class="cover__t serif">Mavi Protein</p>
+        </div>
+        <div class="cover__pages" aria-hidden="true"><i></i><i></i><i></i></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="toc s-light section" data-surface="light" aria-labelledby="toc-title">
+    <div class="wrap">
+      <h2 id="toc-title" class="t-h2">{c.toc}</h2>
+      <ol class="toc__list" role="list">
+        {c.chapters.map((ch) => (
+          <li><a href={href(ch.r as RouteKey, lang, undefined, (ch as any).h)}><span class="serif">{ch.t}</span><i aria-hidden="true"></i><span class="mono">{({ tr: 's.', en: 'p.', ar: 'ص' })[lang]} {ch.p}</span><Arrow /></a></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <CatalogReader lang={lang} />
+
+  <ClosingCta lang={lang} title={pick(home, lang).close.title} />
+</Base>
+
+<style>
+  .cv { padding-top: calc(var(--header-h) + clamp(40px, 6vw, 96px)); padding-bottom: clamp(56px, 7vw, 112px); }
+  .cv__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); align-items: center; }
+  .cv__words { grid-column: 1 / span 6; display: grid; gap: 1.4rem; justify-items: start; }
+  .cv__files { width: 100%; border-top: 1px solid var(--rule-strong); margin-top: 1rem; }
+  .cv__files li { border-bottom: 1px solid var(--rule); }
+  .cv__dl, .cv__na { display: grid; grid-template-columns: 1fr auto; gap: 0.2rem 1rem; padding-block: 1.1rem; align-items: center; }
+  .cv__dl .serif, .cv__na .serif { font-size: 1.6rem; }
+  .cv__dl .mono, .cv__na .mono { grid-column: 1; font-size: 0.75rem; }
+  .cv__btn { grid-row: 1 / span 2; grid-column: 2; display: inline-flex; gap: 0.5rem; align-items: center; font-weight: 600; color: var(--navy); }
+  .cv__dl:hover .serif { color: var(--phyco); }
+  .cv__na { opacity: 0.6; }
+  .cv__read { margin-top: 0.4rem; }
+  .cv__book { grid-column: 8 / -1; position: relative; perspective: 1600px; display: block; cursor: pointer; }
+  .cv__book:focus-visible { outline: 2px solid var(--phyco); outline-offset: 12px; }
+  .cv__book:active .cover { transform: rotateY(-30deg) translateZ(14px); transition-duration: 300ms; }
+  .cover { position: relative; z-index: 2; aspect-ratio: 210 / 297; background: var(--navy); color: var(--aegean-pale); padding: 8%; display: grid; grid-template-rows: auto 1fr auto auto; transform-origin: left center; transform: rotateY(-14deg); transition: transform 1200ms var(--ease-water); box-shadow: 30px 40px 70px -30px rgba(6, 26, 51, 0.6); border-radius: 2px 6px 6px 2px; }
+  .cv__book:hover .cover, .cv__book:focus-visible .cover { transform: rotateY(-24deg) translateZ(10px); }
+  .cover__band { display: flex; justify-content: space-between; font-size: 0.62rem; letter-spacing: 0.12em; border-bottom: 1px solid var(--rule-light); padding-bottom: 0.8rem; }
+  .cover__globe { align-self: center; justify-self: center; width: 62%; color: var(--aegean); animation: globe-spin 60s linear infinite; }
+  @keyframes globe-spin { to { transform: rotate(360deg); } }
+  .cover__kw { display: flex; flex-wrap: wrap; gap: 0.3rem 0.8rem; font-family: var(--f-mono); font-size: 0.58rem; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.7; }
+  .cover__t { font-size: clamp(2rem, 4vw, 3.4rem); letter-spacing: -0.03em; line-height: 1; margin-top: 1rem; color: #fff; }
+  .cover__pages { position: absolute; inset: 1.5% -2% 1.5% 2%; z-index: 1; }
+  .cover__pages i { position: absolute; inset: 0; background: #f7f4ee; border: 1px solid var(--rule); border-radius: 2px 5px 5px 2px; }
+  .cover__pages i:nth-child(2) { inset: 0.6% -0.6% 0.6% 0.6%; } .cover__pages i:nth-child(3) { inset: 1.2% -1.2% 1.2% 1.2%; }
+  @media (max-width: 960px) { .cv__words, .cv__book { grid-column: 1 / -1; } .cv__book { max-width: 360px; justify-self: center; } }
+
+  .toc__list { margin-top: 2rem; border-top: 1px solid var(--rule-strong); }
+  .toc__list a { display: grid; grid-template-columns: auto 1fr auto auto; gap: 1rem; align-items: baseline; padding-block: 1.1rem; border-bottom: 1px solid var(--rule); }
+  .toc__list .serif { font-size: clamp(1.25rem, 1rem + 0.8vw, 1.8rem); }
+  .toc__list i { border-bottom: 1px dotted var(--rule-strong); }
+  .toc__list .mono { font-size: 0.78rem; color: var(--brass); }
+  .toc__list a:hover .serif { color: var(--phyco); }
+</style>

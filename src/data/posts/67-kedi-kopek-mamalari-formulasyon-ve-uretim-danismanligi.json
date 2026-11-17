@@ -1,0 +1,160 @@
+{
+  "id": 67,
+  "slug": "kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi",
+  "date": "2020-07-30",
+  "category": "firma",
+  "originalCategory": {
+    "tr": "Kedi-köpek mamaları formülasyonu ve üretim hatları",
+    "en": "Cats and dogs food formulation with production line",
+    "ar": "تركيب أغذية القطط والكلاب مع خط الإنتاج"
+  },
+  "title": {
+    "tr": "Firmamızın kedi-köpek mamaları formülasyon ve üretim danışmanlığı",
+    "en": "Our cat and dog food formulation and production consultancy",
+    "ar": "استشاراتنا في تركيب أغذية القطط والكلاب وإنتاجها"
+  },
+  "excerpt": {
+    "tr": "Uluslararası kedi-köpek maması danışmanlık çalışmalarımızdan biri, İran'da Rotika firmasına verilen danışmanlıkla meyvelerini verdi; ürünler piyasaya sunuldu.",
+    "en": "One of our international pet food consultancy projects bore fruit with Rotika in Iran; the products are on the market.",
+    "ar": "أثمر أحد مشاريعنا الدولية في استشارات أغذية الحيوانات الأليفة مع شركة Rotika في إيران؛ والمنتجات متوفرة في السوق."
+  },
+  "body": {
+    "tr": [
+      {
+        "type": "p",
+        "text": "Uluslararası işlerimizden olan kedi-köpek mamaları ve üretim danışmanlıkları çalışmalarımızın önemli bir tanesi, İran'da Rotika firmasına verilen danışmanlıkla meyvelerini vermiştir."
+      },
+      {
+        "type": "p",
+        "text": "Üretimler gerçekleştirilmiş olup ürünler piyasaya sunulmuştur."
+      },
+      {
+        "type": "p",
+        "text": "Benzer ürünlerin pandemi sonrası ülkemizde de satışa sunulması düşünülmektedir."
+      }
+    ],
+    "en": [
+      {
+        "type": "p",
+        "text": "One of our important international cat and dog food production consultancy projects has borne fruit with the consultancy given to Rotika in Iran."
+      },
+      {
+        "type": "p",
+        "text": "Production has been carried out and the products have been launched on the market."
+      },
+      {
+        "type": "p",
+        "text": "Similar products are planned to be offered for sale in Türkiye after the pandemic."
+      }
+    ],
+    "ar": [
+      {
+        "type": "p",
+        "text": "أثمر أحد مشاريعنا الدولية المهمة في استشارات إنتاج أغذية القطط والكلاب من خلال الاستشارات المقدمة لشركة Rotika في إيران."
+      },
+      {
+        "type": "p",
+        "text": "تم تنفيذ الإنتاج وطُرحت المنتجات في السوق."
+      },
+      {
+        "type": "p",
+        "text": "من المخطط طرح منتجات مماثلة للبيع في تركيا بعد انتهاء الجائحة."
+      }
+    ]
+  },
+  "readingMinutes": 1,
+  "oldUrls": [
+    "/FIRMAMIZIN-KEDI-KOPEK-MAMALARI-FORMULASYON-VE-URETIM-DANISMANLIGI/67",
+    "/FIRMAMIZIN-KEDI-KOPEK-MAMALARI-FORMULASYON-VE-URETIM-DANISMANLIGI/default.aspx",
+    "/en-US/blogicerik.aspx?MakaleID=67"
+  ],
+  "images": [
+    {
+      "file": "/assets/p-pet-food-1000.webp",
+      "asset": "p-pet-food",
+      "cover": true,
+      "caption": {
+        "tr": "Ekstrüde kedi-köpek maması",
+        "en": "Extruded cat and dog food",
+        "ar": "أغذية القطط والكلاب المبثوقة"
+      }
+    },
+    {
+      "file": "/img/archive/rotika-uretim-tesisi-01.jpg",
+      "caption": {
+        "tr": "Rotika (İran) danışmanlığı: mama üretim tesisi",
+        "en": "Rotika (Iran) consultancy: pet food plant",
+        "ar": "استشارات Rotika (إيران): مصنع أغذية الحيوانات الأليفة"
+      },
+      "afterBlock": {
+        "tr": 0,
+        "en": 0,
+        "ar": 0
+      }
+    },
+    {
+      "file": "/img/archive/rotika-uretim-tesisi-02.jpg",
+      "caption": {
+        "tr": "Rotika (İran) danışmanlığı: mama üretim tesisi",
+        "en": "Rotika (Iran) consultancy: pet food plant",
+        "ar": "استشارات Rotika (إيران): مصنع أغذية الحيوانات الأليفة"
+      },
+      "afterBlock": {
+        "tr": 1,
+        "en": 1,
+        "ar": 1
+      }
+    },
+    {
+      "file": "/img/archive/rotika-kopek-orta-buyuk-irk-yetiskin.jpg",
+      "caption": {
+        "tr": "Rotika orta-büyük ırk yetişkin köpek maması",
+        "en": "Rotika medium to large breeds adult dog food",
+        "ar": "غذاء Rotika للكلاب البالغة من السلالات المتوسطة والكبيرة"
+      },
+      "afterBlock": {
+        "tr": 2,
+        "en": 2,
+        "ar": 2
+      }
+    },
+    {
+      "file": "/img/archive/rotika-kopek-orta-buyuk-irk-yavru.jpg",
+      "caption": {
+        "tr": "Rotika orta-büyük ırk yavru köpek maması",
+        "en": "Rotika medium to large breeds junior dog food",
+        "ar": "غذاء Rotika لجراء الكلاب من السلالات المتوسطة والكبيرة"
+      }
+    },
+    {
+      "file": "/img/archive/rotika-kopek-kucuk-irk-yetiskin.jpg",
+      "caption": {
+        "tr": "Rotika küçük ırk yetişkin köpek maması",
+        "en": "Rotika small breeds adult dog food",
+        "ar": "غذاء Rotika للكلاب البالغة من السلالات الصغيرة"
+      }
+    },
+    {
+      "file": "/img/archive/rotika-yavru-kedi.jpg",
+      "caption": {
+        "tr": "Rotika yavru kedi maması",
+        "en": "Rotika kitten food",
+        "ar": "غذاء Rotika لصغار القطط"
+      }
+    },
+    {
+      "file": "/img/archive/rotika-yetiskin-kedi.jpg",
+      "caption": {
+        "tr": "Rotika yetişkin kedi maması",
+        "en": "Rotika adult cat food",
+        "ar": "غذاء Rotika للقطط البالغة"
+      }
+    }
+  ],
+  "project": "rotika",
+  "notes": [
+    "Özgün metin tamamı büyük harf; cümle düzenine çevrildi.",
+    "EN yazı sayfası boş; EN başlık eski EN kategori adından, gövde çeviridir.",
+    "'Pandemi sonrası ülkemizde satış' 2020 tarihli bir niyet; güncel durum teyit edilmeli."
+  ]
+}

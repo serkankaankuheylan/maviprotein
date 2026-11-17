@@ -1,0 +1,198 @@
+---
+/**
+ * Arthrospira platensis in a bright-field microscope view, drawn to one scale.
+ *
+ * What it shows comes from the inventory (site-audit/content/image-texts.json):
+ *   "Hücrenin eni 5-10 µm ile boyları 300-500 µm kadar uzamaktadır."
+ *   "Sarmal bir yapısı ve bazen düz çubuksu yapılardaki alt türleri mevcuttur."
+ * Helix geometry is only drawn, never printed: an open LEFT-handed helix, coil Ø 26–36 µm,
+ * pitch 43–57 µm, thread 6–8 µm (Desikachary & Jeeji Bai 1996); cultured strains reach
+ * Ø 43 µm / pitch 74 µm (Sci. Rep. 4:4919).
+ *
+ * Field: S = 0.7 px/µm → field Ø 364 px ≈ 520 µm, so whole 300–500 µm trichomes fit and the
+ * 100 µm bar is 70 px. Inset: the circled spot at S2 = 5 px/µm, where the 5–10 µm thread
+ * resolves into its short, disc-shaped cells.
+ *
+ * Drawing rules: each trichome is a tube (dark wall, light lumen). The half-turns nearer the
+ * viewer are crisp, the far ones softer, and the near strands rise left-to-right along the
+ * axis — that is what makes the helix read as left-handed. Trichomes off the focal plane are
+ * paler; the in-focus one carries the circled spot.
+ */
+interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+
+const S = 0.7;
+const S2 = 5;
+const F = { x: 190, y: 190, r: 182 };
+const I = { x: 372, y: 372, r: 62 };
+
+const rgb = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const mix = (a: string, b: string, t: number) => '#' + rgb(a).map((v, i) => Math.round(v + (rgb(b)[i] - v) * t).toString(16).padStart(2, '0')).join('');
+const FIELD = '#e9f4ef';
+const WALL = '#1f6b5a';
+const LUMEN = '#9ccdb9';
+
+type Tri = {
+  x: number; y: number; rot: number;   // centre in the field (px), axis angle (deg)
+  len: number; w: number;              // trichome length and width (µm)
+  D: number; P: number;                // coil outer diameter and pitch (µm)
+  tilt: number; bend: number;          // axis tilt toward the viewer (sin), axis bow (px)
+  phase: number; focus: number;        // helix phase (rad), 1 = in the focal plane
+  glide?: number;                      // gliding motility amplitude along the axis (px)
+};
+
+const trichome = (t: Tri) => {
+  const L = t.len * S, A = ((t.D - t.w) / 2) * S, P = t.P * S, wp = t.w * S;
+  const th0 = t.phase, th1 = t.phase + (L / P) * Math.PI * 2;
+  const at = (th: number) => {
+    const u = ((th - t.phase) / (Math.PI * 2)) * P - L / 2;
+    return [u + t.tilt * A * Math.cos(th), -A * Math.sin(th) + t.bend * (1 - (2 * u / L) ** 2)];
+  };
+  const fmt = (p: number[]) => `${p[0].toFixed(1)} ${p[1].toFixed(1)}`;
+  // split at the crests (θ = π/2 + kπ) so every half-turn is its own subpath
+  const front: string[] = [], all: string[] = [];
+  for (let k = Math.floor((th0 + Math.PI / 2) / Math.PI); ; k++) {
+    const a = Math.max(th0, -Math.PI / 2 + k * Math.PI), b = Math.min(th1, Math.PI / 2 + k * Math.PI);
+    if (a >= th1) break;
+    if (b <= a) continue;
+    const n = Math.max(2, Math.ceil(((b - a) / Math.PI) * 14));
+    const pts = Array.from({ length: n + 1 }, (_, i) => fmt(at(a + ((b - a) * i) / n)));
+    if (k % 2 === 0) front.push('M' + pts.join('L')); // even half-turns face the viewer
+    all.push((all.length ? 'L' : 'M') + pts.join('L'));
+  }
+  const near = mix(WALL, FIELD, 0.5 * (1 - t.focus));
+  const nearLumen = mix(LUMEN, FIELD, 0.45 * (1 - t.focus));
+  const far = mix(near, FIELD, 0.3), farLumen = mix(nearLumen, FIELD, 0.26);
+  const ends = [at(th0), at(th1)].filter((_, i) => Math.cos(i ? th1 : th0) > 0);
+  return { ...t, wp, e: Math.min(0.85, wp * 0.17), all: all.join(''), front: front.join(''), near, nearLumen, far, farLumen, ends };
+};
+
+const tris = ([
+  { x: 174.5, y: 224.7, rot: 28, len: 420, w: 7.5, D: 35, P: 56, tilt: 0.12, bend: 6, phase: 0.6, focus: 1 },
+  { x: 230.7, y: 98.6, rot: 18, len: 330, w: 7, D: 32, P: 50, tilt: -0.1, bend: -5, phase: 2.2, focus: 0.5, glide: 5 },
+  { x: 174.8, y: 150.4, rot: 36, len: 300, w: 6.5, D: 40, P: 66, tilt: 0.1, bend: 4, phase: 1.1, focus: 0.72, glide: 5 },
+  { x: 140, y: 290, rot: 20, len: 300, w: 6, D: 9.5, P: 96, tilt: 0, bend: -3, phase: 0.4, focus: 0.55, glide: 4 }, // the straight, rod-like form
+] as Tri[]).map(trichome);
+
+// the circled spot: middle of a near half-turn on the in-focus trichome, close to the inset
+const hero = tris[0];
+const heroL = hero.len * S, heroA = ((hero.D - hero.w) / 2) * S, heroP = hero.P * S;
+const kSpot = Math.round((0.86 * heroL) / heroP);
+const uSpot = kSpot * heroP - heroL / 2 - (hero.phase / (Math.PI * 2)) * heroP;
+const bendSlope = (-8 * hero.bend * uSpot) / heroL ** 2;
+const local = [uSpot + hero.tilt * heroA, hero.bend * (1 - (2 * uSpot / heroL) ** 2)];
+const rad = (hero.rot * Math.PI) / 180;
+const bandAngle = hero.rot + (Math.atan2(-heroA + bendSlope * (heroP / (Math.PI * 2)), heroP / (Math.PI * 2)) * 180) / Math.PI;
+// the band sits a little off the inset centre to leave room for its scale bar; the spot circle shifts to match
+const bandOff = -9;
+const ba = (bandAngle * Math.PI) / 180;
+const M = {
+  x: hero.x + local[0] * Math.cos(rad) - local[1] * Math.sin(rad) + Math.sin(ba) * bandOff * (S / S2),
+  y: hero.y + local[0] * Math.sin(rad) + local[1] * Math.cos(rad) - Math.cos(ba) * bandOff * (S / S2),
+  r: (I.r / S2) * S,
+};
+
+// leader lines: outer tangents between the spot circle and the inset
+const d = Math.hypot(I.x - M.x, I.y - M.y);
+const u = [(I.x - M.x) / d, (I.y - M.y) / d], nrm = [-u[1], u[0]];
+const cb = (M.r - I.r) / d, sb = Math.sqrt(1 - cb * cb);
+const leaders = [1, -1].map((s) => {
+  const v = [cb * u[0] + s * sb * nrm[0], cb * u[1] + s * sb * nrm[1]];
+  return `M${(M.x + M.r * v[0]).toFixed(1)} ${(M.y + M.r * v[1]).toFixed(1)}L${(I.x + I.r * v[0]).toFixed(1)} ${(I.y + I.r * v[1]).toFixed(1)}`;
+});
+
+// inset: the thread resolved into a tube of short, disc-shaped cells (wider than long), the wall
+// slightly pinched at each cross-wall
+let seed = 11;
+const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+const hw = (hero.w * S2) / 2;
+const span = I.r + 24, pinch = 1.4, pw = 3.4;
+const septa: number[] = [];
+for (let x = -span + 6; x < span - 6; x += (3.1 + rnd() * 1.4) * S2) septa.push(x);
+const f1 = (n: number) => n.toFixed(1);
+const tube = [
+  `M${-span} ${f1(-hw)}`,
+  ...septa.map((x) => `L${f1(x - pw)} ${f1(-hw)}Q${f1(x)} ${f1(-hw + 2 * pinch)} ${f1(x + pw)} ${f1(-hw)}`),
+  `L${span} ${f1(-hw)}L${span} ${f1(hw)}`,
+  ...[...septa].reverse().map((x) => `L${f1(x + pw)} ${f1(hw)}Q${f1(x)} ${f1(hw - 2 * pinch)} ${f1(x - pw)} ${f1(hw)}`),
+  `L${-span} ${f1(hw)}Z`,
+].join('');
+const walls = septa.map((x) => `M${f1(x)} ${f1(-hw + pinch)}V${f1(hw - pinch)}`).join('');
+
+const bar = { x: F.x - 35, y: 344, len: 100 * S };
+const bar2 = { len: 10 * S2 };
+---
+<svg class:list={['sf', cls]} viewBox="0 0 440 440" aria-hidden="true">
+  <defs>
+    <radialGradient id="sf-light" cx="0.45" cy="0.42" r="0.62">
+      <stop offset="0" stop-color="#f1f8f4" />
+      <stop offset="0.7" stop-color={FIELD} />
+      <stop offset="1" stop-color="#dbebe4" />
+    </radialGradient>
+    <linearGradient id="sf-tube" gradientUnits="userSpaceOnUse" x1="0" y1={-hw} x2="0" y2={hw}>
+      <stop offset="0" stop-color={mix(LUMEN, WALL, 0.4)} />
+      <stop offset="0.2" stop-color={LUMEN} />
+      <stop offset="0.5" stop-color={mix(LUMEN, '#ffffff', 0.3)} />
+      <stop offset="0.8" stop-color={LUMEN} />
+      <stop offset="1" stop-color={mix(LUMEN, WALL, 0.4)} />
+    </linearGradient>
+    <clipPath id="sf-field"><circle cx={F.x} cy={F.y} r={F.r - 0.5} /></clipPath>
+    <clipPath id="sf-inset"><circle cx={I.x} cy={I.y} r={I.r - 0.5} /></clipPath>
+  </defs>
+
+  <circle cx={F.x} cy={F.y} r={F.r} fill="url(#sf-light)" />
+  <g clip-path="url(#sf-field)">
+    {tris.map((t, i) => (
+      <g transform={`translate(${t.x} ${t.y}) rotate(${t.rot})`}>
+        <g class:list={[t.glide && 'sf__glide']} style={t.glide ? `--g:${t.glide}px;animation-duration:${9 + i * 2.3}s;animation-delay:${-i * 3.1}s` : undefined} fill="none">
+          <defs>
+            <path id={`sf-all-${i}`} d={t.all} stroke-linecap="round" stroke-linejoin="round" />
+            <path id={`sf-near-${i}`} d={t.front} stroke-linejoin="round" />
+          </defs>
+          <use href={`#sf-all-${i}`} stroke={t.far} stroke-width={t.wp} />
+          <use href={`#sf-all-${i}`} stroke={t.farLumen} stroke-width={t.wp - 2 * t.e} />
+          <use href={`#sf-near-${i}`} stroke={t.near} stroke-width={t.wp} />
+          {t.ends.map((p) => <circle cx={p[0].toFixed(1)} cy={p[1].toFixed(1)} r={t.wp / 2} fill={t.near} />)}
+          <use href={`#sf-near-${i}`} stroke={t.nearLumen} stroke-width={t.wp - 2 * t.e} />
+          {t.ends.map((p) => <circle cx={p[0].toFixed(1)} cy={p[1].toFixed(1)} r={t.wp / 2 - t.e} fill={t.nearLumen} />)}
+        </g>
+      </g>
+    ))}
+  </g>
+  <circle cx={F.x} cy={F.y} r={F.r} fill="none" class="sf__rim" />
+
+  <g class="sf__bar">
+    <path d={`M${bar.x} ${bar.y}h${bar.len}M${bar.x} ${bar.y - 4}v8M${bar.x + bar.len} ${bar.y - 4}v8`} />
+    <text x={bar.x + bar.len / 2} y={bar.y + 16} text-anchor="middle">100 µm</text>
+  </g>
+
+  <g class="sf__lead">
+    <circle cx={M.x.toFixed(1)} cy={M.y.toFixed(1)} r={M.r.toFixed(1)} />
+    {leaders.map((l) => <path d={l} />)}
+  </g>
+
+  <circle cx={I.x} cy={I.y} r={I.r} fill="url(#sf-light)" />
+  <g clip-path="url(#sf-inset)">
+    <g transform={`translate(${I.x} ${I.y}) rotate(${bandAngle.toFixed(1)}) translate(0 ${bandOff})`}>
+      <path d={tube} fill="url(#sf-tube)" stroke={WALL} stroke-width="1.2" stroke-linejoin="round" />
+      <path d={walls} fill="none" stroke={WALL} stroke-width="1" opacity="0.7" />
+    </g>
+  </g>
+  <circle cx={I.x} cy={I.y} r={I.r} fill="none" class="sf__rim" />
+  <g class="sf__bar">
+    <path d={`M${I.x - bar2.len / 2} ${I.y + 34}h${bar2.len}M${I.x - bar2.len / 2} ${I.y + 31}v6M${I.x + bar2.len / 2} ${I.y + 31}v6`} />
+    <text x={I.x} y={I.y + 49} text-anchor="middle">10 µm</text>
+  </g>
+</svg>
+
+<style>
+  .sf { width: 100%; height: auto; overflow: visible; }
+  .sf__rim { stroke: var(--rule-strong); stroke-width: 1; }
+  .sf__bar path { stroke: var(--ink); stroke-width: 1.2; fill: none; }
+  .sf__bar text { font-family: var(--f-mono); font-size: 13px; fill: var(--ink); letter-spacing: 0.02em; }
+  .sf__lead { fill: none; stroke: var(--ink); stroke-width: 0.8; opacity: 0.55; }
+  /* gliding motility: trichomes creep slowly along their own axis */
+  .sf__glide { animation: sf-glide 10s ease-in-out infinite alternate; }
+  @keyframes sf-glide { from { transform: translateX(calc(var(--g) * -1)); } to { transform: translateX(var(--g)); } }
+  @media (prefers-reduced-motion: reduce) { .sf__glide { animation: none; } }
+</style>

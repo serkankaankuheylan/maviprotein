@@ -1,0 +1,118 @@
+# Generated from src/data/redirects.json — old maviprotein.com.tr URLs → new site (301)
+/default.aspx  /  301
+/en-US/default.aspx  /en/  301
+/en-us/default.aspx  /en/  301
+/arb/default.aspx  /ar/  301
+/hakkimizda.aspx  /hakkimizda  301
+/hizmetlerimiz/lojistik-tedarik.aspx  /hizmetler/tedarik-lojistik  301
+/blog.aspx  /notlar  301
+/referanslar.aspx  /projeler  301
+/galeri.aspx  /arsiv  301
+/mavikatalog.aspx  /katalog  301
+/iletisim.aspx  /iletisim  301
+/hizmetlerimiz/proje.aspx  /hizmetler/proje-ve-fon  301
+/hizmetlerimiz/yem-gida.aspx  /cozumler/yem-gida-hatlari  301
+/hizmetlerimiz/makina-sistemleri.aspx  /makineler  301
+/hizmetlerimiz/Su-Urunleri.aspx  /cozumler/su-urunleri  301
+/hizmetlerimiz/su-urunleri.aspx  /cozumler/su-urunleri  301
+/hizmetlerimiz/tarim-hayvancilik.aspx  /cozumler/tarim-hayvancilik  301
+/FIRMAMIZIN-KEDI-KOPEK-MAMALARI-FORMULASYON-VE-URETIM-DANISMANLIGI/67  /notlar/kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi  301
+/firmamizin-kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi/67  /notlar/kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi  301
+/MAVI-YESIL-ALGLERIN-GEZEGENIMIZ-ICIN-ONEMI/65  /notlar/mavi-yesil-alglerin-gezegenimiz-icin-onemi  301
+/mavi-yesil-alglerin-gezegenimiz-icin-onemi/65  /notlar/mavi-yesil-alglerin-gezegenimiz-icin-onemi  301
+/AKUAKULTUR-EKTRUDE-YEMLERININ-URETIMI/64  /notlar/akuakultur-ekstrude-yemlerinin-uretimi  301
+/akuakultur-ektrude-yemlerinin-uretimi/64  /notlar/akuakultur-ekstrude-yemlerinin-uretimi  301
+/Future-Fish-Eurasia-Izmir-Fuarini-basari-ile-tamamladik/63  /notlar/future-fish-eurasia-izmir-fuari-tamamlandi  301
+/future-fish-eurasia-izmir-fuarini-basari-ile-tamamladik/63  /notlar/future-fish-eurasia-izmir-fuari-tamamlandi  301
+/FUTURE-FISH-EURASIA-2-4-HAZIRAN-2016-FUARINDAYIZ/62  /notlar/future-fish-eurasia-2016-fuarindayiz  301
+/future-fish-eurasia-2-4-haziran-2016-fuarindayiz/62  /notlar/future-fish-eurasia-2016-fuarindayiz  301
+/en-US/About-us.aspx  /en/about  301
+/en-us/about-us.aspx  /en/about  301
+/en-US/services/logistics.aspx  /en/services/supply-logistics  301
+/en-us/services/logistics.aspx  /en/services/supply-logistics  301
+/en-US/blog.aspx  /en/notes  301
+/en-us/blog.aspx  /en/notes  301
+/en-US/references.aspx  /en/projects  301
+/en-us/references.aspx  /en/projects  301
+/en-US/gallery.aspx  /en/archive  301
+/en-us/gallery.aspx  /en/archive  301
+/en-US/catalog.aspx  /en/catalog  301
+/en-us/catalog.aspx  /en/catalog  301
+/en-US/contact.aspx  /en/contact  301
+/en-us/contact.aspx  /en/contact  301
+/en-us/services/projects.aspx  /en/services/projects-funding  301
+/en-us/services/feed.aspx  /en/solutions/feed-food-lines  301
+/en-us/services/machine-systems.aspx  /en/machines  301
+/en-us/services/Aquaculture.aspx  /en/solutions/aquaculture  301
+/en-us/services/aquaculture.aspx  /en/solutions/aquaculture  301
+/en-us/services/animal-husbandry.aspx  /en/solutions/agriculture-livestock  301
+/en-US/blogicerik.aspx  MakaleID=67  /en/notes/kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi  301
+/en-us/blogicerik.aspx  MakaleID=67  /en/notes/kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi  301
+/en-US/blogicerik.aspx  MakaleID=65  /en/notes/mavi-yesil-alglerin-gezegenimiz-icin-onemi  301
+/en-us/blogicerik.aspx  MakaleID=65  /en/notes/mavi-yesil-alglerin-gezegenimiz-icin-onemi  301
+/en-US/blogicerik.aspx  MakaleID=64  /en/notes/akuakultur-ekstrude-yemlerinin-uretimi  301
+/en-us/blogicerik.aspx  MakaleID=64  /en/notes/akuakultur-ekstrude-yemlerinin-uretimi  301
+/en-US/blogicerik.aspx  MakaleID=63  /en/notes/future-fish-eurasia-izmir-fuari-tamamlandi  301
+/en-us/blogicerik.aspx  MakaleID=63  /en/notes/future-fish-eurasia-izmir-fuari-tamamlandi  301
+/en-US/blogicerik.aspx  MakaleID=62  /en/notes/future-fish-eurasia-2016-fuarindayiz  301
+/en-us/blogicerik.aspx  MakaleID=62  /en/notes/future-fish-eurasia-2016-fuarindayiz  301
+/arb/About.aspx  /ar/about  301
+/arb/about.aspx  /ar/about  301
+/arb/services/logistics.aspx  /ar/services/supply-logistics  301
+/arb/references.aspx  /ar/projects  301
+/arb/gallery.aspx  /ar/archive  301
+/arb/catalog.aspx  /ar/catalog  301
+/arb/contact.aspx  /ar/contact  301
+/arb/services/feed.aspx  /ar/solutions/feed-food-lines  301
+/arb/services/machine-systems.aspx  /ar/machines  301
+/arb/blog.aspx  /ar/notes  301
+/services/lojistik-tedarik.aspx  /hizmetler/tedarik-lojistik  301
+/katalog/samples/magazine/index.html  /katalog  301
+/AGRA-ME-2016-FUARIMIZ-BASARI-ILE-TAMAMLANMISTIR/55  /notlar/agra-me-2016-fuari-tamamlandi  301
+/agra-me-2016-fuarimiz-basari-ile-tamamlanmistir/55  /notlar/agra-me-2016-fuari-tamamlandi  301
+/Dubai-Agra-ME-Fuarindayiz/61  /notlar/dubai-agra-me-fuarindayiz  301
+/dubai-agra-me-fuarindayiz/61  /notlar/dubai-agra-me-fuarindayiz  301
+/FIRMAMIZIN-KEDI-KOPEK-MAMALARI-FORMULASYON-VE-URETIM-DANISMANLIGI/default.aspx  /notlar/kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi  301
+/firmamizin-kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi/default.aspx  /notlar/kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi  301
+/MAVI-YESIL-ALGLERIN-GEZEGENIMIZ-ICIN-ONEMI/default.aspx  /notlar/mavi-yesil-alglerin-gezegenimiz-icin-onemi  301
+/mavi-yesil-alglerin-gezegenimiz-icin-onemi/default.aspx  /notlar/mavi-yesil-alglerin-gezegenimiz-icin-onemi  301
+/AKUAKULTUR-EKTRUDE-YEMLERININ-URETIMI/default.aspx  /notlar/akuakultur-ekstrude-yemlerinin-uretimi  301
+/akuakultur-ektrude-yemlerinin-uretimi/default.aspx  /notlar/akuakultur-ekstrude-yemlerinin-uretimi  301
+/Future-Fish-Eurasia-Izmir-Fuarini-basari-ile-tamamladik/default.aspx  /notlar/future-fish-eurasia-izmir-fuari-tamamlandi  301
+/future-fish-eurasia-izmir-fuarini-basari-ile-tamamladik/default.aspx  /notlar/future-fish-eurasia-izmir-fuari-tamamlandi  301
+/FUTURE-FISH-EURASIA-2-4-HAZIRAN-2016-FUARINDAYIZ/default.aspx  /notlar/future-fish-eurasia-2016-fuarindayiz  301
+/future-fish-eurasia-2-4-haziran-2016-fuarindayiz/default.aspx  /notlar/future-fish-eurasia-2016-fuarindayiz  301
+/en-US/services/About-us.aspx  /en/about  301
+/en-us/services/about-us.aspx  /en/about  301
+/en-US/blogicerik.aspx  MakaleID=55  /en/notes/agra-me-2016-fuari-tamamlandi  301
+/en-us/blogicerik.aspx  MakaleID=55  /en/notes/agra-me-2016-fuari-tamamlandi  301
+/en-US/blogicerik.aspx  MakaleID=61  /en/notes/dubai-agra-me-fuarindayiz  301
+/en-us/blogicerik.aspx  MakaleID=61  /en/notes/dubai-agra-me-fuarindayiz  301
+/en-us/catalog/samples/magazine/index.html  /en/catalog  301
+/arb/catalog/samples/magazine/index.html  /ar/catalog  301
+/arb/services/projects.aspx  /ar/services/projects-funding  301
+/arb/services/Aquaculture.aspx  /ar/solutions/aquaculture  301
+/arb/services/aquaculture.aspx  /ar/solutions/aquaculture  301
+/arb/services/animal-husbandry.aspx  /ar/solutions/agriculture-livestock  301
+/arb/mavikatalog.aspx  /ar/catalog  301
+/arb/hakkimizda.aspx  /ar/about  301
+/arb/galeri.aspx  /ar/archive  301
+/arb/services/lojistik-tedarik.aspx  /ar/services/supply-logistics  301
+/arb/iletisim.aspx  /ar/contact  301
+/arb/referanslar.aspx  /ar/projects  301
+/AGRA-ME-2016-FUARIMIZ-BASARI-ILE-TAMAMLANMISTIR/default.aspx  /notlar/agra-me-2016-fuari-tamamlandi  301
+/agra-me-2016-fuarimiz-basari-ile-tamamlanmistir/default.aspx  /notlar/agra-me-2016-fuari-tamamlandi  301
+/Dubai-Agra-ME-Fuarindayiz/default.aspx  /notlar/dubai-agra-me-fuarindayiz  301
+/dubai-agra-me-fuarindayiz/default.aspx  /notlar/dubai-agra-me-fuarindayiz  301
+/katalog/MaviProtein_Katalog_TR_WEB.pdf  /docs/MaviProtein_Katalog_TR.pdf  301
+/katalog/maviprotein_katalog_tr_web.pdf  /docs/MaviProtein_Katalog_TR.pdf  301
+/en-US/catalog.pdf  /docs/MaviProtein_Catalogue_EN.pdf  301
+/en-us/catalog.pdf  /docs/MaviProtein_Catalogue_EN.pdf  301
+/arb/catalog.pdf  /ar/catalog  301
+/arb/blogicerik.aspx  MakaleID=55  /ar/notes/agra-me-2016-fuari-tamamlandi  301
+/arb/blogicerik.aspx  MakaleID=61  /ar/notes/dubai-agra-me-fuarindayiz  301
+/arb/blogicerik.aspx  MakaleID=62  /ar/notes/future-fish-eurasia-2016-fuarindayiz  301
+/arb/blogicerik.aspx  MakaleID=63  /ar/notes/future-fish-eurasia-izmir-fuari-tamamlandi  301
+/arb/blogicerik.aspx  MakaleID=64  /ar/notes/akuakultur-ekstrude-yemlerinin-uretimi  301
+/arb/blogicerik.aspx  MakaleID=65  /ar/notes/mavi-yesil-alglerin-gezegenimiz-icin-onemi  301
+/arb/blogicerik.aspx  MakaleID=67  /ar/notes/kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi  301

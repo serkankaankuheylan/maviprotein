@@ -1,0 +1,1185 @@
+---
+import Tally from '../components/Tally.astro';
+import Base from '../layouts/Base.astro';
+import Asset from '../components/Asset.astro';
+import Arrow from '../components/Arrow.astro';
+import Journey from '../components/Journey.astro';
+import Chain from '../components/Chain.astro';
+import SpecimenCard from '../components/SpecimenCard.astro';
+import SpecimenSplash from '../components/SpecimenSplash.astro';
+import { splashPieces } from '../lib/splash';
+import NoteCard from '../components/NoteCard.astro';
+import ClosingCta from '../components/ClosingCta.astro';
+import FileStack from '../components/FileStack.astro';
+import Microscope from '../components/Microscope.astro';
+import StandardSeals from '../components/StandardSeals.astro';
+import Paperclip from '../components/Paperclip.astro';
+import { recordGalleries } from '../data/record-galleries';
+import { home } from '../i18n/home';
+import { pick, type Lang } from '../lib/i18n';
+import { href, type RouteKey } from '../lib/routes';
+import { lines, postsSorted } from '../lib/data';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = pick(home, lang);
+// Kicker "Place · claim" → place set as a serif name, claim as a sounding reading with the year in brass.
+const [kPlace, kClaim = ''] = c.hero.kicker.split(' · ');
+const kParts = kClaim.split(/(\d{4})/).map((t) => ({ t, yr: /^\d{4}$/.test(t) }));
+const featuredIds = [64, 65, 67];
+const notes = featuredIds.map((id) => postsSorted.find((p) => p.id === id)).filter(Boolean) as typeof postsSorted;
+// Sector scenes: one soft, opaque AI background per world (≈10–25 KB each) + cut-outs placed in it.
+const worldScenes: Record<string, string> = { aquaculture: 'w-sea-bg', lines: 'w-factory-bg', agri: 'w-field-bg' };
+// Sea bream life cycle, rising from the deep (egg) toward the light (adult).
+const lifeStages = [
+  { asset: 'b-fish-eggs', sizes: '(max-width: 900px) 22vw, 12vw' },
+  { asset: 'b-larva', sizes: '(max-width: 900px) 34vw, 20vw' },
+  { asset: 'b-juvenile', sizes: '(max-width: 900px) 38vw, 22vw' },
+  { asset: 'b-sea-bream', sizes: '(max-width: 900px) 60vw, 34vw' },
+];
+// Field records: what is clipped to each fiche. Only photos whose subject the source verifies
+// (blog cover, printed packaging, invitation); Turkuaz Marin has no photo, so it gets an ink stamp.
+type Print = { src: string; w: number; h: number; cap?: string };
+const recordPins: Record<string, { layout: 'stamp' | 'single' | 'portrait' | 'pair' | 'fan'; prints?: Print[] }> = {
+  'turkuaz-marin': { layout: 'stamp' },
+  // Plant photo behind, the range (cat, parrot) fanned out, the real 2 kg bag in front. Source: blog 67 / archive.
+  rotika: {
+    layout: 'fan',
+    prints: [
+      { src: '/img/records/rotika-tesis-640.webp', w: 640, h: 480, cap: 'Rotika · 2020' },
+      { src: '/img/records/rotika-yetiskin-kedi-640.webp', w: 356, h: 640 },
+      { src: '/img/records/rotika-orta-buyuk-papagan-640.webp', w: 398, h: 640 },
+      { src: '/img/records/rotika-ambalaj-640.webp', w: 355, h: 640, cap: '2 kg' },
+    ],
+  },
+  sunpring: { layout: 'single', prints: [{ src: '/img/records/agra-me-2016-davetiye-sunpring-640.webp', w: 640, h: 418, cap: 'Dubai · 03.2016' }] },
+  fuarlar: {
+    layout: 'pair',
+    prints: [
+      { src: '/img/records/agra-me-2016-dubai-640.webp', w: 640, h: 360, cap: 'Dubai · 03.2016' },
+      { src: '/img/records/future-fish-2016-izmir-640.webp', w: 640, h: 360, cap: 'İzmir · 06.2016' },
+    ],
+  },
+};
+---
+<Base lang={lang} title={c.meta.title} description={c.meta.description} route="home" gaugeMax={180}>
+  <!-- 01 · SURFACE -->
+  <section class="hero s-dark" data-surface="dark" aria-labelledby="hero-title">
+    <canvas class="hero__water" data-caustics aria-hidden="true"></canvas>
+    <canvas class="hero__pellets" data-pellets aria-hidden="true"></canvas>
+    <div class="hero__veil" aria-hidden="true"></div>
+    <div class="wrap hero__inner">
+      <p class="hero__kicker">
+        <span class="hero__place">{kPlace}</span>
+        <span class="sr-only"> · </span>
+        <span class="hero__sounding" aria-hidden="true"></span>
+        <span class="label hero__claim">{kParts.map((p) => (p.yr ? <b class="hero__yr">{p.t}</b> : p.t))}</span>
+      </p>
+      <h1 id="hero-title" class="t-mega hero__title">
+        {c.hero.title.map((w, i) => <span class="hero__w" style={`--i:${i}`}>{i === c.hero.title.length - 1 ? <em>{w}</em> : w}</span>)}
+      </h1>
+      <p class="t-lead hero__lead">{c.hero.lead}</p>
+    </div>
+    <nav class="hero__intents wrap" aria-label={c.hero.intentsLabel}>
+      <p class="label faint">{c.hero.intentsLabel}</p>
+      <ul role="list">
+        {c.hero.intents.map((it, i) => (
+          <li style={`--i:${i}`}>
+            <a href={href(it.route as RouteKey, lang, undefined, it.hash)}>
+              <span class="mono faint">{it.n}</span>
+              <span class="hero__intent">{it.text}</span>
+              <Arrow />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <svg class="hero__seam" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 120V64c120-22 240-38 360-30s240 40 360 40 240-34 360-42 240 6 360 20v68Z" />
+    </svg>
+  </section>
+
+  <!-- 02 · CHAIN (compass) -->
+  <Chain lang={lang} index="01" {...c.chain} />
+
+  <!-- 03 · THREE WORLDS -->
+  <section class="worlds s-light section" data-surface="light" aria-labelledby="worlds-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="label"><span>02</span><span class="sep">·</span><span>{c.worlds.label}</span></p>
+        <h2 id="worlds-title" class="t-h1 rise" set:html={c.worlds.title} />
+        <p class="t-lead rise" style="--d:120ms">{c.worlds.lead}</p>
+      </header>
+    </div>
+    <div class="worlds__row" data-worlds>
+      <div class="worlds__stage" data-stage data-active="0">
+        {c.worlds.panels.map((p, i) => (
+          <a class:list={['world', `world--${p.key}`, { 'is-open': i === 0 }]} href={href(p.key as RouteKey, lang)} data-world style={`--i:${i}`}>
+            <span class="world__scene" aria-hidden="true">
+              <Asset name={worldScenes[p.key]} alt="" class="world__bg" sizes="(max-width: 900px) 100vw, 55vw" />
+            </span>
+            {p.key === 'aquaculture' && (
+              <span class="world__art world__art--life" aria-hidden="true">
+                <svg class="life__path" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M13 76 C 20 68, 25 61, 31 57 S 40 44, 45 39 S 58 22, 70 17" /></svg>
+                {lifeStages.map((st, k) => (
+                  <span class={`stage stage--${k}`} style={`--k:${k}`}>
+                    <Asset name={st.asset} alt="" sizes={st.sizes} />
+                    <span class="stage__label">{c.worlds.stages[k]}</span>
+                  </span>
+                ))}
+              </span>
+            )}
+            {p.key === 'lines' && (
+              <span class="world__art world__art--floor" aria-hidden="true">
+                <span class="floor__shadow"></span>
+                <Asset name="sp85-ii-extruder" alt="" class="floor__machine" sizes="(max-width: 900px) 80vw, 40vw" />
+                <span class="floor__shadow floor__shadow--pile"></span>
+                <Asset name="fish-feed-pellets" alt="" class="floor__pile" sizes="(max-width: 900px) 30vw, 12vw" />
+              </span>
+            )}
+            <span class="world__veil" aria-hidden="true"></span>
+            <span class="world__body">
+              <span class="world__head">
+                <span class="label">0{i + 1}</span>
+                <span class="world__title serif">{p.title}</span>
+              </span>
+              <span class="world__detail">
+                <span class="world__text">{p.text}</span>
+                <span class="world__items">
+                  {p.items.map((x) => <span>{x}</span>)}
+                </span>
+                <span class="world__more">{c.worlds.more}<Arrow /></span>
+              </span>
+            </span>
+          </a>
+        ))}
+      </div>
+      <svg class="worlds__wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 56c120 22 240 38 360 30s240-40 360-40 240 34 360 42 240-6 360-20V120H0Z" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- 04 · LINE JOURNEY (signature) -->
+  <Journey {...c.journey} endHref={href('lines', lang)} index="03" />
+
+  <!-- 05 · SPECIMENS -->
+  <section class="specimens s-sand grain section" data-surface="light" aria-labelledby="spec-title">
+    <div class="wrap">
+      <header class="spec-head rise">
+        <span class="spec-head__no label" aria-hidden="true">04</span>
+        <hgroup class="spec-head__title">
+          <h2 id="spec-title" class="t-h1">{c.specimens.title}</h2>
+          <p class="t-h1 spec-head__sub" set:html={c.specimens.sub} />
+        </hgroup>
+      </header>
+      <div class="spec-stage">
+        <SpecimenSplash pieces={splashPieces} />
+        <ol class="specimens__grid" role="list">
+          {lines.map((line) => <li class="rise"><SpecimenCard line={line} lang={lang} /></li>)}
+          {lines.length % 2 === 1 && <li class="specimens__fill" aria-hidden="true"></li>}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 · PROOF -->
+  <section class="proof s-light grain section" data-surface="light" aria-labelledby="proof-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="label"><span>05</span></p>
+        <h2 id="proof-title" class="t-h1 rise" set:html={c.proof.title} />
+      </header>
+      <div class="proof__grid">
+        <figure class="exhibit rise">
+          <img
+            src="/img/photos/kurucu-future-fish-2016-1600.webp"
+            srcset="/img/photos/kurucu-future-fish-2016-800.webp 800w, /img/photos/kurucu-future-fish-2016-1600.webp 1600w"
+            sizes="(max-width: 900px) 92vw, 54vw"
+            width="1600" height="899" loading="lazy" decoding="async"
+            alt={c.proof.exhibit.alt}
+          />
+          <figcaption>
+            <p class="proof__name serif">{c.proof.founder}</p>
+            <p class="label">{c.proof.founderRole}</p>
+          </figcaption>
+        </figure>
+        <div class="proof__words">
+          <blockquote class="proof__quote serif rise">
+            <p>“{c.proof.quote}”</p>
+          </blockquote>
+          <p class="proof__text rise">{c.proof.founderText}</p>
+          <ol class="proof__line" role="list">
+            {c.proof.timeline.map((e, i) => (
+              <li class:list={['rise', { 'is-exhibit': e.y === c.proof.exhibit.year }]} style={`--d:${i * 80}ms`}>
+                <span class="proof__y mono">{e.y}</span>
+                <span class="proof__tick" aria-hidden="true"></span>
+                <span>{e.t}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+      <dl class="proof__figs">
+        {c.proof.figures.map((f, i) => (
+          <div class="rise" style={`--d:${i * 90}ms`}>
+            <dt class="figure"><Tally value={f.n} />{f.u && <small>{f.u}</small>}</dt>
+            <dd class="label">{f.c}</dd>
+          </div>
+        ))}
+      </dl>
+      <StandardSeals lang={lang} {...c.proof.stamps} />
+    </div>
+  </section>
+
+  <!-- 07 · FIELD RECORDS -->
+  <section class="records s-dark section" data-surface="dark" aria-labelledby="rec-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="label"><span>06</span></p>
+        <h2 id="rec-title" class="t-h1 rise" set:html={c.records.title} />
+      </header>
+      <ol class="records__desk" role="list">
+        {c.records.items.map((r, i) => {
+          const pin = recordPins[r.hash] ?? { layout: 'stamp' };
+          return (
+            <li
+              class={`fiche fiche--${pin.layout}`}
+              style={`--i:${i}`}
+              data-dossier={recordGalleries[r.hash] ? JSON.stringify(recordGalleries[r.hash].map((p) => ({ src: p.src, w: p.w, h: p.h, cap: p.cap?.[lang], alt: p.alt[lang] }))) : undefined}
+            >
+              <a href={href('projects', lang, undefined, r.hash)}>
+                <span class="fiche__pin">
+                  {pin.layout === 'stamp' ? (
+                    <span class="stamp mono" aria-hidden="true">{(r.stamp ?? [r.code]).map((line) => <span>{line}</span>)}</span>
+                  ) : (
+                    <>
+                      {pin.prints!.map((p, k) => (
+                        <span class={`print print--${k}`} style={`--ar:${(p.w / p.h).toFixed(3)}`}>
+                          <img src={p.src} width={p.w} height={p.h} alt={r.alts?.[k] ?? ''} loading="lazy" decoding="async" />
+                          {p.cap && <span class="print__cap mono" aria-hidden="true">{p.cap}</span>}
+                        </span>
+                      ))}
+                      <Paperclip class="fiche__clip" />
+                    </>
+                  )}
+                </span>
+                <span class="fiche__kind label">{r.kind}</span>
+                <h3 class="fiche__title serif">{r.title}</h3>
+                <span class="fiche__text">{r.text}</span>
+                <span class="fiche__foot"><span class="mono">{r.code}</span><Arrow /></span>
+              </a>
+            </li>
+          );
+        })}
+      </ol>
+      <a class="btn btn--ghost records__all" href={href('projects', lang)}>{c.records.all}<Arrow /></a>
+      <!-- Dossier: a fiche with photos, pulled toward the viewer. The clipped prints become a one-photo viewer.
+           Desktop: the paper sheet flies up from the card. Narrow screens: a dark full-screen gallery to swipe. -->
+      <dialog class="dossier" data-dossier-dialog aria-labelledby="dossier-title">
+        <div class="dossier__sheet" data-dossier-sheet>
+          <button type="button" class="dossier__x" data-dossier-close aria-label={c.records.ui.close}>
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /></svg>
+          </button>
+          <div class="dossier__stage" role="group" aria-roledescription="carousel" aria-label={c.records.ui.gallery}>
+            <div class="dossier__track" data-dossier-track></div>
+            <button type="button" class="dossier__nav dossier__nav--prev" data-dossier-step="-1" aria-label={c.records.ui.prev}>
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </button>
+            <button type="button" class="dossier__nav dossier__nav--next" data-dossier-step="1" aria-label={c.records.ui.next}>
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </button>
+          </div>
+          <p class="dossier__bar mono" aria-live="polite"><span data-dossier-cap></span><span class="dossier__count" data-dossier-count></span></p>
+          <div class="dossier__body">
+            <span class="dossier__kind label" data-dossier-kind></span>
+            <h3 id="dossier-title" class="dossier__title serif" data-dossier-title></h3>
+            <p class="dossier__text" data-dossier-text></p>
+            <p class="dossier__foot"><span class="mono" data-dossier-code></span><a class="dossier__more" data-dossier-more href="#">{c.records.ui.more}<Arrow /></a></p>
+          </div>
+        </div>
+        <template data-dossier-clip><Paperclip class="dossier__clip" /></template>
+      </dialog>
+    </div>
+  </section>
+
+  <!-- 08 · PROJECT & FUNDING -->
+  <section class="funding s-light grain section" data-surface="light" aria-labelledby="fund-title">
+    <div class="wrap funding__grid">
+      <div class="funding__words">
+        <p class="label"><span>07</span><span class="sep">·</span><span>{c.funding.label}</span></p>
+        <h2 id="fund-title" class="t-h1 rise" set:html={c.funding.title} />
+        <p class="t-lead rise">{c.funding.lead}</p>
+        <ul class="funding__programs" role="list">
+          {c.funding.programs.map((p) => <li class="mono">{p}</li>)}
+        </ul>
+        <ol class="funding__steps" role="list">
+          {c.funding.steps.map((s, i) => <li><span class="num">{i + 1}</span>{s}</li>)}
+        </ol>
+        <a class="btn" href={href('funding', lang)}>{c.funding.link}<Arrow /></a>
+      </div>
+      <FileStack sheets={c.funding.sheets} />
+    </div>
+  </section>
+
+  <!-- 09 · ALGOPHYCO -->
+  <section class="algae s-dark section" data-surface="dark" aria-labelledby="algae-title">
+    <Microscope />
+    <div class="wrap algae__grid">
+      <div class="algae__words">
+        <p class="label">{c.algae.label}</p>
+        <h2 id="algae-title" class="t-display rise" set:html={c.algae.title} />
+        <p class="algae__text rise">{c.algae.text}</p>
+        <p class="algae__fig"><span class="figure">{c.algae.fig}</span><span class="label">{c.algae.figCap}</span></p>
+        <p class="label faint">{c.algae.local}</p>
+        <a class="btn btn--light" href={href('algophyco', lang)}>{c.algae.link}<Arrow /></a>
+      </div>
+      <div class="algae__art">
+        <Asset name="b-spirulina-powder" alt="" class="algae__powder" sizes="(max-width: 900px) 70vw, 34vw" />
+        <Asset name="pk-algophyco-doypack" alt="ALGOPHYCO spirulina 250 g doypack" class="algae__pack algae__pack--1" sizes="(max-width: 900px) 40vw, 16vw" />
+        <Asset name="pk-algophyco-jar" alt="ALGOPHYCO spirulina 900 g" class="algae__pack algae__pack--2" sizes="(max-width: 900px) 34vw, 13vw" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · NOTES -->
+  <section class="notes s-light section" data-surface="light" aria-labelledby="notes-title">
+    <div class="wrap">
+      <header class="notes__head">
+        <div>
+          <p class="label">{c.notes.label}</p>
+          <h2 id="notes-title" class="t-h1">{c.notes.title}</h2>
+        </div>
+        <a class="link" href={href('notes', lang)}>{c.notes.all}</a>
+      </header>
+      <div class="notes__grid">
+        {notes.map((p) => <NoteCard post={p} lang={lang} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 · BACK TO THE SURFACE -->
+  <ClosingCta lang={lang} title={c.close.title} />
+</Base>
+
+<script>
+  import { mountCaustics, mountPellets } from '../scripts/caustics';
+  // Dossier. A fiche with photos opens instead of navigating (its link stays the no-JS fallback).
+  // Desktop: the sheet flies up from the card (FLIP) and its head band becomes a one-photo viewer.
+  // Narrow screens: the same dialog is styled as a dark full-screen gallery to swipe.
+  const dlg = document.querySelector<HTMLDialogElement>('[data-dossier-dialog]');
+  if (dlg) {
+    type Print = { src: string; w: number; h: number; cap?: string; alt: string };
+    const $ = <T extends Element = HTMLElement>(s: string) => dlg.querySelector<T>(s)!;
+    const sheet = $('[data-dossier-sheet]');
+    const track = $('[data-dossier-track]');
+    const prev = $<HTMLButtonElement>('[data-dossier-step="-1"]');
+    const next = $<HTMLButtonElement>('[data-dossier-step="1"]');
+    const clipTpl = $<HTMLTemplateElement>('[data-dossier-clip]');
+    const narrow = matchMedia('(max-width: 760px)');
+    const still = matchMedia('(prefers-reduced-motion: reduce)');
+    const tilt = [-1.2, 1, -0.6, 1.4];
+    let prints: Print[] = [];
+    let index = 0;
+    let card: HTMLElement | null = null;
+    let busy = false;
+
+    const show = (i: number) => {
+      index = i;
+      $('[data-dossier-cap]').textContent = prints[i]?.cap ?? '';
+      $('[data-dossier-count]').textContent = `${String(i + 1).padStart(2, '0')} / ${String(prints.length).padStart(2, '0')}`;
+      prev.disabled = i === 0;
+      // warm the photos either side so a step never lands on a blank print
+      [i - 1, i + 1].forEach((k) => { const im = track.children[k]?.querySelector('img'); if (im) im.loading = 'eager'; });
+      next.disabled = i === prints.length - 1;
+    };
+    let target = -1; // slide an arrow is travelling to; swipe positions are ignored until it arrives
+    const go = (i: number) => {
+      const to = Math.max(0, Math.min(prints.length - 1, i));
+      if (to === index) return;
+      target = to;
+      show(to);
+      (track.children[to] as HTMLElement).scrollIntoView({ behavior: still.matches ? 'auto' : 'smooth', block: 'nearest', inline: 'center' });
+    };
+    // Which slide is in view after a swipe: the one whose centre is nearest the track's centre (RTL-safe).
+    track.addEventListener('scroll', () => {
+      const mid = track.getBoundingClientRect().left + track.clientWidth / 2;
+      let best = 0, dist = Infinity;
+      [...track.children].forEach((el, i) => {
+        const r = el.getBoundingClientRect();
+        const d = Math.abs(r.left + r.width / 2 - mid);
+        if (d < dist) { dist = d; best = i; }
+      });
+      if (target >= 0) { if (best === target && dist < 2) target = -1; return; }
+      if (best !== index) show(best);
+    }, { passive: true });
+    // A swipe or wheel cancels an arrow's travel lock, so the counter follows the hand again.
+    ['pointerdown', 'wheel', 'scrollend'].forEach((ev) => track.addEventListener(ev, () => { target = -1; }, { passive: true }));
+    prev.addEventListener('click', () => go(index - 1));
+    next.addEventListener('click', () => go(index + 1));
+    dlg.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      e.preventDefault();
+      const rtl = document.documentElement.dir === 'rtl';
+      go(index + ((e.key === 'ArrowRight') !== rtl ? 1 : -1));
+    });
+
+    // FLIP between the card and the sheet: translate + scale from one box to the other.
+    const flip = (from: DOMRect, to: DOMRect, reverse: boolean) => {
+      const t = `translate(${from.left - to.left}px, ${from.top - to.top}px) scale(${from.width / to.width}, ${from.height / to.height})`;
+      const frames = [{ transform: t, opacity: 0.6 }, { transform: 'none', opacity: 1 }];
+      const duration = reverse ? 420 : 560;
+      return settle(sheet.animate(reverse ? frames.reverse() : frames, { duration, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'both' }), duration);
+    };
+    // An animation's promise never settles while the tab is hidden; a timer guarantees we move on.
+    const settle = async (an: Animation, ms: number) => {
+      await Promise.race([an.finished.catch(() => {}), new Promise((r) => setTimeout(r, ms + 120))]);
+      if (an.playState !== 'finished' && an.playState !== 'idle') an.finish();
+    };
+    const animate = () => !still.matches && !narrow.matches && !!card;
+
+    const open = async (li: HTMLElement) => {
+      if (busy || dlg.open) return;
+      prints = JSON.parse(li.dataset.dossier!);
+      card = li;
+      const a = li.querySelector('a')!;
+      const txt = (s: string) => li.querySelector(s)?.textContent ?? '';
+      $('[data-dossier-kind]').textContent = txt('.fiche__kind');
+      $('[data-dossier-title]').textContent = txt('.fiche__title');
+      $('[data-dossier-text]').textContent = txt('.fiche__text');
+      $('[data-dossier-code]').textContent = txt('.fiche__foot .mono');
+      $<HTMLAnchorElement>('[data-dossier-more]').href = a.href;
+      track.replaceChildren(...prints.map((p, i) => {
+        const slide = document.createElement('figure');
+        slide.className = 'dossier__slide';
+        slide.setAttribute('role', 'group');
+        slide.setAttribute('aria-roledescription', 'slide');
+        slide.setAttribute('aria-label', `${i + 1} / ${prints.length}`);
+        const print = document.createElement('span');
+        print.className = 'dossier__print';
+        print.style.setProperty('--r', `${tilt[i % tilt.length]}deg`);
+        const img = new Image(p.w, p.h);
+        img.loading = i < 2 ? 'eager' : 'lazy'; // neighbours are promoted to eager in show()
+        img.src = p.src; img.alt = p.alt; img.decoding = 'async';
+        print.append(img, clipTpl.content.cloneNode(true));
+        slide.append(print);
+        return slide;
+      }));
+      dlg.classList.toggle('is-single', prints.length < 2);
+      target = -1;
+      show(0);
+      busy = true;
+      dlg.showModal();
+      track.scrollLeft = 0;
+      if (animate()) {
+        const from = a.getBoundingClientRect();
+        li.classList.add('is-lifted');
+        await flip(from, sheet.getBoundingClientRect(), false);
+        sheet.getAnimations().forEach((an) => an.cancel()); // the end state is the sheet's own; drop the fill
+      }
+      busy = false;
+    };
+    const close = async () => {
+      if (busy || !dlg.open) return;
+      busy = true;
+      dlg.classList.add('is-closing');
+      if (animate()) {
+        const to = card!.querySelector('a')!.getBoundingClientRect();
+        await flip(to, sheet.getBoundingClientRect(), true);
+      } else if (!still.matches) {
+        await settle(sheet.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 240, fill: 'both' }), 240);
+      }
+      dlg.classList.remove('is-closing');
+      dlg.close();
+      cleanup();
+      busy = false;
+    };
+    const cleanup = () => {
+      if (!card) return;
+      sheet.getAnimations().forEach((an) => an.cancel());
+      card.classList.remove('is-lifted');
+      card.querySelector('a')?.focus({ preventScroll: true });
+      card = null;
+    };
+    dlg.addEventListener('close', cleanup);
+    dlg.addEventListener('cancel', (e) => { e.preventDefault(); close(); });
+    $('[data-dossier-close]').addEventListener('click', close);
+    // Click on the veil (the dialog itself) or the empty space around a photo closes.
+    dlg.addEventListener('click', (e) => {
+      const t = e.target as HTMLElement;
+      if (t === dlg || t.classList.contains('dossier__slide')) close();
+    });
+
+    document.querySelectorAll<HTMLElement>('.fiche[data-dossier]').forEach((li) => {
+      const a = li.querySelector('a')!;
+      a.setAttribute('aria-haspopup', 'dialog');
+      a.addEventListener('click', (e) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        e.preventDefault();
+        open(li);
+      });
+    });
+  }
+
+  const water = document.querySelector<HTMLCanvasElement>('[data-caustics]');
+  const pellets = document.querySelector<HTMLCanvasElement>('[data-pellets]');
+  if (water) mountCaustics(water);
+  if (pellets) mountPellets(pellets, matchMedia('(max-width: 760px)').matches ? 10 : 18);
+
+  // Worlds.
+  // Desktop: the panel under the pointer (or in focus) widens.
+  // Narrow screens (≤900px): three fixed, always-open cards in the page flow — pure CSS, nothing to drive
+  // here; the cards are plain links and the page scrolls natively.
+  const row = document.querySelector<HTMLElement>('[data-worlds]');
+  const stage = row?.querySelector<HTMLElement>('[data-stage]');
+  if (row && stage) {
+    const panels = [...row.querySelectorAll<HTMLElement>('[data-world]')];
+    const narrow = matchMedia('(max-width: 900px)');
+    let active = -1;
+    const set = (idx: number) => {
+      if (idx === active) return;
+      active = idx;
+      panels.forEach((p, i) => p.classList.toggle('is-open', i === idx));
+      stage.dataset.active = String(idx);
+    };
+    panels.forEach((p, i) => {
+      p.addEventListener('pointerenter', (e) => { if (!narrow.matches && e.pointerType === 'mouse') set(i); });
+      p.addEventListener('focus', () => { if (!narrow.matches) set(i); });
+    });
+    row.addEventListener('pointerleave', (e) => { if (!narrow.matches && e.pointerType === 'mouse') set(-1); });
+    const mode = () => { active = Number.NaN; set(-1); };
+    narrow.addEventListener('change', mode);
+    mode();
+  }
+</script>
+
+<style>
+  /* ---------------- HERO ---------------- */
+  .hero {
+    position: relative; min-height: max(100svh, 680px);
+    display: grid; grid-template-rows: 1fr auto auto;
+    overflow: hidden; isolation: isolate;
+    background:
+      radial-gradient(120% 70% at 60% -10%, rgba(130, 204, 240, 0.28), transparent 60%),
+      repeating-radial-gradient(ellipse at 30% -40%, transparent 0 22px, rgba(130, 204, 240, 0.05) 23px 25px),
+      linear-gradient(180deg, #0c3a67 0%, var(--abyss-2) 45%, var(--abyss) 100%);
+  }
+  .hero__water, .hero__pellets { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; }
+  .hero__water { opacity: 0; transition: opacity 1600ms var(--ease-water); }
+  .hero__water:global(.is-live) { opacity: 1; }
+  .hero__pellets { z-index: -1; }
+  .hero__veil { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(6, 26, 51, 0) 40%, rgba(6, 26, 51, 0.82) 100%), linear-gradient(90deg, rgba(6, 26, 51, 0.55), transparent 65%); }
+  :global(html[dir='rtl']) .hero__veil { background: linear-gradient(180deg, rgba(6, 26, 51, 0) 40%, rgba(6, 26, 51, 0.82) 100%), linear-gradient(-90deg, rgba(6, 26, 51, 0.55), transparent 65%); }
+  .hero__inner { align-self: center; padding-top: calc(var(--header-h) + 6vh); display: grid; gap: clamp(1.25rem, 2.4vw, 2.2rem); }
+  .hero__kicker { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 0.95rem; color: var(--aegean); animation: hero-surface 1400ms 80ms var(--ease-water) both; }
+  .hero__place { font-family: var(--f-mono); font-weight: 500; text-transform: uppercase; font-size: clamp(1.15rem, 1.5vw, 1.45rem); line-height: 1; letter-spacing: 0.06em; color: var(--aegean-pale); }
+  /* a short length of sounding line: hairline, tick marks, brass lead at the end */
+  .hero__sounding { position: relative; flex: none; width: clamp(44px, 5.5vw, 84px); height: 7px; }
+  .hero__sounding::before {
+    content: ''; position: absolute; inset: 0; opacity: 0.7;
+    background:
+      linear-gradient(currentColor, currentColor) center / 100% 1px no-repeat,
+      repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 10px) center / 100% 7px no-repeat;
+    -webkit-mask: linear-gradient(90deg, transparent, #000 45%);
+    mask: linear-gradient(90deg, transparent, #000 45%);
+  }
+  .hero__sounding::after { content: ''; position: absolute; inset-inline-end: -2px; top: 50%; width: 5px; height: 5px; margin-top: -2.5px; border-radius: 50%; background: var(--brass-2); box-shadow: 0 0 0 3px rgba(210, 145, 76, 0.2); }
+  :global(html[dir='rtl']) .hero__sounding::before { -webkit-mask: linear-gradient(-90deg, transparent, #000 45%); mask: linear-gradient(-90deg, transparent, #000 45%); }
+  .hero__claim { display: inline-block; color: inherit; opacity: 0.88; }
+  .hero__yr { font-weight: 500; color: var(--brass-2); }
+  /* Büyük harf Türkçe aksanları (Ü, İ, Ö, Ğ) taban çizgisinin ~0.92em üstüne çıkar; .t-mega'nın 0.86
+     satır aralığında üst satıra değiyordu. em cinsinden: her ölçekte ~0.08em boşluk kalır. */
+  .hero__title { color: #eaf6fd; text-transform: uppercase; line-height: 1; }
+  .hero__w:first-child { display: block; }
+  .hero__w { display: inline-block; margin-inline-end: 0.22em; animation: hero-surface 1600ms var(--ease-water) both; animation-delay: calc(240ms + var(--i) * 140ms); }
+  .hero__title em { color: var(--aegean); }
+  @keyframes hero-surface { from { opacity: 0; transform: translateY(0.35em); filter: blur(10px); } 60% { filter: blur(1px); } to { opacity: 1; transform: none; filter: blur(0); } }
+  .hero__lead { color: rgba(207, 234, 248, 0.82); animation: hero-surface 1400ms 820ms var(--ease-water) both; max-width: 44ch; }
+
+  .hero__intents { padding-bottom: clamp(2rem, 5vh, 3.5rem); display: grid; gap: 0.9rem; animation: hero-surface 1400ms 1000ms var(--ease-water) both; }
+  .hero__intents ul { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--rule-light-strong); }
+  .hero__intents li + li { border-inline-start: 1px solid var(--rule-light); }
+  .hero__intents a { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 0.9rem; padding: 1.15rem 1.1rem 1.15rem 0; min-height: 72px; transition: background 500ms var(--ease-water), padding 500ms var(--ease-water); }
+  .hero__intents li + li a { padding-inline-start: 1.1rem; }
+  .hero__intents a:hover, .hero__intents a:focus-visible { background: linear-gradient(180deg, rgba(130, 204, 240, 0.1), transparent); }
+  .hero__intents .arr { opacity: 0.5; transition: transform 500ms var(--ease-water), opacity 300ms; }
+  .hero__intents a:hover .arr { opacity: 1; transform: translateX(4px); }
+  .hero__intent { font-size: 1.02rem; font-weight: 500; color: #eaf6fd; }
+  .hero__seam { position: absolute; inset-inline: 0; bottom: -1px; width: 100%; height: clamp(40px, 8vw, 120px); fill: var(--foam); transform-origin: bottom; z-index: 1; pointer-events: none; }
+  @supports (animation-timeline: view()) {
+    .hero__seam { animation: hero-seam linear both; animation-timeline: view(); animation-range: exit 0% exit 70%; }
+    .hero__inner, .hero__intents { animation: hero-out linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
+    .hero__water { animation: water-out linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
+  }
+  @keyframes hero-seam { from { transform: scaleY(0.25); } to { transform: scaleY(2.4); } }
+  @keyframes hero-out { to { transform: translateY(-12vh); opacity: 0; } }
+  @keyframes water-out { to { filter: brightness(0.45); transform: scale(1.06); } }
+  @media (max-width: 960px) {
+    .hero__intents ul { grid-template-columns: 1fr 1fr; }
+    .hero__intents li:nth-child(3) { border-inline-start: 0; }
+    .hero__intents li:nth-child(n + 3) { border-top: 1px solid var(--rule-light); }
+    .hero__intents li:nth-child(3) a { padding-inline-start: 0; }
+  }
+  @media (max-width: 520px) {
+    .hero__intents ul { grid-template-columns: 1fr; }
+    .hero__intents li + li { border-inline-start: 0; border-top: 1px solid var(--rule-light); }
+    .hero__intents li a { padding-inline-start: 0 !important; min-height: 58px; }
+  }
+
+  /* ---------------- WORLDS ---------------- */
+  /* Each world = an AI scene photo (opaque, soft, ~10–25 KB) + cut-outs placed *in* that scene + one
+     full-panel veil for the text. The veil spans the whole panel width, so it can never end in a seam. */
+  .worlds { padding-bottom: 0; }
+  .worlds__stage { display: flex; height: min(86vh, 840px); min-height: 580px; gap: 2px; background: var(--foam); }
+  .world {
+    flex: 1 1 0; position: relative; overflow: hidden; isolation: isolate;
+    container-type: size;
+    display: flex; align-items: flex-end; padding: clamp(1.4rem, 2.6vw, 2.6rem);
+    transition: flex-grow 1100ms var(--ease-water);
+    color: var(--fg);
+    /* cover geometry of the 2:3 scene photo, in panel units: rendered size and vertical offset */
+    --imgW: max(100cqw, 66.667cqh);
+    --imgH: max(150cqw, 100cqh);
+    --p: 0.5;
+  }
+  .world.is-open { flex-grow: 2.1; }
+
+  /* Waterline into the Journey (desktop row only). The panels themselves end in the wave: the stage is
+     masked with the same curve the Journey seam uses, the Journey slides up underneath, and its foam seam
+     is dropped here, so there is one edge (panel → abyss) instead of panel edge + foam strip + wave. */
+  .worlds__wave { display: none; }
+  .worlds__stage { --wave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath d='M0 0v56c120 22 240 38 360 30s240-40 360-40 240 34 360 42 240-6 360-20V0Z'/%3E%3C/svg%3E"); }
+  @media (min-width: 901px) {
+    .worlds { z-index: 1; --seam: clamp(40px, 8vw, 120px); background: linear-gradient(var(--foam) 0 0) top / 100% calc(100% - var(--seam) + 1px) no-repeat; }
+    .worlds__stage {
+      -webkit-mask: linear-gradient(#000 0 0) top / 100% calc(100% - var(--seam) + 1px) no-repeat, var(--wave) bottom / 100% var(--seam) no-repeat;
+      mask: linear-gradient(#000 0 0) top / 100% calc(100% - var(--seam) + 1px) no-repeat, var(--wave) bottom / 100% var(--seam) no-repeat;
+    }
+    .world { padding-bottom: calc(clamp(1.4rem, 2.6vw, 2.6rem) + var(--seam) * 0.75); }
+    .worlds + :global(.jr) { margin-top: calc(-1 * clamp(40px, 8vw, 120px)); }
+    .worlds + :global(.jr) :global(.jr__seam) { display: none; }
+  }
+  .world__scene { position: absolute; inset: 0; z-index: -3; background: var(--scene-fallback); }
+  .world__scene :global(.world__bg) {
+    width: 100%; height: 100%; object-fit: cover;
+    object-position: 50% calc(var(--p) * 100%);
+    transition: object-position 1100ms var(--ease-water), filter 900ms var(--ease-water);
+  }
+  .world:not(.is-open) .world__scene :global(.world__bg) { filter: saturate(0.82) brightness(0.92); }
+  .world--agri:not(.is-open) .world__scene :global(.world__bg) { filter: saturate(0.85) brightness(1.02); }
+
+  .world--aquaculture { --fg: #e8f5fc; --fg-2: rgba(232, 245, 252, 0.78); --shade: 6, 26, 51; --p: 0.12; --scene-fallback: linear-gradient(180deg, #2a78ad, #0b3561 45%, var(--abyss)); }
+  .world--lines { --fg: #eef2f5; --fg-2: rgba(238, 242, 245, 0.74); --shade: 22, 29, 37; --p: 0.72; --scene-fallback: linear-gradient(180deg, #59636e, var(--graphite) 55%, var(--graphite-2)); }
+  .world--agri { --fg: var(--ink); --fg-2: var(--ink-2); --shade: 236, 228, 212; --p: 0.96; --scene-fallback: linear-gradient(180deg, #efe7d6, #d8c9a8); }
+
+  /* Veil: an eased (many-stop) ramp from the bottom, full width. */
+  .world__veil {
+    position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: linear-gradient(0deg,
+      rgba(var(--shade), 0.94) 0%, rgba(var(--shade), 0.9) 10%, rgba(var(--shade), 0.8) 19%,
+      rgba(var(--shade), 0.64) 28%, rgba(var(--shade), 0.46) 36%, rgba(var(--shade), 0.29) 44%,
+      rgba(var(--shade), 0.15) 52%, rgba(var(--shade), 0.06) 60%, rgba(var(--shade), 0) 70%);
+  }
+  .world--agri .world__veil {
+    background: linear-gradient(0deg,
+      rgba(var(--shade), 0.96) 0%, rgba(var(--shade), 0.92) 12%, rgba(var(--shade), 0.82) 21%,
+      rgba(var(--shade), 0.64) 30%, rgba(var(--shade), 0.42) 38%, rgba(var(--shade), 0.22) 46%,
+      rgba(var(--shade), 0.08) 54%, rgba(var(--shade), 0) 62%);
+  }
+
+  .world__art { position: absolute; inset: 0; z-index: -2; pointer-events: none; display: block; transition: opacity 700ms var(--ease-water); }
+
+  /* Aquaculture: life cycle rising from the deep toward the light. Its own size container. */
+  .world__art--life { inset: 10% 5% 39% 5%; container-type: size; }
+  .life__path { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .life__path path { fill: none; stroke: rgba(207, 234, 248, 0.38); stroke-width: 1; stroke-dasharray: 2 5; vector-effect: non-scaling-stroke; }
+  .stage {
+    position: absolute; display: block; left: var(--x); top: var(--y); width: var(--w);
+    transform: translate(-50%, -50%) scale(0.94);
+    transition: transform 1300ms var(--ease-water);
+  }
+  .stage :global(img) { display: block; width: 100%; height: auto; filter: drop-shadow(0 14px 18px rgba(2, 14, 30, 0.45)); }
+  .stage__label {
+    position: absolute; left: 50%; top: 100%; transform: translate(-50%, 0.35rem); white-space: nowrap;
+    font-family: var(--f-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(207, 234, 248, 0.72);
+  }
+  .stage--0 { --x: 13%; --y: 76%; --w: min(19cqw, 30cqh); }
+  .stage--0 :global(img) { opacity: 0.92; }
+  .stage--1 { --x: 31%; --y: 57%; --w: min(32cqw, 72cqh); }
+  .stage--2 { --x: 45%; --y: 37%; --w: min(36cqw, 48cqh); }
+  .stage--3 { --x: 70%; --y: 15%; --w: min(60cqw, 70cqh); }
+  /* small stages: label beside, so it never meets the next stage or the title */
+  .stage--0 .stage__label, .stage--1 .stage__label, .stage--2 .stage__label { left: 100%; top: 55%; transform: translate(0.55rem, -50%); }
+  .stage--3 .stage__label { left: 0; top: 52%; transform: translate(calc(-100% - 0.5rem), -50%); }
+  .world.is-open .stage { transform: translate(-50%, -50%) scale(1); }
+  .world.is-open .stage :global(img) { animation: drift 6.5s calc(var(--k) * -1.7s) ease-in-out infinite; }
+  @keyframes drift { 50% { translate: 0 -5px; } }
+
+  /* Lines: the extruder stands on the factory floor of the photo. --f = floor depth (fraction of photo height). */
+  .world__art--floor {
+    --f: 0.6;
+    --floor: calc((100cqh - var(--imgH)) * var(--p) + var(--imgH) * var(--f));
+    --mw: min(calc(var(--imgW) * 0.74), 92cqw);
+  }
+  .world__art--floor :global(.floor__machine) {
+    position: absolute; left: 50%; top: var(--floor); width: var(--mw); max-width: none;
+    transform: translate(-50%, -97%);
+    filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.35));
+    transition: top 1100ms var(--ease-water), width 1100ms var(--ease-water);
+  }
+  .floor__shadow {
+    position: absolute; display: block; left: 50%; top: var(--floor); width: calc(var(--mw) * 1.02); height: calc(var(--mw) * 0.07);
+    transform: translate(-50%, -62%); border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.25) 60%, transparent);
+    transition: top 1100ms var(--ease-water);
+  }
+  .world__art--floor :global(.floor__pile) {
+    position: absolute; left: calc(50% + var(--mw) * 0.36); top: calc(var(--floor) + var(--imgH) * 0.03);
+    width: calc(var(--mw) * 0.22); max-width: none; transform: translate(-50%, -94%);
+    filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.35));
+    transition: top 1100ms var(--ease-water);
+  }
+  .floor__shadow--pile { left: calc(50% + var(--mw) * 0.36); top: calc(var(--floor) + var(--imgH) * 0.03); width: calc(var(--mw) * 0.24); height: calc(var(--mw) * 0.04); }
+
+  .world__body { display: grid; gap: 0.8rem; width: 100%; max-width: 44ch; position: relative; }
+  .world__head { display: grid; gap: 0.8rem; }
+  .world .label { color: var(--fg-2); }
+  .world__title { font-size: clamp(1.9rem, 1.4rem + 1.6vw, 3.2rem); line-height: 1; letter-spacing: -0.025em; font-weight: 340; }
+  .world--aquaculture .world__title, .world--lines .world__title { text-shadow: 0 1px 24px rgba(0, 0, 0, 0.25); }
+  .world__detail { display: grid; gap: 1rem; max-height: 0; opacity: 0; overflow: hidden; transition: max-height 900ms var(--ease-water), opacity 700ms var(--ease-water); }
+  .world.is-open .world__detail, .world:focus-visible .world__detail { max-height: 22rem; opacity: 1; }
+  .world__text { color: var(--fg-2); }
+  .world__items { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .world__items span { font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.03em; padding: 0.35rem 0.6rem; border: 1px solid color-mix(in srgb, currentColor 28%, transparent); border-radius: 99px; }
+  .world__more { display: inline-flex; gap: 0.5rem; align-items: center; font-weight: 600; }
+  @media (hover: none) and (min-width: 901px) { .world__detail { max-height: none; opacity: 1; } }
+
+  /* Narrow screens: three fixed cards in the page flow. Every world is open — scene, art, title, text,
+     items, link — and nothing changes size while the page scrolls: no pin, no thresholds, no layout
+     animation, so images and shadows are drawn once and the reader stops wherever they like. Each card is
+     ~78% of the small viewport (svh: it does not resize when the browser bars collapse), so the top of the
+     next one shows below it. */
+  @media (max-width: 900px) and (min-height: 521px) {
+    .worlds__stage { flex-direction: column; height: auto; min-height: 0; }
+    .world { flex: none; height: clamp(480px, 78svh, 720px); min-height: 0; padding: 0 1.15rem 1.2rem; align-items: flex-end; }
+    .world:last-child { padding-bottom: calc(1.2rem + var(--seam) * 0.75); }
+    .world__head { display: flex; align-items: baseline; gap: 0.7rem; }
+    .world__title { font-size: clamp(1.5rem, 1.1rem + 2vw, 2.1rem); }
+    .world__body { gap: 0.6rem; max-width: 52ch; }
+    .world__detail { gap: 0.7rem; }
+    .world__text { font-size: 0.95rem; line-height: 1.45; }
+    .world__items { gap: 0.15rem 0.5rem; }
+    .world__items span { border: 0; padding: 0; font-size: 0.68rem; }
+    .world__items span:not(:last-child)::after { content: ' /'; opacity: 0.5; }
+    .world__art--life { inset: 5% 4% 40% 4%; }
+    .stage__label { font-size: 0.56rem; }
+    .world__art--floor :global(.floor__pile), .floor__shadow--pile { display: none; }
+  }
+
+  /* ≤900px (portrait cards and the landscape stack alike): every world is shown open, whatever the
+     desktop hover state says. The waterline into the Journey is a static drawing under the last card —
+     abyss below the same curve the Journey seam uses — instead of a mask over the whole stage, and the
+     Journey's own foam seam is dropped, so there is one edge (card → abyss). */
+  @media (max-width: 900px) {
+    .worlds { --seam: clamp(40px, 8vw, 120px); }
+    .world { transition: none; }
+    .world .world__detail { max-height: none; opacity: 1; overflow: visible; transition: none; }
+    .world:not(.is-open) .world__scene :global(.world__bg), .world--agri:not(.is-open) .world__scene :global(.world__bg) { filter: none; }
+    .world .stage { transform: translate(-50%, -50%); }
+    .world .stage :global(img) { animation: drift 6.5s calc(var(--k) * -1.7s) ease-in-out infinite; }
+    .worlds__row { position: relative; }
+    .worlds__wave { display: block; position: absolute; inset-inline: 0; bottom: -1px; width: 100%; height: var(--seam); fill: var(--abyss); pointer-events: none; z-index: 2; }
+    .worlds + :global(.jr) :global(.jr__seam) { display: none; }
+  }
+  @media (max-width: 900px) and (max-height: 520px) {
+    .world:last-child { height: calc(440px + var(--seam) * 0.6); padding-bottom: calc(var(--seam) * 0.6); }
+  }
+  /* Short phones: keep the art breathing room, the item list lives on the sector page anyway. */
+  @media (max-width: 900px) and (min-height: 521px) and (max-height: 720px) {
+    .world__items { display: none; }
+  }
+  /* Landscape phones: too short for a stage. Stack the panels, text left / scene right. */
+  @media (max-width: 900px) and (max-height: 520px) {
+    .worlds__stage { flex-direction: column; height: auto; min-height: 0; }
+    .world { flex: none; height: 440px; align-items: center; }
+    .world__body { max-width: 48%; }
+    .world__detail { max-height: none; opacity: 1; }
+    .world .world__veil, .world--agri .world__veil {
+      background: linear-gradient(90deg, rgba(var(--shade), 0.94) 0%, rgba(var(--shade), 0.84) 30%, rgba(var(--shade), 0.45) 47%, rgba(var(--shade), 0.12) 58%, rgba(var(--shade), 0) 66%);
+    }
+    :global(html[dir='rtl']) .world .world__veil, :global(html[dir='rtl']) .world--agri .world__veil {
+      background: linear-gradient(270deg, rgba(var(--shade), 0.94) 0%, rgba(var(--shade), 0.84) 30%, rgba(var(--shade), 0.45) 47%, rgba(var(--shade), 0.12) 58%, rgba(var(--shade), 0) 66%);
+    }
+    :global(html[dir='rtl']) .world__art--life { inset: 8% 50% 8% 3%; }
+    :global(html[dir='rtl']) .world__art--floor :global(.floor__machine), :global(html[dir='rtl']) .world__art--floor .floor__shadow { left: 26%; }
+    .world__art--life { inset: 8% 3% 8% 50%; }
+    .world--lines, .world--agri { --p: 0.5; }
+    .world__art--floor { --mw: min(calc(var(--imgW) * 0.5), 46cqw); }
+    .world__art--floor :global(.floor__machine), .world__art--floor .floor__shadow { left: 74%; }
+    .world__art--floor :global(.floor__pile), .world__art--floor .floor__shadow--pile { display: none; }
+  }
+  /* Depth on the narrow cards, CSS only (scroll-driven; transform/opacity on the compositor, no JS, no
+     layout). As a card passes, its scene and art drift a little slower than the page; its words rise in
+     as they come into view, above the phone tab bar. Without support, or with reduced motion: still. */
+  @supports (animation-timeline: view()) {
+    @media (max-width: 900px) and (min-height: 521px) and (prefers-reduced-motion: no-preference) {
+      .world { view-timeline: --world block; }
+      .world__scene, .world__art { animation: world-depth linear both; animation-timeline: --world; animation-range: cover 0% cover 100%; }
+      .world__body { animation: world-words linear both; animation-timeline: view(block 0px var(--bar, 0px)); animation-range: entry 0% entry 100%; }
+    }
+    @media (max-width: 760px) and (min-height: 521px) and (prefers-reduced-motion: no-preference) {
+      .world__body { --bar: calc(70px + env(safe-area-inset-bottom)); }
+    }
+  }
+  /* same move for photo and art (in card units), so the extruder stays on its floor; scaled just enough
+     that the drift never shows an edge, and exactly as composed when the card is centred */
+  @keyframes world-depth { from { transform: translateY(3.5cqh) scale(1.08); } to { transform: translateY(-3.5cqh) scale(1.08); } }
+  @keyframes world-words { from { opacity: 0; transform: translateY(1.4rem); } to { opacity: 1; transform: none; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .world, .world__art, .stage, .world__scene :global(.world__bg), .world__art--floor :global(*) { transition: none !important; }
+    .world .stage :global(img) { animation: none !important; }
+  }
+
+  /* ---------------- SPECIMENS ---------------- */
+  .spec-head { display: grid; grid-template-columns: auto 1fr; column-gap: clamp(0.9rem, 1.6vw, 1.6rem); align-items: start; margin-bottom: clamp(40px, 5vw, 80px); }
+  .spec-head__no { padding-top: 0.9em; color: var(--brass); }
+  .spec-head__title { margin: 0; }
+  .spec-head__title h2, .spec-head__sub { margin: 0; }
+  .spec-head__sub { color: var(--ink-3); }
+  @media (max-width: 640px) { .spec-head { grid-template-columns: 1fr; row-gap: 0.6rem; } .spec-head__no { padding-top: 0; } }
+  /* the spill scene: one scroll timeline for the whole section; the opaque grid (z 1) hides each piece's launch point */
+  .specimens { view-timeline: --spill block; overflow: clip; }
+  .spec-head { position: relative; z-index: 1; }
+  .spec-stage { position: relative; }
+  /* Hairlines are borders of the cells themselves (top/start on the grid, end/bottom on each cell), not a
+     grey ground showing through gaps: no grey ever shows, and every card in a row stretches to the
+     tallest one. An odd count leaves one cell on two-column phones: a quiet sand tile closes the frame
+     (and keeps the falling splash pieces behind the grid). */
+  .specimens__grid {
+    position: relative; z-index: 1; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+    border-top: 1px solid var(--rule-strong); border-inline-start: 1px solid var(--rule-strong);
+  }
+  .specimens__grid > li { display: flex; min-width: 0; border-inline-end: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong); }
+  .specimens__grid > li > :global(.spec) { flex: 1; min-width: 0; }
+  .specimens__grid > .specimens__fill { display: none; background: repeating-linear-gradient(116deg, transparent 0 8px, rgba(138, 100, 23, 0.07) 8px 9px), var(--sand); }
+  @media (max-width: 1200px) { .specimens__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 640px) {
+    .specimens__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .specimens__grid > .specimens__fill { display: block; }
+  }
+
+  /* Reveal: the cards' grounds and hairlines never move (no gaps, nothing seen through them); only the
+     contents arrive — the product settles in, number and name follow. One step per column, so the wave
+     runs across each row at every breakpoint. Compositor-only (opacity/transform), triggered once. */
+  :global(.js) .specimens__grid > li.rise { opacity: 1; transform: none; transition: none; }
+  .specimens__grid > li :global(:is(.spec__img, .spec__top, .spec__name)) {
+    transition: opacity 650ms var(--ease-water), transform 950ms var(--ease-water);
+    transition-delay: var(--d, 0ms);
+  }
+  .specimens__grid > li :global(:is(.spec__top, .spec__name)) { transition-delay: calc(var(--d, 0ms) + 90ms); }
+  :global(.js) .specimens__grid > li.rise:not(.is-in) :global(.spec__img) { opacity: 0; transform: translateY(18px) scale(0.95); }
+  :global(.js) .specimens__grid > li.rise:not(.is-in) :global(:is(.spec__top, .spec__name)) { opacity: 0; transform: translateY(8px); }
+  /* the touch-screen button keeps its own fade; it only waits for the card */
+  :global(.js) .specimens__grid > li.rise:not(.is-in) :global(.spec__cta-row) { opacity: 0; }
+  @media (min-width: 1201px) {
+    .specimens__grid > li:nth-child(5n + 2) { --d: 70ms; }
+    .specimens__grid > li:nth-child(5n + 3) { --d: 140ms; }
+    .specimens__grid > li:nth-child(5n + 4) { --d: 210ms; }
+    .specimens__grid > li:nth-child(5n) { --d: 280ms; }
+  }
+  @media (min-width: 641px) and (max-width: 1200px) {
+    .specimens__grid > li:nth-child(3n + 2) { --d: 80ms; }
+    .specimens__grid > li:nth-child(3n) { --d: 160ms; }
+  }
+  @media (max-width: 640px) {
+    .specimens__grid > li:nth-child(2n) { --d: 90ms; }
+  }
+
+  /* ---------------- PROOF ---------------- */
+  .proof__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); align-items: start; }
+  .proof__words { grid-column: 8 / -1; display: grid; gap: 2.2rem; }
+
+  /* founder at the Future Fish Eurasia 2016 stand: a plain photograph, name beneath */
+  .exhibit { grid-column: 1 / span 7; position: sticky; top: calc(var(--header-h) + 1.5rem); margin: 0; }
+  .exhibit img { display: block; width: 100%; height: auto; aspect-ratio: 1600 / 899; object-fit: cover; }
+  .exhibit figcaption { margin-top: 1.1rem; display: grid; gap: 0.3rem; }
+
+  .proof__name { font-size: 1.7rem; letter-spacing: -0.015em; }
+  .proof__quote { margin: 0; }
+  .proof__quote p { font-size: clamp(1.5rem, 1.1rem + 1.15vw, 2.25rem); line-height: 1.24; font-style: italic; font-weight: 320; letter-spacing: -0.015em; text-indent: -0.4em; }
+  .proof__text { color: var(--ink-2); max-width: 52ch; font-size: 1.05rem; }
+  .proof__line { border-inline-start: 1px solid var(--rule-strong); display: grid; gap: 0; }
+  .proof__line li { display: grid; grid-template-columns: 4.5rem 1.4rem 1fr; align-items: baseline; padding-block: 0.9rem; border-bottom: 1px solid var(--rule); }
+  .proof__y { color: var(--brass); font-size: 0.9rem; padding-inline-start: 1rem; }
+  .proof__tick { height: 1px; background: var(--rule-strong); align-self: center; }
+  .proof__line li.is-exhibit { background: linear-gradient(90deg, rgba(184, 116, 47, 0.1), transparent 75%); box-shadow: inset 2px 0 0 var(--brass); }
+  :global(html[dir='rtl']) .proof__line li.is-exhibit { background: linear-gradient(-90deg, rgba(184, 116, 47, 0.1), transparent 75%); box-shadow: inset -2px 0 0 var(--brass); }
+  .proof__figs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: clamp(4rem, 8vw, 7rem); border-top: 1px solid var(--rule-strong); }
+  .proof__figs > div { padding: 2rem 1.2rem 0 0; display: grid; gap: 0.9rem; }
+  .proof__figs > div + div { padding-inline-start: 1.2rem; border-inline-start: 1px solid var(--rule); }
+  .proof__figs dd { margin: 0; }
+  @media (max-width: 900px) {
+    .exhibit, .proof__words { grid-column: 1 / -1; position: static; }
+    .proof__words { margin-top: 1.5rem; }
+    .proof__figs { grid-template-columns: 1fr 1fr; }
+    .proof__figs > div:nth-child(3) { border-inline-start: 0; padding-inline-start: 0; }
+    .proof__figs > div { padding-bottom: 2rem; }
+  }
+
+  /* ---------------- RECORDS (archival fiches on a dark desk) ---------------- */
+  .records { background: radial-gradient(80% 60% at 50% 100%, var(--abyss-3), var(--abyss) 70%); }
+  .records__desk { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--col-gap); padding-top: 2rem; }
+  /* A fiche: plain archive paper; evidence is clipped to its head, the record is typed below. */
+  .fiche a {
+    position: relative;
+    display: grid; grid-template-rows: auto auto auto 1fr auto; gap: 0.7rem;
+    height: 100%; padding: 0 1.25rem 1.1rem;
+    background: linear-gradient(176deg, #f7f3eb, #efe8db 92%);
+    color: var(--ink);
+    border-radius: 2px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 30px 50px -28px rgba(0, 0, 0, 0.75);
+    transition: transform 700ms var(--ease-water), box-shadow 700ms var(--ease-water);
+  }
+  .fiche a:hover { transform: translateY(-6px); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 50px 70px -30px rgba(0, 0, 0, 0.8); }
+
+  /* Head of the sheet: a fixed band so titles line up across the desk. */
+  .fiche__pin { position: relative; display: block; height: 13.5rem; margin-bottom: 0.4rem; container-type: inline-size; border-bottom: 1px solid rgba(184, 116, 47, 0.45); }
+  .print {
+    position: absolute; top: 1.15rem; inset-inline-start: 0;
+    display: block; padding: 5px 5px 20px; background: #fdfcf8;
+    box-shadow: 0 1px 1px rgba(13, 27, 44, 0.2), 0 12px 18px -12px rgba(13, 27, 44, 0.55);
+    transform: rotate(var(--r, -1.5deg)); transform-origin: 30% 0;
+    transition: transform 700ms var(--ease-water);
+  }
+  /* Fixed height for a calm row, capped by the sheet's width (--mw) so narrow sheets never overflow. */
+  .print img { display: block; height: min(var(--h, 8.4rem), calc(var(--mw, 90cqi) / var(--ar, 1.5))); width: auto; max-width: none; }
+  .print__cap { position: absolute; inset-inline: 7px; bottom: 4px; font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+  .fiche__clip { position: absolute; top: -1.3rem; inset-inline-start: var(--cx, 1.4rem); z-index: 2; width: 17px; height: auto; transform: rotate(var(--cr, 4deg)); filter: drop-shadow(1px 2px 1.5px rgba(13, 27, 44, 0.35)); }
+  .fiche a:hover .print--0 { transform: rotate(calc(var(--r, -1.5deg) * 1.8)); }
+  .fiche a:hover .print--1 { transform: rotate(calc(var(--r, 2deg) * 1.6)) translateY(-3px); }
+
+  /* Prints overhang the sheet's top edge; the clip bites paper and every print together. */
+  .fiche--single .print { --r: -1.8deg; --h: 9.6rem; top: -0.55rem; inset-inline-start: 0.1rem; }
+  .fiche--single .fiche__clip { --cx: 1.7rem; }
+  .fiche--portrait .print { --r: 2.2deg; --h: 11.6rem; --mw: 60cqi; top: -0.5rem; inset-inline-start: 0.9rem; }
+  .fiche--portrait .fiche__clip { --cx: 2.2rem; --cr: -3deg; }
+  .fiche--pair .print { --h: 6.6rem; --mw: 68cqi; }
+  .fiche--pair .print--0 { --r: -3.2deg; top: -0.7rem; }
+  .fiche--pair .print--1 { --r: 2.4deg; top: 1.15rem; inset-inline-start: min(4.2rem, 24cqi); transform-origin: 10% 0; }
+  .fiche--pair .fiche__clip { --cx: min(5rem, 30cqi); --cr: 5deg; top: -1.2rem; }
+  /* Rotika: the real 2 kg bag clipped in front, the plant photo behind it, the range (cat, parrot) fanned out
+     beside. Offsets are in cqi so the arrangement scales with the sheet and never leaves it. */
+  .fiche--fan .print--3 { --r: -2.5deg; --h: 9.6rem; --mw: 36cqi; top: -0.6rem; inset-inline-start: 0.1rem; z-index: 2; }
+  .fiche--fan .print--0 { --r: 2.5deg; --h: 5rem; --mw: 46cqi; top: -0.8rem; inset-inline-start: 43cqi; z-index: 0; }
+  .fiche--fan .print--1 { --r: 3deg; --h: 6.2rem; --mw: 26cqi; top: 6.1rem; inset-inline-start: 41cqi; padding-bottom: 5px; transform-origin: 50% 100%; z-index: 1; }
+  .fiche--fan .print--2 { --r: 9deg; --h: 6.2rem; --mw: 28cqi; top: 5.5rem; inset-inline-start: 64cqi; padding-bottom: 5px; transform-origin: 50% 100%; z-index: 1; }
+  .fiche--fan .fiche__clip { --cx: 1.8rem; --cr: -4deg; top: -1.4rem; z-index: 3; }
+  .fiche--fan a:hover .print--3 { transform: rotate(-4deg) translateY(-3px); }
+  .fiche--fan a:hover .print--0 { transform: rotate(4deg) translateY(-2px); }
+  .fiche--fan a:hover .print--1 { transform: rotate(-2deg) translateX(-4px); }
+  .fiche--fan a:hover .print--2 { transform: rotate(15deg) translateX(4px); }
+
+  /* Turkuaz Marin: no photo in the source, so the sheet carries a rubber stamp instead. */
+  .stamp {
+    position: absolute; top: 2.4rem; inset-inline-start: 0.4rem;
+    display: grid; justify-items: center; gap: 0.35rem;
+    padding: 1rem 1.35rem 0.95rem;
+    color: rgba(0, 47, 99, 0.82);
+    border: 2.5px solid currentColor; border-radius: 6px;
+    outline: 1px solid currentColor; outline-offset: -7px;
+    text-transform: uppercase; letter-spacing: 0.08em; text-align: center;
+    transform: rotate(-6deg);
+    mix-blend-mode: multiply;
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='7'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.4 2.15'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='7'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.4 2.15'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  .stamp span:first-child { font-size: 1.45rem; font-weight: 600; letter-spacing: 0.04em; }
+  .stamp span:nth-child(2) { font-size: 0.7rem; padding-top: 0.3rem; border-top: 1px solid currentColor; }
+  .stamp span:nth-child(3) { font-size: 0.66rem; direction: ltr; unicode-bidi: isolate; }
+
+  .fiche__kind { color: var(--navy); }
+  .fiche__title { margin: 0; color: inherit; font-size: 1.55rem; font-weight: 500; line-height: 1.08; letter-spacing: -0.015em; }
+  .fiche__text { color: var(--ink-2); font-size: 0.94rem; line-height: 1.5; }
+  .fiche__foot {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding-top: 0.8rem; border-top: 1px dashed var(--rule-strong);
+    font-size: 0.84rem; font-weight: 500; letter-spacing: 0.05em; color: var(--ink-2);
+  }
+  .fiche__foot .arr { width: 18px; height: 18px; flex: none; color: var(--brass); transition: transform 500ms var(--ease-water); }
+  .fiche a:hover .fiche__foot .arr { transform: translateX(4px); }
+  :global(html[dir='rtl']) .fiche__foot .arr { scale: -1 1; }
+  @supports (animation-timeline: view()) {
+    @media (min-width: 1001px) and (prefers-reduced-motion: no-preference) {
+      .fiche { animation: spread linear both; animation-timeline: view(); animation-range: entry 0% cover 42%; }
+    }
+  }
+  @keyframes spread {
+    from { transform: translateX(calc((1.5 - var(--i)) * (100% + var(--col-gap)) * var(--dir, 1))) translateY(calc(var(--i) * 6px)) rotate(calc((var(--i) - 1.5) * 4deg * var(--dir, 1))); }
+    to { transform: none; }
+  }
+  .records__all { margin-top: 3rem; }
+  @media (max-width: 1000px) { .records__desk { grid-template-columns: 1fr 1fr; } }
+  /* Narrow screens: the fiches stay at their desktop width (the clipped prints are composed for ~300px)
+     and run as a swipeable row; the next sheet peeks in at the edge. Top padding leaves room for the
+     prints and clips that overhang the paper, bottom padding for the sheet's shadow.
+     Above 600px the two-column desk already keeps sheets near that width. */
+  @media (max-width: 600px) {
+    .records__desk {
+      display: flex; gap: 1rem; overflow-x: auto; overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: none;
+      margin-inline: calc(var(--gutter) * -1); padding: 2.4rem var(--gutter) 2.2rem;
+    }
+    .records__desk::-webkit-scrollbar { display: none; }
+    .fiche { flex: 0 0 min(80vw, 330px); scroll-snap-align: start; }
+    .fiche a:hover { transform: none; }
+    .records__all { margin-top: 1rem; }
+  }
+
+  /* ---------------- DOSSIER (an opened fiche) ---------------- */
+  .fiche.is-lifted { visibility: hidden; }
+  :global(html:has(.dossier[open])) { overflow: hidden; }
+  .dossier {
+    position: fixed; inset: 0; margin: auto; height: fit-content;
+    width: min(640px, calc(100vw - 2rem)); max-width: none; max-height: none;
+    padding: 0; border: 0; background: transparent; color: var(--ink); overflow: visible;
+  }
+  .dossier::backdrop { background: rgba(3, 12, 25, 0.74); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+  .dossier[open]::backdrop { animation: dossier-fade 420ms var(--ease-water) both; }
+  .dossier.is-closing::backdrop { animation: dossier-fade 360ms var(--ease-water) reverse both; }
+  @keyframes dossier-fade { from { opacity: 0; } }
+
+  .dossier__sheet {
+    position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.75rem;
+    padding: 0 1.75rem 1.4rem;
+    background: linear-gradient(176deg, #f7f3eb, #efe8db 92%);
+    border-radius: 2px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 60px 90px -30px rgba(0, 0, 0, 0.85);
+    transform-origin: 0 0;
+  }
+  .dossier__x {
+    position: absolute; top: 0.7rem; inset-inline-end: 0.7rem; z-index: 3;
+    display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
+    color: var(--ink-2); background: rgba(247, 243, 235, 0.9); border: 1px solid var(--rule);
+    transition: color 300ms, background 300ms;
+  }
+  .dossier__x svg { width: 18px; height: 18px; }
+  .dossier__x:hover, .dossier__x:focus-visible { color: var(--ink); background: #fff; }
+
+  /* The head band becomes a one-photo viewer: prints snap side by side, arrows step between them. */
+  .dossier__stage { position: relative; height: min(25rem, 46vh); border-bottom: 1px solid rgba(184, 116, 47, 0.45); }
+  .dossier__track {
+    display: flex; height: 100%; overflow-x: auto; overflow-y: hidden;
+    scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain;
+  }
+  .dossier__track::-webkit-scrollbar { display: none; }
+  :global(.dossier__slide) { flex: 0 0 100%; display: grid; place-items: center; padding: 2.4rem 3.6rem 1.6rem; scroll-snap-align: center; scroll-snap-stop: always; }
+  :global(.dossier__print) {
+    position: relative; display: block; padding: 8px 8px 10px; background: #fdfcf8;
+    box-shadow: 0 1px 1px rgba(13, 27, 44, 0.2), 0 18px 26px -14px rgba(13, 27, 44, 0.55);
+    transform: rotate(var(--r, -1deg));
+  }
+  :global(.dossier__print img) { display: block; width: auto; height: auto; max-width: 100%; max-height: calc(min(25rem, 46vh) - 4.4rem); }
+  .dossier__clip { position: absolute; top: -1.35rem; inset-inline-start: 1.6rem; width: 19px; height: auto; transform: rotate(4deg); filter: drop-shadow(1px 2px 1.5px rgba(13, 27, 44, 0.35)); }
+
+  .dossier__nav {
+    position: absolute; top: 50%; z-index: 2; margin-top: -22px;
+    display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+    color: var(--ink); background: #fdfcf8; border: 1px solid var(--rule-strong);
+    box-shadow: 0 8px 18px -10px rgba(13, 27, 44, 0.5);
+    transition: opacity 300ms, transform 400ms var(--ease-water), background 300ms;
+  }
+  .dossier__nav svg { width: 20px; height: 20px; }
+  .dossier__nav--prev { inset-inline-start: -0.4rem; }
+  .dossier__nav--next { inset-inline-end: -0.4rem; }
+  :global(html[dir='rtl']) .dossier__nav svg { scale: -1 1; }
+  .dossier__nav:hover:not(:disabled) { background: #fff; transform: scale(1.06); }
+  .dossier__nav:disabled { opacity: 0.28; cursor: default; }
+  .dossier.is-single .dossier__nav, .dossier.is-single .dossier__count { display: none; }
+
+  .dossier__bar { display: flex; justify-content: space-between; gap: 1rem; min-height: 1.2em; margin: 0; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); }
+  .dossier__count { color: var(--brass); font-weight: 500; font-variant-numeric: tabular-nums; }
+  .dossier__body { display: grid; gap: 0.6rem; }
+  .dossier__kind { color: var(--navy); }
+  .dossier__title { margin: 0; font-size: 1.9rem; font-weight: 500; line-height: 1.06; letter-spacing: -0.015em; }
+  .dossier__text { margin: 0; color: var(--ink-2); font-size: 1rem; line-height: 1.5; max-width: 52ch; }
+  .dossier__foot {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 0.3rem 0 0;
+    padding-top: 0.85rem; border-top: 1px dashed var(--rule-strong);
+    font-size: 0.84rem; font-weight: 500; letter-spacing: 0.05em; color: var(--ink-2);
+  }
+  .dossier__more { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; letter-spacing: 0; color: var(--ink); }
+  .dossier__more :global(.arr) { width: 18px; height: 18px; color: var(--brass); transition: transform 500ms var(--ease-water); }
+  .dossier__more:hover :global(.arr) { transform: translateX(4px); }
+  :global(html[dir='rtl']) .dossier__more :global(.arr) { scale: -1 1; }
+
+  /* Narrow screens: no paper, just the photos on a dark full-screen veil, swiped one by one. */
+  @media (max-width: 760px) {
+    .dossier { width: 100vw; height: 100dvh; margin: 0; inset: 0; color: #eaf6fd; }
+    .dossier::backdrop { background: rgba(3, 10, 21, 0.94); }
+    .dossier__sheet {
+      height: 100%; grid-template-rows: 1fr auto auto; gap: 0.9rem;
+      padding: 0 0 max(1.4rem, env(safe-area-inset-bottom));
+      background: none; box-shadow: none;
+    }
+    .dossier__x { top: max(0.8rem, env(safe-area-inset-top)); inset-inline-end: 0.8rem; color: #eaf6fd; background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.18); }
+    .dossier__x:hover, .dossier__x:focus-visible { color: #fff; background: rgba(255, 255, 255, 0.18); }
+    .dossier__stage { height: auto; min-height: 0; border: 0; }
+    /* the neighbouring photo peeks in at the edge, so it reads as swipeable */
+    .dossier__track { padding-inline: 7vw; scroll-padding-inline: 7vw; }
+    :global(.dossier__slide) { flex-basis: 86vw; padding: 4.4rem 0.35rem 0.4rem; }
+    .dossier.is-single .dossier__track { padding-inline: 0; }
+    .dossier.is-single :global(.dossier__slide) { flex-basis: 100%; padding-inline: var(--gutter); }
+    :global(.dossier__print) { padding: 0; background: none; box-shadow: none; transform: none; }
+    :global(.dossier__print img) { max-height: calc(100dvh - 15rem); border-radius: 2px; }
+    .dossier__clip, .dossier__nav { display: none; }
+    .dossier__bar { padding-inline: var(--gutter); color: rgba(207, 234, 248, 0.75); }
+    .dossier__count { color: var(--aegean); }
+    .dossier__body { padding-inline: var(--gutter); gap: 0.35rem; }
+    .dossier__kind { color: var(--aegean); }
+    .dossier__title { font-size: 1.45rem; }
+    .dossier__text { display: none; }
+    .dossier__foot { border-top-color: rgba(255, 255, 255, 0.18); color: rgba(207, 234, 248, 0.75); }
+    .dossier__more { color: #eaf6fd; }
+    .dossier__more :global(.arr) { color: var(--aegean); }
+    .dossier[open] .dossier__sheet { animation: dossier-fade 360ms var(--ease-water) both; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .dossier[open]::backdrop, .dossier.is-closing::backdrop, .dossier[open] .dossier__sheet { animation: none; }
+  }
+
+  /* ---------------- FUNDING ---------------- */
+  .funding__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); align-items: center; }
+  .funding__words { grid-column: 1 / span 6; display: grid; gap: 1.6rem; justify-items: start; }
+  .funding__words h2 { max-width: 16ch; }
+  .funding__programs { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .funding__programs li { font-size: 0.74rem; letter-spacing: 0.03em; padding: 0.4rem 0.65rem; border: 1px solid var(--rule-strong); border-radius: 2px; }
+  .funding__steps { display: grid; gap: 0.7rem; }
+  .funding__steps li { display: flex; align-items: center; gap: 0.9rem; font-weight: 500; }
+  .funding__grid :global(.files) { grid-column: 8 / -1; }
+  @media (max-width: 960px) { .funding__words, .funding__grid :global(.files) { grid-column: 1 / -1; } }
+
+  /* ---------------- ALGAE ---------------- */
+  .algae { overflow: clip; isolation: isolate; background: #06231f; } /* clip, not hidden: hidden would become the scroll container of the microscope view timeline */
+  .algae__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); align-items: center; }
+  .algae__words { grid-column: 1 / span 6; display: grid; gap: 1.5rem; justify-items: start; }
+  .algae__words .label { color: #bfe7dd; }
+  .algae__words h2 { color: #eafaf5; }
+  .algae__words h2 :global(em) { color: #7fd3f5; }
+  .algae__text { color: rgba(234, 250, 245, 0.8); max-width: 50ch; font-size: 1.1rem; }
+  .algae__fig { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+  .algae__fig .figure { color: #eafaf5; }
+  .algae__art { grid-column: 7 / -1; position: relative; min-height: 520px; }
+  .algae__art :global(.algae__powder) { position: absolute; width: 80%; left: 4%; bottom: 0; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.45)); }
+  .algae__art :global(.algae__pack) { position: absolute; filter: drop-shadow(0 30px 30px rgba(0, 0, 0, 0.45)); }
+  .algae__art :global(.algae__pack--1) { width: 38%; right: 16%; top: 2%; transform: rotate(-4deg); }
+  .algae__art :global(.algae__pack--2) { width: 26%; right: 0; top: 22%; transform: rotate(3deg); }
+  @media (max-width: 960px) { .algae__words, .algae__art { grid-column: 1 / -1; } .algae__art { min-height: 420px; } }
+
+  /* ---------------- NOTES ---------------- */
+  .notes__head { display: flex; justify-content: space-between; align-items: end; gap: 1rem; margin-bottom: 3rem; border-bottom: 1px solid var(--rule-strong); padding-bottom: 1.4rem; }
+  .notes__head .label { margin-bottom: 0.8rem; }
+  .notes__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(2.4rem, 4vw, 3.5rem) var(--col-gap); }
+  @media (max-width: 960px) { .notes__grid { grid-template-columns: 1fr 1fr; } .notes__grid > :first-child { grid-column: 1 / -1; } }
+  @media (max-width: 620px) { .notes__grid { grid-template-columns: 1fr; } }
+</style>

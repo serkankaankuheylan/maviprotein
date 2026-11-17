@@ -1,0 +1,81 @@
+---
+/**
+ * Tally: an odometer-style figure. Each digit is a drum (0–9 stacked, three turns)
+ * that spins into place when its `.rise` ancestor receives `.is-in` (Base.astro's
+ * IntersectionObserver). No extra JS: the whole motion is one compositor-only
+ * `transform` transition per drum, eased by a sampled spring `linear()` curve.
+ *
+ * Layout is identical to plain text: an invisible copy of the final digit sizes each
+ * column, the drum sits absolutely on top, and a single mask fades the drums at the
+ * top and bottom edges. Without JS, or with reduced motion, the drums rest on the
+ * final value.
+ */
+interface Props { value: string }
+const { value } = Astro.props;
+
+const TURNS = 3; // 0–9 repeated three times on every drum
+const chars = [...value];
+const digitIdx = chars.map((ch, i) => (/\d/.test(ch) ? i : -1)).filter((i) => i >= 0);
+const lastDigit = digitIdx[digitIdx.length - 1];
+const strip = Array.from({ length: TURNS * 10 }, (_, i) => i % 10).join('\n');
+
+let col = 0;
+const parts = chars.map((ch, i) => {
+  if (!/\d/.test(ch)) return { kind: 's' as const, ch };
+  const n = Number(ch);
+  // The ones drum spins one extra turn, like the fastest wheel of a counter.
+  const loops = i === lastDigit ? 2 : 1;
+  const to = -((loops * 10 + n) / (TURNS * 10)) * 100;
+  return { kind: 'd' as const, ch, to: `${to.toFixed(4)}%`, c: col++ };
+});
+---
+<span class="sr-only">{value}</span><span class="tally" aria-hidden="true">{parts.map((p) =>
+  p.kind === 'd'
+    ? <span class="tally__col" style={`--to:${p.to};--c:${p.c}`}><span class="tally__ghost">{p.ch}</span><span class="tally__drum">{strip}</span></span>
+    : <span class="tally__sym">{p.ch}</span>
+)}</span>
+
+<style>
+  .tally {
+    --pad: 0.26em;
+    --fade: 0.22em;
+    display: inline-block;
+    direction: ltr; unicode-bidi: isolate; /* keep 16.6 in order inside RTL text */
+    padding: var(--pad) 0.08em;
+    margin: calc(var(--pad) * -1) -0.08em;
+    -webkit-mask-image: linear-gradient(transparent, #000 var(--fade), #000 calc(100% - var(--fade)), transparent);
+            mask-image: linear-gradient(transparent, #000 var(--fade), #000 calc(100% - var(--fade)), transparent);
+  }
+  .tally__col { position: relative; display: inline-block; }
+  .tally__ghost { visibility: hidden; }
+  .tally__drum {
+    --ease-roll: cubic-bezier(0.16, 1, 0.3, 1);
+    --gap: 0.7em; /* extra air between drum digits so neighbours never show at rest */
+    position: absolute; inset: calc(var(--gap) / -2) 0 auto; text-align: center;
+    white-space: pre;
+    line-height: calc(1lh + var(--gap));
+    transform: translateY(var(--to));
+    transition: transform 2200ms var(--ease-roll);
+    transition-delay: calc(var(--d, 0ms) + var(--c) * 90ms);
+  }
+  @supports (transition-timing-function: linear(0, 1)) {
+    /* Critically-near spring (ζ 0.86) launched with initial velocity: fast spin-up,
+       a hair of overshoot past the digit, then a mechanical settle. */
+    .tally__drum {
+      --ease-roll: linear(0, 0.125, 0.2465, 0.3605, 0.4647, 0.5578, 0.6395, 0.71, 0.7701, 0.8205,
+        0.8622, 0.8963, 0.9238, 0.9456, 0.9627, 0.9759, 0.9859, 0.9932, 0.9985, 1.0021,
+        1.0045, 1.006, 1.0067, 1.0069, 1.0068, 1.0064, 1.0058, 1.0052, 1.0046, 1.004,
+        1.0034, 1.0029, 1.0024, 1.002, 1.0016, 1.0013, 1.001, 1.0008, 1.0006, 1.0004,
+        1);
+    }
+  }
+  .tally__sym { transition: opacity 900ms var(--ease-water) calc(var(--d, 0ms) + 500ms); }
+
+  :global(.js) :global(.rise:not(.is-in)) .tally__drum { transform: translateY(0); transition: none; }
+  :global(.js) :global(.rise:not(.is-in)) .tally__sym { opacity: 0; transition: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tally__drum { transform: translateY(var(--to)) !important; transition: none !important; }
+    .tally__sym { opacity: 1 !important; }
+  }
+</style>

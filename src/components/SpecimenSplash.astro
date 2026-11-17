@@ -1,0 +1,158 @@
+---
+/**
+ * "Spill" scene for the product grid, scrubbed by scroll with real ballistic physics.
+ *
+ * Every piece has a launch point hidden behind the opaque cards, a launch velocity, spin and gravity.
+ * Its position is a pure function of scroll: x = vx·t, y = vy·t + g·t², rot = r0 + spin·t, where t is the
+ * scroll progress through its zone. Scrolling down plays the splash, scrolling up rewinds it.
+ *  - top: pieces leap out of the top edge of their own cards, slow at the apex and fall back behind them;
+ *  - side: pieces are flung out of the outer cards and arc down;
+ *  - bottom: pieces pour out of the bottom row and fall away behind the next section.
+ *
+ * Performance: two nested elements per piece, animating only compositor properties (translate; translate +
+ * rotate/scale/opacity) on CSS scroll-driven timelines — no JS, no layout, no paint while scrolling. g·t² is exact: the timing
+ * function cubic-bezier(1/3, 0, 2/3, 1/3) is the curve y = x². Shadows and depth-of-field blur are static
+ * filters on the image, rasterised once. Without scroll-timeline support, or with reduced motion, each
+ * piece is shown frozen at a mid-flight frame of the same trajectory.
+ */
+import Asset from './Asset.astro';
+import type { Piece } from '../lib/splash';
+
+interface Props { pieces: Piece[] }
+const { pieces } = Astro.props;
+
+// trajectories are authored at these grid widths and scale with the viewport (see --u)
+const GRID_W = 1326; // desktop, 1440px viewport
+const GRID_W_M = 343; // phone, 375px viewport
+const SIZE_K = { far: 0.7, mid: 1.05, near: 0.55 } as const; // defocused planes need fewer pixels
+const r1 = (n: number) => Math.round(n * 10) / 10;
+
+/** launch velocity, gravity and a still frame for one trajectory, in px at the authoring width */
+function flight(p: Piece, o: { ox: number; oy: number; ax: number; ay: number }, gw: number) {
+  const dx = ((o.ax - o.ox) * gw) / 100;
+  const dy = o.ay - o.oy;
+  if (p.z === 'bottom') {
+    // poured: a small initial push down, then gravity; (ax, ay) is where it is at the end of the range
+    const vy = 0.15 * dy, g = 0.85 * dy, ts = 0.5;
+    return { vx: dx, vy, g, sx: dx * ts, sy: vy * ts + g * ts * ts, ts };
+  }
+  // leapt: (ax, ay) is the apex, reached at t = ta, where the vertical speed is zero
+  const ta = p.ta ?? 0.45;
+  const g = -dy / (ta * ta);
+  return { vx: dx / ta, vy: (2 * dy) / ta, g, sx: dx, sy: dy, ts: ta };
+}
+
+const items = pieces.map((p) => {
+  const f = flight(p, p, GRID_W);
+  const r0 = p.r0 ?? 0, spin = p.spin ?? 0;
+  const vars: Record<string, string | number> = {
+    '--x': `${p.ox}%`, '--y': `${p.oy}px`, '--w': p.w,
+    '--vx': r1(f.vx), '--vy': r1(f.vy), '--g': r1(f.g),
+    '--sx': r1(f.sx), '--sy': r1(f.sy), '--sr': `${r1(r0 + spin * f.ts)}deg`,
+    '--r0': `${r0}deg`, '--spin': `${spin}deg`, '--a': p.a ?? 0,
+  };
+  if (p.m) {
+    const mo = { ox: p.m.ox ?? p.ox, oy: p.m.oy ?? p.oy, ax: p.m.ax ?? p.ax, ay: p.m.ay ?? p.ay };
+    const fm = flight(p, mo, GRID_W_M);
+    Object.assign(vars, {
+      '--mx': `${mo.ox}%`, '--my': `${mo.oy}px`, '--mw': p.m.w ?? Math.round(p.w * 0.75),
+      '--mvx': r1(fm.vx), '--mvy': r1(fm.vy), '--mg': r1(fm.g), '--msx': r1(fm.sx), '--msy': r1(fm.sy),
+    });
+  }
+  const style = Object.entries(vars).map(([k, v]) => `${k}:${v}`).join(';');
+  return { p, style, sizes: `${Math.round(p.w * SIZE_K[p.d])}px` };
+});
+const ZONES = ['top', 'side', 'bottom'] as const;
+---
+<div class="splash" aria-hidden="true">
+  {ZONES.map((z) => (
+    <div class:list={['splash__zone', `splash__zone--${z}`]}>
+      {items.filter((i) => i.p.z === z).map(({ p, style, sizes }) => (
+        <span class:list={['sp', `sp--${p.d}`, { 'sp--desk': !p.m }]} style={style}>
+          <span class="sp__v"><span class="sp__g">
+            <Asset name={p.s} alt="" class="sp__img" sizes={sizes} />
+          </span></span>
+        </span>
+      ))}
+    </div>
+  ))}
+</div>
+
+<style>
+  /* nothing here creates a stacking context, so each piece joins the section's: far/mid pieces (z 0)
+     sit behind the grid (z 1), near ones (z 2) in front of it */
+  .splash {
+    position: absolute; inset: 0; pointer-events: none;
+    --u: clamp(0.62px, 0.06944vw, 1.18px); /* 1px at a 1440px viewport */
+    --dir: 1;
+  }
+  /* each zone is its own scroll timeline, so timing follows the part of the grid it belongs to */
+  .splash__zone { position: absolute; inset-inline: 0; }
+  .splash__zone--top { bottom: 100%; height: 220px; view-timeline: --sp-top block; }
+  .splash__zone--side { top: 33.333%; bottom: 0; view-timeline: --sp-side block; }
+  .splash__zone--bottom { top: 100%; height: 160px; view-timeline: --sp-bot block; }
+
+  .sp {
+    position: absolute; z-index: 0; left: var(--x); top: var(--y); width: calc(var(--w) * var(--u));
+    translate: -50% -50%;
+  }
+  .splash__zone--top .sp { top: calc(100% + var(--y)); }
+  .sp--near { z-index: 2; }
+  .sp__v, .sp__g { display: block; }
+  /* per-element copies so the phone layout can swap the trajectory without fighting the inline style;
+     the static translate/rotate is the still frame used when there is no scroll animation */
+  .sp__v { --kvx: var(--vx); --kvy: var(--vy); translate: calc(var(--sx) * var(--u) * var(--dir)) calc(var(--sy) * var(--u)); }
+  .sp__g { --kg: var(--g); rotate: var(--sr); }
+  .sp :global(.sp__img) { display: block; width: 100%; height: auto; }
+
+  /* depth of field + one light from the upper left: shadows fall to the lower right */
+  .sp--far :global(.sp__img) { filter: blur(1.1px) saturate(0.85) drop-shadow(4px 8px 6px rgba(60, 38, 14, 0.12)); opacity: 0.9; }
+  .sp--mid :global(.sp__img) { filter: drop-shadow(6px 14px 12px rgba(60, 38, 14, 0.2)) drop-shadow(1px 3px 2px rgba(60, 38, 14, 0.18)); }
+  .sp--near :global(.sp__img) { filter: blur(4px) drop-shadow(10px 26px 22px rgba(60, 38, 14, 0.18)); }
+
+  :global(html[dir='rtl']) .splash { --dir: -1; }
+  :global(html[dir='rtl']) .sp { left: calc(100% - var(--x)); }
+
+  @media (max-width: 760px) {
+    .splash { --u: 0.26667vw; } /* 1px at a 375px viewport */
+    .sp--desk { display: none; }
+    .sp { left: var(--mx); top: var(--my); width: calc(var(--mw) * var(--u)); }
+    .splash__zone--top .sp { top: calc(100% + var(--my)); }
+    :global(html[dir='rtl']) .sp { left: calc(100% - var(--mx)); }
+    .sp__v { --kvx: var(--mvx); --kvy: var(--mvy); translate: calc(var(--msx) * var(--u) * var(--dir)) calc(var(--msy) * var(--u)); }
+    .sp__g { --kg: var(--mg); }
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .sp__v, .sp__g { animation-fill-mode: both; animation-duration: auto; }
+      .splash__zone--top :is(.sp__v, .sp__g) {
+        animation-timeline: --sp-top;
+        /* t runs over a long stretch of scroll, so the pieces move whenever the reader moves */
+        animation-range: cover calc(14% + var(--a) * 1%) cover calc(96% + var(--a) * 1%);
+      }
+      .splash__zone--side :is(.sp__v, .sp__g) {
+        animation-timeline: --sp-side;
+        animation-range: cover calc(var(--a) * 1%) cover calc(46% + var(--a) * 1%);
+      }
+      .splash__zone--bottom :is(.sp__v, .sp__g) {
+        animation-timeline: --sp-bot;
+        animation-range: cover calc(var(--a) * 1%) cover calc(62% + var(--a) * 1%);
+      }
+      .sp__v { animation-name: sp-v; animation-timing-function: linear; }
+      /* gravity (t², exact) and spin share one element: translate is applied before rotate, so the fall
+         stays vertical while the piece tumbles about its own centre */
+      .sp__g { animation-name: sp-g, sp-r; animation-timing-function: cubic-bezier(0.3333, 0, 0.6667, 0.3333), linear; }
+      .sp--near .sp__g { animation-name: sp-g, sp-r-near; }
+    }
+  }
+  @keyframes sp-v { from { translate: 0 0; } to { translate: calc(var(--kvx) * var(--u) * var(--dir)) calc(var(--kvy) * var(--u)); } }
+  @keyframes sp-g { from { translate: 0 0; } to { translate: 0 calc(var(--kg) * var(--u)); } }
+  @keyframes sp-r { from { rotate: var(--r0); } to { rotate: calc(var(--r0) + var(--spin)); } }
+  /* near pieces fly toward the camera: they grow, and fade in so they never sit on top of a card */
+  @keyframes sp-r-near {
+    from { rotate: var(--r0); scale: 0.55; opacity: 0; }
+    14% { opacity: 1; }
+    to { rotate: calc(var(--r0) + var(--spin)); scale: 1.3; }
+  }
+</style>

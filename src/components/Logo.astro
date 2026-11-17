@@ -1,0 +1,91 @@
+---
+/**
+ * Header logo: emblem + wordmark. Sizes hang on --em, the emblem's height; the wordmark scales with it.
+ *  - Wordmark: outlined type from src/lib/logo.ts, so it needs no font and paints with the first frame.
+ *    Turkish pages get the dotted İ and "DANIŞMANLIK", the others "MAVI PROTEIN" + "CONSULTANCY".
+ *    Arabic pages keep the Latin name and set the descriptor as live text (`sub`).
+ *  - Emblem, three candidates (src/lib/logo-choice.ts picks; the dev server carries all, see LogoSwitch.astro):
+ *      sade    real vector, two files drawn for light and for dark ground (public/img/brand/mavi-protein-amblem*.svg);
+ *              both sit on top of each other and the header's `on-dark` class cross-fades them.
+ *      parlak, yumusak  raster emblems from the asset pipeline (brand-emblem-*), one image each for both grounds,
+ *              placed so that their ring is the same circle as the flat one's.
+ *    The vector files, the wordmark and the raster emblems' placement are written by tools/logo/sade_site.py.
+ *
+ * Footer (`compact`): still the previous badge from the asset pipeline (design-assets/final/brand-logo-*).
+ */
+import Asset from './Asset.astro';
+import { WORDMARK, RASTER } from '../lib/logo';
+import { LOGO, LOGO_KINDS } from '../lib/logo-choice';
+import type { Lang } from '../lib/i18n';
+interface Props { lang?: Lang; sub?: string; compact?: boolean; class?: string }
+const { lang = 'tr', sub = 'Danışmanlık', compact = false, class: cls = '' } = Astro.props;
+const badge = lang === 'tr' ? 'brand-logo-tr' : 'brand-logo-en';
+const kinds = import.meta.env.DEV ? LOGO_KINDS : [LOGO];
+const live = lang === 'ar';                                   // descriptor as live text
+const word = WORDMARK[lang === 'tr' ? 'tr' : 'en'];
+const box = live ? WORDMARK.nameBox : word.box;
+const [, , bw, bh] = box.split(' ').map(Number);
+const raster = (Object.keys(RASTER) as (keyof typeof RASTER)[]).filter((k) => kinds.includes(k))
+  .map((k) => ({ kind: k, asset: RASTER[k].asset, at: `left:${RASTER[k].left}%;top:${RASTER[k].top}%;width:${RASTER[k].width}%;height:${RASTER[k].height}%` }));
+---
+{compact ? (
+  <span class:list={['logo logo--compact', cls]}>
+    <Asset name={badge} alt="" sizes="64px" loading="eager" class="logo__mark" />
+  </span>
+) : (
+  <span class:list={['logo', `logo--${LOGO}`, cls]} data-logo>
+    <span class="logo__emblem">
+      {kinds.includes('sade') && (
+        <span class="logo__v logo__v--sade">
+          <img class="logo__em logo__em--light" src="/img/brand/mavi-protein-amblem.svg" alt="" width="50" height="50" decoding="async" />
+          <img class="logo__em logo__em--dark" src="/img/brand/mavi-protein-amblem-koyu.svg" alt="" width="50" height="50" decoding="async" />
+        </span>
+      )}
+      {raster.map((r) => (
+        <span class:list={['logo__v', `logo__v--${r.kind}`]}>
+          <Asset name={r.asset} alt="" sizes="50px" loading="eager" class="logo__gl" style={r.at} />
+        </span>
+      ))}
+    </span>
+    <span class:list={['logo__type', { 'logo__type--live': live }]}>
+      <svg class="logo__word" viewBox={box} width={bw} height={bh} style={`--k:${live ? WORDMARK.nameHeight : WORDMARK.height}`} aria-hidden="true" focusable="false">
+        <path class="logo__name" d={word.name} />
+        {!live && <path class="logo__desc" d={word.desc} />}
+      </svg>
+      {live && <span class="logo__sub">{sub}</span>}
+    </span>
+  </span>
+)}
+
+<style>
+  /* flex, not inline-flex: an inline box would sit on a text baseline and hang a few pixels above the bar's centre line */
+  .logo { display: flex; width: max-content; align-items: center; gap: 12px; color: inherit; --em: 50px; }
+  /* lettering colours: each emblem brings its own navy and blue */
+  .logo--sade { --logo-name: var(--navy); --logo-desc: #015cb0; }
+  .logo--parlak { --logo-name: #002b5c; --logo-desc: #0a6fc2; }
+  .logo--yumusak { --logo-name: #013a78; --logo-desc: #0884d1; }
+  :global(.on-dark) .logo--sade { --logo-name: var(--foam); --logo-desc: var(--aegean); }
+  :global(.on-dark) .logo--parlak { --logo-name: var(--foam); --logo-desc: #9fd3f5; }
+  :global(.on-dark) .logo--yumusak { --logo-name: var(--foam); --logo-desc: #7fd2fd; }
+
+  .logo__emblem { position: relative; flex: none; width: var(--em); height: var(--em); }
+  .logo__v { position: absolute; inset: 0; display: none; }
+  .logo--sade .logo__v--sade, .logo--parlak .logo__v--parlak, .logo--yumusak .logo__v--yumusak { display: block; }
+  .logo__em { position: absolute; inset: 0; width: 100%; height: 100%; transition: opacity 320ms ease; }
+  .logo__em--dark, :global(.on-dark) .logo__em--light { opacity: 0; }
+  :global(.on-dark) .logo__em--dark { opacity: 1; }
+  .logo__v :global(.logo__gl) { position: absolute; max-width: none; }
+
+  .logo__type { display: grid; }
+  .logo__word { display: block; height: calc(var(--em) * var(--k)); width: auto; overflow: visible; }
+  .logo__name { fill: var(--logo-name); transition: fill 320ms ease; }
+  .logo__desc { fill: var(--logo-desc); transition: fill 320ms ease; }
+  .logo__type--live { gap: 6px; justify-items: start; }
+  .logo__sub { font-family: 'IBM Plex Sans Arabic', var(--f-sans); font-size: 0.74rem; font-weight: 500; line-height: 1; color: var(--logo-desc); transition: color 320ms ease; }
+  @media (max-width: 560px) { .logo { --em: 46px; gap: 10px; } }
+
+  /* footer badge (previous emblem) */
+  .logo--compact :global(.logo__mark) { width: 60px; height: 60px; flex: none; object-fit: contain; transition: transform 900ms var(--ease-water); }
+  .logo--compact:hover :global(.logo__mark) { transform: rotate(-12deg); }
+  @media (prefers-reduced-motion: reduce) { .logo--compact:hover :global(.logo__mark) { transform: none; } }
+</style>

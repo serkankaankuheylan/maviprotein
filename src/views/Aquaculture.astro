@@ -1,0 +1,346 @@
+---
+import Base from '../layouts/Base.astro';
+import Intro from '../components/Intro.astro';
+import Asset from '../components/Asset.astro';
+import Arrow from '../components/Arrow.astro';
+import Competences from '../components/Competences.astro';
+import FacilitySet from '../components/FacilitySet.astro';
+import SpecimenCard from '../components/SpecimenCard.astro';
+import ClosingCta from '../components/ClosingCta.astro';
+import { solutionsCopy } from '../i18n/solutions';
+import { common } from '../i18n/common';
+import { pick, t, type Lang } from '../lib/i18n';
+import { href, type RouteKey } from '../lib/routes';
+import { services, grouped, lines } from '../lib/data';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = pick(solutionsCopy, lang).aqua;
+const cc = pick(common, lang);
+const svc = services['aquaculture'];
+const groups = grouped(svc);
+const turnkey = groups.find((g: any) => g.key === 'turnkey');
+const compGroups = groups.filter((g: any) => g.key !== 'turnkey');
+const relLines = ['kultur-baligi-yemi', 'akvaryum-yemi'].map((s) => lines.find((l) => l.slug === s)).filter(Boolean) as typeof lines;
+const relServices: [RouteKey, string][] = [['funding', cc.mega.services[0].title], ['feasibility', cc.mega.services[1].title], ['supply', cc.mega.services[2].title]];
+// hatchery cross-section hotspot positions (viewBox 1000 × 420)
+const HP: Record<string, [number, number]> = { filtre: [150, 300], uv: [255, 300], ozon: [345, 300], oksijen: [520, 150], isi: [430, 300], tank: [640, 245], canli: [860, 230], olcum: [740, 150] };
+---
+<Base lang={lang} title={c.meta.title} description={c.meta.description} route="aquaculture" gaugeMax={220}>
+  <Intro lang={lang} surface="dark" kicker={c.kicker} title={c.title} lead={c.lead} toc={c.toc as [string, string][]} crumbs={[[cc.nav.solutions, 'aquaculture']]} tall>
+    <div slot="bg" class="aq-bg" data-pelagic aria-hidden="true">
+      <canvas class="aq-bg__water" data-pelagic-water></canvas>
+      <canvas class="aq-bg__life" data-pelagic-life></canvas>
+      <div class="aq-bg__fish" data-pelagic-fish>
+        <Asset name="b-sea-bream" alt="" sizes="(max-width: 960px) 90vw, 50vw" loading="eager" fetchpriority="high" />
+        <canvas class="aq-bg__fishgl" data-pelagic-fishgl></canvas>
+      </div>
+      <div class="aq-bg__veil"></div>
+    </div>
+  </Intro>
+
+  <!-- problem / approach -->
+  <section class="pa s-light grain section" data-surface="light" aria-label={c.problem.q}>
+    <div class="wrap pa__grid">
+      <p class="pa__q serif">{c.problem.q}</p>
+      <p class="pa__a">{c.problem.a}</p>
+    </div>
+  </section>
+
+  <!-- life cycle (signature) -->
+  <section class="cyc s-dark" id="dongu" data-surface="dark" data-cycle aria-labelledby="cyc-title">
+    <div class="cyc__sticky">
+      <div class="cyc__water" aria-hidden="true"></div>
+      <div class="cyc__stage" aria-hidden="true">
+        {c.cycle.stages.map((s, i) => (
+          <Asset name={s.asset} alt="" class={`cyc__img cyc__img--${i}`} sizes="(max-width: 900px) 80vw, 44vw" data-cyc-img={i} defer={i > 0} />
+        ))}
+        <svg class="cyc__ring" viewBox="0 0 200 200"><circle cx="100" cy="100" r="96" /><circle class="cyc__prog" cx="100" cy="100" r="96" pathLength="100" /></svg>
+      </div>
+    </div>
+    <div class="wrap cyc__wrap">
+      <header class="cyc__head">
+        <p class="label">{c.cycle.label}</p>
+        <h2 id="cyc-title" class="t-h1" set:html={c.cycle.title} />
+      </header>
+      <ol class="cyc__list" role="list">
+        {c.cycle.stages.map((s, i) => (
+          <li class="cyc__step" data-cyc-step={i}>
+            <Asset name={s.asset} alt="" class="cyc__mimg" sizes="80vw" />
+            <p class="label"><span class="num">{i + 1}</span>{s.sci}</p>
+            <h3 class="t-display cyc__name">{s.name}</h3>
+            <ul role="list">{s.items.map((x) => <li>{x}</li>)}</ul>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- competences -->
+  <section class="comps s-light section" id="yetkinlikler" data-surface="light" aria-labelledby="comp-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="label">{c.comp.label}</p>
+        <h2 id="comp-title" class="t-h1" set:html={c.comp.title} />
+        <p class="muted">{t(svc?.intro?.[1], lang)}</p>
+      </header>
+      <Competences lang={lang} groups={compGroups} />
+    </div>
+  </section>
+
+  <!-- hatchery anatomy -->
+  <section class="hat s-steel section" id="kulucka" data-surface="dark" aria-labelledby="hat-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="label">{c.hatchery.label}</p>
+        <h2 id="hat-title" class="t-h1" set:html={c.hatchery.title} />
+        <p class="muted">{c.hatchery.lead}</p>
+      </header>
+      <div class="hat__fig">
+        <svg viewBox="0 0 1000 420" class="hat__svg" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round">
+            <path d="M60 380V120l440-80 440 80v260" opacity="0.5" />
+            <path d="M40 380h920" />
+            <!-- intake -->
+            <path d="M0 330h110" stroke-dasharray="6 6" />
+            <!-- filter -->
+            <rect x="110" y="260" width="80" height="90" /><path d="M120 280h60M120 300h60M120 320h60" opacity="0.5" />
+            <!-- uv -->
+            <rect x="220" y="290" width="70" height="26" rx="13" /><path d="M235 303h40" stroke-dasharray="2 4" />
+            <!-- ozone -->
+            <rect x="315" y="270" width="60" height="70" /><circle cx="345" cy="295" r="10" />
+            <!-- heat exchanger -->
+            <rect x="400" y="270" width="60" height="70" /><path d="M410 285c10 8 30-8 40 0M410 300c10 8 30-8 40 0M410 315c10 8 30-8 40 0" />
+            <path d="M190 330h30M290 303h25M375 305h25M460 305h40" />
+            <!-- header pipe to tanks -->
+            <path d="M500 305V190h420" />
+            <!-- tanks -->
+            {[560, 640, 720].map((x) => (<><path d={`M${x - 34} 230v80c0 8 15 14 34 14s34-6 34-14v-80`} /><ellipse cx={x} cy="230" rx="34" ry="8" /><path d={`M${x} 190v34`} /></>))}
+            <!-- oxygen line -->
+            <path d="M480 150h300" stroke-dasharray="3 5" /><circle cx="520" cy="150" r="12" />
+            {[560, 640, 720].map((x) => <path d={`M${x} 150v80`} stroke-dasharray="3 5" opacity="0.6" />)}
+            <!-- probes -->
+            <path d="M740 130v100M740 130h30v-20h-30z" />
+            <!-- live feed unit -->
+            {[830, 870, 910].map((x) => (<><path d={`M${x - 14} 200v90c0 6 6 10 14 10s14-4 14-10v-90z`} /><path d={`M${x - 14} 250h28`} opacity="0.4" /></>))}
+            <path d="M920 190v10" />
+          </g>
+          <g class="hat__water">
+            {[560, 640, 720].map((x) => <path d={`M${x - 33} 262c10-4 22 4 33 0s22-4 33 0v48c0 7-15 13-33 13s-33-6-33-13z`} />)}
+            {[830, 870, 910].map((x) => <rect x={x - 13} y="232" width="26" height="66" rx="3" />)}
+          </g>
+          <g class="hat__bubbles">{[548, 568, 628, 652, 708, 732].map((x, i) => <circle cx={x} cy="300" r="2.2" style={`animation-delay:${i * 0.4}s`} />)}</g>
+        </svg>
+        {c.hatchery.parts.map((p, i) => (
+          <a class="hat__hot" href={href('supply', lang, undefined, 'k-' + p.k)} style={`--x:${HP[p.k][0] / 10}%;--y:${(HP[p.k][1] / 420) * 100}%`}>
+            <span class="num">{i + 1}</span>
+            <span class="hat__tip"><strong>{p.t}</strong><span class="faint">{p.d}</span></span>
+          </a>
+        ))}
+      </div>
+      <ol class="hat__legend" role="list">
+        {c.hatchery.parts.map((p, i) => <li><span class="num">{i + 1}</span><a class="link" href={href('supply', lang, undefined, 'k-' + p.k)}>{p.t}</a></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <!-- turnkey -->
+  {turnkey && (
+    <section class="tk s-sand grain section" id="kurulumlar" data-surface="light" aria-labelledby="tk-title">
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="label">{c.turnkey.label}</p>
+          <h2 id="tk-title" class="t-h1" set:html={c.turnkey.title} />
+        </header>
+        <FacilitySet lang={lang} items={turnkey.items} />
+      </div>
+    </section>
+  )}
+
+  <!-- method -->
+  <section class="meth s-light section" id="yontem" data-surface="light" aria-labelledby="meth-title">
+    <div class="wrap">
+      <p class="label">{c.method.label}</p>
+      <h2 id="meth-title" class="sr-only">{c.method.label}</h2>
+      <ol class="meth__list" role="list">
+        {c.method.steps.map((s, i) => (
+          <li class="rise" style={`--d:${i * 80}ms`}><span class="num">{i + 1}</span><h3 class="t-h3">{s.t}</h3><p class="muted">{s.d}</p></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- related -->
+  <section class="rel s-sand section" data-surface="light" aria-labelledby="rel-title">
+    <div class="wrap rel__grid">
+      <h2 id="rel-title" class="t-h3">{c.related}</h2>
+      <ul class="rel__lines" role="list">{relLines.map((l) => <li><SpecimenCard line={l} lang={lang} showMeta /></li>)}</ul>
+      <ul class="rel__svc" role="list">
+        {relServices.map(([k, label]) => <li><a href={href(k, lang)}><span>{label}</span><Arrow /></a></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <ClosingCta lang={lang} title={c.close} primaryHref={`${href('start', lang)}?alan=su-urunleri`} />
+</Base>
+
+<script>
+  import { mountPelagic } from '../scripts/pelagic';
+  import { afterLoad, near } from '../scripts/gl';
+  const sea = document.querySelector<HTMLElement>('[data-pelagic]');
+  if (sea) mountPelagic(sea);
+
+  const sec = document.querySelector<HTMLElement>('[data-cycle]');
+  if (sec) {
+    // Only the first of the pinned stage's four images ships with a source (as on the home chain): the other three
+    // wait in data-src until the page has loaded and gone idle, or the reader reaches the section (it sits a screen
+    // below the hero, so "a screen away" would be true at once), so they don't compete with the hero. Phones hide
+    // the stage and show each step's own (lazy) image instead.
+    const later = [...sec.querySelectorAll<HTMLImageElement>('.cyc__stage img[data-srcset]')];
+    let fed = false;
+    const feed = () => {
+      if (fed) return;
+      fed = true;
+      later.forEach((o) => {
+        if (o.dataset.srcset) o.srcset = o.dataset.srcset;
+        if (o.dataset.src) o.src = o.dataset.src;
+        o.removeAttribute('data-srcset');
+        o.removeAttribute('data-src');
+      });
+    };
+    afterLoad().then(feed);
+    near(sec, '0px').then(feed);
+
+    const imgs = [...sec.querySelectorAll<HTMLElement>('[data-cyc-img]')];
+    const steps = [...sec.querySelectorAll<HTMLElement>('[data-cyc-step]')];
+    const set = (i: number) => {
+      imgs.forEach((im, k) => im.classList.toggle('is-on', k === i));
+      steps.forEach((s, k) => s.classList.toggle('is-on', k === i));
+      sec.style.setProperty('--stage', String(i));
+    };
+    set(0);
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) set(+(e.target as HTMLElement).dataset.cycStep!); }), { rootMargin: '-45% 0px -45% 0px' });
+    steps.forEach((s) => io.observe(s));
+    const prog = () => {
+      const r = sec.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, -r.top / (r.height - innerHeight)));
+      sec.style.setProperty('--cp', p.toFixed(3));
+    };
+    addEventListener('scroll', prog, { passive: true });
+    prog();
+  }
+</script>
+
+<style>
+  /* Hero: open water in a sea cage (scripts/pelagic.ts) — shafts and haze, marine snow, the school
+     circling behind, the bream redrawn in the water. The gradient and the plain <img> are the fallback. */
+  .aq-bg {
+    position: absolute; inset: 0; z-index: -1; overflow: hidden;
+    background:
+      radial-gradient(60% 58% at 84% -8%, #1c6489 0%, rgba(28, 100, 137, 0) 75%),
+      linear-gradient(180deg, #0c3a61 0%, #082a4f 45%, var(--abyss) 100%);
+  }
+  .aq-bg__water, .aq-bg__life { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1600ms var(--ease-water); }
+  .aq-bg__life { transition-delay: 200ms; }
+  .aq-bg__water.is-live, .aq-bg__life.is-live { opacity: 1; }
+  .aq-bg__fish { position: absolute; width: min(50vw, 820px); right: 3vw; top: 16%; animation: fish-swim 14s ease-in-out infinite alternate; }
+  .aq-bg__fish :global(img) { width: 100%; filter: saturate(0.85) brightness(0.94); }
+  .aq-bg__fishgl { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1200ms var(--ease-water); }
+  .aq-bg.is-fishgl .aq-bg__fishgl { opacity: 1; }
+  /* the photo steps out only once the redrawn fish fully covers it (no half-transparent moment) */
+  .aq-bg.is-fishgl .aq-bg__fish :global(img) { visibility: hidden; transition: visibility 0s 1200ms; }
+  :global(html[dir='rtl']) .aq-bg__fish { right: auto; left: -4vw; transform: scaleX(-1); }
+  @keyframes fish-swim { from { translate: 0 0; } to { translate: -2.5vw 1.5vh; } }
+  /* calm water behind the words */
+  .aq-bg__veil {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      linear-gradient(90deg, rgba(4, 20, 42, 0.6) 0%, rgba(4, 20, 42, 0.3) 34%, rgba(4, 20, 42, 0) 58%),
+      linear-gradient(180deg, rgba(6, 26, 51, 0) 50%, rgba(6, 26, 51, 0.6) 100%);
+  }
+  :global(html[dir='rtl']) .aq-bg__veil {
+    background:
+      linear-gradient(-90deg, rgba(4, 20, 42, 0.6) 0%, rgba(4, 20, 42, 0.3) 34%, rgba(4, 20, 42, 0) 58%),
+      linear-gradient(180deg, rgba(6, 26, 51, 0) 50%, rgba(6, 26, 51, 0.6) 100%);
+  }
+  /* scrolling on takes us deeper. The page scroll, not view(): .intro clips (overflow: hidden), which
+     makes it the nearest scroll container, and a view() timeline there never moves. */
+  .aq-bg::after { content: ''; position: absolute; inset: 0; background: #020b18; opacity: 0; pointer-events: none; }
+  @supports (animation-timeline: scroll()) {
+    .aq-bg, .aq-bg::after { animation: aq-deeper linear both; animation-timeline: scroll(root); animation-range: 0 100svh; }
+    .aq-bg::after { animation-name: aq-dark; }
+  }
+  @keyframes aq-deeper { to { transform: scale(1.05); } }
+  @keyframes aq-dark { to { opacity: 0.5; } }
+  @media (max-width: 960px) {
+    .aq-bg__fish { width: 90vw; top: 14%; opacity: 0.45; }
+    .aq-bg__veil { background: linear-gradient(180deg, rgba(4, 20, 42, 0.1) 0%, rgba(4, 20, 42, 0.5) 45%, rgba(6, 26, 51, 0.75) 100%); }
+  }
+
+  .pa__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); align-items: start; }
+  .pa__q { grid-column: 1 / span 5; font-size: clamp(2rem, 1.4rem + 2.2vw, 3.6rem); line-height: 1.05; font-style: italic; letter-spacing: -0.02em; color: var(--navy); }
+  .pa__a { grid-column: 7 / -1; font-size: 1.25rem; line-height: 1.6; color: var(--ink-2); }
+  @media (max-width: 900px) { .pa__q, .pa__a { grid-column: 1 / -1; } }
+
+  /* life cycle */
+  .cyc { position: relative; --stage: 0; --cp: 0; background: var(--abyss); }
+  .cyc__sticky { position: sticky; top: 0; height: 100vh; margin-bottom: -100vh; overflow: hidden; }
+  .cyc__water { position: absolute; inset: 0; background: linear-gradient(180deg, color-mix(in srgb, #0f4c80 calc(70% - var(--stage) * 18%), var(--abyss)) 0%, var(--abyss) 100%); transition: background 1200ms var(--ease-water); }
+  .cyc__stage { position: absolute; inset-inline-start: 4vw; top: 50%; width: 44vw; aspect-ratio: 1; transform: translateY(-46%); display: grid; place-items: center; }
+  .cyc__stage :global(.cyc__img) { position: absolute; width: 78%; height: auto; max-height: 70%; object-fit: contain; opacity: 0; transform: translateY(30px) scale(0.94); filter: blur(6px) drop-shadow(0 30px 40px rgba(0, 0, 0, 0.45)); transition: opacity 1100ms var(--ease-water), transform 1400ms var(--ease-water), filter 1100ms var(--ease-water); }
+  .cyc__stage :global(.cyc__img--0), .cyc__stage :global(.cyc__img--1) { mix-blend-mode: screen; }
+  .cyc__stage :global(.cyc__img.is-on) { opacity: 1; transform: none; filter: blur(0) drop-shadow(0 30px 40px rgba(0, 0, 0, 0.45)); }
+  .cyc__ring { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke: var(--rule-light); stroke-width: 0.4; transform: rotate(-90deg); }
+  .cyc__prog { stroke: var(--brass-2); stroke-width: 0.6; stroke-dasharray: 100; stroke-dashoffset: calc(100 - var(--cp) * 100); }
+  .cyc__wrap { position: relative; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); }
+  .cyc__head { grid-column: 7 / -1; padding-top: var(--sec-y); display: grid; gap: 1rem; }
+  .cyc__list { grid-column: 7 / -1; }
+  .cyc__step { min-height: 88vh; display: grid; align-content: center; gap: 1.2rem; opacity: 0.25; transition: opacity 800ms var(--ease-water); }
+  .cyc__step.is-on { opacity: 1; }
+  .cyc__step .label { gap: 0.8rem; color: var(--aegean); }
+  .cyc__name { font-style: italic; }
+  .cyc__step ul { display: grid; gap: 0.2rem; border-top: 1px solid var(--line); max-width: 30rem; }
+  .cyc__step ul li { padding-block: 0.7rem; border-bottom: 1px solid var(--line); color: var(--fg-2); }
+  .cyc__step :global(.cyc__mimg) { display: none; }
+  @media (max-width: 900px), (prefers-reduced-motion: reduce) {
+    .cyc__sticky { display: none; }
+    .cyc__head, .cyc__list { grid-column: 1 / -1; }
+    .cyc__step { min-height: 0; opacity: 1; padding-block: 3rem; border-bottom: 1px solid var(--line); }
+    .cyc__step :global(.cyc__mimg) { display: block; width: min(80%, 420px); }
+    .cyc { padding-bottom: var(--sec-y); }
+  }
+
+  /* hatchery */
+  .hat__fig { position: relative; color: var(--steel-2); }
+  .hat__svg { width: 100%; height: auto; }
+  .hat__water path, .hat__water rect { fill: rgba(11, 139, 217, 0.22); }
+  .hat__water rect { fill: rgba(31, 107, 90, 0.4); }
+  .hat__bubbles circle { fill: var(--aegean); animation: tank-bubble 2.8s linear infinite; }
+  @keyframes tank-bubble { from { transform: translateY(0); opacity: 0; } 20% { opacity: 0.9; } to { transform: translateY(-60px); opacity: 0; } }
+  .hat__hot { position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%); z-index: 2; }
+  .hat__hot .num { background: var(--graphite-2); box-shadow: 0 0 0 5px rgba(210, 145, 76, 0.16); }
+  .hat__hot:hover .num, .hat__hot:focus-visible .num { background: var(--brass-2); color: var(--abyss); }
+  .hat__tip { position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translate(-50%, 6px); white-space: nowrap; display: grid; gap: 0.1rem; padding: 0.6rem 0.8rem; background: var(--foam); color: var(--ink); font-size: 0.85rem; border-radius: 2px; opacity: 0; pointer-events: none; transition: opacity 300ms, transform 400ms var(--ease-water); }
+  .hat__tip .faint { color: var(--ink-3); font-size: 0.75rem; }
+  .hat__hot:hover .hat__tip, .hat__hot:focus-visible .hat__tip { opacity: 1; transform: translate(-50%, 0); }
+  .hat__legend { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem var(--col-gap); margin-top: 2.4rem; padding-top: 1.6rem; border-top: 1px solid var(--line); }
+  .hat__legend li { display: flex; gap: 0.7rem; align-items: center; font-size: 0.95rem; }
+  .hat__legend .num { --s: 1.6rem; }
+  @media (max-width: 760px) { .hat__hot { display: none; } .hat__legend { grid-template-columns: 1fr 1fr; } }
+
+
+  /* method */
+  .meth__list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--col-gap); margin-top: 2rem; position: relative; }
+  .meth__list::before { content: ''; position: absolute; inset-inline: 0; top: 0.92rem; border-top: 1px dashed var(--rule-strong); }
+  .meth__list li { display: grid; gap: 0.8rem; align-content: start; position: relative; }
+  .meth__list .num { background: var(--foam); }
+  @media (max-width: 1000px) { .meth__list { grid-template-columns: 1fr; } .meth__list::before { display: none; } }
+
+  .rel__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); align-items: start; }
+  .rel__grid h2 { grid-column: 1 / -1; }
+  .rel__lines { grid-column: 1 / span 6; display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule-strong); border: 1px solid var(--rule-strong); }
+  .rel__svc { grid-column: 8 / -1; border-top: 1px solid var(--rule-strong); }
+  .rel__svc a { display: flex; justify-content: space-between; align-items: center; padding-block: 1.3rem; border-bottom: 1px solid var(--rule); font-family: var(--f-serif); font-size: 1.6rem; letter-spacing: -0.01em; }
+  .rel__svc a:hover { color: var(--phyco); }
+  @media (max-width: 900px) { .rel__lines, .rel__svc { grid-column: 1 / -1; } }
+</style>

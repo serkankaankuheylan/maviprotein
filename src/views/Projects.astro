@@ -1,0 +1,1015 @@
+---
+/**
+ * Field records ("Saha kayıtları"): the full register behind the home page fiches.
+ * A dark desk with one row per record; a row opens into a paper dossier whose exhibit is drawn from that
+ * record's own evidence — the project period, the product range on the market, the machine catalogue,
+ * the countries met, the photos from the stand. Nothing here is invented: every value comes from
+ * src/data (company.json, record-galleries.ts, machines.json, posts).
+ */
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import Asset from '../components/Asset.astro';
+import Paperclip from '../components/Paperclip.astro';
+import ClosingCta from '../components/ClosingCta.astro';
+import { pagesCopy } from '../i18n/pages';
+import { home } from '../i18n/home';
+import { recordGalleries, fairGalleries, type GalleryPhoto } from '../data/record-galleries';
+import { pick, t, formatDate, num, type Lang } from '../lib/i18n';
+import { href } from '../lib/routes';
+import { company, machines, modelBySlug, postsSorted, FAMILY_HASH } from '../lib/data';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = pick(pagesCopy, lang).projects;
+const L = c.labels;
+const H = pick(home, lang).records; // shared with the home page fiches: stamp text, photo viewer labels
+const homeLabel = { tr: 'Anasayfa', en: 'Home', ar: 'الرئيسية' }[lang];
+
+const ref = company.reference ?? {};
+const rot = company.rotika ?? {};
+const sun = (company.partnerships ?? [])[0] ?? {};
+const fairs: any[] = company.fairs ?? [];
+const agra = fairs.find((f) => f.key === 'agra-me-2016') ?? {};
+const ffe = fairs.find((f) => f.key === 'future-fish-eurasia-2016') ?? {};
+
+const noteHref = (id?: number) => { const p = postsSorted.find((x) => x.id === id); return p ? href('note', lang, p.slug) : undefined; };
+const town = (v: any) => String(t(v, lang) ?? '').split(/[,،]/)[0].trim();
+const days = (f: any) => `${formatDate(f.start, lang, { day: 'numeric' })}–${formatDate(f.end, lang, { day: 'numeric', month: 'long', year: 'numeric' })}`;
+const pad = (n: number) => String(n).padStart(2, '0');
+
+/* ---------- photos ---------- */
+type Photo = { src: string; w: number; h: number; cap: string; alt: string };
+const loc = (g: GalleryPhoto[] = []): Photo[] => g.map((p) => ({ src: p.src, w: p.w, h: p.h, cap: p.cap?.[lang] ?? '', alt: p.alt[lang] }));
+/** The n-px variant of a record photo: public/img/records/<name>-<n>.webp (n = longest side). */
+const at = (src: string, n: number) => src.replace(/-\d+\.webp$/, `-${n}.webp`);
+const find = (g: Photo[], name: string) => g.findIndex((p) => p.src.includes(`/${name}-`));
+const dims = (p: Photo, n: number) => (p.w >= p.h ? { w: n, h: Math.round((p.h * n) / p.w) } : { w: Math.round((p.w * n) / p.h), h: n });
+
+const gRot = loc(recordGalleries.rotika);
+const gSun = loc(recordGalleries.sunpring);
+const gAgra = loc(fairGalleries['agra-me-2016']);
+const gFfe = loc(fairGalleries['future-fish-eurasia-2016']);
+
+/* ---------- exhibits ---------- */
+// TÜBİTAK 1501: the project period on a month ruler covering its calendar years.
+const [y0, m0] = String(ref.start ?? '2016-01').split('-').map(Number);
+const [y1, m1] = String(ref.end ?? '2017-07').split('-').map(Number);
+const span = (y1 - y0) * 12 + (m1 - m0) + 1;
+const cal = Array.from({ length: (y1 - y0 + 1) * 12 }, (_, i) => ({ y: y0 + Math.floor(i / 12), m: (i % 12) + 1 }));
+
+// Rotika: the range as it stands on the shelf, grouped by animal; packaging names come from the bags.
+const shelf = [
+  { key: 'dog', names: ['kopek-orta-buyuk-yetiskin', 'kopek-orta-buyuk-junior', 'kopek-kucuk-yetiskin', 'kopek-kucuk-junior'] },
+  { key: 'cat', names: ['kedi-yavru', 'kedi-yetiskin'] },
+  { key: 'bird', names: ['papagan-orta-buyuk', 'papagan-kucuk-orta', 'kus-mynah', 'kus-karisik'] },
+  { key: 'rodent', names: ['kemirgen'] },
+].map((g) => ({ ...g, items: g.names.map((n) => find(gRot, `rotika-${n}`)).filter((i) => i >= 0) }));
+const bagCount = shelf.reduce((n, g) => n + g.items.length, 0);
+// The loupe reads the licence line printed on the first bag (599×1080 px; text block centred at 298, 921).
+const lensBag = shelf[0].items[0];
+
+// Jinan Sunpring: the catalogue the partnership brings, by family.
+const fams = machines.families.map((f: any) => ({ key: f.key, name: t(f.name, lang), n: (f.models ?? []).length }));
+const modelCount = fams.reduce((n: number, f: any) => n + f.n, 0);
+const plate = modelBySlug('sp85-ii');
+
+// AGRA ME: the countries met, on an azimuthal equidistant plot centred on Dubai (true bearing and
+// great-circle distance from the centre). Each country is placed at its capital.
+const CAPITAL: Record<string, [number, number]> = {
+  AE: [24.4539, 54.3773], IN: [28.6139, 77.209], IR: [35.6892, 51.389], NP: [27.7172, 85.324], SO: [2.0469, 45.3182],
+  NG: [9.0765, 7.3986], UG: [0.3476, 32.5825], KR: [37.5665, 126.978], PT: [38.7223, -9.1393], CM: [3.848, 11.5021],
+};
+const DXB: [number, number] = [25.2048, 55.2708];
+const RANGE = 8000; // km at the outer ring
+const rad = (d: number) => (d * Math.PI) / 180;
+const fromDubai = ([la, lo]: [number, number]) => {
+  const [p1, l1, p2, l2] = [rad(DXB[0]), rad(DXB[1]), rad(la), rad(lo)];
+  const dl = l2 - l1;
+  const d = 6371 * Math.acos(Math.min(1, Math.sin(p1) * Math.sin(p2) + Math.cos(p1) * Math.cos(p2) * Math.cos(dl)));
+  const b = Math.atan2(Math.sin(dl) * Math.cos(p2), Math.cos(p1) * Math.sin(p2) - Math.sin(p1) * Math.cos(p2) * Math.cos(dl));
+  return { d, x: (d / RANGE) * Math.sin(b), y: -(d / RANGE) * Math.cos(b) };
+};
+// Label side per point, chosen so close neighbours (IN/NP, NG/CM, AE at the centre) never collide.
+const SIDE: Record<string, string> = { AE: 'sw', IR: 'w', IN: 'n', NP: 'e', SO: 'e', UG: 'w', CM: 's', NG: 'w', PT: 'w', KR: 'e' };
+const met = (agra.countriesMet ?? []).filter((m: any) => CAPITAL[m.code]).map((m: any) => ({ code: m.code, name: t(m.name, lang), side: SIDE[m.code] ?? 'e', ...fromDubai(CAPITAL[m.code]) }));
+const byDistance = [...met].sort((a, b) => a.d - b.d).map((m) => m.code);
+const rings = [2000, 4000, 6000, 8000];
+
+/* ---------- the register ---------- */
+type Fact = { k: string; v: string; link?: { text: string; href: string } };
+type Rec = {
+  id: string; kind: 'rd' | 'consult' | 'partner' | 'fair'; title: string; place: string; year: string;
+  facts: Fact[]; text?: string; quote?: boolean; links: { label: string; href?: string }[];
+  gallery: Photo[]; ev: number[]; peek: { src: string; w: number; h: number }[];
+  ex: 'ruler' | 'shelf' | 'catalog' | 'plot' | 'frames';
+};
+const peekOf = (g: Photo[], i: number) => (i >= 0 ? [{ src: at(g[i].src, 240), ...dims(g[i], 240) }] : []);
+const ffeEv = [find(gFfe, 'future-fish-2016-stant-228'), find(gFfe, 'future-fish-2016-davetiye')];
+const records: Rec[] = [
+  {
+    id: 'turkuaz-marin', kind: 'rd', title: t(ref.company, lang), place: t(ref.city, lang), year: `${y0}–${y1}`,
+    facts: [{ k: L.program, v: t(ref.program, lang) }, { k: L.period, v: t(ref.period, lang) }, { k: L.city, v: t(ref.city, lang) }],
+    links: [{ label: L.funding, href: href('funding', lang) }],
+    gallery: [], ev: [], peek: [], ex: 'ruler',
+  },
+  {
+    id: 'rotika', kind: 'consult', title: rot.client ?? 'Rotika', place: t(rot.country, lang), year: String(rot.date ?? '2020').slice(0, 4),
+    facts: [{ k: L.service, v: t(rot.service, lang) }, { k: L.country, v: t(rot.country, lang) }, ...(rot.packagingMark ? [{ k: L.mark, v: `“${rot.packagingMark}”` }] : [])],
+    text: t(rot.summary, lang), links: [{ label: L.read, href: noteHref(rot.post ?? 67) }],
+    gallery: gRot,
+    ev: [find(gRot, 'rotika-tesis-1'), find(gRot, 'rotika-tesis-2'), find(gRot, 'rotika-foto-kopek-orta-buyuk-junior'), find(gRot, 'rotika-foto-kopek-kucuk-yetiskin')].filter((i) => i >= 0),
+    peek: [...peekOf(gRot, find(gRot, 'rotika-tesis-1')), ...peekOf(gRot, find(gRot, 'rotika-kopek-orta-buyuk-yetiskin')), ...peekOf(gRot, find(gRot, 'rotika-kedi-yavru'))],
+    ex: 'shelf',
+  },
+  {
+    id: 'sunpring', kind: 'partner', title: sun.name, place: t(sun.country, lang), year: String(sun.since ?? '2016').slice(0, 4),
+    facts: [{ k: L.role, v: t(sun.role, lang) }, { k: L.country, v: t(sun.country, lang) }, { k: L.since, v: String(sun.since ?? '2016').slice(0, 4) }],
+    text: t(sun.sourceText, lang), quote: true, links: [{ label: L.read, href: noteHref(61) }],
+    gallery: gSun, ev: [find(gSun, 'agra-me-2016-davetiye')].filter((i) => i >= 0),
+    peek: peekOf(gSun, find(gSun, 'agra-me-2016-davetiye')), ex: 'catalog',
+  },
+  {
+    // id kept as "fuarlar": the home page fiche for the fairs links here
+    id: 'fuarlar', kind: 'fair', title: agra.name, place: town(agra.city), year: String(agra.start ?? '').slice(0, 4),
+    facts: [
+      { k: L.venue, v: [agra.venue, t(agra.city, lang)].filter(Boolean).join(' · ') },
+      { k: L.period, v: days(agra) },
+      { k: L.stand, v: agra.stand },
+      { k: L.with, v: t(agra.with, lang), link: sun.name ? { text: sun.name, href: '#sunpring' } : undefined },
+    ],
+    text: t(agra.outcome, lang), links: [{ label: L.read, href: noteHref((agra.posts ?? []).at(-1)) }],
+    gallery: gAgra, ev: [find(gAgra, 'agra-me-2016-dubai-stant'), find(gAgra, 'agra-me-2016-davetiye')].filter((i) => i >= 0),
+    peek: [...peekOf(gAgra, find(gAgra, 'agra-me-2016-davetiye')), ...peekOf(gAgra, find(gAgra, 'agra-me-2016-dubai-stant'))], ex: 'plot',
+  },
+  {
+    id: 'future-fish-eurasia-2016', kind: 'fair', title: ffe.name, place: town(ffe.city), year: String(ffe.start ?? '').slice(0, 4),
+    facts: [{ k: L.venue, v: t(ffe.city, lang) }, { k: L.period, v: days(ffe) }, { k: L.stand, v: ffe.stand }, { k: L.with, v: t(ffe.with, lang) }],
+    text: t(ffe.outcome, lang), links: [{ label: L.read, href: noteHref((ffe.posts ?? []).at(-1)) }],
+    gallery: gFfe, ev: ffeEv.filter((i) => i >= 0),
+    peek: [...peekOf(gFfe, find(gFfe, 'future-fish-2016-davetiye')), ...peekOf(gFfe, find(gFfe, 'future-fish-2016-stant-228'))], ex: 'frames',
+  },
+];
+const frames = gFfe.map((_, i) => i).filter((i) => !ffeEv.includes(i));
+const stamp = H.items.find((i: any) => i.hash === 'turkuaz-marin')?.stamp ?? ['TÜBİTAK 1501'];
+const kinds = ['all', 'rd', 'consult', 'partner', 'fair'] as const;
+const count = (k: (typeof kinds)[number]) => (k === 'all' ? records.length : records.filter((r) => r.kind === k).length);
+const split = (f: Fact) => (f.link && f.v.includes(f.link.text) ? f.v.split(f.link.text) : null);
+---
+<Base lang={lang} title={c.meta.title} description={c.meta.description} route="projects" gaugeMax={60}>
+  <section class="reg s-dark grain" data-surface="dark" aria-labelledby="reg-title" data-reg>
+    <div class="wrap">
+      <header class="reg__head">
+        <nav class="reg__crumbs label" aria-label="breadcrumb"><a href={href('home', lang)}>{homeLabel}</a></nav>
+        <h1 id="reg-title" class="t-display reg__title">{c.title}</h1>
+        <div class="reg__filters" role="group" aria-label={c.filterLabel}>
+          {kinds.map((k) => (
+            <button type="button" aria-pressed={k === 'all' ? 'true' : 'false'} data-k={k}>
+              {c.filters[k]}<sup>{count(k)}</sup>
+            </button>
+          ))}
+        </div>
+      </header>
+
+      <ol class="reg__list" role="list">
+        {records.map((r, i) => (
+          <li class="rec" id={r.id} data-rec data-kind={r.kind} data-gallery={r.gallery.length ? JSON.stringify(r.gallery) : undefined}>
+            <details>
+              <summary class="rec__sum">
+                <span class="rec__meta">
+                  <span class="rec__no mono">{pad(i + 1)}</span>
+                  <span class="rec__kind label">{c.filters[r.kind]}</span>
+                </span>
+                <h2 class="rec__title">{r.title}</h2>
+                <span class="rec__where">{r.place} · {r.year}</span>
+                <span class={`rec__peek peek--${r.id}`} aria-hidden="true">
+                  {r.id === 'turkuaz-marin' ? (
+                    <span class="pk pk--slip"><span class="pk__stamp">{stamp[0]}</span></span>
+                  ) : (
+                    r.peek.map((p, k) => (
+                      <span class={`pk pk--${k}`}><img src={p.src} width={p.w} height={p.h} alt="" loading="lazy" decoding="async" /></span>
+                    ))
+                  )}
+                </span>
+                <span class="rec__x" aria-hidden="true"></span>
+              </summary>
+
+              <div class="rec__drawer" data-drawer>
+                <article class={`sh sh--${r.id}`}>
+                  {/* evidence: what is clipped to the dossier */}
+                  <div class={`sh__ev ev--${r.id}`}>
+                    <div class="ev__stage">
+                      {r.id === 'turkuaz-marin' ? (
+                        <p class="stamp" aria-hidden="true">{stamp.map((line: string) => <span>{line}</span>)}</p>
+                      ) : (
+                        <>
+                          {r.ev.map((gi, k) => {
+                            const p = r.gallery[gi];
+                            const wide = p.w > p.h;
+                            const sm = wide ? dims(p, 640) : dims(p, 400);
+                            return (
+                              <a class:list={['print', `print--${k}`, { 'print--plain': !wide }]} href={p.src} data-at={gi} style={`--k:${k}`}>
+                                <img
+                                  src={at(p.src, wide ? 640 : 400)}
+                                  srcset={`${at(p.src, wide ? 640 : 400)} ${sm.w}w, ${p.src} ${p.w}w`}
+                                  sizes="(max-width: 600px) 60vw, 30vw"
+                                  width={sm.w} height={sm.h} alt={p.alt} loading="lazy" decoding="async"
+                                />
+                                {wide && p.cap && <span class="print__cap">{p.cap}</span>}
+                              </a>
+                            );
+                          })}
+                          <Paperclip class="ev__clip" />
+                        </>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* the record, typed */}
+                  <div class="sh__card">
+                    <dl class="sh__facts">
+                      {r.facts.map((f, k) => {
+                        const parts = split(f);
+                        return (
+                          <div style={`--k:${k}`}>
+                            <dt>{f.k}</dt>
+                            <dd>{parts && f.link ? <>{parts[0]}<a class="link" href={f.link.href}>{f.link.text}</a>{parts.slice(1).join(f.link.text)}</> : f.v}</dd>
+                          </div>
+                        );
+                      })}
+                    </dl>
+                    {r.text && (r.quote ? <blockquote class="sh__quote"><p>{r.text}</p></blockquote> : <p class="sh__text">{r.text}</p>)}
+                    {r.links.some((l) => l.href) && (
+                      <p class="sh__links">
+                        {r.links.filter((l) => l.href).map((l) => <a class="link" href={l.href}>{l.label}<Arrow /></a>)}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* exhibit: drawn from the record's own evidence */}
+                  {r.ex === 'ruler' && (
+                    <div class="ex ex--ruler">
+                      <p class="ex__head"><span class="label">{L.period}</span><span class="ex__n mono">{span} {L.months}</span></p>
+                      <div class="ex__body">
+                        <div class="ruler" style={`--cells:${cal.length}`} aria-hidden="true">
+                          <span class="ruler__bar" style={`grid-column:${m0} / span ${span}`}></span>
+                          {cal.map((m, k) => (
+                            <span class:list={['ruler__m', { 'is-q': (m.m - 1) % 3 === 0, 'is-y': m.m === 1 }]} style={`--k:${k}`}>
+                              {m.m === 1 && <b>{m.y}</b>}
+                              {(m.m - 1) % 3 === 0 && <i>{pad(m.m)}</i>}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {r.ex === 'shelf' && (
+                    <div class="ex ex--shelf">
+                      <p class="ex__head"><span class="label">{L.products}</span><span class="ex__n mono">{bagCount}</span></p>
+                      <div class="ex__body shelf">
+                        {lensBag >= 0 && (
+                          <>
+                            <span class="loupe" aria-hidden="true"><span class="loupe__lens"><img src={gRot[lensBag].src} width={gRot[lensBag].w} height={gRot[lensBag].h} alt="" loading="lazy" decoding="async" /></span></span>
+                            <span class="loupe__src" aria-hidden="true"></span>
+                          </>
+                        )}
+                        <ol class="shelf__groups" role="list">
+                          {shelf.map((g, gk) => (
+                            <li class="shelf__g">
+                              <ol class="shelf__bags" role="list">
+                                {g.items.map((gi, k) => {
+                                  const p = gRot[gi];
+                                  const s = dims(p, 400);
+                                  const n = shelf.slice(0, gk).reduce((a, x) => a + x.items.length, 0) + k;
+                                  return (
+                                    <li>
+                                      <a class="bag" href={p.src} data-at={gi} style={`--k:${n}`}>
+                                        <img src={at(p.src, 400)} width={s.w} height={s.h} alt={p.alt} loading="lazy" decoding="async" />
+                                      </a>
+                                    </li>
+                                  );
+                                })}
+                              </ol>
+                              <span class="shelf__name label">{c.groups[g.key as keyof typeof c.groups]}</span>
+                            </li>
+                          ))}
+                        </ol>
+                      </div>
+                    </div>
+                  )}
+
+                  {r.ex === 'catalog' && (
+                    <div class="ex ex--catalog">
+                      <p class="ex__head"><span class="label">{L.catalog}</span><span class="ex__n mono">{modelCount} {L.models}</span></p>
+                      <div class="ex__body cat">
+                        <a class="cat__plate sheet" href={plate ? href('machine', lang, plate.slug) : href('machines', lang)}>
+                          <Asset name="sp85-ii-extruder" alt={plate ? t(plate.name, lang) : 'SP85-II'} sizes="(max-width: 1000px) 86vw, 44vw" />
+                          <span class="cat__model mono">{plate?.model ?? 'SP85-II'}</span>
+                        </a>
+                        <div class="cat__index">
+                          <ul class="cat__fams" role="list">
+                            {fams.map((f: any, k: number) => (
+                              <li style={`--k:${k}`}>
+                                <a href={href('machines', lang, undefined, FAMILY_HASH[f.key])}>
+                                  <span>{f.name}</span><span class="cat__dots" aria-hidden="true"></span><span class="mono">{f.n}</span>
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                          <a class="link cat__all" href={href('machines', lang)}>{L.machines}<Arrow /></a>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {r.ex === 'plot' && (
+                    <div class="ex ex--met" data-plot>
+                      <p class="ex__head"><span class="label">{L.met}</span><span class="ex__n mono">{met.length}</span></p>
+                      <div class="ex__body met">
+                        <div class="plot" role="img" aria-label={`${L.met}: ${met.map((m) => m.name).join(', ')}`}>
+                          <svg class="plot__svg" viewBox="-100 -100 200 200" aria-hidden="true">
+                            <line class="plot__axis" x1="-100" y1="0" x2="100" y2="0" />
+                            <line class="plot__axis" x1="0" y1="-100" x2="0" y2="100" />
+                            {rings.map((km, k) => <circle class="plot__ring" r={(km / RANGE) * 100} style={`--k:${k}`} />)}
+                            <circle class="plot__ping" r="100" />
+                            {met.map((m) => (
+                              <line class="plot__ray" x1="0" y1="0" x2={(m.x * 100).toFixed(2)} y2={(m.y * 100).toFixed(2)} pathLength="1" data-c={m.code} style={`--k:${byDistance.indexOf(m.code)}`} />
+                            ))}
+                          </svg>
+                          {rings.map((km) => {
+                            const f = (km / RANGE) * 0.7071 * 50;
+                            return <span class="plot__km" style={`left:${(50 + f).toFixed(2)}%;top:${(50 + f).toFixed(2)}%`} aria-hidden="true">{num(km, lang)} km</span>;
+                          })}
+                          <span class="plot__n" aria-hidden="true">{L.north}</span>
+                          <span class="plot__o" aria-hidden="true"><i></i><b>{town(agra.city)}</b></span>
+                          {met.map((m) => (
+                            <span class={`plot__pt pt--${m.d < 300 ? 'c' : m.side}`} data-c={m.code} style={`left:${(50 + m.x * 50).toFixed(2)}%;top:${(50 + m.y * 50).toFixed(2)}%;--k:${byDistance.indexOf(m.code)}`} aria-hidden="true"><i></i><b>{m.code}</b></span>
+                          ))}
+                        </div>
+                        <ol class="met__list" role="list">
+                          {met.map((m, k) => <li data-c={m.code} style={`--k:${k}`}><span class="mono">{m.code}</span>{m.name}</li>)}
+                        </ol>
+                      </div>
+                    </div>
+                  )}
+
+                  {r.ex === 'frames' && (
+                    <div class="ex ex--frames">
+                      <p class="ex__head"><span class="label">{H.ui.gallery}</span><span class="ex__n mono">{gFfe.length}</span></p>
+                      <ol class="ex__body frames" role="list">
+                        {frames.map((gi, k) => {
+                          const p = gFfe[gi];
+                          const s = dims(p, 640);
+                          return (
+                            <li>
+                              <a class="frame" href={p.src} data-at={gi} style={`--k:${k}`}>
+                                <img src={at(p.src, 640)} width={s.w} height={s.h} alt={p.alt} loading="lazy" decoding="async" />
+                                <span class="frame__no">{pad(gi + 1)}</span>
+                              </a>
+                            </li>
+                          );
+                        })}
+                      </ol>
+                    </div>
+                  )}
+                </article>
+              </div>
+            </details>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <!-- Photo viewer: every print, bag and frame opens here (its link is the no-JS fallback). -->
+    <dialog class="vw" data-vw aria-labelledby="vw-title">
+      <div class="vw__top">
+        <p id="vw-title" class="vw__title" data-vw-title></p>
+        <button type="button" class="vw__x" data-vw-close aria-label={H.ui.close}>
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /></svg>
+        </button>
+      </div>
+      <div class="vw__stage" role="group" aria-roledescription="carousel" aria-label={H.ui.gallery}>
+        <div class="vw__track" data-vw-track></div>
+        <button type="button" class="vw__nav vw__nav--prev" data-vw-step="-1" aria-label={H.ui.prev}>
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </button>
+        <button type="button" class="vw__nav vw__nav--next" data-vw-step="1" aria-label={H.ui.next}>
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </button>
+      </div>
+      <p class="vw__bar" aria-live="polite"><span data-vw-cap></span><span class="vw__count" data-vw-count></span></p>
+    </dialog>
+  </section>
+
+  <ClosingCta lang={lang} title={c.close} />
+</Base>
+
+<script>
+  const reg = document.querySelector<HTMLElement>('[data-reg]');
+  if (reg) {
+    const still = matchMedia('(prefers-reduced-motion: reduce)');
+    const recs = [...reg.querySelectorAll<HTMLElement>('[data-rec]')];
+    const parts = (li: HTMLElement) => ({ d: li.querySelector('details')!, dr: li.querySelector<HTMLElement>('[data-drawer]')! });
+    const WATER = 'cubic-bezier(0.22, 0.61, 0.24, 1)';
+    const STEEL = 'cubic-bezier(0.65, 0, 0.35, 1)';
+    let busy = false;
+
+    // An animation's promise never settles while the tab is hidden; a timer guarantees we move on.
+    const settle = (an: Animation, ms: number) => Promise.race([an.finished.catch(() => {}), new Promise((r) => setTimeout(r, ms + 120))]);
+
+    // Exhibits (ruler, shelf, plot…) play once they are actually in view, not while still below the fold.
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+    }, { threshold: 0.2 });
+    const exhibits = (li: HTMLElement) => [...li.querySelectorAll<HTMLElement>('.ex')];
+
+    const shut = (li: HTMLElement) => {
+      parts(li).d.open = false;
+      li.classList.remove('is-arriving');
+      exhibits(li).forEach((ex) => { ex.classList.remove('is-in'); io.unobserve(ex); });
+    };
+
+    // One dossier out at a time. The clicked row stays where it is while the others fold away.
+    const open = async (li: HTMLElement, animate = true) => {
+      const { d, dr } = parts(li);
+      if (d.open) return;
+      const sum = d.querySelector('summary')!;
+      const before = sum.getBoundingClientRect().top;
+      recs.forEach((o) => { if (o !== li && parts(o).d.open) shut(o); });
+      const moved = sum.getBoundingClientRect().top - before;
+      if (moved) window.scrollBy(0, moved);
+      d.open = true;
+      history.replaceState(null, '', `#${li.id}`);
+      if (!animate || still.matches) return;
+      li.classList.add('is-arriving');
+      exhibits(li).forEach((ex) => io.observe(ex));
+      busy = true;
+      dr.style.overflow = 'clip';
+      await settle(dr.animate([{ height: '0px' }, { height: `${dr.scrollHeight}px` }], { duration: 760, easing: WATER }), 760);
+      dr.style.overflow = '';
+      busy = false;
+    };
+
+    const close = async (li: HTMLElement) => {
+      const { d, dr } = parts(li);
+      if (!d.open) return;
+      history.replaceState(null, '', location.pathname + location.search);
+      // Closed from deep inside a long dossier: fold at once and bring its row back into view.
+      const sum = d.querySelector('summary')!;
+      if (sum.getBoundingClientRect().top < 0) {
+        shut(li);
+        sum.scrollIntoView({ block: 'start' });
+        return;
+      }
+      if (!still.matches) {
+        busy = true;
+        dr.style.overflow = 'clip';
+        await settle(dr.animate([{ height: `${dr.offsetHeight}px` }, { height: '0px' }], { duration: 440, easing: STEEL, fill: 'forwards' }), 440);
+      }
+      shut(li);
+      dr.getAnimations().forEach((an) => an.cancel());
+      dr.style.overflow = '';
+      busy = false;
+    };
+
+    recs.forEach((li) => {
+      const { d } = parts(li);
+      d.querySelector('summary')!.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (busy) return;
+        if (d.open) close(li); else open(li);
+      });
+    });
+
+    // Filters by record type.
+    const btns = [...reg.querySelectorAll<HTMLButtonElement>('[data-k]')];
+    const filter = (k: string) => {
+      btns.forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.k === k)));
+      recs.forEach((li) => {
+        const show = k === 'all' || li.dataset.kind === k;
+        if (!show && parts(li).d.open) { shut(li); history.replaceState(null, '', location.pathname + location.search); }
+        li.hidden = !show;
+      });
+    };
+    btns.forEach((b) => b.addEventListener('click', () => filter(b.dataset.k!)));
+
+    // Deep links: /projeler#rotika (from the home page fiches) opens that record.
+    const fromHash = () => { const id = decodeURIComponent(location.hash.slice(1)); return id ? recs.find((li) => li.id === id) : undefined; };
+    const first = fromHash();
+    if (first) open(first, false);
+    addEventListener('hashchange', () => {
+      const li = fromHash();
+      if (!li) return;
+      if (li.hidden) filter('all');
+      open(li);
+      li.scrollIntoView({ block: 'start', behavior: still.matches ? 'auto' : 'smooth' });
+    });
+
+    // The countries plot and its list light each other up.
+    reg.querySelectorAll<HTMLElement>('[data-plot]').forEach((plot) => {
+      const marks = [...plot.querySelectorAll<HTMLElement>('[data-c]')];
+      const lit = (code?: string) => marks.forEach((m) => m.classList.toggle('is-hl', !!code && m.dataset.c === code));
+      marks.forEach((m) => {
+        m.addEventListener('pointerenter', () => lit(m.dataset.c));
+        m.addEventListener('pointerleave', () => lit());
+      });
+    });
+
+    // Photo viewer. Swipe on touch (scroll-snap), arrows and keys elsewhere.
+    const vw = reg.querySelector<HTMLDialogElement>('[data-vw]');
+    if (vw) {
+      type P = { src: string; w: number; h: number; cap: string; alt: string };
+      const $ = <T extends Element = HTMLElement>(s: string) => vw.querySelector<T>(s)!;
+      const track = $('[data-vw-track]');
+      const prev = $<HTMLButtonElement>('[data-vw-step="-1"]');
+      const next = $<HTMLButtonElement>('[data-vw-step="1"]');
+      const pad = (n: number) => String(n).padStart(2, '0');
+      let ps: P[] = [];
+      let index = 0;
+      let target = -1; // slide an arrow is travelling to; swipe positions are ignored until it arrives
+      let opener: HTMLElement | null = null;
+
+      const show = (i: number) => {
+        index = i;
+        $('[data-vw-cap]').textContent = ps[i]?.cap ?? '';
+        $('[data-vw-count]').textContent = `${pad(i + 1)} / ${pad(ps.length)}`;
+        prev.disabled = i === 0;
+        next.disabled = i === ps.length - 1;
+        [i - 1, i + 1].forEach((k) => { const im = track.children[k]?.querySelector('img'); if (im) im.loading = 'eager'; });
+      };
+      const slideTo = (i: number, smooth: boolean) => (track.children[i] as HTMLElement | undefined)?.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'nearest', inline: 'center' });
+      const go = (i: number) => {
+        const to = Math.max(0, Math.min(ps.length - 1, i));
+        if (to === index) return;
+        target = to;
+        show(to);
+        slideTo(to, !still.matches);
+      };
+      track.addEventListener('scroll', () => {
+        const mid = track.getBoundingClientRect().left + track.clientWidth / 2;
+        let best = 0, dist = Infinity;
+        [...track.children].forEach((el, i) => {
+          const r = el.getBoundingClientRect();
+          const dd = Math.abs(r.left + r.width / 2 - mid);
+          if (dd < dist) { dist = dd; best = i; }
+        });
+        if (target >= 0) { if (best === target && dist < 2) target = -1; return; }
+        if (best !== index) show(best);
+      }, { passive: true });
+      ['pointerdown', 'wheel', 'scrollend'].forEach((ev) => track.addEventListener(ev, () => { target = -1; }, { passive: true }));
+      prev.addEventListener('click', () => go(index - 1));
+      next.addEventListener('click', () => go(index + 1));
+      vw.addEventListener('keydown', (e) => {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        e.preventDefault();
+        const rtl = document.documentElement.dir === 'rtl';
+        go(index + ((e.key === 'ArrowRight') !== rtl ? 1 : -1));
+      });
+
+      const view = (li: HTMLElement, i: number, from: HTMLElement) => {
+        ps = JSON.parse(li.dataset.gallery || '[]');
+        if (!ps[i]) return;
+        opener = from;
+        $('[data-vw-title]').textContent = li.querySelector('.rec__title')?.textContent ?? '';
+        track.replaceChildren(...ps.map((p, k) => {
+          const slide = document.createElement('figure');
+          slide.className = 'vw__slide';
+          slide.setAttribute('role', 'group');
+          slide.setAttribute('aria-roledescription', 'slide');
+          slide.setAttribute('aria-label', `${k + 1} / ${ps.length}`);
+          const img = new Image(p.w, p.h);
+          img.loading = Math.abs(k - i) <= 1 ? 'eager' : 'lazy';
+          img.decoding = 'async';
+          img.src = p.src;
+          img.alt = p.alt;
+          slide.append(img);
+          return slide;
+        }));
+        vw.classList.toggle('is-single', ps.length < 2);
+        vw.showModal();
+        target = -1;
+        index = -1;
+        slideTo(i, false);
+        show(i);
+      };
+      const dismiss = async () => {
+        if (!vw.open) return;
+        if (!still.matches) await settle(vw.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, easing: STEEL }), 220);
+        vw.close();
+      };
+      vw.addEventListener('close', () => { track.replaceChildren(); opener?.focus({ preventScroll: true }); opener = null; });
+      vw.addEventListener('cancel', (e) => { e.preventDefault(); dismiss(); });
+      $('[data-vw-close]').addEventListener('click', dismiss);
+      vw.addEventListener('click', (e) => {
+        const tg = e.target as HTMLElement;
+        if (tg === vw || tg === track || tg.classList.contains('vw__slide')) dismiss();
+      });
+      reg.addEventListener('click', (e) => {
+        const a = (e.target as HTMLElement).closest<HTMLElement>('[data-at]');
+        const li = a?.closest<HTMLElement>('[data-rec]');
+        if (!a || !li) return;
+        const me = e as MouseEvent;
+        if (me.metaKey || me.ctrlKey || me.shiftKey || me.altKey || me.button !== 0) return;
+        e.preventDefault();
+        view(li, Number(a.dataset.at), a);
+      });
+    }
+  }
+</script>
+
+<style>
+  /* ================= REGISTER: a dark desk, one row per record ================= */
+  .reg {
+    padding-block: calc(var(--header-h) + clamp(44px, 7vw, 112px)) var(--sec-y);
+    background:
+      radial-gradient(60% 520px at 76% -80px, rgba(130, 204, 240, 0.13), transparent 70%),
+      radial-gradient(80% 55% at 50% 100%, var(--abyss-3), transparent 75%),
+      var(--abyss);
+  }
+  .reg__head { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 1.5rem 2.4rem; padding-bottom: clamp(1.8rem, 3.4vw, 3rem); }
+  .reg__crumbs { grid-column: 1 / -1; color: var(--fg-3); }
+  .reg__crumbs a { transition: color 300ms; }
+  .reg__crumbs a:hover { color: var(--fg); }
+  .reg__title { margin: 0; color: #eaf6fd; }
+
+  /* type filter: quiet tabs, brass underline on the active one (the system's "active tab" accent) */
+  .reg__filters { display: none; flex-wrap: wrap; justify-content: flex-end; gap: 0 1.6rem; padding-bottom: 0.3rem; }
+  :global(.js) .reg__filters { display: flex; }
+  .reg__filters button { position: relative; display: inline-flex; align-items: baseline; gap: 0.3rem; min-height: 44px; padding: 0.6rem 0; font-size: 0.98rem; font-weight: 500; color: var(--fg-2); transition: color 300ms; }
+  .reg__filters sup { align-self: flex-start; margin-top: 0.15rem; font-family: var(--f-mono); font-size: 0.7rem; font-weight: 500; line-height: 1; color: var(--fg-3); }
+  .reg__filters button::after { content: ''; position: absolute; inset-inline: 0; bottom: 0.32rem; height: 2px; background: var(--brass-2); transform: scaleX(0); transition: transform 420ms var(--ease-steel); }
+  .reg__filters button:hover { color: var(--fg); }
+  .reg__filters button[aria-pressed='true'] { color: #eaf6fd; }
+  .reg__filters button[aria-pressed='true']::after { transform: none; }
+  @media (max-width: 900px) {
+    .reg__head { grid-template-columns: 1fr; }
+    .reg__filters { justify-content: flex-start; }
+  }
+
+  /* ---------- rows ---------- */
+  .reg__list { border-top: 1px solid var(--rule-light-strong); }
+  .rec { border-bottom: 1px solid var(--rule-light); }
+  .rec__sum {
+    position: relative; isolation: isolate; list-style: none; cursor: pointer;
+    display: grid; grid-template-columns: 2.4rem 10.5rem minmax(0, 1fr) auto 9rem 2.75rem; align-items: center;
+    column-gap: clamp(1rem, 2vw, 2.2rem); min-height: 7.6rem; padding-block: 1.4rem;
+  }
+  .rec__sum::-webkit-details-marker { display: none; }
+  .rec__sum::marker { content: ''; }
+  .rec__sum::before {
+    content: ''; position: absolute; z-index: -1; inset: 0 calc(var(--gutter) * -0.5);
+    background: linear-gradient(90deg, rgba(130, 204, 240, 0.08), transparent 70%);
+    opacity: 0; transition: opacity 500ms var(--ease-water);
+  }
+  :global(html[dir='rtl']) .rec__sum::before { background: linear-gradient(-90deg, rgba(130, 204, 240, 0.08), transparent 70%); }
+  .rec__sum:hover::before, .rec__sum:focus-visible::before { opacity: 1; }
+  .rec__sum:focus-visible { outline-offset: -2px; }
+  .rec__meta { display: contents; }
+  .rec__no { font-size: 0.85rem; color: var(--brass-2); font-variant-numeric: tabular-nums; }
+  .rec__kind { color: var(--aegean); }
+  .rec__title {
+    margin: 0; font-family: var(--f-serif); font-weight: 500; font-size: clamp(1.7rem, 1.05rem + 1.65vw, 2.95rem);
+    line-height: 1.02; letter-spacing: -0.005em; color: #eaf6fd;
+    transition: transform 600ms var(--ease-water);
+  }
+  .rec__sum:hover .rec__title { transform: translateX(calc(6px * var(--dir, 1))); }
+  .rec__where { font-family: var(--f-mono); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-3); white-space: nowrap; }
+  .rec__x { position: relative; width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 1px solid var(--rule-light-strong); color: var(--fg); transition: background 400ms, border-color 400ms, color 400ms, transform 600ms var(--ease-water); }
+  .rec__x::before, .rec__x::after { content: ''; position: absolute; left: 50%; top: 50%; width: 0.95rem; height: 1.5px; margin: -0.75px 0 0 -0.475rem; background: currentColor; }
+  .rec__x::after { transform: rotate(90deg); }
+  .rec__sum:hover .rec__x { border-color: var(--aegean); background: rgba(130, 204, 240, 0.08); }
+  details[open] .rec__x { transform: rotate(45deg); color: var(--abyss); background: var(--foam); border-color: var(--foam); }
+  details[open] .rec__no { color: #eaf6fd; }
+
+  /* peek: the evidence clipped inside, seen from the drawer's edge; it fans out on hover */
+  .rec__peek { position: relative; height: 4.8rem; transition: opacity 500ms var(--ease-water), transform 600ms var(--ease-water); }
+  details[open] .rec__peek { opacity: 0; transform: translateY(10px) scale(0.94); }
+  .pk {
+    position: absolute; top: var(--t, 0); inset-inline-start: var(--s, 0); z-index: var(--z, 1);
+    display: block; padding: 3px 3px 9px; background: #fdfcf8;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25), 0 10px 16px -8px rgba(0, 0, 0, 0.75);
+    transform: rotate(var(--r, 0deg)); transition: transform 700ms var(--ease-water);
+  }
+  .pk img { display: block; height: var(--h, 3.4rem); width: auto; max-width: none; }
+  .rec__sum:hover .pk { transform: translate(calc(var(--dx, 0px) * var(--dir, 1)), var(--dy, -3px)) rotate(calc(var(--r, 0deg) * 1.7)); }
+  /* Turkuaz Marin has no photo: a slip of paper with the stamp */
+  .pk--slip { --t: 0.7rem; --s: 1.2rem; --r: -3deg; padding: 0.55rem 0.7rem; }
+  .pk__stamp {
+    display: block; padding: 0.32rem 0.5rem 0.28rem; color: rgba(0, 47, 99, 0.85);
+    border: 1.5px solid currentColor; border-radius: 3px; outline: 1px solid currentColor; outline-offset: -4px;
+    font-family: var(--f-mono); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;
+    transform: rotate(-5deg); mix-blend-mode: multiply;
+  }
+  .peek--rotika .pk--0 { --h: 3.1rem; --t: 0.9rem; --s: 0; --r: -5deg; --dx: -6px; }
+  .peek--rotika .pk--1 { --h: 4.4rem; --t: 0.1rem; --s: 3.6rem; --r: 3deg; --z: 2; }
+  .peek--rotika .pk--2 { --h: 4rem; --t: 0.5rem; --s: 5.8rem; --r: 8deg; --dx: 6px; }
+  .peek--sunpring .pk--0 { --h: 3.5rem; --t: 0.55rem; --s: 1rem; --r: -3deg; }
+  .peek--fuarlar .pk--0, .peek--future-fish-eurasia-2016 .pk--0 { --h: 2.7rem; --t: 0.2rem; --s: 3.2rem; --r: 5deg; --dx: 8px; }
+  .peek--fuarlar .pk--1, .peek--future-fish-eurasia-2016 .pk--1 { --h: 3rem; --t: 1.2rem; --s: 0.2rem; --r: -4deg; --z: 2; --dx: -4px; }
+
+  /* ================= DOSSIER: the paper sheet a row opens into ================= */
+  .rec__drawer { padding-bottom: clamp(1.8rem, 3.4vw, 3rem); }
+  .sh {
+    --fg: var(--ink); --fg-2: var(--ink-2); --fg-3: var(--ink-3); --line: var(--rule); --line-strong: var(--rule-strong);
+    position: relative; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap);
+    padding: clamp(1.6rem, 3vw, 2.8rem) clamp(1.2rem, 3vw, 2.8rem) clamp(1.6rem, 2.8vw, 2.6rem);
+    background: linear-gradient(176deg, #f7f3eb, #efe8db 92%); color: var(--ink); border-radius: 2px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 50px 80px -40px rgba(0, 0, 0, 0.85);
+  }
+  .sh__ev { grid-column: 1 / span 7; container-type: inline-size; }
+  .sh__card { grid-column: 8 / -1; display: grid; gap: 1.5rem; align-content: start; padding-inline-start: clamp(0rem, 1.5vw, 1.5rem); }
+  .sh--turkuaz-marin .sh__ev { grid-column: 1 / span 5; }
+  .sh--turkuaz-marin .sh__card { grid-column: 6 / -1; align-self: center; }
+
+  /* facts, typed onto the sheet */
+  .sh__facts { display: grid; border-top: 1px solid var(--rule-strong); }
+  .sh__facts > div { display: grid; grid-template-columns: 7.2rem minmax(0, 1fr); gap: 1rem; padding-block: 0.78rem; border-bottom: 1px solid var(--rule); }
+  .sh__facts dt { padding-top: 0.18rem; font-family: var(--f-mono); font-size: 0.74rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+  .sh__facts dd { margin: 0; font-size: 1rem; line-height: 1.45; color: var(--ink); }
+  .sh__facts dd a { color: var(--navy); }
+  .sh__text { margin: 0; max-width: 54ch; font-size: 1.05rem; line-height: 1.62; color: var(--ink-2); }
+  .sh__quote { margin: 0; padding-inline-start: 1.1rem; border-inline-start: 2px solid var(--brass); }
+  .sh__quote p { max-width: 54ch; font-size: 1.06rem; line-height: 1.6; color: var(--ink); }
+  .sh__links { display: flex; flex-wrap: wrap; gap: 0.6rem 1.8rem; margin: 0; }
+  .sh__links a, .cat__all { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 500; color: var(--ink); }
+  .sh__links :global(.arr), .cat__all :global(.arr) { color: var(--brass); transition: transform 500ms var(--ease-water); }
+  .sh__links a:hover :global(.arr), .cat__all:hover :global(.arr) { transform: translateX(calc(4px * var(--dir, 1))); }
+  :global(html[dir='rtl']) .sh__links :global(.arr), :global(html[dir='rtl']) .cat__all :global(.arr) { scale: -1 1; }
+
+  /* ---------- evidence: prints clipped to the sheet, composed per record in sheet-width units ---------- */
+  .ev__stage { position: relative; height: var(--sh, 22rem); }
+  .ev--rotika .ev__stage { --sh: calc(47cqi + 2.6rem); }
+  .ev--sunpring .ev__stage { --sh: calc(50cqi + 2.6rem); }
+  .ev--fuarlar .ev__stage, .ev--future-fish-eurasia-2016 .ev__stage { --sh: calc(41cqi + 2.6rem); }
+  .ev--turkuaz-marin .ev__stage { --sh: auto; display: grid; place-items: center; min-height: 15rem; }
+
+  .print {
+    position: absolute; z-index: var(--z, 1); top: var(--t, 0); inset-inline-start: var(--s, 0);
+    display: block; padding: 6px 6px 24px; background: #fdfcf8; cursor: zoom-in;
+    box-shadow: 0 1px 1px rgba(13, 27, 44, 0.2), 0 16px 24px -14px rgba(13, 27, 44, 0.6);
+    transform: rotate(var(--r, 0deg));
+    transition: transform 700ms var(--ease-water), box-shadow 700ms var(--ease-water);
+  }
+  .print--plain { padding-bottom: 6px; }
+  .print img { display: block; width: var(--w, 40cqi); height: auto; max-width: none; }
+  .print__cap { position: absolute; inset-inline: 8px; bottom: 5px; overflow: hidden; font-family: var(--f-mono); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; text-overflow: ellipsis; color: var(--ink-3); }
+  .print:hover, .print:focus-visible { z-index: 5; transform: rotate(calc(var(--r, 0deg) * 0.4)) translateY(-5px); box-shadow: 0 1px 1px rgba(13, 27, 44, 0.2), 0 30px 40px -18px rgba(13, 27, 44, 0.6); }
+  .sh__ev :global(.ev__clip) {
+    position: absolute; z-index: 6; top: var(--ct, -1rem); inset-inline-start: var(--cs, 1rem); width: 18px; height: auto;
+    transform: rotate(var(--cr, 4deg)); filter: drop-shadow(1px 2px 1.5px rgba(13, 27, 44, 0.35)); pointer-events: none;
+  }
+  /* Rotika: the plant, then the bags on a real shelf, fanned to the right */
+  .ev--rotika .print--0 { --w: 46cqi; --t: 3cqi; --s: 0.5cqi; --r: -2deg; --z: 2; }
+  .ev--rotika .print--1 { --w: 36cqi; --t: 19cqi; --s: 36cqi; --r: 2.4deg; --z: 3; }
+  .ev--rotika .print--2 { --w: 16.5cqi; --t: 0cqi; --s: 68cqi; --r: 3.5deg; --z: 1; }
+  .ev--rotika .print--3 { --w: 14cqi; --t: 14cqi; --s: 82.5cqi; --r: -3deg; --z: 2; }
+  .ev--rotika { --ct: calc(3cqi - 1.35rem); --cs: 4cqi; --cr: -5deg; }
+  /* Sunpring: the AGRA ME invitation carrying both logos */
+  .ev--sunpring .print--0 { --w: 70cqi; --t: 3cqi; --s: 6cqi; --r: -1.6deg; }
+  .ev--sunpring { --ct: calc(3cqi - 1.35rem); --cs: 11cqi; --cr: 4deg; }
+  /* fairs: the stand in front, the invitation behind */
+  .ev--fuarlar .print--0, .ev--future-fish-eurasia-2016 .print--0 { --w: 58cqi; --t: 7cqi; --s: 0.5cqi; --r: -1.8deg; --z: 2; }
+  .ev--fuarlar .print--1, .ev--future-fish-eurasia-2016 .print--1 { --w: 39cqi; --t: 0cqi; --s: 56.5cqi; --r: 2.6deg; --z: 1; }
+  .ev--fuarlar, .ev--future-fish-eurasia-2016 { --ct: calc(7cqi - 1.35rem); --cs: 5cqi; --cr: -4deg; }
+
+  /* Turkuaz Marin: no photo in the source, so the sheet carries the programme's rubber stamp */
+  .stamp {
+    --r: -6deg;
+    display: grid; justify-items: center; gap: 0.5rem; margin: 0; padding: 1.4rem 1.9rem 1.25rem;
+    color: rgba(0, 47, 99, 0.82); border: 3px solid currentColor; border-radius: 8px; outline: 1px solid currentColor; outline-offset: -9px;
+    font-family: var(--f-mono); text-transform: uppercase; letter-spacing: 0.08em; text-align: center;
+    transform: rotate(var(--r)); mix-blend-mode: multiply;
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='7'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.4 2.15'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='7'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.4 2.15'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  .stamp span:first-child { font-size: clamp(1.6rem, 1rem + 1.6vw, 2.3rem); font-weight: 600; letter-spacing: 0.04em; line-height: 1; }
+  .stamp span:nth-child(2) { padding-top: 0.45rem; border-top: 1px solid currentColor; font-size: 0.95rem; }
+  .stamp span:nth-child(3) { font-size: 0.9rem; direction: ltr; unicode-bidi: isolate; }
+
+  /* ---------- exhibit band ---------- */
+  .ex { grid-column: 1 / -1; margin-top: clamp(2rem, 3.4vw, 3rem); padding-top: 1.3rem; border-top: 1px dashed var(--rule-strong); }
+  .ex__head { display: flex; align-items: baseline; gap: 0.9rem; margin: 0 0 clamp(1.3rem, 2.2vw, 2rem); }
+  .ex__head .label { color: var(--navy); }
+  .ex__n { font-size: 0.9rem; font-weight: 500; color: var(--brass); font-variant-numeric: tabular-nums; }
+  .ex__body { transition: opacity 400ms var(--ease-water); }
+
+  /* TÜBİTAK 1501: the period on a month ruler (two calendar years; the bar is the project) */
+  .ruler { position: relative; display: grid; grid-template-columns: repeat(var(--cells), minmax(0, 1fr)); padding: 1.7rem 0 2.6rem; }
+  .ruler__m { position: relative; align-self: start; height: 0.6rem; border-top: 1px solid var(--rule-strong); border-inline-start: 1px solid var(--rule-strong); transform-origin: 50% 0; }
+  .ruler__m.is-q { height: 0.95rem; }
+  .ruler__m.is-y { height: 1.55rem; border-inline-start-color: var(--ink-2); }
+  .ruler__m:last-child { border-inline-end: 1px solid var(--rule-strong); }
+  .ruler__m b { position: absolute; bottom: calc(100% + 0.3rem); inset-inline-start: -1px; font-family: var(--f-mono); font-size: 0.86rem; font-weight: 600; letter-spacing: 0.04em; color: var(--ink); }
+  .ruler__m i { position: absolute; top: 3.15rem; inset-inline-start: 0; translate: -50% 0; font-family: var(--f-mono); font-size: 0.68rem; font-style: normal; letter-spacing: 0.04em; color: var(--ink-3); }
+  :global(html[dir='rtl']) .ruler__m i { translate: 50% 0; }
+  .ruler__bar { position: relative; grid-row: 2; height: 0.8rem; margin-top: 0.55rem; background: var(--navy); transform-origin: 0 50%; box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.18); }
+  :global(html[dir='rtl']) .ruler__bar { transform-origin: 100% 50%; }
+  .ruler__bar::after { content: ''; position: absolute; inset-inline-end: -1px; top: -0.45rem; bottom: -0.45rem; width: 2px; background: var(--brass); }
+
+  /* Rotika: the range on the shelf, grouped by animal; a loupe reads the licence line off the first bag */
+  .ex--shelf { container-type: inline-size; }
+  .shelf {
+    /* 6.43 = the eleven bags' summed width/height ratios; the row fits the sheet, else it scrolls */
+    --d: clamp(7rem, 10.5cqi, 9rem); --gl: 1.5rem; --gb: 0.5rem; --gg: 1.4rem;
+    --bh: clamp(8.75rem, calc((100cqi - var(--d) - var(--gl) - 7 * var(--gb) - 3 * var(--gg) - 4px) / 6.43), 12rem);
+    --bw0: calc(var(--bh) * 0.5546); --sr: calc(var(--bh) * 0.1296);
+    position: relative; overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; scrollbar-width: thin;
+    padding-inline-start: calc(var(--d) + var(--gl)); padding-top: 0.6rem; padding-bottom: 1.2rem;
+  }
+  .shelf__groups { display: flex; align-items: flex-end; gap: var(--gg); width: max-content; }
+  .shelf__g { display: grid; gap: 0.75rem; }
+  .shelf__bags { display: flex; align-items: flex-end; gap: var(--gb); }
+  .bag { display: block; cursor: zoom-in; transition: transform 600ms var(--ease-water); }
+  .bag img { display: block; height: var(--bh); width: auto; max-width: none; border-radius: 1px; box-shadow: 0 1px 1px rgba(13, 27, 44, 0.25), 0 14px 18px -12px rgba(13, 27, 44, 0.6); }
+  .bag:hover, .bag:focus-visible { transform: translateY(-6px); }
+  .shelf__name { position: relative; display: flex; justify-content: center; padding-top: 0.5rem; border-top: 1px solid var(--rule-strong); color: var(--ink-2); }
+  .shelf__name::before, .shelf__name::after { content: ''; position: absolute; top: -6px; width: 1px; height: 6px; background: var(--rule-strong); }
+  .shelf__name::before { inset-inline-start: 0; }
+  .shelf__name::after { inset-inline-end: 0; }
+  .loupe { position: absolute; z-index: 2; inset-inline-start: 0; top: calc(0.6rem + var(--bh) * 0.853 - var(--d) / 2); width: var(--d); height: var(--d); }
+  .loupe__lens {
+    position: absolute; inset: 0; overflow: hidden; border-radius: 50%; background: #1b1b1b;
+    box-shadow: 0 0 0 1px rgba(13, 27, 44, 0.4), 0 0 0 5px #fdfcf8, 0 0 0 6px rgba(13, 27, 44, 0.18), 0 18px 28px -12px rgba(13, 27, 44, 0.65);
+  }
+  /* 280 px of the 599 px bag face, centred on the licence line (298, 921) */
+  .loupe__lens img { position: absolute; left: calc(var(--d) * -0.5643); top: calc(var(--d) * -2.7893); width: calc(var(--d) * 2.1393); height: auto; max-width: none; }
+  /* leader: a light hairline with a dark edge, readable on the paper and across the black bag */
+  .loupe::after { content: ''; position: absolute; top: 50%; inset-inline-start: calc(100% + 6px); width: calc(var(--gl) - 6px + var(--bw0) * 0.4975 - var(--sr)); height: 1px; background: #fdfcf8; box-shadow: 0 0 0 0.6px rgba(13, 27, 44, 0.55); }
+  .loupe__src {
+    position: absolute; z-index: 2; pointer-events: none;
+    inset-inline-start: calc(var(--d) + var(--gl) + var(--bw0) * 0.4975 - var(--sr)); top: calc(0.6rem + var(--bh) * 0.853 - var(--sr));
+    width: calc(var(--sr) * 2); height: calc(var(--sr) * 2); border-radius: 50%;
+    border: 1px solid rgba(253, 252, 248, 0.95); box-shadow: 0 0 0 1px rgba(13, 27, 44, 0.45);
+  }
+
+  /* Sunpring: the catalogue the partnership brings */
+  .cat { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--col-gap); align-items: center; }
+  .cat__plate { display: grid; place-items: center; aspect-ratio: 16 / 8.5; padding: clamp(1.4rem, 3vw, 2.4rem); }
+  .cat__plate :global(.asset) { width: 88%; height: auto; filter: drop-shadow(0 22px 20px rgba(13, 27, 44, 0.28)); transition: transform 900ms var(--ease-water); }
+  .cat__plate:hover :global(.asset) { transform: translateY(-5px) scale(1.015); }
+  .cat__model { position: absolute; inset-inline-start: 1.4rem; bottom: 1rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; color: var(--ink-2); }
+  .cat__index { display: grid; gap: 1.4rem; justify-items: start; padding-inline-start: clamp(0rem, 1.5vw, 1.5rem); }
+  .cat__fams { width: 100%; border-top: 1px solid var(--rule-strong); }
+  .cat__fams a { display: flex; align-items: baseline; gap: 0.6rem; padding-block: 0.72rem; border-bottom: 1px solid var(--rule); transition: color 300ms; }
+  .cat__fams a:hover { color: var(--navy); }
+  .cat__dots { flex: 1; min-width: 1rem; border-bottom: 1px dotted var(--rule-strong); transform: translateY(-0.28em); }
+  .cat__fams .mono { min-width: 1.4rem; font-size: 0.92rem; font-weight: 600; color: var(--brass); text-align: end; font-variant-numeric: tabular-nums; }
+
+  /* AGRA ME: countries met, true bearing and distance from Dubai */
+  .met { display: grid; grid-template-columns: minmax(0, 30rem) minmax(0, 1fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .plot { position: relative; aspect-ratio: 1; margin: 1.6rem 2.4rem; direction: ltr; }
+  .plot__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  /* strokes in plot units (200 across): ~0.5 ≈ 1 px at the plot's usual 300–480 px */
+  .plot__svg * { fill: none; }
+  .plot__axis { stroke: var(--rule-strong); stroke-width: 0.35; stroke-dasharray: 1 2; }
+  .plot__ring { stroke: rgba(0, 47, 99, 0.26); stroke-width: 0.45; }
+  .plot__ring:nth-of-type(4) { stroke: rgba(0, 47, 99, 0.5); stroke-width: 0.55; }
+  .plot__ping { stroke: var(--brass); stroke-width: 0.8; opacity: 0; }
+  .plot__ray { stroke: rgba(0, 47, 99, 0.45); stroke-width: 0.5; stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke 300ms, stroke-width 300ms; }
+  .plot__ray.is-hl { stroke: var(--brass); stroke-width: 0.9; }
+  .plot__km { position: absolute; translate: 0.25rem 0.05rem; font-family: var(--f-mono); font-size: 0.66rem; letter-spacing: 0.04em; color: var(--ink-3); white-space: nowrap; }
+  .plot__n { position: absolute; left: 50%; top: 0; translate: -50% calc(-100% - 0.25rem); font-family: var(--f-mono); font-size: 0.72rem; font-weight: 600; color: var(--ink-2); }
+  .plot__o { position: absolute; left: 50%; top: 50%; }
+  .plot__o i { position: absolute; width: 10px; height: 10px; margin: -5px; border-radius: 50%; background: var(--brass); box-shadow: 0 0 0 3px rgba(184, 116, 47, 0.22); }
+  .plot__o b, .plot__pt b { position: absolute; font-family: var(--f-mono); font-weight: 600; letter-spacing: 0.06em; white-space: nowrap; }
+  /* below-right of the centre: the south-east quadrant holds no country */
+  .plot__o b { left: 0.6rem; top: 0.3rem; font-size: 0.72rem; text-transform: uppercase; color: var(--ink); }
+  .plot__pt { position: absolute; width: 0; height: 0; }
+  .plot__pt i { position: absolute; width: 7px; height: 7px; margin: -3.5px; border-radius: 50%; background: var(--navy); box-shadow: 0 0 0 2px #f4efe6; transition: transform 300ms var(--ease-water), background 300ms; }
+  .plot__pt b { font-size: 0.68rem; color: var(--ink-2); transition: color 300ms; }
+  .pt--e b { left: 0.45rem; top: -0.45rem; }
+  .pt--w b { right: 0.45rem; top: -0.45rem; }
+  .pt--n b { left: 0; bottom: 0.35rem; translate: -50% 0; }
+  .pt--s b { left: 0; top: 0.3rem; translate: -50% 0; }
+  .pt--sw b { right: 0.3rem; top: 0.05rem; }
+  /* a country around the centre itself (the UAE): no second dot on Dubai, only its code */
+  .pt--c i { display: none; }
+  .pt--c b { right: 0.55rem; top: 0.25rem; }
+  .plot__pt.is-hl i { background: var(--brass); transform: scale(1.6); }
+  .plot__pt.is-hl b { color: var(--brass); }
+  .met__list { columns: 2; column-gap: 2.2rem; }
+  .met__list li { display: flex; align-items: baseline; gap: 0.75rem; padding-block: 0.55rem; border-bottom: 1px solid var(--rule); break-inside: avoid; cursor: default; transition: color 300ms; }
+  .met__list .mono { min-width: 1.6rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; color: var(--brass); }
+  .met__list li.is-hl { color: var(--navy); }
+
+  /* Future Fish: the rest of the roll, as a contact strip */
+  .frames { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(0.8rem, 1.4vw, 1.2rem); }
+  .frame { position: relative; display: block; padding: 5px 5px 22px; background: #fdfcf8; cursor: zoom-in; box-shadow: 0 1px 1px rgba(13, 27, 44, 0.2), 0 14px 20px -14px rgba(13, 27, 44, 0.55); transition: transform 600ms var(--ease-water); }
+  .frame img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+  .frame__no { position: absolute; inset-inline-start: 7px; bottom: 4px; font-family: var(--f-mono); font-size: 0.64rem; font-weight: 500; letter-spacing: 0.08em; color: var(--ink-3); }
+  .frame:hover, .frame:focus-visible { transform: translateY(-5px); }
+
+  /* ---------- arrival: the sheet slides out, prints land, facts are typed, the exhibit plays in view ---------- */
+  /* fill "backwards" only: once landed, every element is back on its own styles, so hover still moves it */
+  @media (prefers-reduced-motion: no-preference) {
+    .is-arriving .sh { animation: sh-in 760ms var(--ease-water) backwards; }
+    .is-arriving :is(.print, .stamp) { animation: print-in 1000ms var(--ease-water) backwards; animation-delay: calc(160ms + var(--k, 0) * 110ms); }
+    .is-arriving .sh__ev :global(.ev__clip) { animation: clip-in 640ms var(--ease-water) 640ms backwards; }
+    .is-arriving .sh__facts > div { animation: row-in 560ms var(--ease-steel) backwards; animation-delay: calc(240ms + var(--k, 0) * 70ms); }
+    .is-arriving :is(.sh__text, .sh__quote, .sh__links) { animation: rise-in 800ms var(--ease-water) 520ms backwards; }
+    .is-arriving .ex:not(.is-in) .ex__body { opacity: 0; }
+    .is-arriving .ex.is-in .ruler__m { animation: tick-in 420ms var(--ease-steel) backwards; animation-delay: calc(var(--k) * 22ms); }
+    .is-arriving .ex.is-in .ruler__bar { animation: draw 1300ms var(--ease-steel) 260ms backwards; }
+    .is-arriving .ex.is-in .bag { animation: rise-in 800ms var(--ease-water) backwards; animation-delay: calc(var(--k) * 55ms); }
+    .is-arriving .ex.is-in :is(.loupe, .loupe__src) { animation: lens-in 900ms var(--ease-water) 720ms backwards; }
+    .is-arriving .ex.is-in .cat__plate { animation: rise-in 900ms var(--ease-water) backwards; }
+    .is-arriving .ex.is-in .cat__fams li { animation: row-in 520ms var(--ease-steel) backwards; animation-delay: calc(200ms + var(--k) * 70ms); }
+    .is-arriving .ex.is-in .plot__ring { animation: ring-in 1000ms var(--ease-water) backwards; animation-delay: calc(var(--k) * 90ms); }
+    .is-arriving .ex.is-in .plot__ping { animation: ping 1900ms var(--ease-water) 150ms backwards; }
+    .is-arriving .ex.is-in .plot__ray { animation: ray 900ms var(--ease-steel) backwards; animation-delay: calc(380ms + var(--k) * 90ms); }
+    .is-arriving .ex.is-in .plot__pt { animation: pt-in 520ms var(--ease-water) backwards; animation-delay: calc(640ms + var(--k) * 90ms); }
+    .is-arriving .ex.is-in .met__list li { animation: rise-in 600ms var(--ease-water) backwards; animation-delay: calc(420ms + var(--k) * 45ms); }
+    .is-arriving .ex.is-in .frame { animation: print-in 900ms var(--ease-water) backwards; animation-delay: calc(var(--k) * 90ms); }
+  }
+  @keyframes sh-in { from { transform: translateY(-16px); } }
+  @keyframes print-in { from { opacity: 0; transform: translateY(-16px) rotate(calc(var(--r, 0deg) * 3)); } }
+  @keyframes clip-in { from { opacity: 0; transform: translateY(-10px) rotate(var(--cr, 4deg)); } }
+  @keyframes row-in { from { opacity: 0; transform: translateY(6px); } }
+  @keyframes rise-in { from { opacity: 0; transform: translateY(14px); } }
+  @keyframes tick-in { from { transform: scaleY(0); } }
+  @keyframes draw { from { transform: scaleX(0); } }
+  @keyframes lens-in { from { opacity: 0; transform: scale(0.82); } }
+  @keyframes ring-in { from { opacity: 0; transform: scale(0.72); } }
+  @keyframes ping { 0% { opacity: 0.75; transform: scale(0.02); } 100% { opacity: 0; transform: scale(1); } }
+  @keyframes ray { from { stroke-dashoffset: 1; } }
+  @keyframes pt-in { from { opacity: 0; transform: scale(0.3); } }
+
+  /* ================= PHOTO VIEWER ================= */
+  :global(html:has(.vw[open])) { overflow: hidden; }
+  .vw {
+    position: fixed; inset: 0; width: 100%; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0;
+    background: rgba(3, 11, 23, 0.96); color: #eaf6fd; overflow: hidden;
+  }
+  /* explicit column: otherwise the photos' natural widths size it and the viewer spills off screen */
+  .vw[open] { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) auto; animation: vw-in 360ms var(--ease-water) both; }
+  .vw::backdrop { background: transparent; }
+  @keyframes vw-in { from { opacity: 0; } }
+  .vw__top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: max(0.9rem, env(safe-area-inset-top)) var(--gutter) 0.5rem; }
+  .vw__title { margin: 0; font-family: var(--f-serif); font-size: clamp(1.15rem, 1rem + 0.6vw, 1.5rem); font-weight: 500; letter-spacing: -0.005em; }
+  .vw__x { display: grid; place-items: center; flex: none; width: 44px; height: 44px; border-radius: 50%; color: #eaf6fd; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.18); transition: background 300ms; }
+  .vw__x svg { width: 18px; height: 18px; }
+  .vw__x:hover, .vw__x:focus-visible { background: rgba(255, 255, 255, 0.16); }
+  .vw__stage { position: relative; min-height: 0; }
+  .vw__track { display: flex; height: 100%; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .vw__track::-webkit-scrollbar { display: none; }
+  /* fixed 1×1 grid: the photo's max-height: 100% then resolves against the slide, not against itself */
+  :global(.vw__slide) { flex: 0 0 100%; display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); place-items: center; min-width: 0; margin: 0; padding: 0.6rem clamp(1rem, 7vw, 7.5rem); scroll-snap-align: center; scroll-snap-stop: always; }
+  :global(.vw__slide img) { display: block; width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 40px 70px -30px rgba(0, 0, 0, 0.85); }
+  .vw__nav {
+    position: absolute; top: 50%; z-index: 2; translate: 0 -50%;
+    display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%;
+    color: #eaf6fd; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: background 300ms, opacity 300ms;
+  }
+  .vw__nav svg { width: 20px; height: 20px; }
+  .vw__nav--prev { inset-inline-start: var(--gutter); }
+  .vw__nav--next { inset-inline-end: var(--gutter); }
+  :global(html[dir='rtl']) .vw__nav svg { scale: -1 1; }
+  .vw__nav:hover:not(:disabled) { background: rgba(255, 255, 255, 0.18); }
+  .vw__nav:disabled { opacity: 0.25; cursor: default; }
+  .vw.is-single :is(.vw__nav, .vw__count) { display: none; }
+  .vw__bar { display: flex; justify-content: space-between; gap: 1rem; min-height: 1.4em; margin: 0; padding: 0.7rem var(--gutter) max(1.1rem, env(safe-area-inset-bottom)); font-family: var(--f-mono); font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(207, 234, 248, 0.75); }
+  .vw__count { color: var(--aegean); font-weight: 500; font-variant-numeric: tabular-nums; }
+
+  /* ================= SMALLER SCREENS ================= */
+  @media (max-width: 1000px) {
+    .rec__sum { grid-template-columns: minmax(0, 1fr) auto auto; grid-template-areas: 'meta peek x' 'title peek x' 'where peek x'; row-gap: 0.4rem; min-height: 0; padding-block: 1.35rem; }
+    .rec__meta { grid-area: meta; display: flex; align-items: baseline; gap: 0.85rem; }
+    .rec__title { grid-area: title; }
+    .rec__where { grid-area: where; white-space: normal; }
+    .rec__peek { grid-area: peek; width: 8.6rem; align-self: center; }
+    .rec__x { grid-area: x; }
+    .sh__ev, .sh__card, .sh--turkuaz-marin .sh__ev, .sh--turkuaz-marin .sh__card { grid-column: 1 / -1; }
+    .sh__card { margin-top: 1.8rem; padding-inline-start: 0; }
+    .ev--turkuaz-marin .ev__stage { min-height: 12rem; }
+    .met { grid-template-columns: 1fr; }
+    .plot { width: min(100% - 4.8rem, 30rem); justify-self: center; }
+    .cat { grid-template-columns: 1fr; }
+    .cat__index { padding-inline-start: 0; }
+    .frames { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (max-width: 600px) {
+    .rec__peek { display: none; }
+    .rec__sum { grid-template-areas: 'meta x' 'title x' 'where x'; grid-template-columns: minmax(0, 1fr) auto; column-gap: 1rem; }
+    .rec__title { font-size: clamp(1.55rem, 1.1rem + 2.4vw, 1.9rem); }
+    .sh { margin-inline: calc(var(--gutter) * -1); border-radius: 0; padding: 1.2rem var(--gutter) 1.6rem; }
+    /* evidence: the prints become a row to swipe */
+    .ev__stage { height: auto; display: flex; align-items: flex-start; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding: 1.7rem var(--gutter) 1.4rem; }
+    .ev__stage::-webkit-scrollbar { display: none; }
+    .ev--turkuaz-marin .ev__stage { display: grid; overflow: visible; min-height: 10rem; padding-block: 1.4rem 0.6rem; }
+    .print { position: relative; top: auto; inset-inline-start: auto; flex: none; scroll-snap-align: start; scroll-margin-inline: var(--gutter); }
+    .print img { width: auto; height: 9.5rem; }
+    .sh__ev :global(.ev__clip) { top: 0.5rem; inset-inline-start: calc(var(--gutter) + 1.4rem); }
+    .sh__facts > div { grid-template-columns: 6rem minmax(0, 1fr); gap: 0.8rem; }
+    .ruler { padding-bottom: 1rem; }
+    .ruler__m i { display: none; }
+    .shelf { scrollbar-width: none; }
+    .shelf::-webkit-scrollbar { display: none; }
+    .met__list { column-gap: 1.2rem; }
+    .plot { width: calc(100% - 3.6rem); margin-inline: 1.8rem; }
+    .frames { display: flex; gap: 0.8rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding: 0.4rem var(--gutter) 1.2rem; }
+    .frames::-webkit-scrollbar { display: none; }
+    .frames li { flex: 0 0 72%; scroll-snap-align: start; scroll-margin-inline: var(--gutter); }
+    .vw__nav { display: none; }
+  }
+</style>

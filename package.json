@@ -1,0 +1,20 @@
+{
+  "name": "maviprotein-site",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/gen-routes.mjs && node scripts/sync-assets.mjs && node scripts/build-redirects.mjs && astro dev",
+    "build": "node scripts/gen-routes.mjs && node scripts/sync-assets.mjs && node scripts/build-redirects.mjs && astro build",
+    "preview": "astro preview",
+    "deploy:preview": "node scripts/deploy-preview.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/newsreader": "^5.3.0",
+    "@fontsource/barlow": "^5.3.0",
+    "@fontsource/barlow-condensed": "^5.3.0",
+    "@fontsource/ibm-plex-sans-arabic": "^5.3.0",
+    "astro": "^5.18.2"
+  }
+}

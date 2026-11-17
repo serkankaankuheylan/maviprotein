@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import { pagesCopy } from '../i18n/pages';
+import { common } from '../i18n/common';
+import { pick } from '../lib/i18n';
+import { href, type RouteKey } from '../lib/routes';
+const lang = 'tr' as const;
+const c = pick(pagesCopy, lang).notFound;
+const cc = pick(common, lang);
+const links: [RouteKey, string][] = [['home', c.home], ['lines', cc.mega.solutions[1].title], ['aquaculture', cc.mega.solutions[0].title], ['machines', cc.nav.machines], ['contact', cc.footer.contact]];
+---
+<Base lang={lang} title="404" description={c.text} route="home" gauge={false} noindex>
+  <section class="nf s-dark" data-surface="dark">
+    <div class="nf__floor" aria-hidden="true"></div>
+    <span class="nf__pellet" aria-hidden="true"></span>
+    <div class="wrap nf__inner">
+      <p class="label mono">−404 m</p>
+      <h1 class="t-display" set:html={c.title} />
+      <p class="t-lead">{c.text}</p>
+      <ul role="list" class="nf__links">
+        {links.map(([k, l]) => <li><a href={href(k, lang)}><span>{l}</span><Arrow /></a></li>)}
+      </ul>
+    </div>
+  </section>
+</Base>
+<style>
+  .nf { min-height: 100svh; display: grid; align-items: center; position: relative; overflow: hidden; padding-block: calc(var(--header-h) + 3rem) 6rem; background: linear-gradient(180deg, var(--abyss) 0%, #030f1f 100%); }
+  .nf__floor { position: absolute; inset: auto 0 0 0; height: 22vh; background: radial-gradient(60% 100% at 70% 100%, rgba(130, 204, 240, 0.08), transparent 70%), repeating-linear-gradient(90deg, transparent 0 3px, rgba(207, 234, 248, 0.03) 3px 4px); border-top: 1px solid var(--rule-light); }
+  .nf__pellet { position: absolute; left: 72%; bottom: calc(22vh - 6px); width: 18px; height: 11px; border-radius: 6px; background: linear-gradient(#b07a45, #3a210e); animation: sink 4.8s var(--ease-water) both; }
+  @keyframes sink { from { transform: translateY(-80vh) rotate(-30deg); opacity: 0; } 10% { opacity: 1; } to { transform: none; } }
+  .nf__inner { display: grid; gap: 1.4rem; justify-items: start; position: relative; }
+  .nf__inner .label { color: var(--brass-2); }
+  .nf__links { margin-top: 1.6rem; border-top: 1px solid var(--rule-light); width: min(100%, 520px); }
+  .nf__links a { display: flex; justify-content: space-between; padding-block: 1rem; border-bottom: 1px solid var(--rule-light); font-size: 1.15rem; }
+  .nf__links a:hover { color: var(--aegean); }
+</style>

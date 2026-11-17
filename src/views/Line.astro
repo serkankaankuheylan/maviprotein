@@ -1,0 +1,252 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import SpecimenCard from '../components/SpecimenCard.astro';
+import ClosingCta from '../components/ClosingCta.astro';
+import LineStage from '../components/LineStage.astro';
+import Journey from '../components/Journey.astro';
+import { linesCopy } from '../i18n/lines';
+import { common } from '../i18n/common';
+import { pick, t, num, UNIT, type Lang } from '../lib/i18n';
+import { href } from '../lib/routes';
+import { lineBySlug, lines, fmtRange, allModels } from '../lib/data';
+import { JOURNEYS, type Metric } from '../data/journeys';
+
+interface Props { lang: Lang; slug: string }
+const { lang, slug } = Astro.props;
+const line = lineBySlug(slug)!;
+const c = pick(linesCopy, lang).line;
+const cc = pick(common, lang);
+const name = t(line.shortName, lang);
+const len = line.lineLengthRange;
+const lenTxt = len ? (len.min === len.max ? `${num(len.min / 1000, lang)} m` : `${num(len.min / 1000, lang)}–${num(len.max / 1000, lang)} m`) : '—';
+const related = lines.filter((l) => l.slug !== slug && l.category === line.category).slice(0, 4);
+const relatedFill = related.length < 3 ? [...related, ...lines.filter((l) => l.slug !== slug && l.category !== line.category).slice(0, 4 - related.length)] : related;
+
+/* ---- line journey: the catalogue schema, completed end to end (src/data/journeys.ts) ---- */
+const journey = JOURNEYS[slug];
+const fmtN = (n: number) => new Intl.NumberFormat(lang === 'tr' ? 'tr-TR' : 'en-US').format(n);
+/** "≤ 45 paket/dk" → ["≤ 45", "paket/dk"] */
+const split = (s: string): [string, string] => {
+  const m = String(s).match(/^([≤<>~]?\s*[\d.,]+(?:\s*[–-]\s*[\d.,]+)?)\s*(.*)$/);
+  return m ? [m[1].trim(), m[2].trim()] : [String(s), ''];
+};
+const modelOf = (s: string) => allModels.find((m: any) => m.slug === s) as any;
+const metricOf = (m?: Metric): [string, string] | undefined => {
+  if (!m) return undefined;
+  if ('line' in m) return [fmtRange(line.capacityRange, '', lang).trim(), t(UNIT.kgh, lang)];
+  if ('spec' in m) {
+    const sp = modelOf(m.spec)?.specs?.find((x: any) => x.key === m.key);
+    return sp ? split(t(sp.value, lang)) : undefined;
+  }
+  if ('millCapacity' in m) {
+    const caps = (modelOf(m.millCapacity)?.variants ?? []).map((v: any) => v.capacityTH).filter(Boolean);
+    if (!caps.length) return undefined;
+    return [`${fmtN(Math.min(...caps.map((x: any) => x.min)))}–${fmtN(Math.max(...caps.map((x: any) => x.max)))}`, t(UNIT.th, lang)];
+  }
+  return [t(m.v, lang), t(m.u, lang)];
+};
+const pageHref = (p?: string) => (!p ? undefined : p.startsWith('#') ? href('machines', lang) + p : modelOf(p) ? href('machine', lang, p) : undefined);
+const stations = (journey?.stations ?? []).map((s) => {
+  const comp = s.n ? line.components[s.n - 1] : undefined;
+  const base = t(s.machine ?? comp?.name ?? '', lang);
+  const met = metricOf(s.metric);
+  return {
+    asset: s.asset, name: t(s.step, lang), machine: s.model ? `${base} · ${s.model}` : base, text: t(s.text, lang),
+    metric: met?.[0], unit: met?.[1], mat: s.mat, matName: t(s.matName, lang), n: s.n ?? null, href: pageHref(s.page),
+  };
+});
+const jc = c.journey;
+const productNames = (line.products ?? []).map((p: any) => t(p, lang));
+const productJson = {
+  '@context': 'https://schema.org', '@type': 'Product', name: t(line.name, lang), description: t(line.short, lang),
+  brand: { '@type': 'Brand', name: 'Mavi Protein' }, category: 'Extrusion production line',
+  additionalProperty: [{ '@type': 'PropertyValue', name: 'capacity', value: fmtRange(line.capacityRange, 'kg/saat', 'en') }],
+};
+const crumbs = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+  { '@type': 'ListItem', position: 1, name: 'Mavi Protein', item: Astro.site!.origin + href('home', lang) },
+  { '@type': 'ListItem', position: 2, name: pick(linesCopy, lang).overview.meta.title, item: Astro.site!.origin + href('lines', lang) },
+  { '@type': 'ListItem', position: 3, name, item: Astro.site!.origin + href('line', lang, slug) },
+] };
+---
+<Base lang={lang} title={t(line.name, lang)} description={t(line.short, lang)} route="line" slug={slug} startDark={false} jsonLd={[productJson, crumbs]}>
+  <!-- intro -->
+  <section class="lh s-light grain" data-surface="light" aria-labelledby="lh-title">
+    <div class="wrap lh__grid">
+      <div class="lh__words">
+        <nav class="label lh__crumbs" aria-label="breadcrumb">
+          <a href={href('lines', lang)}>{pick(linesCopy, lang).overview.meta.title}</a><span class="sep">/</span><span>N° {String(line.order).padStart(2, '0')}</span>
+        </nav>
+        <p class="label"><span class="dot"></span>{c.kicker}</p>
+        <h1 id="lh-title" class="t-display">{name}</h1>
+        <p class="t-lead">{t(line.short, lang)}</p>
+        <div class="lh__actions">
+          <a class="btn" href={`${href('start', lang)}?hat=${slug}`}>{c.cta}<Arrow /></a>
+          <a class="btn btn--ghost" href={href('catalog', lang, undefined, `s-${line.catalogPage}`)}>{c.pdf} <span class="mono faint">{c.page} {line.catalogPage}</span><Arrow /></a>
+        </div>
+      </div>
+      <div class="lh__art">
+        <LineStage slug={slug} asset={line.asset} alt={name} order={line.order} cat={line.category}
+          catLabel={c.stage.cats[line.category]} />
+      </div>
+    </div>
+    <dl class="wrap lh__figs">
+      <div><dt class="label">{c.figs.capacity}</dt><dd class="figure">{fmtRange(line.capacityRange, '', lang).trim()}<small>{lang === 'tr' ? 'kg/saat' : lang === 'ar' ? 'كغ/ساعة' : 'kg/h'}</small></dd></div>
+      <div><dt class="label">{c.figs.power}</dt><dd class="figure">{fmtRange(line.installedPowerRange, '', lang).trim()}<small>kW</small></dd></div>
+      <div><dt class="label">{c.figs.length}</dt><dd class="figure">{lenTxt.replace(' m', '')}<small>m</small></dd></div>
+    </dl>
+  </section>
+
+  <!-- line journey (signature): the catalogue schema, station by station, with this line's own material -->
+  {stations.length > 0 && journey && (
+    <Journey id="sema" index="01" compact label={jc.label} title={t(journey.title, lang)} stations={stations}
+      end={productNames.length ? jc.end : t(line.short, lang)} products={productNames}
+      endLink={c.cta} endHref={`${href('start', lang)}?hat=${slug}`} linkLabel={c.schema.machine} auxLabel={jc.aux} />
+  )}
+
+  <!-- features -->
+  <section class="feat s-light section" data-surface="light" aria-labelledby="feat-title">
+    <div class="wrap feat__grid">
+      <div class="feat__side">
+        <p class="label"><span>02</span><span class="sep">·</span><span>{c.about.label}</span></p>
+        {line.products?.length > 0 && (
+          <div class="feat__products">
+            <p class="label faint">{c.products}</p>
+            <ul role="list">{line.products.map((p) => <li>{t(p, lang)}</li>)}</ul>
+          </div>
+        )}
+      </div>
+      <div class="feat__body">
+        <h2 id="feat-title" class="sr-only">{c.about.label}</h2>
+        <div class="prose feat__prose">
+          {line.description.map((p, i) => <p class:list={{ 'feat__first': i === 0 }}>{t(p, lang)}</p>)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- specs -->
+  <section class="specs s-sand grain section" data-surface="light" id="teknik" aria-labelledby="specs-title">
+    <div class="wrap">
+      <header class="specs__head">
+        <p class="label"><span>03</span><span class="sep">·</span><span>{c.specs.label}</span></p>
+        <h2 id="specs-title" class="t-h2">{c.specs.title}</h2>
+      </header>
+      <div class="specs__table" style={`--cols:${line.specs.models.length}`} data-specs>
+        <div class="specs__col specs__col--labels" aria-hidden="true">
+          <span class="specs__model">&nbsp;</span>
+          {line.specs.rows.map((r) => <span class="specs__cell label">{t(r.label, lang)}</span>)}
+        </div>
+        {line.specs.models.map((m, mi) => (
+          <button class:list={['specs__col', { 'is-on': mi === line.specs.models.length - 1 }]} type="button" aria-pressed={mi === line.specs.models.length - 1 ? 'true' : 'false'} data-spec-col>
+            <span class="specs__model mono">{m}</span>
+            {line.specs.rows.map((r) => (
+              <span class="specs__cell"><span class="specs__k label">{t(r.label, lang)}</span><span class="mono">{t(r.values[mi], lang)}</span></span>
+            ))}
+          </button>
+        ))}
+      </div>
+      <p class="specs__note t-small faint">{c.specs.note}</p>
+    </div>
+  </section>
+
+  <!-- role -->
+  <section class="role s-light section" data-surface="light" aria-labelledby="role-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="label"><span>04</span><span class="sep">·</span><span>{c.role.label}</span></p>
+        <h2 id="role-title" class="t-h2" set:html={c.role.title} />
+      </header>
+      <ol class="role__list" role="list">
+        {c.role.items.map((it, i) => (
+          <li class="rise" style={`--d:${i * 70}ms`}><span class="num">{i + 1}</span><h3 class="t-h4">{it.t}</h3><p class="muted t-small">{it.d}</p></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- related -->
+  <section class="rel s-sand section" data-surface="light" aria-labelledby="rel-title">
+    <div class="wrap">
+      <div class="rel__head"><h2 id="rel-title" class="t-h3">{c.related}</h2><a class="link" href={href('lines', lang)}>{pick(linesCopy, lang).overview.meta.title}</a></div>
+      <ul class="rel__grid" role="list">
+        {relatedFill.slice(0, 4).map((l) => <li><SpecimenCard line={l} lang={lang} showMeta /></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <ClosingCta lang={lang} title={c.close} primary={c.cta} primaryHref={`${href('start', lang)}?hat=${slug}`} />
+</Base>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-specs]').forEach((tbl) => {
+    const cols = [...tbl.querySelectorAll<HTMLButtonElement>('[data-spec-col]')];
+    cols.forEach((b) => b.addEventListener('click', () => cols.forEach((x) => { x.classList.toggle('is-on', x === b); x.setAttribute('aria-pressed', String(x === b)); })));
+  });
+</script>
+
+<style>
+  /* intro */
+  .lh { padding-top: calc(var(--header-h) + clamp(32px, 5vw, 72px)); padding-bottom: clamp(48px, 6vw, 96px); }
+  .lh__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); align-items: center; }
+  .lh__words { grid-column: 1 / span 6; display: grid; gap: 1.3rem; justify-items: start; }
+  .lh__words h1 { max-width: 12ch; }
+  .lh__crumbs { gap: 0.5rem; color: var(--ink-3); }
+  .lh__actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 0.6rem; }
+  .lh__art { grid-column: 7 / -1; position: relative; }
+  .lh__figs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: clamp(32px, 5vw, 72px); border-top: 1px solid var(--rule-strong); }
+  .lh__figs > div { padding-top: 1.4rem; display: grid; gap: 0.7rem; }
+  .lh__figs > div + div { border-inline-start: 1px solid var(--rule); padding-inline-start: 1.4rem; }
+  .lh__figs dd { margin: 0; font-size: clamp(2.2rem, 1.4rem + 3vw, 4.4rem); }
+  @media (max-width: 960px) {
+    .lh { padding-top: var(--header-h); }
+    .lh__words, .lh__art { grid-column: 1 / -1; }
+    /* the plate runs edge to edge on phones and tablets, the words follow it */
+    .lh__art { order: -1; margin-inline: calc(-1 * var(--gutter)); margin-bottom: 0.6rem; }
+  }
+  @media (max-width: 640px) { .lh__figs { grid-template-columns: 1fr; } .lh__figs > div + div { border-inline-start: 0; padding-inline-start: 0; border-top: 1px solid var(--rule); margin-top: 1.2rem; } }
+
+  /* features */
+  .feat__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); }
+  .feat__side { grid-column: 1 / span 4; display: grid; gap: 2rem; align-content: start; }
+  .feat__body { grid-column: 6 / -1; }
+  .feat__prose { font-size: 1.2rem; }
+  .feat__prose .feat__first { font-family: var(--f-serif); font-size: clamp(1.45rem, 1.1rem + 1vw, 2rem); line-height: 1.35; color: var(--ink); letter-spacing: -0.01em; }
+  .feat__products ul { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.8rem; }
+  .feat__products li { font-size: 0.86rem; padding: 0.4rem 0.75rem; border: 1px solid var(--rule-strong); border-radius: 99px; }
+  @media (max-width: 960px) { .feat__side, .feat__body { grid-column: 1 / -1; } }
+
+  /* specs */
+  .specs__head { display: grid; gap: 0.8rem; margin-bottom: 2.5rem; }
+  .specs__table { display: grid; grid-template-columns: minmax(150px, 0.8fr) repeat(var(--cols), minmax(0, 1fr)); border-top: 1px solid var(--rule-strong); }
+  .specs__col { display: grid; grid-template-rows: subgrid; grid-row: span calc(var(--rows, 6)); text-align: start; color: inherit; transition: background 500ms var(--ease-water); }
+  .specs__col { display: flex; flex-direction: column; }
+  .specs__model { min-height: 4.2rem; display: flex; align-items: center; padding: 0 1rem; font-size: 1.15rem; letter-spacing: 0.02em; border-bottom: 1px solid var(--rule-strong); }
+  .specs__cell { min-height: 3.6rem; display: flex; align-items: center; padding: 0.6rem 1rem; border-bottom: 1px solid var(--rule); }
+  .specs__cell:not(.label) { font-size: 0.95rem; }
+  .specs__col--labels .specs__cell { padding-inline-start: 0; }
+  .specs__k { display: none; }
+  button.specs__col { cursor: pointer; border-inline-start: 1px solid var(--rule); }
+  button.specs__col:hover { background: rgba(246, 243, 238, 0.6); }
+  button.specs__col.is-on { background: var(--foam); box-shadow: inset 0 3px 0 var(--brass); }
+  button.specs__col.is-on .specs__model { color: var(--navy); }
+  .specs__note { margin-top: 1.4rem; max-width: 70ch; }
+  @media (max-width: 760px) {
+    .specs__table { grid-template-columns: 1fr; border-top: 0; gap: 1rem; }
+    .specs__col--labels { display: none; }
+    button.specs__col { border: 1px solid var(--rule-strong); background: var(--foam); }
+    .specs__cell { justify-content: space-between; gap: 1rem; }
+    .specs__k { display: inline; }
+  }
+
+  /* role */
+  .role__list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--col-gap); border-top: 1px solid var(--rule-strong); }
+  .role__list li { display: grid; gap: 0.8rem; align-content: start; padding-top: 1.6rem; }
+  @media (max-width: 1100px) { .role__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 560px) { .role__list { grid-template-columns: 1fr; } }
+
+  /* related */
+  .rel__head { display: flex; justify-content: space-between; align-items: end; gap: 1rem; margin-bottom: 2rem; }
+  .rel__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--rule-strong); border: 1px solid var(--rule-strong); }
+  @media (max-width: 960px) { .rel__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>

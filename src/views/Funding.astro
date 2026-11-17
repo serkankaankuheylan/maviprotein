@@ -1,0 +1,140 @@
+---
+import Base from '../layouts/Base.astro';
+import Intro from '../components/Intro.astro';
+import Arrow from '../components/Arrow.astro';
+import ClosingCta from '../components/ClosingCta.astro';
+import FileStack from '../components/FileStack.astro';
+import { servicesCopy } from '../i18n/services';
+import { home } from '../i18n/home';
+import { common } from '../i18n/common';
+import { pick, t, type Lang } from '../lib/i18n';
+import { href } from '../lib/routes';
+import { services, company } from '../lib/data';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = pick(servicesCopy, lang).funding;
+const cc = pick(common, lang);
+const svc = services['projects-funding'] ?? {};
+const ref = company.reference ?? {};
+---
+<Base lang={lang} title={c.meta.title} description={c.meta.description} route="funding" startDark={false} gaugeMax={60}>
+  <Intro lang={lang} surface="light" snug kicker={c.kicker} title={c.title} lead={t(svc.intro?.[0], lang)} crumbs={[[cc.nav.services, 'funding']]}>
+    <FileStack sheets={pick(home, lang).funding.sheets} />
+  </Intro>
+
+  <!-- dossier (signature): pages pile up as you read -->
+  <section class="dos s-sand grain section" data-surface="light" aria-labelledby="dos-title">
+    <div class="wrap dos__grid">
+      <header class="dos__head">
+        <p class="label">{c.dossier.label}</p>
+        <h2 id="dos-title" class="t-h1" set:html={c.dossier.title} />
+      </header>
+      <ol class="dos__pages" role="list">
+        {c.stages.map((s, i) => (
+          <li class="dos__page" style={`--i:${i}`}>
+            <span class="dos__tab mono">{String(i + 1).padStart(2, '0')} / {String(c.stages.length).padStart(2, '0')}</span>
+            <h3 class="t-h2">{s.t}</h3>
+            <p class="muted">{s.d}</p>
+            <span class="dos__lines" aria-hidden="true"><i></i><i></i><i></i></span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- programs -->
+  <section class="prog s-light section" data-surface="light" aria-labelledby="prog-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="label">{c.programs.label}</p>
+        <h2 id="prog-title" class="sr-only">{c.programs.label}</h2>
+      </header>
+      <ul class="prog__list" role="list">
+        {(svc.programs ?? []).map((p: any, i: number) => (
+          <li class="rise" style={`--d:${i * 60}ms`}>
+            <span class="mono faint">{String(i + 1).padStart(2, '0')}</span>
+            <span class="prog__name serif">{t(p.name, lang)}</span>
+            {p.evidence && <span class="label prog__ev">{p.evidence}</span>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- proof + who -->
+  <section class="who s-dark section" data-surface="dark" aria-labelledby="who-title">
+    <div class="wrap who__grid">
+      <div class="who__proof">
+        <article class="fiche-lg">
+          <span class="fiche-lg__top mono"><span>{t(ref.program, lang)?.split(' ').slice(0, 2).join(' ')}</span><span>{t(ref.period, lang)}</span></span>
+          <h3 class="serif">{t(ref.company, lang)}</h3>
+          <p>{t(ref.text, lang)}</p>
+          <a class="link label" href={href('projects', lang, undefined, 'turkuaz-marin')}>{cc.nav.projects}</a>
+        </article>
+      </div>
+      <div class="who__list">
+        <p class="label">{c.who.label}</p>
+        <h2 id="who-title" class="sr-only">{c.who.label}</h2>
+        <ul role="list">
+          {c.who.items.map((w, i) => (
+            <li>
+              <span class="num">{i + 1}</span>
+              <div><h3 class="t-h3">{w.t}</h3><ul role="list" class="who__sub">{w.d.map((x) => <li>{x}</li>)}</ul></div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="items s-light section" data-surface="light" aria-labelledby="items-title">
+    <div class="wrap">
+      <h2 id="items-title" class="t-h3">{c.all}</h2>
+      <ul class="items__list" role="list">{(svc.items ?? []).map((it: any) => <li>{t(it.title, lang)}</li>)}</ul>
+    </div>
+  </section>
+
+  <ClosingCta lang={lang} title={c.close} primaryHref={`${href('start', lang)}?alan=ar-ge`} />
+</Base>
+
+<style>
+  .dos__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); }
+  .dos__head { grid-column: 1 / span 4; position: sticky; top: calc(var(--header-h) + 2rem); align-self: start; display: grid; gap: 1rem; }
+  .dos__pages { grid-column: 6 / -1; display: grid; gap: 22vh; padding-bottom: 10vh; }
+  .dos__page {
+    position: sticky; top: calc(var(--header-h) + 2rem + var(--i) * 18px);
+    min-height: 46vh; padding: 3.2rem 2.4rem 2.4rem; display: grid; gap: 1rem; align-content: start;
+    background: #fbf9f4; border: 1px solid var(--rule); border-radius: 2px;
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.02), 0 30px 50px -36px rgba(13, 27, 44, 0.45);
+    rotate: calc((var(--i) - 2.5) * 0.35deg);
+  }
+  .dos__tab { position: absolute; top: 1.2rem; inset-inline-end: 1.4rem; font-size: 0.7rem; color: var(--brass); letter-spacing: 0.08em; }
+  .dos__page p { font-size: 1.15rem; max-width: 46ch; }
+  .dos__lines { display: grid; gap: 0.7rem; margin-top: auto; padding-top: 2rem; }
+  .dos__lines i { height: 5px; border-radius: 3px; background: var(--rule); width: 92%; }
+  .dos__lines i:nth-child(2) { width: 84%; } .dos__lines i:nth-child(3) { width: 48%; }
+  @media (max-width: 960px) { .dos__head, .dos__pages { grid-column: 1 / -1; position: static; } .dos__pages { gap: 1.2rem; } .dos__page { position: relative; top: 0; min-height: 0; rotate: none; } }
+
+  .prog__list { border-top: 1px solid var(--rule-strong); }
+  .prog__list li { display: grid; grid-template-columns: 3rem 1fr auto; gap: 1rem; align-items: baseline; padding-block: 1.3rem; border-bottom: 1px solid var(--rule); }
+  .prog__name { font-size: clamp(1.4rem, 1.1rem + 1vw, 2.2rem); letter-spacing: -0.015em; line-height: 1.15; }
+  .prog__ev { color: var(--brass); }
+  @media (max-width: 640px) { .prog__list li { grid-template-columns: 2rem 1fr; } .prog__ev { grid-column: 2; } }
+
+  .who__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); }
+  .who__proof { grid-column: 1 / span 5; display: grid; gap: 1.2rem; align-content: start; }
+  .fiche-lg { background: #f3eee4; color: var(--ink); padding: 1.6rem; display: grid; gap: 0.9rem; border-radius: 2px; box-shadow: 0 30px 50px -28px rgba(0, 0, 0, 0.7); background-image: linear-gradient(transparent 0 64px, rgba(184, 116, 47, 0.35) 64px 65px, transparent 65px); }
+  .fiche-lg__top { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--ink-2); letter-spacing: 0.05em; }
+  .fiche-lg h3 { font-size: 2rem; line-height: 1.05; margin-top: 1.2rem; letter-spacing: -0.02em; }
+  .fiche-lg p { color: var(--ink-2); }
+  .who__list { grid-column: 7 / -1; display: grid; gap: 1.2rem; align-content: start; }
+  .who__list > ul > li { display: flex; gap: 1.2rem; padding-block: 1.4rem; border-top: 1px solid var(--line); }
+  .who__sub { display: grid; gap: 0.3rem; margin-top: 0.7rem; color: var(--fg-2); }
+  .who__sub li::before { content: '— '; color: var(--brass-2); }
+  @media (max-width: 960px) { .who__proof, .who__list { grid-column: 1 / -1; } }
+
+  .items__list { columns: 2; column-gap: var(--col-gap); margin-top: 1.6rem; border-top: 1px solid var(--rule-strong); }
+  .items__list li { break-inside: avoid; padding-block: 0.9rem; border-bottom: 1px solid var(--rule); color: var(--ink-2); }
+  @media (max-width: 760px) { .items__list { columns: 1; } }
+</style>

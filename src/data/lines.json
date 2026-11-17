@@ -1,0 +1,3601 @@
+[
+  {
+    "slug": "hayvancilik-yemi",
+    "order": 1,
+    "category": "feed",
+    "name": {
+      "tr": "Hayvancılık sanayi yemleri üretim makineleri hattı",
+      "en": "Animal husbandry industry food production machinery line",
+      "ar": "خط آلات إنتاج أعلاف الثروة الحيوانية"
+    },
+    "shortName": {
+      "tr": "Hayvancılık sanayi yemleri",
+      "en": "Livestock feed",
+      "ar": "أعلاف الثروة الحيوانية"
+    },
+    "short": {
+      "tr": "Türe, yaşa ve besin ihtiyacına göre hazırlanan rasyonları karıştırmadan kaplamaya kadar pelet yeme dönüştüren ekstrüzyon hattı.",
+      "en": "An extrusion line that turns rations prepared for species, age and nutrient needs into pellet feed, from mixing to coating.",
+      "ar": "خط بثق يحوّل العلائق المُعدّة وفق النوع والعمر والاحتياجات الغذائية إلى أعلاف محببة، من الخلط حتى التغليف."
+    },
+    "description": [
+      {
+        "tr": "Hayvancılık sanayisinde kullanılan pelet yemler türlere, yaşa, cinsiyete, içerdiği besin maddelerine ve boyutlarına göre oldukça çeşitlilik gösterir. Türe özgü mineral ve besin ihtiyaçları gözetilerek özel rasyonlar hazırlanır.",
+        "en": "Pellet feeds used in the livestock industry vary considerably by species, age, sex, nutrient content and size. Special rations are prepared with species-specific mineral and nutrient requirements in mind.",
+        "ar": "تتنوع الأعلاف المحببة المستخدمة في قطاع الثروة الحيوانية تنوعًا كبيرًا بحسب النوع والعمر والجنس والمحتوى الغذائي والحجم. وتُعدّ علائق خاصة مع مراعاة الاحتياجات المعدنية والغذائية لكل نوع."
+      },
+      {
+        "tr": "Bütün içerikler mikserde bir araya getirilir. Kuru içerikler öğütüldükten sonra nemli içeriklerle karıştırılır. Karışım, ekstrüder beslemeden önce ısıtılır. Ekstrüderde, karışım açık uca doğru ilerlerken yoğun sıcaklık ve basınç altında şekil verilip kesilerek pişirilir. Yemler çok geçişli kurutucu içinde nem kabuk oluşumu için uygun seviyeye gelene kadar kurutulur. Yemler, daha sonra hayvansal yağ ve vitaminlerin uygulandığı kaplama tamburuna geçer.",
+        "en": "All ingredients are brought together in a mixer. Dry ingredients are ground before being mixed with wet ingredients. The mixture is heated before it is fed into the extruder. In the extruder the mixture is shaped, cut and cooked under intense heat and pressure as it moves toward the open end. The feed is dried in a multi-pass dryer until its moisture reaches the right level. It then passes into a coating drum where animal fat and vitamins are applied.",
+        "ar": "تُجمع جميع المكونات في الخلاط. تُطحن المكونات الجافة قبل خلطها بالمكونات الرطبة، ثم يُسخَّن الخليط قبل تغذيته إلى الباثقة. وفي الباثقة يُشكَّل الخليط ويُقطع ويُطهى تحت حرارة وضغط عاليين أثناء تقدمه نحو الطرف المفتوح. بعد ذلك يُجفَّف العلف في مجفف متعدد المراحل حتى تبلغ رطوبته المستوى المناسب، ثم ينتقل إلى أسطوانة التكسية حيث تُضاف إليه الدهون الحيوانية والفيتامينات."
+      }
+    ],
+    "components": [
+      {
+        "n": 1,
+        "name": {
+          "tr": "Karıştırıcı / mikser",
+          "en": "Mixer",
+          "ar": "خلاط"
+        },
+        "machineKey": "mixer"
+      },
+      {
+        "n": 2,
+        "name": {
+          "tr": "Helezonlu taşıyıcı",
+          "en": "Screw conveyor",
+          "ar": "ناقل لولبي"
+        },
+        "machineKey": "screw-conveyor"
+      },
+      {
+        "n": 3,
+        "name": {
+          "tr": "Çift vidalı ekstruder",
+          "en": "Double screw extruder",
+          "ar": "باثقة ثنائية اللولب"
+        },
+        "machineKey": "extruder",
+        "variant": "twin-screw"
+      },
+      {
+        "n": 4,
+        "name": {
+          "tr": "Havalı taşıyıcı",
+          "en": "Air conveyor",
+          "ar": "ناقل هوائي"
+        },
+        "machineKey": "pneumatic-conveyor"
+      },
+      {
+        "n": 5,
+        "name": {
+          "tr": "Kurutma fırını",
+          "en": "Dryer",
+          "ar": "مجفف"
+        },
+        "machineKey": "dryer"
+      },
+      {
+        "n": 6,
+        "name": {
+          "tr": "Tatlandırma makinesi",
+          "en": "Flavoring machine",
+          "ar": "آلة إضافة النكهات"
+        },
+        "machineKey": "flavoring"
+      },
+      {
+        "n": 7,
+        "name": {
+          "tr": "Soğutmalı taşıyıcı",
+          "en": "Cooling conveyor",
+          "ar": "ناقل تبريد"
+        },
+        "machineKey": "cooling-conveyor"
+      }
+    ],
+    "products": [],
+    "specs": {
+      "models": [
+        "SP65-III",
+        "SP70-II",
+        "SP85-II"
+      ],
+      "rows": [
+        {
+          "key": "voltage",
+          "label": {
+            "tr": "Giriş gerilimi",
+            "en": "Input voltage",
+            "ar": "جهد الدخل"
+          },
+          "values": [
+            "380 V / 50 Hz",
+            "380 V / 50 Hz",
+            "380 V / 50 Hz"
+          ]
+        },
+        {
+          "key": "installedPower",
+          "label": {
+            "tr": "Kurulu güç",
+            "en": "Installed power",
+            "ar": "القدرة المركّبة"
+          },
+          "values": [
+            "70 kW",
+            "90 kW",
+            "120 kW"
+          ]
+        },
+        {
+          "key": "consumption",
+          "label": {
+            "tr": "Güç tüketimi",
+            "en": "Power consumption",
+            "ar": "استهلاك الطاقة"
+          },
+          "values": [
+            "40 kW",
+            "50 kW",
+            "100 kW"
+          ]
+        },
+        {
+          "key": "capacity",
+          "label": {
+            "tr": "Üretim kapasitesi",
+            "en": "Production capacity",
+            "ar": "الطاقة الإنتاجية"
+          },
+          "values": [
+            {
+              "tr": "120–150 kg/saat",
+              "en": "120–150 kg/h",
+              "ar": "120–150 كغ/ساعة"
+            },
+            {
+              "tr": "200–250 kg/saat",
+              "en": "200–250 kg/h",
+              "ar": "200–250 كغ/ساعة"
+            },
+            {
+              "tr": "400–500 kg/saat",
+              "en": "400–500 kg/h",
+              "ar": "400–500 كغ/ساعة"
+            }
+          ]
+        },
+        {
+          "key": "dimensions",
+          "label": {
+            "tr": "Boyutlar (U × G × Y)",
+            "en": "Dimensions (L × W × H)",
+            "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+          },
+          "values": [
+            "22000 × 1200 × 2200 mm",
+            "24000 × 1500 × 2200 mm",
+            "28000 × 3500 × 4300 mm"
+          ]
+        }
+      ],
+      "data": [
+        {
+          "model": "SP65-III",
+          "installedPowerKw": 70,
+          "consumptionKw": 40,
+          "capacityKgH": {
+            "min": 120,
+            "max": 150
+          },
+          "dimensionsMm": {
+            "l": 22000,
+            "w": 1200,
+            "h": 2200
+          },
+          "voltage": "380 V / 50 Hz"
+        },
+        {
+          "model": "SP70-II",
+          "installedPowerKw": 90,
+          "consumptionKw": 50,
+          "capacityKgH": {
+            "min": 200,
+            "max": 250
+          },
+          "dimensionsMm": {
+            "l": 24000,
+            "w": 1500,
+            "h": 2200
+          },
+          "voltage": "380 V / 50 Hz"
+        },
+        {
+          "model": "SP85-II",
+          "installedPowerKw": 120,
+          "consumptionKw": 100,
+          "capacityKgH": {
+            "min": 400,
+            "max": 500
+          },
+          "dimensionsMm": {
+            "l": 28000,
+            "w": 3500,
+            "h": 4300
+          },
+          "voltage": "380 V / 50 Hz"
+        }
+      ]
+    },
+    "capacityRange": {
+      "min": 120,
+      "max": 500,
+      "unit": "kg/h"
+    },
+    "installedPowerRange": {
+      "min": 70,
+      "max": 120,
+      "unit": "kW"
+    },
+    "lineLengthRange": {
+      "min": 22000,
+      "max": 28000,
+      "unit": "mm"
+    },
+    "relatedMachines": [
+      "sp65-iii",
+      "sp70-ii",
+      "sp85-ii"
+    ],
+    "catalogPage": 10,
+    "notes": [
+      "EN katalogda bu hattın açıklaması olarak evcil hayvan maması metni (s.16 ile aynı) basılmış; İngilizce metin TR açıklamadan çevrildi.",
+      "Kapasite birimi katalogda 'kg/s'; EN katalog 'kg/h' yazdığı için saat olarak normalize edildi."
+    ]
+  },
+  {
+    "slug": "akvaryum-yemi",
+    "order": 2,
+    "category": "feed",
+    "name": {
+      "tr": "Akvaryum canlıları yemleri üretim makineleri hattı",
+      "en": "Aquatic feed production machinery line",
+      "ar": "خط آلات إنتاج أعلاف الأحياء المائية"
+    },
+    "shortName": {
+      "tr": "Akvaryum canlıları yemleri",
+      "en": "Aquarium feed",
+      "ar": "أعلاف أسماك الزينة"
+    },
+    "short": {
+      "tr": "Akvaryum ve süs balıkları için pul, pelet ve tablet formunda yem üretmeye yönelik çift vidalı ekstrüzyon hattı.",
+      "en": "A twin-screw extrusion line for flake, pellet and tablet feeds for aquarium and ornamental fish.",
+      "ar": "خط بثق ثنائي اللولب لإنتاج الأعلاف الرقائقية والمحببة والأقراص لأسماك الأحواض والزينة."
+    },
+    "description": [
+      {
+        "tr": "Balık yemleri, akvaryumlar ve balık çiftliklerindeki balıkların tüketimi için kullanılan bitkisel ve hayvansal içerikli yemlerdir. Balık yemleri, yetiştirilen balıkların sağlıklı kalması için makro besinler, eser elementler ve vitaminler içerir. Balık yemleri, uygun sindirim ve optimum sağlık koşullarını sağlayan özelleştirilmiş içerikli sindirim sistemi destekleyicileridir.",
+        "en": "Fish food is plant or animal material intended for fish kept in aquariums or ponds. Fish foods normally contain the macro nutrients, trace elements and vitamins needed to keep captive fish in good health, and are formulated with specialized ingredients to ensure proper digestion and optimum health.",
+        "ar": "غذاء الأسماك مادة نباتية أو حيوانية مخصصة للأسماك التي تُربّى في الأحواض أو البرك. ويحتوي عادةً على المغذيات الكبرى والعناصر النزرة والفيتامينات اللازمة للحفاظ على صحة الأسماك المستزرعة، ويُركَّب من مكونات متخصصة تضمن الهضم السليم والصحة المثلى."
+      },
+      {
+        "tr": "Hobi olarak balık besleyenlerin yaklaşık %80'i balıklarını özel hazırlanmış ve yaygın olarak pul, pelet ya da tablet şeklinde üretilmiş yemlerle beslemektedir. Çoğunluğu hızlı dibe çöken pelet formu, büyük balıklar ya da kedi balığı gibi dipte yaşayan canlılar için kullanılır. Bazı balık yemleri beta karoten ya da yapay olarak süs balıklarının renklerini artırmak için doğal katkı maddeleri içerir. Genellikle, balık yeminin nem içeriği ne kadar yüksek olursa kalitesindeki bozulma da o kadar hızlı olur.",
+        "en": "Approximately 80% of fishkeeping hobbyists feed their fish exclusively prepared foods, most commonly produced in flake, pellet or tablet form. Pellet forms, some of which sink rapidly, are often used for larger fish or bottom-feeding species such as loaches or catfish. Some fish foods also contain additives such as beta-carotene to enhance the colour of ornamental fish. Generally, the more moisture a fish food contains, the more readily it deteriorates in quality.",
+        "ar": "يعتمد نحو 80% من هواة تربية الأسماك على الأغذية الجاهزة حصرًا، وأكثرها شيوعًا الرقائق والحبيبات والأقراص. وتُستخدم الحبيبات، وبعضها سريع الغوص، غالبًا للأسماك الكبيرة أو الأنواع التي تتغذى في القاع مثل أسماك اللوتش والسلّور. كما تحتوي بعض أغذية الأسماك على إضافات مثل البيتا كاروتين لتعزيز ألوان أسماك الزينة. وبوجه عام، كلما زادت رطوبة غذاء الأسماك كان أسرع تدهورًا في جودته."
+      }
+    ],
+    "components": [
+      {
+        "n": 1,
+        "name": {
+          "tr": "Çift vidalı ekstruder",
+          "en": "Double screw extruder",
+          "ar": "باثقة ثنائية اللولب"
+        },
+        "machineKey": "extruder",
+        "variant": "twin-screw"
+      },
+      {
+        "n": 2,
+        "name": {
+          "tr": "Havalı taşıyıcı",
+          "en": "Air conveyor",
+          "ar": "ناقل هوائي"
+        },
+        "machineKey": "pneumatic-conveyor"
+      },
+      {
+        "n": 3,
+        "name": {
+          "tr": "Kurutma fırını",
+          "en": "Dryer",
+          "ar": "مجفف"
+        },
+        "machineKey": "dryer"
+      },
+      {
+        "n": 4,
+        "name": {
+          "tr": "Bantlı taşıyıcı",
+          "en": "Hoister conveyor",
+          "ar": "ناقل رافع"
+        },
+        "machineKey": "belt-conveyor"
+      },
+      {
+        "n": 5,
+        "name": {
+          "tr": "Tatlandırma makinesi",
+          "en": "Flavoring machine",
+          "ar": "آلة إضافة النكهات"
+        },
+        "machineKey": "flavoring"
+      },
+      {
+        "n": 6,
+        "name": {
+          "tr": "Bantlı taşıyıcı",
+          "en": "Hoister conveyor",
+          "ar": "ناقل رافع"
+        },
+        "machineKey": "belt-conveyor"
+      },
+      {
+        "n": 7,
+        "name": {
+          "tr": "Soğutucu makine",
+          "en": "Cooling machine",
+          "ar": "آلة تبريد"
+        },
+        "machineKey": "cooler"
+      }
+    ],
+    "products": [
+      {
+        "tr": "Pul yem",
+        "en": "Flakes",
+        "ar": "رقائق"
+      },
+      {
+        "tr": "Pelet yem (hızlı batan dahil)",
+        "en": "Pellets (incl. fast-sinking)",
+        "ar": "حبيبات (بما فيها سريعة الغوص)"
+      },
+      {
+        "tr": "Tablet yem",
+        "en": "Tablets",
+        "ar": "أقراص"
+      }
+    ],
+    "specs": {
+      "models": [
+        "SP65-III",
+        "SP70-II",
+        "SP85-II"
+      ],
+      "rows": [
+        {
+          "key": "installedPower",
+          "label": {
+            "tr": "Kurulu güç",
+            "en": "Installed power",
+            "ar": "القدرة المركّبة"
+          },
+          "values": [
+            "70 kW",
+            "90 kW",
+            "120 kW"
+          ]
+        },
+        {
+          "key": "consumption",
+          "label": {
+            "tr": "Güç tüketimi",
+            "en": "Power consumption",
+            "ar": "استهلاك الطاقة"
+          },
+          "values": [
+            "40 kW",
+            "50 kW",
+            "100 kW"
+          ]
+        },
+        {
+          "key": "capacity",
+          "label": {
+            "tr": "Üretim kapasitesi",
+            "en": "Production capacity",
+            "ar": "الطاقة الإنتاجية"
+          },
+          "values": [
+            {
+              "tr": "120–150 kg/saat",
+              "en": "120–150 kg/h",
+              "ar": "120–150 كغ/ساعة"
+            },
+            {
+              "tr": "200–250 kg/saat",
+              "en": "200–250 kg/h",
+              "ar": "200–250 كغ/ساعة"
+            },
+            {
+              "tr": "400–500 kg/saat",
+              "en": "400–500 kg/h",
+              "ar": "400–500 كغ/ساعة"
+            }
+          ]
+        },
+        {
+          "key": "dimensions",
+          "label": {
+            "tr": "Boyutlar (U × G × Y)",
+            "en": "Dimensions (L × W × H)",
+            "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+          },
+          "values": [
+            "22000 × 1200 × 2200 mm",
+            "24000 × 1500 × 2200 mm",
+            "28000 × 3500 × 4300 mm"
+          ]
+        }
+      ],
+      "data": [
+        {
+          "model": "SP65-III",
+          "installedPowerKw": 70,
+          "consumptionKw": 40,
+          "capacityKgH": {
+            "min": 120,
+            "max": 150
+          },
+          "dimensionsMm": {
+            "l": 22000,
+            "w": 1200,
+            "h": 2200
+          }
+        },
+        {
+          "model": "SP70-II",
+          "installedPowerKw": 90,
+          "consumptionKw": 50,
+          "capacityKgH": {
+            "min": 200,
+            "max": 250
+          },
+          "dimensionsMm": {
+            "l": 24000,
+            "w": 1500,
+            "h": 2200
+          }
+        },
+        {
+          "model": "SP85-II",
+          "installedPowerKw": 120,
+          "consumptionKw": 100,
+          "capacityKgH": {
+            "min": 400,
+            "max": 500
+          },
+          "dimensionsMm": {
+            "l": 28000,
+            "w": 3500,
+            "h": 4300
+          }
+        }
+      ]
+    },
+    "capacityRange": {
+      "min": 120,
+      "max": 500,
+      "unit": "kg/h"
+    },
+    "installedPowerRange": {
+      "min": 70,
+      "max": 120,
+      "unit": "kW"
+    },
+    "lineLengthRange": {
+      "min": 22000,
+      "max": 28000,
+      "unit": "mm"
+    },
+    "relatedMachines": [
+      "sp65-iii",
+      "sp70-ii",
+      "sp85-ii"
+    ],
+    "catalogPage": 12,
+    "notes": [
+      "Bu sayfada giriş gerilimi satırı yok (s.10 ve s.16'da var).",
+      "EN katalog metnindeki 'sex hormone' katkı ifadesi TR metinde yok ve hormon kullanımı mevzuatla sorunlu; EN metinden çıkarıldı."
+    ]
+  },
+  {
+    "slug": "kultur-baligi-yemi",
+    "order": 3,
+    "category": "feed",
+    "name": {
+      "tr": "Kültür balığı yemleri üretim makineleri hattı",
+      "en": "Aquaculture fish food production machinery line",
+      "ar": "خط آلات إنتاج أعلاف أسماك الاستزراع المائي"
+    },
+    "shortName": {
+      "tr": "Kültür balığı yemleri",
+      "en": "Aquaculture fish feed",
+      "ar": "أعلاف أسماك الاستزراع"
+    },
+    "short": {
+      "tr": "Deniz, tatlı ve acı su için yüzen, batan ve yavaş batan pelet yem üreten ekstrüzyon hattı.",
+      "en": "An extrusion line producing floating, sinking and slow-sinking pellet feed for marine, freshwater and brackish water.",
+      "ar": "خط بثق ينتج أعلافًا محببة طافية وغاطسة وبطيئة الغوص للمياه البحرية والعذبة والمويلحة."
+    },
+    "description": [
+      {
+        "tr": "Kültür balığı pelet yemleri çiftliklerdeki balıkların tüketmesi için kullanılan bitkisel ve hayvansal içerikli yemlerdir. Kültür balığı yemleri, yetiştirilen balıkların sağlıklı kalması için makro besinler, eser elementler ve vitaminler içerir. Kültür balığı yemleri, uygun sindirim ve optimum sağlık koşullarını sağlayan özelleştirilmiş içerikli sindirim sistemi destekleyicileridir.",
+        "en": "Aquaculture pellet feeds are plant- and animal-based feeds intended for fish on farms. They contain the macro nutrients, trace elements and vitamins farmed fish need to stay healthy, and are formulated with specialized ingredients to ensure proper digestion and optimum health.",
+        "ar": "الأعلاف المحببة للاستزراع المائي أعلاف نباتية وحيوانية مخصصة للأسماك في المزارع، تحتوي على المغذيات الكبرى والعناصر النزرة والفيتامينات التي تحتاجها الأسماك المستزرعة للحفاظ على صحتها، وتُركَّب من مكونات متخصصة تضمن الهضم السليم والصحة المثلى."
+      },
+      {
+        "tr": "Kültür balığı yemleri, farklı su ortamı (deniz suyu, tatlı su, acı su) özellikleri dikkate alınarak üretilen pelet formundaki yemlerdir. Bu yemler yüksek ekstrüzyon teknolojisi ile yüzen, batan ve yavaş batan özellikte üretilebilirler. Soğuk ve sıcak ekstrüzyon tekniği ile üretilebilen yemler istenilen kalite standartlarında oluşturulabilirler.",
+        "en": "Aquaculture fish feeds are produced in pellet form for specific habitat conditions (marine, freshwater, brackish water). Through high extrusion technology they can be produced as floating, sinking and slow-sinking feeds. Cold and hot extrusion techniques allow the feeds to be produced to the required quality standards.",
+        "ar": "تُنتج أعلاف أسماك الاستزراع على شكل حبيبات تناسب ظروف بيئية محددة (مياه بحرية، مياه عذبة، مياه مويلحة). وبفضل تقنيات البثق المتقدمة يمكن إنتاجها طافيةً أو غاطسةً أو بطيئة الغوص، كما تتيح تقنيات البثق البارد والساخن إنتاج الأعلاف وفق معايير الجودة المطلوبة."
+      }
+    ],
+    "components": [
+      {
+        "n": 1,
+        "name": {
+          "tr": "Çift vidalı ekstruder",
+          "en": "Double screw extruder",
+          "ar": "باثقة ثنائية اللولب"
+        },
+        "machineKey": "extruder",
+        "variant": "twin-screw"
+      },
+      {
+        "n": 2,
+        "name": {
+          "tr": "Havalı taşıyıcı",
+          "en": "Air conveyor",
+          "ar": "ناقل هوائي"
+        },
+        "machineKey": "pneumatic-conveyor"
+      },
+      {
+        "n": 3,
+        "name": {
+          "tr": "Kurutma fırını",
+          "en": "Dryer",
+          "ar": "مجفف"
+        },
+        "machineKey": "dryer"
+      },
+      {
+        "n": 4,
+        "name": {
+          "tr": "Soğutmalı taşıyıcı",
+          "en": "Cooling conveyor",
+          "ar": "ناقل تبريد"
+        },
+        "machineKey": "cooling-conveyor"
+      }
+    ],
+    "products": [
+      {
+        "tr": "Yüzen pelet yem",
+        "en": "Floating pellets",
+        "ar": "حبيبات طافية"
+      },
+      {
+        "tr": "Batan pelet yem",
+        "en": "Sinking pellets",
+        "ar": "حبيبات غاطسة"
+      },
+      {
+        "tr": "Yavaş batan pelet yem",
+        "en": "Slow-sinking pellets",
+        "ar": "حبيبات بطيئة الغوص"
+      },
+      {
+        "tr": "Deniz suyu, tatlı su ve acı su yemleri",
+        "en": "Feeds for marine, freshwater and brackish water",
+        "ar": "أعلاف للمياه البحرية والعذبة والمويلحة"
+      }
+    ],
+    "specs": {
+      "models": [
+        "SP65-III",
+        "SP70-II",
+        "SP85-II"
+      ],
+      "rows": [
+        {
+          "key": "installedPower",
+          "label": {
+            "tr": "Kurulu güç",
+            "en": "Installed power",
+            "ar": "القدرة المركّبة"
+          },
+          "values": [
+            "70 kW",
+            "90 kW",
+            "120 kW"
+          ]
+        },
+        {
+          "key": "consumption",
+          "label": {
+            "tr": "Güç tüketimi",
+            "en": "Power consumption",
+            "ar": "استهلاك الطاقة"
+          },
+          "values": [
+            "40 kW",
+            "50 kW",
+            "100 kW"
+          ]
+        },
+        {
+          "key": "capacity",
+          "label": {
+            "tr": "Üretim kapasitesi",
+            "en": "Production capacity",
+            "ar": "الطاقة الإنتاجية"
+          },
+          "values": [
+            {
+              "tr": "120–150 kg/saat",
+              "en": "120–150 kg/h",
+              "ar": "120–150 كغ/ساعة"
+            },
+            {
+              "tr": "200–250 kg/saat",
+              "en": "200–250 kg/h",
+              "ar": "200–250 كغ/ساعة"
+            },
+            {
+              "tr": "400–500 kg/saat",
+              "en": "400–500 kg/h",
+              "ar": "400–500 كغ/ساعة"
+            }
+          ]
+        },
+        {
+          "key": "dimensions",
+          "label": {
+            "tr": "Boyutlar (U × G × Y)",
+            "en": "Dimensions (L × W × H)",
+            "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+          },
+          "values": [
+            "22000 × 1200 × 2200 mm",
+            "24000 × 1500 × 2200 mm",
+            "28000 × 3500 × 4300 mm"
+          ]
+        }
+      ],
+      "data": [
+        {
+          "model": "SP65-III",
+          "installedPowerKw": 70,
+          "consumptionKw": 40,
+          "capacityKgH": {
+            "min": 120,
+            "max": 150
+          },
+          "dimensionsMm": {
+            "l": 22000,
+            "w": 1200,
+            "h": 2200
+          }
+        },
+        {
+          "model": "SP70-II",
+          "installedPowerKw": 90,
+          "consumptionKw": 50,
+          "capacityKgH": {
+            "min": 200,
+            "max": 250
+          },
+          "dimensionsMm": {
+            "l": 24000,
+            "w": 1500,
+            "h": 2200
+          }
+        },
+        {
+          "model": "SP85-II",
+          "installedPowerKw": 120,
+          "consumptionKw": 100,
+          "capacityKgH": {
+            "min": 400,
+            "max": 500
+          },
+          "dimensionsMm": {
+            "l": 28000,
+            "w": 3500,
+            "h": 4300
+          }
+        }
+      ]
+    },
+    "capacityRange": {
+      "min": 120,
+      "max": 500,
+      "unit": "kg/h"
+    },
+    "installedPowerRange": {
+      "min": 70,
+      "max": 120,
+      "unit": "kW"
+    },
+    "lineLengthRange": {
+      "min": 22000,
+      "max": 28000,
+      "unit": "mm"
+    },
+    "relatedMachines": [
+      "sp65-iii",
+      "sp70-ii",
+      "sp85-ii"
+    ],
+    "catalogPage": 14,
+    "notes": [
+      "EN katalogda ilk paragraf akvaryum yemi metninin tekrarı; İngilizce ilk paragraf TR metinle uyumlu olacak şekilde çevrildi.",
+      "Ayrıntılı üretim adımları için 64 numaralı blog yazısına (Akuakültür ekstrude yemlerinin üretimi) bakın."
+    ]
+  },
+  {
+    "slug": "evcil-hayvan-mamasi",
+    "order": 4,
+    "category": "pet",
+    "name": {
+      "tr": "Evcil hayvan mamaları üretim makineleri hattı",
+      "en": "Pet food production machinery line",
+      "ar": "خط آلات إنتاج أغذية الحيوانات الأليفة"
+    },
+    "shortName": {
+      "tr": "Evcil hayvan mamaları",
+      "en": "Pet food",
+      "ar": "أغذية الحيوانات الأليفة"
+    },
+    "short": {
+      "tr": "Et, tahıl, vitamin ve mineralleri karıştırıp pişiren, kurutan ve tatlandıran kedi-köpek maması ekstrüzyon hattı.",
+      "en": "A pet food extrusion line that mixes, cooks, dries and flavours meat, grain, vitamins and minerals.",
+      "ar": "خط بثق لأغذية الحيوانات الأليفة يخلط اللحوم والحبوب والفيتامينات والمعادن ويطهوها ويجففها ويضيف إليها النكهات."
+    },
+    "description": [
+      {
+        "tr": "Evcil hayvan mamaları, insan yiyeceklerine sağlık indeksi ve besleyici içerikler bakımından yakındır, hatta bazıları insan ihtiyaçlarından daha çok besin değeri ister. Evcil hayvan mamaları genellikle et, et ürünleri, tahıl, tahıl ürünü, vitamin ve mineraller içerir. Genellikle soya unu, mısır unu, bulgur gibi tahıllar ürünün kıvamını artırmak için kullanılırlar. Et diğer içeriklerle karıştırılır.",
+        "en": "Pet food is close to human food in terms of health index and nutritional ingredients; some pets require even more than humans. Pet food generally consists of meat, meat by-products, cereals, grain, vitamins and minerals. Grains such as soybean meal, corn meal, cracked wheat and barley are often used to improve the consistency of the products. The meat is mixed with the other ingredients.",
+        "ar": "تقترب أغذية الحيوانات الأليفة من غذاء الإنسان من حيث المؤشر الصحي والمكونات الغذائية، بل إن بعض الحيوانات الأليفة تحتاج إلى أكثر مما يحتاجه الإنسان. وتتكون هذه الأغذية عمومًا من اللحوم ومنتجاتها الثانوية والحبوب والفيتامينات والمعادن. وكثيرًا ما تُستخدم الحبوب مثل كسبة فول الصويا ودقيق الذرة والقمح المجروش والشعير لتحسين قوام المنتجات، ثم تُخلط اللحوم مع باقي المكونات."
+      },
+      {
+        "tr": "Bütün içerikler mikserde bir araya getirilir. Kuru içerikler öğütüldükten sonra nemli içeriklerle karıştırılır. Karışım, ekstrüder beslemeden önce ısıtılır. Ekstrüderde, karışım açık uca doğru ilerlerken yoğun sıcaklık ve basınç altında şekil verilip kesilerek pişirilir. Köpek maması, çok geçişli kurutucu içinde nem kabuk oluşumu için uygun seviyeye gelene kadar kurutulur. Köpek maması, hayvansal yağ ve vitaminlerin uygulandığı tatlandırma tamburuna geçer.",
+        "en": "Ingredients are brought together in a mixer. Dry ingredients are ground prior to mixing with wet ingredients. The mixed ingredients are heated in the pre-conditioner prior to feeding into the extruder. In the extruder, the ingredients are cooked under intense heat and pressure as they move toward the open end of the extruder, where they pass through a shaping die and knife. Dog food is dried in a multi-pass dryer until its moisture content is low enough to make it shelf-stable. Dog food may then pass through a coating drum where animal fat and vitamins are applied.",
+        "ar": "تُجمع المكونات في الخلاط، وتُطحن المكونات الجافة قبل خلطها بالمكونات الرطبة. ثم تُسخَّن المكونات المخلوطة في وحدة التكييف المسبق قبل تغذيتها إلى الباثقة. وفي الباثقة تُطهى المكونات تحت حرارة وضغط عاليين أثناء تقدمها نحو الطرف المفتوح، حيث تمر عبر قالب التشكيل والسكين. يُجفَّف غذاء الكلاب في مجفف متعدد المراحل حتى تنخفض رطوبته إلى حد يضمن ثباته على الرف، ثم يمكن تمريره عبر أسطوانة التكسية حيث تُضاف إليه الدهون الحيوانية والفيتامينات."
+      }
+    ],
+    "components": [
+      {
+        "n": 1,
+        "name": {
+          "tr": "Karıştırıcı / mikser",
+          "en": "Mixer",
+          "ar": "خلاط"
+        },
+        "machineKey": "mixer"
+      },
+      {
+        "n": 2,
+        "name": {
+          "tr": "Helezonlu taşıyıcı",
+          "en": "Screw conveyor",
+          "ar": "ناقل لولبي"
+        },
+        "machineKey": "screw-conveyor"
+      },
+      {
+        "n": 3,
+        "name": {
+          "tr": "Çift vidalı ekstruder",
+          "en": "Double screw extruder",
+          "ar": "باثقة ثنائية اللولب"
+        },
+        "machineKey": "extruder",
+        "variant": "twin-screw"
+      },
+      {
+        "n": 4,
+        "name": {
+          "tr": "Havalı taşıyıcı",
+          "en": "Air conveyor",
+          "ar": "ناقل هوائي"
+        },
+        "machineKey": "pneumatic-conveyor"
+      },
+      {
+        "n": 5,
+        "name": {
+          "tr": "Kurutma fırını",
+          "en": "Dryer",
+          "ar": "مجفف"
+        },
+        "machineKey": "dryer"
+      },
+      {
+        "n": 6,
+        "name": {
+          "tr": "Tatlandırma makinesi",
+          "en": "Flavoring machine",
+          "ar": "آلة إضافة النكهات"
+        },
+        "machineKey": "flavoring"
+      },
+      {
+        "n": 7,
+        "name": {
+          "tr": "Soğutmalı taşıyıcı",
+          "en": "Cooling conveyor",
+          "ar": "ناقل تبريد"
+        },
+        "machineKey": "cooling-conveyor"
+      }
+    ],
+    "products": [
+      {
+        "tr": "Kedi maması",
+        "en": "Cat food",
+        "ar": "غذاء القطط"
+      },
+      {
+        "tr": "Köpek maması",
+        "en": "Dog food",
+        "ar": "غذاء الكلاب"
+      }
+    ],
+    "specs": {
+      "models": [
+        "SP65-III",
+        "SP70-II",
+        "SP85-II"
+      ],
+      "rows": [
+        {
+          "key": "voltage",
+          "label": {
+            "tr": "Giriş gerilimi",
+            "en": "Input voltage",
+            "ar": "جهد الدخل"
+          },
+          "values": [
+            "380 V / 50 Hz",
+            "380 V / 50 Hz",
+            "380 V / 50 Hz"
+          ]
+        },
+        {
+          "key": "installedPower",
+          "label": {
+            "tr": "Kurulu güç",
+            "en": "Installed power",
+            "ar": "القدرة المركّبة"
+          },
+          "values": [
+            "70 kW",
+            "90 kW",
+            "120 kW"
+          ]
+        },
+        {
+          "key": "consumption",
+          "label": {
+            "tr": "Güç tüketimi",
+            "en": "Power consumption",
+            "ar": "استهلاك الطاقة"
+          },
+          "values": [
+            "40 kW",
+            "50 kW",
+            "100 kW"
+          ]
+        },
+        {
+          "key": "capacity",
+          "label": {
+            "tr": "Üretim kapasitesi",
+            "en": "Production capacity",
+            "ar": "الطاقة الإنتاجية"
+          },
+          "values": [
+            {
+              "tr": "120–150 kg/saat",
+              "en": "120–150 kg/h",
+              "ar": "120–150 كغ/ساعة"
+            },
+            {
+              "tr": "200–250 kg/saat",
+              "en": "200–250 kg/h",
+              "ar": "200–250 كغ/ساعة"
+            },
+            {
+              "tr": "400–500 kg/saat",
+              "en": "400–500 kg/h",
+              "ar": "400–500 كغ/ساعة"
+            }
+          ]
+        },
+        {
+          "key": "dimensions",
+          "label": {
+            "tr": "Boyutlar (U × G × Y)",
+            "en": "Dimensions (L × W × H)",
+            "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+          },
+          "values": [
+            "22000 × 1200 × 2200 mm",
+            "24000 × 1500 × 2200 mm",
+            "28000 × 3500 × 4300 mm"
+          ]
+        }
+      ],
+      "data": [
+        {
+          "model": "SP65-III",
+          "installedPowerKw": 70,
+          "consumptionKw": 40,
+          "capacityKgH": {
+            "min": 120,
+            "max": 150
+          },
+          "dimensionsMm": {
+            "l": 22000,
+            "w": 1200,
+            "h": 2200
+          },
+          "voltage": "380 V / 50 Hz"
+        },
+        {
+          "model": "SP70-II",
+          "installedPowerKw": 90,
+          "consumptionKw": 50,
+          "capacityKgH": {
+            "min": 200,
+            "max": 250
+          },
+          "dimensionsMm": {
+            "l": 24000,
+            "w": 1500,
+            "h": 2200
+          },
+          "voltage": "380 V / 50 Hz"
+        },
+        {
+          "model": "SP85-II",
+          "installedPowerKw": 120,
+          "consumptionKw": 100,
+          "capacityKgH": {
+            "min": 400,
+            "max": 500
+          },
+          "dimensionsMm": {
+            "l": 28000,
+            "w": 3500,
+            "h": 4300
+          },
+          "voltage": "380 V / 50 Hz"
+        }
+      ]
+    },
+    "capacityRange": {
+      "min": 120,
+      "max": 500,
+      "unit": "kg/h"
+    },
+    "installedPowerRange": {
+      "min": 70,
+      "max": 120,
+      "unit": "kW"
+    },
+    "lineLengthRange": {
+      "min": 22000,
+      "max": 28000,
+      "unit": "mm"
+    },
+    "relatedMachines": [
+      "sp65-iii",
+      "sp70-ii",
+      "sp85-ii"
+    ],
+    "catalogPage": 16,
+    "notes": [
+      "Teknik değerler s.10 (hayvancılık yemleri) ile birebir aynı."
+    ]
+  },
+  {
+    "slug": "evcil-hayvan-odul-mamasi",
+    "order": 5,
+    "category": "pet",
+    "name": {
+      "tr": "Evcil hayvan ödül ve çiğneme mamaları üretim makineleri hattı",
+      "en": "Pet treats, pet chew, twisted bi-color pet food production machinery line",
+      "ar": "خط آلات إنتاج مكافآت ومضغيات الحيوانات الأليفة والأغذية الملتوية ثنائية اللون"
+    },
+    "shortName": {
+      "tr": "Ödül ve çiğneme mamaları",
+      "en": "Pet treats and chews",
+      "ar": "مكافآت ومضغيات الحيوانات الأليفة"
+    },
+    "short": {
+      "tr": "Kıvrılmış, çift renkli ve içi dolu ödül ve çiğneme mamaları üreten tek vidalı ekstrüzyon hattı.",
+      "en": "A single-screw extrusion line for twisted, two-coloured and core-filled pet treats and chews.",
+      "ar": "خط بثق أحادي اللولب لإنتاج مكافآت ومضغيات الحيوانات الأليفة الملتوية وثنائية اللون والمحشوة."
+    },
+    "description": [
+      {
+        "tr": "Evcil hayvan ödül ve çiğneme mamaları hayvanların eğitiminde önemli bir yeri olan gıdalardır. Bu tür yemler köpekler için sadece protein, yağ, vitamin, takviye besinler sağlamaz, aynı zamanda köpeğin doğal gereksinimlerini de karşılar. Bu gereksinimler; temiz ağız, güçlü ve uzun ömürlü dişlerdir. Ürünler, kıvrılmış, çift renkli, içi dolu ve benzeri şekillerde üretilebilir.",
+        "en": "Pet treats take starch as the raw material in a scientific formulation and are extruded on a co-extruder; they can be made into many shapes such as stick, bone, bi-colour and bi-flavour. This kind of food not only provides protein, fat, vitamins and nutrition for dogs but also satisfies the dog's natural needs: strong teeth and a clean mouth. The products can be made in many shapes, such as twisted, two-coloured, core-filled and so on.",
+        "ar": "تعتمد مكافآت الحيوانات الأليفة على النشا مادةً خامًا ضمن تركيبة علمية، وتُبثق على باثقة مزدوجة (Co-extruder)، ويمكن تشكيلها بأشكال عديدة مثل العصي والعظام والمنتجات ثنائية اللون وثنائية النكهة. ولا يقتصر هذا النوع من الأغذية على تزويد الكلاب بالبروتين والدهون والفيتامينات والعناصر الغذائية، بل يلبي أيضًا احتياجاتها الطبيعية: أسنان قوية وفم نظيف. ويمكن إنتاجها بأشكال متعددة كالملتوية وثنائية اللون والمحشوة وغيرها."
+      }
+    ],
+    "components": [
+      {
+        "n": 1,
+        "name": {
+          "tr": "Karıştırıcı / mikser",
+          "en": "Mixer",
+          "ar": "خلاط"
+        },
+        "machineKey": "mixer"
+      },
+      {
+        "n": 2,
+        "name": {
+          "tr": "Helezonlu taşıyıcı",
+          "en": "Screw conveyor",
+          "ar": "ناقل لولبي"
+        },
+        "machineKey": "screw-conveyor"
+      },
+      {
+        "n": 3,
+        "name": {
+          "tr": "Tek vidalı ekstruder",
+          "en": "Single screw extruder",
+          "ar": "باثقة أحادية اللولب"
+        },
+        "machineKey": "extruder",
+        "variant": "single-screw"
+      },
+      {
+        "n": 4,
+        "name": {
+          "tr": "Soğutucu makine",
+          "en": "Cooling machine",
+          "ar": "آلة تبريد"
+        },
+        "machineKey": "cooler"
+      },
+      {
+        "n": 5,
+        "name": {
+          "tr": "Kesme makinesi",
+          "en": "Cutting machine",
+          "ar": "آلة القطع"
+        },
+        "machineKey": "cutter"
+      },
+      {
+        "n": 6,
+        "name": {
+          "tr": "Bantlı taşıyıcı",
+          "en": "Hoister conveyor",
+          "ar": "ناقل رافع"
+        },
+        "machineKey": "belt-conveyor"
+      },
+      {
+        "n": 7,
+        "name": {
+          "tr": "Kurutma fırını",
+          "en": "Dryer",
+          "ar": "مجفف"
+        },
+        "machineKey": "dryer"
+      }
+    ],
+    "products": [
+      {
+        "tr": "Kıvrılmış (burgu) çiğneme mamaları",
+        "en": "Twisted chews",
+        "ar": "مضغيات ملتوية"
+      },
+      {
+        "tr": "Çift renkli ürünler",
+        "en": "Two-coloured products",
+        "ar": "منتجات ثنائية اللون"
+      },
+      {
+        "tr": "İçi dolu ürünler",
+        "en": "Core-filled products",
+        "ar": "منتجات محشوة"
+      },
+      {
+        "tr": "Çubuk ve kemik şekilli ödüller",
+        "en": "Stick and bone shaped treats",
+        "ar": "مكافآت على شكل عصي وعظام"
+      }
+    ],
+    "specs": {
+      "models": [
+        "SP100"
+      ],
+      "rows": [
+        {
+          "key": "installedPower",
+          "label": {
+            "tr": "Kurulu güç",
+            "en": "Installed power",
+            "ar": "القدرة المركّبة"
+          },
+          "values": [
+            "90 kW"
+          ]
+        },
+        {
+          "key": "consumption",
+          "label": {
+            "tr": "Güç tüketimi",
+            "en": "Power consumption",
+            "ar": "استهلاك الطاقة"
+          },
+          "values": [
+            "63 kW"
+          ]
+        },
+        {
+          "key": "capacity",
+          "label": {
+            "tr": "Üretim kapasitesi",
+            "en": "Production capacity",
+            "ar": "الطاقة الإنتاجية"
+          },
+          "values": [
+            {
+              "tr": "60–100 kg/saat",
+              "en": "60–100 kg/h",
+              "ar": "60–100 كغ/ساعة"
+            }
+          ]
+        },
+        {
+          "key": "dimensions",
+          "label": {
+            "tr": "Boyutlar (U × G × Y)",
+            "en": "Dimensions (L × W × H)",
+            "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+          },
+          "values": [
+            "20000 × 2000 × 2000 mm"
+          ]
+        }
+      ],
+      "data": [
+        {
+          "model": "SP100",
+          "installedPowerKw": 90,
+          "consumptionKw": 63,
+          "capacityKgH": {
+            "min": 60,
+            "max": 100
+          },
+          "dimensionsMm": {
+            "l": 20000,
+            "w": 2000,
+            "h": 2000
+          }
+        }
+      ]
+    },
+    "capacityRange": {
+      "min": 60,
+      "max": 100,
+      "unit": "kg/h"
+    },
+    "installedPowerRange": {
+      "min": 90,
+      "max": 90,
+      "unit": "kW"
+    },
+    "lineLengthRange": {
+      "min": 20000,
+      "max": 20000,
+      "unit": "mm"
+    },
+    "relatedMachines": [
+      "sp100"
+    ],
+    "catalogPage": 18,
+    "notes": [
+      "'Çubuk ve kemik' şekilleri yalnız EN katalog metninde geçiyor."
+    ]
+  },
+  {
+    "slug": "ekstrude-cips-kraker",
+    "order": 6,
+    "category": "food",
+    "name": {
+      "tr": "Ekstrüde edilmiş cips ve kraker işleme makineleri hattı",
+      "en": "Extruded chips, snacks and cracker processing machinery line",
+      "ar": "خط آلات إنتاج الرقائق والوجبات الخفيفة والمقرمشات المبثوقة"
+    },
+    "shortName": {
+      "tr": "Ekstrüde cips ve kraker",
+      "en": "Extruded chips and crackers",
+      "ar": "رقائق ومقرمشات مبثوقة"
+    },
+    "short": {
+      "tr": "Buğday ve mısır unundan, yalnızca kalıp ve kesiciyi değiştirerek farklı şekillerde cips ve kraker üreten hat.",
+      "en": "A line that makes chips and crackers from wheat and corn flour in many shapes simply by changing the moulds and cutter.",
+      "ar": "خط ينتج الرقائق والمقرمشات من دقيق القمح والذرة بأشكال عديدة بمجرد تغيير القوالب والقاطع."
+    },
+    "description": [
+      {
+        "tr": "Cipsler ve krakerler ekstrüze edilip, kesilip, pişirilmiş, buğday ve mısır unundan yapılmış aperitif türleridir. Başlıca ham maddeler buğday unu, mısır unu, su, sebze yağları ve tuzdur. Pişirilip çeşnilendikten sonra, çocuklar ve yetişkinler arasında popüler olan çok çıtır üçgen veya diğer şekillerde cipsler elde edilir. Sadece kalıpları, şekil vermeyi ya da kesme makinesini değiştirerek çubuk, kare, tabaka, kaburga cipsi, elmas cipsi, dalgalı cips, yastık şekilli ve boru cipsler gibi çeşitli şekiller elde edilebilir. Tatları iştah açıcı ve yağsızdır.",
+        "en": "Chips and crackers are snacks made from wheat flour and corn flour, which are extruded, cut and then fried. The main raw materials are wheat flour, corn flour, water, vegetable oil and salt. After frying and flavouring, very crunchy triangle or other shaped chips are obtained, popular with both children and adults. Only by changing the moulds, shaping or cutting machine, the shapes can vary: sticks, square sheets, rib chips, diamond chips, wavy chips, pillow shapes, bugles and more. The taste is savoury and not greasy.",
+        "ar": "الرقائق والمقرمشات وجبات خفيفة مصنوعة من دقيق القمح ودقيق الذرة، تُبثق ثم تُقطع ثم تُقلى. وموادها الخام الرئيسية دقيق القمح ودقيق الذرة والماء والزيت النباتي والملح. وبعد القلي وإضافة النكهات نحصل على رقائق مثلثة أو بأشكال أخرى شديدة القرمشة يحبها الصغار والكبار. وبمجرد تغيير القوالب أو آلة التشكيل أو القطع تتنوع الأشكال: عصي، ومربعات، وشرائح، ورقائق مضلعة، ورقائق معينية، ورقائق متموجة، وأشكال الوسادة، والأقماع وغيرها. ومذاقها مالح لذيذ وغير دهني."
+      }
+    ],
+    "components": [
+      {
+        "n": 1,
+        "name": {
+          "tr": "Karıştırıcı / mikser",
+          "en": "Mixer",
+          "ar": "خلاط"
+        },
+        "machineKey": "mixer"
+      },
+      {
+        "n": 2,
+        "name": {
+          "tr": "Helezonlu taşıyıcı",
+          "en": "Screw conveyor",
+          "ar": "ناقل لولبي"
+        },
+        "machineKey": "screw-conveyor"
+      },
+      {
+        "n": 3,
+        "name": {
+          "tr": "Çift vidalı ekstruder",
+          "en": "Double screw extruder",
+          "ar": "باثقة ثنائية اللولب"
+        },
+        "machineKey": "extruder",
+        "variant": "twin-screw"
+      },
+      {
+        "n": 4,
+        "name": {
+          "tr": "Çekme ve kesme makinesi",
+          "en": "Pulling and cutting machine",
+          "ar": "آلة السحب والقطع"
+        },
+        "machineKey": "pulling-cutting"
+      },
+      {
+        "n": 5,
+        "name": {
+          "tr": "Otomatik kızartıcı",
+          "en": "Automatic fryer",
+          "ar": "مقلاة أوتوماتيكية"
+        },
+        "machineKey": "fryer"
+      },
+      {
+        "n": 6,
+        "name": {
+          "tr": "Tatlandırma makinesi",
+          "en": "Flavoring machine",
+          "ar": "آلة إضافة النكهات"
+        },
+        "machineKey": "flavoring"
+      }
+    ],
+    "products": [
+      {
+        "tr": "Üçgen cips",
+        "en": "Triangle chips",
+        "ar": "رقائق مثلثة"
+      },
+      {
+        "tr": "Çubuk",
+        "en": "Sticks",
+        "ar": "عصي"
+      },
+      {
+        "tr": "Kare",
+        "en": "Squares",
+        "ar": "مربعات"
+      },
+      {
+        "tr": "Tabaka",
+        "en": "Sheets",
+        "ar": "شرائح"
+      },
+      {
+        "tr": "Kaburga cipsi",
+        "en": "Rib chips",
+        "ar": "رقائق مضلعة"
+      },
+      {
+        "tr": "Elmas cipsi",
+        "en": "Diamond chips",
+        "ar": "رقائق معينية"
+      },
+      {
+        "tr": "Dalgalı cips",
+        "en": "Wavy chips",
+        "ar": "رقائق متموجة"
+      },
+      {
+        "tr": "Yastık şekilli cips",
+        "en": "Pillow shapes",
+        "ar": "أشكال الوسادة"
+      },
+      {
+        "tr": "Boru cips",
+        "en": "Tube chips",
+        "ar": "رقائق أنبوبية"
+      }
+    ],
+    "specs": {
+      "models": [
+        "SP65-III",
+        "SP70-II"
+      ],
+      "rows": [
+        {
+          "key": "installedPower",
+          "label": {
+            "tr": "Kurulu güç",
+            "en": "Installed power",
+            "ar": "القدرة المركّبة"
+          },
+          "values": [
+            "89 kW",
+            "106 kW"
+          ]
+        },
+        {
+          "key": "consumption",
+          "label": {
+            "tr": "Güç tüketimi",
+            "en": "Power consumption",
+            "ar": "استهلاك الطاقة"
+          },
+          "values": [
+            "58 kW",
+            "68 kW"
+          ]
+        },
+        {
+          "key": "capacity",
+          "label": {
+            "tr": "Üretim kapasitesi",
+            "en": "Production capacity",
+            "ar": "الطاقة الإنتاجية"
+          },
+          "values": [
+            {
+              "tr": "120–150 kg/saat",
+              "en": "120–150 kg/h",
+              "ar": "120–150 كغ/ساعة"
+            },
+            {
+              "tr": "180–240 kg/saat",
+              "en": "180–240 kg/h",
+              "ar": "180–240 كغ/ساعة"
+            }
+          ]
+        },
+        {
+          "key": "dimensions",
+          "label": {
+            "tr": "Boyutlar (U × G × Y)",
+            "en": "Dimensions (L × W × H)",
+            "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+          },
+          "values": [
+            "19000 × 1500 × 2200 mm",
+            "20000 × 1500 × 2200 mm"
+          ]
+        }
+      ],
+      "data": [
+        {
+          "model": "SP65-III",
+          "installedPowerKw": 89,
+          "consumptionKw": 58,
+          "capacityKgH": {
+            "min": 120,
+            "max": 150
+          },
+          "dimensionsMm": {
+            "l": 19000,
+            "w": 1500,
+            "h": 2200
+          }
+        },
+        {
+          "model": "SP70-II",
+          "installedPowerKw": 106,
+          "consumptionKw": 68,
+          "capacityKgH": {
+            "min": 180,
+            "max": 240
+          },
+          "dimensionsMm": {
+            "l": 20000,
+            "w": 1500,
+            "h": 2200
+          }
+        }
+      ]
+    },
+    "capacityRange": {
+      "min": 120,
+      "max": 240,
+      "unit": "kg/h"
+    },
+    "installedPowerRange": {
+      "min": 89,
+      "max": 106,
+      "unit": "kW"
+    },
+    "lineLengthRange": {
+      "min": 19000,
+      "max": 20000,
+      "unit": "mm"
+    },
+    "relatedMachines": [
+      "sp65-iii",
+      "sp70-ii"
+    ],
+    "catalogPage": 20,
+    "notes": [
+      "Katalog adında 'Ektrude' yazım hatası 'Ekstrüde' olarak düzeltildi.",
+      "Sayfada numarasız iki ek görsel var: 'Kalıplama makinesi' ve 'Kalıplar' (EN: 'Molding machine and patterns')."
+    ]
+  },
+  {
+    "slug": "misir-gevregi-kahvaltilik-tahil",
+    "order": 7,
+    "category": "food",
+    "name": {
+      "tr": "Mısır gevreği / kahvaltılık tahıl üretim makineleri hattı",
+      "en": "Corn flakes, breakfast cereal production machinery line",
+      "ar": "خط آلات إنتاج رقائق الذرة وحبوب الإفطار"
+    },
+    "shortName": {
+      "tr": "Mısır gevreği ve kahvaltılık tahıl",
+      "en": "Corn flakes and breakfast cereal",
+      "ar": "رقائق الذرة وحبوب الإفطار"
+    },
+    "short": {
+      "tr": "Karıştırma, ekstrüzyon, inceltme, kurutma ve şeker püskürtmeyi tek akışta tamamlayan 14 bileşenli tam otomatik kahvaltılık tahıl hattı.",
+      "en": "A fully automatic 14-component breakfast cereal line that completes mixing, extrusion, flaking, drying and sugar spraying in one flow.",
+      "ar": "خط أوتوماتيكي بالكامل لحبوب الإفطار مكوّن من 14 وحدة، يُنجز الخلط والبثق والتشريح والتجفيف ورش السكر في تدفق واحد."
+    },
+    "description": [
+      {
+        "tr": "Mısır gevrekleri iki vidalı ekstrüderle imal edilen, süt, kahve veya marşmelov ile servis edilen, aileler arasında çok popüler olan bir yiyecektir. Kahvaltılık mısır gevreği proses hattı ismi verilen mısır gevrekleri (kahvaltı tahılları) / çıtır pirinç makinası uluslararası gelişmiş ekstrüder teknolojisi baz alınarak geliştirilmiş ve üretilmiştir. Bu teknoloji, uluslararası gelişmiş seviyeye ulaşabilecek kalite ve performanstadır. Bu hat karıştırma, ekstrüzyon, kurutma, tatlandırma, paketleme işlerini tek seferde tamamen otomatik, kontrolü kolay olarak tamamlayabilir. Ham madde, mısır ve diğer tahıllardır; mısır belirlenmeli ve soyulmalıdır.",
+        "en": "Corn flakes are a popular breakfast cereal manufactured on a twin-screw extruder and served with milk, coffee or marshmallows; they are very popular among families. The corn flakes (breakfast cereal) / crispy rice machinery, named the corn flake breakfast processing line, is developed and manufactured on the basis of international advanced extruder technology, and its technical performance and quality can reach the international advanced level. The line consists of mixing, extrusion, flaking, drying, flavouring and packing, which can be finished in one pass; it is fully automatic and easy to operate. The raw material is corn and other grains; the corn should be selected and peeled.",
+        "ar": "رقائق الذرة من أشهر حبوب الإفطار، وتُصنع على باثقة ثنائية اللولب وتُقدَّم مع الحليب أو القهوة أو حلوى المارشميلو، وتحظى بشعبية كبيرة لدى العائلات. طُوِّر خط آلات رقائق الذرة (حبوب الإفطار) والأرز المقرمش، المعروف بخط معالجة رقائق الذرة للإفطار، وصُنِّع على أساس أحدث تقنيات البثق العالمية، ويضاهي أداؤه الفني وجودته المستوى العالمي المتقدم. يتكون الخط من مراحل الخلط والبثق والتشريح والتجفيف وإضافة النكهات والتعبئة التي يمكن إنجازها في مرور واحد، وهو أوتوماتيكي بالكامل وسهل التشغيل. والمادة الخام هي الذرة وغيرها من الحبوب، على أن تُنتقى الذرة وتُقشَّر."
+      }
+    ],
+    "components": [
+      {
+        "n": 1,
+        "name": {
+          "tr": "Karıştırıcı / mikser",
+          "en": "Mixer",
+          "ar": "خلاط"
+        },
+        "machineKey": "mixer"
+      },
+      {
+        "n": 2,
+        "name": {
+          "tr": "Helezonlu taşıyıcı",
+          "en": "Screw conveyor",
+          "ar": "ناقل لولبي"
+        },
+        "machineKey": "screw-conveyor"
+      },
+      {
+        "n": 3,
+        "name": {
+          "tr": "Çift vidalı ekstruder",
+          "en": "Double screw extruder",
+          "ar": "باثقة ثنائية اللولب"
+        },
+        "machineKey": "extruder",
+        "variant": "twin-screw"
+      },
+      {
+        "n": 4,
+        "name": {
+          "tr": "Titreşimli besleyici",
+          "en": "Vibrate feeder",
+          "ar": "مغذٍّ اهتزازي"
+        },
+        "machineKey": "vibrating-feeder"
+      },
+      {
+        "n": 5,
+        "name": {
+          "tr": "Havalı taşıyıcı",
+          "en": "Air conveyor",
+          "ar": "ناقل هوائي"
+        },
+        "machineKey": "pneumatic-conveyor"
+      },
+      {
+        "n": 6,
+        "name": {
+          "tr": "İnceltme makinesi",
+          "en": "Flaking machine",
+          "ar": "آلة التشريح (التسطيح)"
+        },
+        "machineKey": "flaking-machine"
+      },
+      {
+        "n": 7,
+        "name": {
+          "tr": "Havalı taşıyıcı",
+          "en": "Air conveyor",
+          "ar": "ناقل هوائي"
+        },
+        "machineKey": "pneumatic-conveyor"
+      },
+      {
+        "n": 8,
+        "name": {
+          "tr": "Kurutma fırını",
+          "en": "Dryer",
+          "ar": "مجفف"
+        },
+        "machineKey": "dryer"
+      },
+      {
+        "n": 9,
+        "name": {
+          "tr": "Bantlı taşıyıcı",
+          "en": "Hoister conveyor",
+          "ar": "ناقل رافع"
+        },
+        "machineKey": "belt-conveyor"
+      },
+      {
+        "n": 10,
+        "name": {
+          "tr": "Titreşimli besleyici",
+          "en": "Vibrate feeder",
+          "ar": "مغذٍّ اهتزازي"
+        },
+        "machineKey": "vibrating-feeder"
+      },
+      {
+        "n": 11,
+        "name": {
+          "tr": "Sıcak hava üflemeli kurutma fırını",
+          "en": "Hot air puffing dryer",
+          "ar": "مجفف نفخ بالهواء الساخن"
+        },
+        "machineKey": "dryer",
+        "variant": "hot-air-puffing"
+      },
+      {
+        "n": 12,
+        "name": {
+          "tr": "Şeker püskürtme hattı",
+          "en": "Sugar spraying line",
+          "ar": "خط رش السكر"
+        },
+        "machineKey": "sugar-sprayer"
+      },
+      {
+        "n": 13,
+        "name": {
+          "tr": "Kurutma fırını",
+          "en": "Dryer",
+          "ar": "مجفف"
+        },
+        "machineKey": "dryer"
+      },
+      {
+        "n": 14,
+        "name": {
+          "tr": "Soğutmalı taşıyıcı",
+          "en": "Cooling conveyor",
+          "ar": "ناقل تبريد"
+        },
+        "machineKey": "cooling-conveyor"
+      }
+    ],
+    "products": [
+      {
+        "tr": "Mısır gevreği",
+        "en": "Corn flakes",
+        "ar": "رقائق الذرة"
+      },
+      {
+        "tr": "Kahvaltılık tahıl",
+        "en": "Breakfast cereals",
+        "ar": "حبوب الإفطار"
+      },
+      {
+        "tr": "Çıtır pirinç",
+        "en": "Crispy rice",
+        "ar": "أرز مقرمش"
+      }
+    ],
+    "specs": {
+      "models": [
+        "SP65-III",
+        "SP70-II",
+        "SP85-II"
+      ],
+      "rows": [
+        {
+          "key": "installedPower",
+          "label": {
+            "tr": "Kurulu güç",
+            "en": "Installed power",
+            "ar": "القدرة المركّبة"
+          },
+          "values": [
+            "140 kW",
+            "160 kW",
+            "190 kW"
+          ]
+        },
+        {
+          "key": "consumption",
+          "label": {
+            "tr": "Güç tüketimi",
+            "en": "Power consumption",
+            "ar": "استهلاك الطاقة"
+          },
+          "values": [
+            "90 kW",
+            "120 kW",
+            "140 kW"
+          ]
+        },
+        {
+          "key": "capacity",
+          "label": {
+            "tr": "Üretim kapasitesi",
+            "en": "Production capacity",
+            "ar": "الطاقة الإنتاجية"
+          },
+          "values": [
+            {
+              "tr": "120–150 kg/saat",
+              "en": "120–150 kg/h",
+              "ar": "120–150 كغ/ساعة"
+            },
+            {
+              "tr": "180–240 kg/saat",
+              "en": "180–240 kg/h",
+              "ar": "180–240 كغ/ساعة"
+            },
+            {
+              "tr": "300–500 kg/saat",
+              "en": "300–500 kg/h",
+              "ar": "300–500 كغ/ساعة"
+            }
+          ]
+        },
+        {
+          "key": "dimensions",
+          "label": {
+            "tr": "Boyutlar (U × G × Y)",
+            "en": "Dimensions (L × W × H)",
+            "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+          },
+          "values": [
+            "39000 × 1200 × 2200 mm",
+            "41000 × 1500 × 2200 mm",
+            "43000 × 3500 × 4300 mm"
+          ]
+        }
+      ],
+      "data": [
+        {
+          "model": "SP65-III",
+          "installedPowerKw": 140,
+          "consumptionKw": 90,
+          "capacityKgH": {
+            "min": 120,
+            "max": 150
+          },
+          "dimensionsMm": {
+            "l": 39000,
+            "w": 1200,
+            "h": 2200
+          }
+        },
+        {
+          "model": "SP70-II",
+          "installedPowerKw": 160,
+          "consumptionKw": 120,
+          "capacityKgH": {
+            "min": 180,
+            "max": 240
+          },
+          "dimensionsMm": {
+            "l": 41000,
+            "w": 1500,
+            "h": 2200
+          }
+        },
+        {
+          "model": "SP85-II",
+          "installedPowerKw": 190,
+          "consumptionKw": 140,
+          "capacityKgH": {
+            "min": 300,
+            "max": 500
+          },
+          "dimensionsMm": {
+            "l": 43000,
+            "w": 3500,
+            "h": 4300
+          }
+        }
+      ]
+    },
+    "capacityRange": {
+      "min": 120,
+      "max": 500,
+      "unit": "kg/h"
+    },
+    "installedPowerRange": {
+      "min": 140,
+      "max": 190,
+      "unit": "kW"
+    },
+    "lineLengthRange": {
+      "min": 39000,
+      "max": 43000,
+      "unit": "mm"
+    },
+    "relatedMachines": [
+      "sp65-iii",
+      "sp70-ii",
+      "sp85-ii"
+    ],
+    "catalogPage": 22,
+    "notes": [
+      "SP85-II kapasitesi bu hatta 300–500 kg/saat; diğer SP85-II hatlarında 400–500 kg/saat.",
+      "TR metindeki 'süt kahve' ifadesi 'süt, kahve' olarak düzeltildi."
+    ]
+  },
+  {
+    "slug": "citir-atistirmalik",
+    "order": 8,
+    "category": "food",
+    "name": {
+      "tr": "Çıtır atıştırmalıklar üretim makineleri hattı",
+      "en": "Crispy snacks production machinery line",
+      "ar": "خط آلات إنتاج الوجبات الخفيفة المقرمشة"
+    },
+    "shortName": {
+      "tr": "Çıtır atıştırmalıklar",
+      "en": "Crispy snacks",
+      "ar": "وجبات خفيفة مقرمشة"
+    },
+    "short": {
+      "tr": "Mısır irmiğini döner başlı ekstruderde kıvrık forma sokup kızartan ve çeşnilendiren atıştırmalık hattı.",
+      "en": "A snack line that twists corn grits into curls on a rotary head extruder, then fries and seasons them.",
+      "ar": "خط وجبات خفيفة يلفّ جريش الذرة على شكل لفائف في باثقة ذات رأس دوّار، ثم يقليها ويتبّلها."
+    },
+    "description": [
+      {
+        "tr": "Çıtır atıştırmalıklar, özel ekstrüde edilmiş harika çıtır tatlardır. Bunlar özel ekstrüzyon prosesleriyle elde edilir. Proses eşsizdir çünkü her parça boyutuna ve çapına göre çeşitlendirilip ev yapımı etkisi verir. Mısır taneleri dikey bir karıştırıcı içinde su ile nemlendirilir ve döner başlı ekstrüdere beslenir. Mısır taneleri ekstrüderin içindeki pirinçten yapılmış iki döner plaka tarafından sıkılarak ve döndürülerek kıvrık yapı formuna girer.",
+        "en": "Crispy snacks are special extruded snacks, very crunchy and great in taste. They are made by a special extrusion process. The process is unique because every piece varies in length and diameter, giving a home-made effect. The corn grits are moistened with water in the vertical mixer and fed to the rotary head extruder. In the extruder, two rotary plates made of brass squeeze and twist the corn grits into curls.",
+        "ar": "الوجبات الخفيفة المقرمشة منتجات مبثوقة خاصة، شديدة القرمشة وطيبة المذاق، تُصنع بعملية بثق خاصة. وتتميز هذه العملية بأن كل قطعة تختلف في طولها وقطرها، مما يمنحها طابع المنتج المنزلي. يُرطَّب جريش الذرة بالماء في الخلاط العمودي ثم يُغذّى إلى الباثقة ذات الرأس الدوّار، حيث تقوم صفيحتان دوّارتان من النحاس الأصفر بضغط الجريش ولفّه على شكل لفائف."
+      },
+      {
+        "tr": "Kıvrılmış ürünler kalıba girer ve kesme bıçakları tarafından gereken boyuta getirilir. Kıvrılmış mısırlar pişirme yağının içinde kızartılır veya fırın içinde pişirilir, sonra konveyör yardımıyla kurutma tamburuna girer. Çeşniler yüzeye tadı geliştirmek için püskürtülür.",
+        "en": "The curls pass through the die and are cut by the cutting knives to the required length. The corn curls are fried in cooking oil or toasted in an oven and then conveyed into a continuous coating drum. The retention time is controlled by adjusting the angle of the drum to suit the required coating level and throughput, ensuring a full and even coating. Seasonings are sprayed on the surface to improve the taste.",
+        "ar": "تمر اللفائف عبر القالب وتقطعها سكاكين القطع بالطول المطلوب. ثم تُقلى لفائف الذرة في زيت الطهي أو تُحمَّص في فرن، وتُنقل بعد ذلك إلى أسطوانة تكسية مستمرة. ويُضبط زمن المكوث بتعديل زاوية الأسطوانة بما يناسب مستوى التكسية والإنتاجية المطلوبين، لضمان تكسية كاملة ومتجانسة. وتُرش التوابل على السطح لتحسين المذاق."
+      }
+    ],
+    "components": [
+      {
+        "n": 1,
+        "name": {
+          "tr": "Dikey karıştırıcı / mikser",
+          "en": "Vertical mixer",
+          "ar": "خلاط عمودي"
+        },
+        "machineKey": "mixer",
+        "variant": "vertical"
+      },
+      {
+        "n": 2,
+        "name": {
+          "tr": "Helezonlu taşıyıcı",
+          "en": "Screw conveyor",
+          "ar": "ناقل لولبي"
+        },
+        "machineKey": "screw-conveyor"
+      },
+      {
+        "n": 3,
+        "name": {
+          "tr": "Döner başlı ekstruder",
+          "en": "Rotary head extruder",
+          "ar": "باثقة ذات رأس دوّار"
+        },
+        "machineKey": "extruder",
+        "variant": "rotary-head"
+      },
+      {
+        "n": 4,
+        "name": {
+          "tr": "Bantlı taşıyıcı",
+          "en": "Hoister conveyor",
+          "ar": "ناقل رافع"
+        },
+        "machineKey": "belt-conveyor"
+      },
+      {
+        "n": 5,
+        "name": {
+          "tr": "Elek tamburu",
+          "en": "Tumble sifter",
+          "ar": "منخل أسطواني دوّار"
+        },
+        "machineKey": "tumble-sifter"
+      },
+      {
+        "n": 6,
+        "name": {
+          "tr": "Titreşimli besleyici",
+          "en": "Vibrate feeder",
+          "ar": "مغذٍّ اهتزازي"
+        },
+        "machineKey": "vibrating-feeder"
+      },
+      {
+        "n": 7,
+        "name": {
+          "tr": "Kontinu kızartıcı sistem",
+          "en": "Continuous fryer",
+          "ar": "مقلاة مستمرة"
+        },
+        "machineKey": "fryer",
+        "variant": "continuous"
+      },
+      {
+        "n": 8,
+        "name": {
+          "tr": "Titreşimli yağ alıcı makine",
+          "en": "Vibrate de-oil machine",
+          "ar": "آلة اهتزازية لإزالة الزيت"
+        },
+        "machineKey": "de-oiler"
+      },
+      {
+        "n": 9,
+        "name": {
+          "tr": "Tatlandırma hattı",
+          "en": "Flavoring line",
+          "ar": "خط إضافة النكهات"
+        },
+        "machineKey": "flavoring",
+        "variant": "line"
+      }
+    ],
+    "products": [
+      {
+        "tr": "Kıvrık mısır çerezi (curls)",
+        "en": "Corn curls",
+        "ar": "لفائف الذرة"
+      }
+    ],
+    "specs": {
+      "models": [
+        "SP76"
+      ],
+      "rows": [
+        {
+          "key": "installedPower",
+          "label": {
+            "tr": "Kurulu güç",
+            "en": "Installed power",
+            "ar": "القدرة المركّبة"
+          },
+          "values": [
+            "95 kW"
+          ]
+        },
+        {
+          "key": "consumption",
+          "label": {
+            "tr": "Güç tüketimi",
+            "en": "Power consumption",
+            "ar": "استهلاك الطاقة"
+          },
+          "values": [
+            "58 kW"
+          ]
+        },
+        {
+          "key": "capacity",
+          "label": {
+            "tr": "Üretim kapasitesi",
+            "en": "Production capacity",
+            "ar": "الطاقة الإنتاجية"
+          },
+          "values": [
+            {
+              "tr": "100–150 kg/saat",
+              "en": "100–150 kg/h",
+              "ar": "100–150 كغ/ساعة"
+            }
+          ]
+        },
+        {
+          "key": "dimensions",
+          "label": {
+            "tr": "Boyutlar (U × G × Y)",
+            "en": "Dimensions (L × W × H)",
+            "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+          },
+          "values": [
+            "16000 × 1100 × 2400 mm"
+          ]
+        }
+      ],
+      "data": [
+        {
+          "model": "SP76",
+          "installedPowerKw": 95,
+          "consumptionKw": 58,
+          "capacityKgH": {
+            "min": 100,
+            "max": 150
+          },
+          "dimensionsMm": {
+            "l": 16000,
+            "w": 1100,
+            "h": 2400
+          }
+        }
+      ]
+    },
+    "capacityRange": {
+      "min": 100,
+      "max": 150,
+      "unit": "kg/h"
+    },
+    "installedPowerRange": {
+      "min": 95,
+      "max": 95,
+      "unit": "kW"
+    },
+    "lineLengthRange": {
+      "min": 16000,
+      "max": 16000,
+      "unit": "mm"
+    },
+    "relatedMachines": [
+      "sp76"
+    ],
+    "catalogPage": 24,
+    "notes": [
+      "TR katalogdaki 'su ve Döner Başlı Ekstrüder ile nemlendirilir' ifadesi EN metne göre 'su ile nemlendirilir ve döner başlı ekstrüdere beslenir' olarak düzeltildi.",
+      "SP76 bu hatta 100–150 kg/saat; makine serisi tablosunda (s.42) SP76 150–200 kg/saat."
+    ]
+  },
+  {
+    "slug": "kizartilmis-halka-3d-pelet",
+    "order": 9,
+    "category": "food",
+    "name": {
+      "tr": "Kızartılmış halka, 3 boyutlu pelet işleme makineleri hattı",
+      "en": "Fried pellet, screw-shell shaped, 3D pellet processing machinery line",
+      "ar": "خط آلات معالجة الحبيبات المقلية والحلزونية والصدفية والحبيبات ثلاثية الأبعاد"
+    },
+    "shortName": {
+      "tr": "Kızartılmış halka ve 3D pelet",
+      "en": "Fried rings and 3D pellets",
+      "ar": "حلقات مقلية وحبيبات ثلاثية الأبعاد"
+    },
+    "short": {
+      "tr": "Nişasta ve undan deniz kabuğu, burgu ve tüp şekilli peletler üreten, kurutup kızartan tek vidalı hat.",
+      "en": "A single-screw line producing shell, spiral and tube shaped pellets from starch and flour, then drying and frying them.",
+      "ar": "خط أحادي اللولب ينتج حبيبات على شكل أصداف وحلزونات وأنابيب من النشا والدقيق، ثم يجففها ويقليها."
+    },
+    "description": [
+      {
+        "tr": "Ürünler tek vidalı ekstrüderle üretilir. Ham madde patates nişastası, mısır nişastası, buğday unu olabilir. Ekstrüzyon ve pişirme yoluyla deniz kabuğu, burgu, spiral, kare tüp, çember tüp gibi şekiller verilebilir. Kurutmadan sonra ürünlerin genişlemesi için kızartmak gerekir.",
+        "en": "The pellets are produced on a single-screw extruder. The raw material can be potato starch, corn starch, cassava starch, wheat flour, etc. Through extruding and cooking, the pellets can take different shapes such as shell, spiral, square tube and circle tube. After drying, the pellets need frying to expand.",
+        "ar": "تُنتج الحبيبات على باثقة أحادية اللولب، ويمكن أن تكون المادة الخام نشا البطاطس أو نشا الذرة أو نشا الكسافا أو دقيق القمح وغيرها. ومن خلال البثق والطهي يمكن أن تتخذ الحبيبات أشكالًا مختلفة مثل الصدفة والحلزون والأنبوب المربع والأنبوب الدائري. وبعد التجفيف تحتاج الحبيبات إلى القلي لكي تنتفخ."
+      }
+    ],
+    "components": [
+      {
+        "n": 1,
+        "name": {
+          "tr": "Karıştırıcı / mikser",
+          "en": "Mixer",
+          "ar": "خلاط"
+        },
+        "machineKey": "mixer"
+      },
+      {
+        "n": 2,
+        "name": {
+          "tr": "Helezonlu taşıyıcı",
+          "en": "Screw conveyor",
+          "ar": "ناقل لولبي"
+        },
+        "machineKey": "screw-conveyor"
+      },
+      {
+        "n": 3,
+        "name": {
+          "tr": "Tek vidalı ekstruder",
+          "en": "Single screw extruder",
+          "ar": "باثقة أحادية اللولب"
+        },
+        "machineKey": "extruder",
+        "variant": "single-screw"
+      },
+      {
+        "n": 4,
+        "name": {
+          "tr": "Çekme ve kesme makinesi",
+          "en": "Pulling and cutting machine",
+          "ar": "آلة السحب والقطع"
+        },
+        "machineKey": "pulling-cutting"
+      },
+      {
+        "n": 5,
+        "name": {
+          "tr": "Soğutucu makine",
+          "en": "Cooling machine",
+          "ar": "آلة تبريد"
+        },
+        "machineKey": "cooler"
+      },
+      {
+        "n": 6,
+        "name": {
+          "tr": "Sıcak havalı kurutucu",
+          "en": "Hot air dryer",
+          "ar": "مجفف بالهواء الساخن"
+        },
+        "machineKey": "dryer",
+        "variant": "hot-air"
+      },
+      {
+        "n": 7,
+        "name": {
+          "tr": "Otomatik kızartma makinesi",
+          "en": "Automatic fryer",
+          "ar": "مقلاة أوتوماتيكية"
+        },
+        "machineKey": "fryer"
+      },
+      {
+        "n": 8,
+        "name": {
+          "tr": "Tatlandırma makinesi",
+          "en": "Flavoring machine",
+          "ar": "آلة إضافة النكهات"
+        },
+        "machineKey": "flavoring"
+      }
+    ],
+    "products": [
+      {
+        "tr": "Deniz kabuğu",
+        "en": "Shells",
+        "ar": "أصداف"
+      },
+      {
+        "tr": "Burgu",
+        "en": "Screws",
+        "ar": "لوالب"
+      },
+      {
+        "tr": "Spiral",
+        "en": "Spirals",
+        "ar": "حلزونات"
+      },
+      {
+        "tr": "Kare tüp",
+        "en": "Square tubes",
+        "ar": "أنابيب مربعة"
+      },
+      {
+        "tr": "Çember tüp",
+        "en": "Circle tubes",
+        "ar": "أنابيب دائرية"
+      }
+    ],
+    "specs": {
+      "models": [
+        "SP100"
+      ],
+      "rows": [
+        {
+          "key": "installedPower",
+          "label": {
+            "tr": "Kurulu güç",
+            "en": "Installed power",
+            "ar": "القدرة المركّبة"
+          },
+          "values": [
+            "96 kW"
+          ]
+        },
+        {
+          "key": "consumption",
+          "label": {
+            "tr": "Güç tüketimi",
+            "en": "Power consumption",
+            "ar": "استهلاك الطاقة"
+          },
+          "values": [
+            "68 kW"
+          ]
+        },
+        {
+          "key": "capacity",
+          "label": {
+            "tr": "Üretim kapasitesi",
+            "en": "Production capacity",
+            "ar": "الطاقة الإنتاجية"
+          },
+          "values": [
+            {
+              "tr": "100–150 kg/saat",
+              "en": "100–150 kg/h",
+              "ar": "100–150 كغ/ساعة"
+            }
+          ]
+        },
+        {
+          "key": "dimensions",
+          "label": {
+            "tr": "Boyutlar (U × G × Y)",
+            "en": "Dimensions (L × W × H)",
+            "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+          },
+          "values": [
+            "25000 × 2000 × 2000 mm"
+          ]
+        }
+      ],
+      "data": [
+        {
+          "model": "SP100",
+          "installedPowerKw": 96,
+          "consumptionKw": 68,
+          "capacityKgH": {
+            "min": 100,
+            "max": 150
+          },
+          "dimensionsMm": {
+            "l": 25000,
+            "w": 2000,
+            "h": 2000
+          }
+        }
+      ]
+    },
+    "capacityRange": {
+      "min": 100,
+      "max": 150,
+      "unit": "kg/h"
+    },
+    "installedPowerRange": {
+      "min": 96,
+      "max": 96,
+      "unit": "kW"
+    },
+    "lineLengthRange": {
+      "min": 25000,
+      "max": 25000,
+      "unit": "mm"
+    },
+    "relatedMachines": [
+      "sp100"
+    ],
+    "catalogPage": 26,
+    "notes": [
+      "SP100 bu hatta 100–150 kg/saat; makine serisi tablosunda (s.42) SP100 60–100 kg/saat."
+    ]
+  },
+  {
+    "slug": "musli-tahil-bar",
+    "order": 10,
+    "category": "food",
+    "name": {
+      "tr": "Müsli / tahıl bar / çikolatalı yulaf şekerleri işleme makineleri hattı",
+      "en": "Muesli bar, cereal bar, chocolate oat candy processing machinery line",
+      "ar": "خط آلات معالجة ألواح الموسلي وألواح الحبوب وحلوى الشوفان بالشوكولاتة"
+    },
+    "shortName": {
+      "tr": "Müsli ve tahıl bar",
+      "en": "Muesli and cereal bars",
+      "ar": "ألواح الموسلي والحبوب"
+    },
+    "short": {
+      "tr": "Çikolata ve şekeri fıstık ve tahıllarla karıştırıp kalıplayan, PLC kontrollü paslanmaz çelik bar hattı.",
+      "en": "A PLC-controlled stainless steel line that mixes chocolate and sugar with nuts and grains and moulds them into bars.",
+      "ar": "خط من الفولاذ المقاوم للصدأ يعمل بنظام تحكم PLC، يخلط الشوكولاتة والسكر مع المكسرات والحبوب ويشكّلها في قوالب على هيئة ألواح."
+    },
+    "description": [
+      {
+        "tr": "Makine her çeşit şekeri ve çikolatayı fıstık ve tahıllarla karıştırarak üretebilir. Makine paslanmaz çelikten imal edilmiştir ve PLC tarafından kontrol edilir. SMC manyetik çubuksuz silindir özel parçaları gerekli yiyecek hijyenini sağlar. Mısırlı çikolata, çikolata şeker, mısır ve diğer malzemelerin karışma, kalıplanma, soğutma işlemleriyle elde edilir. Bu ürünler çubuk, top, kare gibi birçok şekilde olabilir.",
+        "en": "The machine can produce all kinds of candy by mixing chocolate with corn, peanuts and grains. The machine is made of stainless steel, controlled by PLC, with speed adjusted by inverter. SMC magnetic rodless cylinder special parts help it meet food hygiene requirements. Corn chocolate candy is made from corn and other materials through mixing, moulding and cooling. The candy can take many shapes: stick, pagoda, ball and square.",
+        "ar": "تستطيع الآلة إنتاج جميع أنواع الحلوى بخلط الشوكولاتة مع الذرة والفول السوداني والحبوب. وهي مصنوعة من الفولاذ المقاوم للصدأ، ويُتحكم بها بنظام PLC مع ضبط السرعة بواسطة محوّل تردد (إنفرتر). وتساعدها أجزاء الأسطوانة المغناطيسية عديمة الذراع من SMC على استيفاء متطلبات النظافة الغذائية. تُصنع حلوى الذرة بالشوكولاتة من الذرة ومواد أخرى عبر الخلط والقولبة والتبريد، ويمكن أن تتخذ أشكالًا عديدة: عصي، وأشكال الباغودا، وكرات، ومربعات."
+      }
+    ],
+    "components": [
+      {
+        "n": 1,
+        "name": {
+          "tr": "Bantlı taşıyıcı",
+          "en": "Hoister conveyor",
+          "ar": "ناقل رافع"
+        },
+        "machineKey": "belt-conveyor"
+      },
+      {
+        "n": 2,
+        "name": {
+          "tr": "Kalıplama makinesi",
+          "en": "Molding machine",
+          "ar": "آلة القولبة"
+        },
+        "machineKey": "molding-machine"
+      },
+      {
+        "n": 3,
+        "name": {
+          "tr": "Soğutmalı taşıyıcı",
+          "en": "Cooling conveyor",
+          "ar": "ناقل تبريد"
+        },
+        "machineKey": "cooling-conveyor"
+      }
+    ],
+    "products": [
+      {
+        "tr": "Çubuk",
+        "en": "Sticks",
+        "ar": "عصي"
+      },
+      {
+        "tr": "Top",
+        "en": "Balls",
+        "ar": "كرات"
+      },
+      {
+        "tr": "Kare",
+        "en": "Squares",
+        "ar": "مربعات"
+      }
+    ],
+    "specs": {
+      "models": [
+        "SP45-II"
+      ],
+      "rows": [
+        {
+          "key": "installedPower",
+          "label": {
+            "tr": "Kurulu güç",
+            "en": "Installed power",
+            "ar": "القدرة المركّبة"
+          },
+          "values": [
+            {
+              "tr": "6,5 kW",
+              "en": "6.5 kW",
+              "ar": "6.5 kW"
+            }
+          ]
+        },
+        {
+          "key": "consumption",
+          "label": {
+            "tr": "Güç tüketimi",
+            "en": "Power consumption",
+            "ar": "استهلاك الطاقة"
+          },
+          "values": [
+            {
+              "tr": "4,5 kW",
+              "en": "4.5 kW",
+              "ar": "4.5 kW"
+            }
+          ]
+        },
+        {
+          "key": "capacity",
+          "label": {
+            "tr": "Üretim kapasitesi",
+            "en": "Production capacity",
+            "ar": "الطاقة الإنتاجية"
+          },
+          "values": [
+            {
+              "tr": "300–400 kg/saat",
+              "en": "300–400 kg/h",
+              "ar": "300–400 كغ/ساعة"
+            }
+          ]
+        },
+        {
+          "key": "dimensions",
+          "label": {
+            "tr": "Boyutlar (U × G × Y)",
+            "en": "Dimensions (L × W × H)",
+            "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+          },
+          "values": [
+            "12000 × 900 × 1500 mm"
+          ]
+        }
+      ],
+      "data": [
+        {
+          "model": "SP45-II",
+          "installedPowerKw": 6.5,
+          "consumptionKw": 4.5,
+          "capacityKgH": {
+            "min": 300,
+            "max": 400
+          },
+          "dimensionsMm": {
+            "l": 12000,
+            "w": 900,
+            "h": 1500
+          }
+        }
+      ]
+    },
+    "capacityRange": {
+      "min": 300,
+      "max": 400,
+      "unit": "kg/h"
+    },
+    "installedPowerRange": {
+      "min": 6.5,
+      "max": 6.5,
+      "unit": "kW"
+    },
+    "lineLengthRange": {
+      "min": 12000,
+      "max": 12000,
+      "unit": "mm"
+    },
+    "relatedMachines": [],
+    "catalogPage": 28,
+    "notes": [
+      "Tuhaf değer: SP45-II için 6,5 kW kurulu güç ve 4,5 kW tüketime karşın 300–400 kg/saat kapasite yazılı. SP45-II katalogdaki ekstruder serilerinde yer almıyor; muhtemelen bir kalıplama/şekillendirme ünitesi. Müşteriyle teyit edilmeli.",
+      "'Pagoda' şekli yalnız EN metinde geçiyor."
+    ]
+  },
+  {
+    "slug": "pofidik-rulokat",
+    "order": 11,
+    "category": "food",
+    "name": {
+      "tr": "Pofidik-rulokat atıştırmalık çerez üretim makine hattı",
+      "en": "Core filling, puffed snacks production machinery line",
+      "ar": "خط آلات إنتاج الوجبات الخفيفة المنفوخة والمحشوة"
+    },
+    "shortName": {
+      "tr": "Pofidik ve rulokat çerezler",
+      "en": "Puffed and core-filled snacks",
+      "ar": "وجبات خفيفة منفوخة ومحشوة"
+    },
+    "short": {
+      "tr": "Ekstruder çıkışında iç dolgu ve şekillendirme yapan, kurutup çeşnilendiren şişirilmiş çerez hattı.",
+      "en": "A puffed snack line with core filling and shaping after the extruder, followed by drying and seasoning.",
+      "ar": "خط للوجبات الخفيفة المنفوخة مزوّد بوحدة حشو وتشكيل بعد الباثقة، تليها مرحلتا التجفيف والتتبيل."
+    },
+    "description": [
+      {
+        "tr": "Pofidik-rulokat atıştırmalıklar ekstra şekillendirici ve doldurma makinasına ihtiyaç duyarlar. Ürün, ekstruderden şekillendirici makineye roller (döndürücü) yardımıyla çok hızlı gelir ve 4 köşe şeklinde kesilir. Bugles, doritos, balık çerezler, dilim ekmek gibi ürünler için özel bir şekillendirme makinası mevcuttur.",
+        "en": "Core-filled snacks need an extra shaper and filling machine. The rope is led from the extruder to the downstream rollers of the shaper at a higher surface speed and cut into pillow shapes. Special shaper machines are available for different shapes, for example fish-shaped snacks, sliced bread, etc.",
+        "ar": "تحتاج الوجبات الخفيفة المحشوة إلى آلة تشكيل وآلة حشو إضافيتين. يُقاد الحبل الخارج من الباثقة إلى بكرات آلة التشكيل بسرعة سطحية أعلى، ويُقطع على شكل وسائد. وتتوفر آلات تشكيل خاصة لأشكال مختلفة، مثل الوجبات الخفيفة على شكل سمكة أو شريحة خبز وغيرها."
+      },
+      {
+        "tr": "Pofidik mısır makinaları mısır tanelerini ya da mısır ununu ham madde olarak kullanır. Küçük taneler suyun eklendiği malzeme mikserine konur ve ekstrüder siloyu besleyene kadar vidaya doğru ilerler. İstenilen şekilde ekstrüze edilmiş ürünler hızlıca ekstrüderden alınır. Ürün şekli, kalıp aralığı, ilerlemesi ve kesici yüzünün kombinasyonuna göre belirlenir. Proses sıcaklığı ekstrüderin her bölümündeki ısıtma ve soğutma sistemiyle hassas olarak düzenlenir.",
+        "en": "Cheese puffs / corn snack machines take corn grits or corn flour as raw material. The grits are put into the mixer where water is added, and then conveyed by screw conveyor to the extruder's feeding silo. The extruder quickly delivers the product in the desired shape. The product shape is determined by a combination of the die aperture, expansion and the die-face cutter. Processing temperatures are precisely regulated by individual heating and cooling systems in each section of the extruder barrel.",
+        "ar": "تعتمد آلات منفوخات الجبن / وجبات الذرة الخفيفة على جريش الذرة أو دقيق الذرة مادةً خامًا. يوضع الجريش في الخلاط ويُضاف إليه الماء، ثم يُنقل بواسطة ناقل لولبي إلى صومعة التغذية في الباثقة، التي تُخرج المنتج بسرعة بالشكل المطلوب. ويتحدد شكل المنتج بمزيج من فتحة القالب ودرجة التمدد وقاطع واجهة القالب. وتُضبط درجات حرارة المعالجة بدقة بواسطة أنظمة تسخين وتبريد مستقلة في كل قسم من أقسام أسطوانة الباثقة."
+      },
+      {
+        "tr": "Ekstrüzyondan sonra atıştırmalıklar pnömatik bir taşıyıcı ile çoklu geçişli kurutucuya taşınır. Kurutucudan çıkan atıştırmalık çerezler kaplama tamburuna devam eder ve çeşnilenir (un, tuz, yağ, peynir ve diğer baharatlar). Çeşnilendikten sonra, atıştırmalık çerezler otomatik dikey paketleme makinasına taşınır. Atıştırmalık çerezler burada tüketicinin isteğine göre 140 gr ve üzeri plastik paketlere doldurulur. Eğer tatlı tahıl isteniyorsa, ürün paketleme prosesinden önce sıvı şekerleme uygulaması için kaplama birimine girer.",
+        "en": "After extrusion the snacks are conveyed by a pneumatic conveyor into the multi-pass dryer. From the dryer the snacks fall into the continuous coating drum and receive the seasoning (flavours, salt, fat, cheese or other spices). After seasoning, the snack is conveyed to the automatic vertical packing machine and packed into pillow plastic bags of 140 g or more, according to the customer's request. If a sweetened cereal is desired, the product may enter a coating unit for a liquid confectionery application, followed by a final drying step before packaging.",
+        "ar": "بعد البثق تُنقل الوجبات الخفيفة بواسطة ناقل هوائي إلى المجفف متعدد المراحل، ومنه تسقط في أسطوانة التكسية المستمرة لتتلقى التتبيلة (نكهات، ملح، دهون، جبن أو توابل أخرى). وبعد التتبيل يُنقل المنتج إلى آلة التعبئة العمودية الأوتوماتيكية ويُعبأ في أكياس بلاستيكية وسادية بوزن 140 g أو أكثر حسب طلب العميل. وإذا كان المطلوب حبوبًا محلّاة، يمكن أن يدخل المنتج وحدة تكسية لإضافة طبقة سكرية سائلة، تليها مرحلة تجفيف نهائية قبل التعبئة."
+      }
+    ],
+    "components": [
+      {
+        "n": 1,
+        "name": {
+          "tr": "Karıştırıcı / mikser",
+          "en": "Mixer",
+          "ar": "خلاط"
+        },
+        "machineKey": "mixer"
+      },
+      {
+        "n": 2,
+        "name": {
+          "tr": "Helezonlu taşıyıcı",
+          "en": "Screw conveyor",
+          "ar": "ناقل لولبي"
+        },
+        "machineKey": "screw-conveyor"
+      },
+      {
+        "n": 3,
+        "name": {
+          "tr": "Çift vidalı ekstruder",
+          "en": "Double screw extruder",
+          "ar": "باثقة ثنائية اللولب"
+        },
+        "machineKey": "extruder",
+        "variant": "twin-screw"
+      },
+      {
+        "n": 4,
+        "name": {
+          "tr": "İç dolgu makinesi",
+          "en": "Core filler machine",
+          "ar": "آلة الحشو الداخلي"
+        },
+        "machineKey": "core-filler"
+      },
+      {
+        "n": 5,
+        "name": {
+          "tr": "Çok yönlü şekillendirici",
+          "en": "Multi-function shaper",
+          "ar": "آلة تشكيل متعددة الوظائف"
+        },
+        "machineKey": "shaper"
+      },
+      {
+        "n": 6,
+        "name": {
+          "tr": "Bantlı taşıyıcı",
+          "en": "Hoister conveyor",
+          "ar": "ناقل رافع"
+        },
+        "machineKey": "belt-conveyor"
+      },
+      {
+        "n": 7,
+        "name": {
+          "tr": "Kurutma fırını",
+          "en": "Dryer",
+          "ar": "مجفف"
+        },
+        "machineKey": "dryer"
+      },
+      {
+        "n": 8,
+        "name": {
+          "tr": "Tatlandırma makinesi",
+          "en": "Flavoring machine",
+          "ar": "آلة إضافة النكهات"
+        },
+        "machineKey": "flavoring"
+      }
+    ],
+    "products": [
+      {
+        "tr": "İçi dolu yastık çerezler",
+        "en": "Core-filled pillows",
+        "ar": "وسائد محشوة"
+      },
+      {
+        "tr": "Bugles",
+        "en": "Bugles",
+        "ar": "أقماع"
+      },
+      {
+        "tr": "Doritos tipi çerezler",
+        "en": "Doritos-style chips",
+        "ar": "رقائق على طراز دوريتوس"
+      },
+      {
+        "tr": "Balık şekilli çerezler",
+        "en": "Fish-shaped snacks",
+        "ar": "وجبات خفيفة على شكل سمكة"
+      },
+      {
+        "tr": "Dilim ekmek şekilli çerezler",
+        "en": "Slice-bread shaped snacks",
+        "ar": "وجبات خفيفة على شكل شريحة خبز"
+      },
+      {
+        "tr": "Peynirli mısır çerezi",
+        "en": "Cheese puffs",
+        "ar": "منفوخات الجبن"
+      }
+    ],
+    "specs": {
+      "models": [
+        "SP65-III",
+        "SP70-II"
+      ],
+      "rows": [
+        {
+          "key": "installedPower",
+          "label": {
+            "tr": "Kurulu güç",
+            "en": "Installed power",
+            "ar": "القدرة المركّبة"
+          },
+          "values": [
+            {
+              "tr": "75,5 kW",
+              "en": "75.5 kW",
+              "ar": "75.5 kW"
+            },
+            "100 kW"
+          ]
+        },
+        {
+          "key": "consumption",
+          "label": {
+            "tr": "Güç tüketimi",
+            "en": "Power consumption",
+            "ar": "استهلاك الطاقة"
+          },
+          "values": [
+            "45 kW",
+            "53 kW"
+          ]
+        },
+        {
+          "key": "capacity",
+          "label": {
+            "tr": "Üretim kapasitesi",
+            "en": "Production capacity",
+            "ar": "الطاقة الإنتاجية"
+          },
+          "values": [
+            {
+              "tr": "120–150 kg/saat",
+              "en": "120–150 kg/h",
+              "ar": "120–150 كغ/ساعة"
+            },
+            {
+              "tr": "180–240 kg/saat",
+              "en": "180–240 kg/h",
+              "ar": "180–240 كغ/ساعة"
+            }
+          ]
+        },
+        {
+          "key": "dimensions",
+          "label": {
+            "tr": "Boyutlar (U × G × Y)",
+            "en": "Dimensions (L × W × H)",
+            "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+          },
+          "values": [
+            "21000 × 1200 × 2200 mm",
+            "23000 × 1500 × 2200 mm"
+          ]
+        }
+      ],
+      "data": [
+        {
+          "model": "SP65-III",
+          "installedPowerKw": 75.5,
+          "consumptionKw": 45,
+          "capacityKgH": {
+            "min": 120,
+            "max": 150
+          },
+          "dimensionsMm": {
+            "l": 21000,
+            "w": 1200,
+            "h": 2200
+          }
+        },
+        {
+          "model": "SP70-II",
+          "installedPowerKw": 100,
+          "consumptionKw": 53,
+          "capacityKgH": {
+            "min": 180,
+            "max": 240
+          },
+          "dimensionsMm": {
+            "l": 23000,
+            "w": 1500,
+            "h": 2200
+          }
+        }
+      ]
+    },
+    "capacityRange": {
+      "min": 120,
+      "max": 240,
+      "unit": "kg/h"
+    },
+    "installedPowerRange": {
+      "min": 75.5,
+      "max": 100,
+      "unit": "kW"
+    },
+    "lineLengthRange": {
+      "min": 21000,
+      "max": 23000,
+      "unit": "mm"
+    },
+    "relatedMachines": [
+      "sp65-iii",
+      "sp70-ii"
+    ],
+    "catalogPage": 30,
+    "notes": []
+  },
+  {
+    "slug": "bebek-mamasi",
+    "order": 12,
+    "category": "food",
+    "name": {
+      "tr": "Bebek maması üretim makineleri hattı",
+      "en": "Baby food production machinery line",
+      "ar": "خط آلات إنتاج أغذية الأطفال"
+    },
+    "shortName": {
+      "tr": "Bebek maması",
+      "en": "Baby food",
+      "ar": "أغذية الأطفال"
+    },
+    "short": {
+      "tr": "Tahıl unlarından başlangıç maması ve özel karışım ürünler üreten, ekstrüzyon sonrası öğütme yapan hat.",
+      "en": "A line producing infant and special blend products from cereal flours, with milling after extrusion.",
+      "ar": "خط ينتج أغذية الرضّع ومنتجات الخلطات الخاصة من دقيق الحبوب، مع مرحلة طحن بعد البثق."
+    },
+    "description": [
+      {
+        "tr": "Bebek maması makinesi, başlangıç maması ve diğer özel karışım ürünlerin üretimi için kullanılır. Ham madde tahıl unu (mısır, buğday, pirinç, yulaf, soya vb.) içerir. Ham madde mikserin içine konularak karıştırılır ve ekstrüder beslenir. Ekstrüder; özel silindir kavrama silosu, besleme hunisiyle ekstrüzyon vidasını besleyen titreşimli dozlayıcı, ekstrüzyon mekanizması ve kesici, bağımsız elektrik paneliyle donatılmıştır.",
+        "en": "Baby food machinery is used to produce infant food and other instant flour products. The raw material consists of cereal flour (corn, wheat, rice, oat, soy, etc.). The raw material is put in the mixer, and the mixed ingredients are fed into the extruder feeder. The extruder is fitted with a special cylindrical holding silo, a vibratory doser with hopper to feed the extruding screw, the extrusion mechanism and cutter, and an independent electric panel.",
+        "ar": "تُستخدم آلات أغذية الأطفال لإنتاج أغذية الرضّع وغيرها من منتجات الدقيق سريعة التحضير. وتتكون المادة الخام من دقيق الحبوب (الذرة، القمح، الأرز، الشوفان، الصويا وغيرها). توضع المادة الخام في الخلاط، ثم تُغذّى المكونات المخلوطة إلى مغذّي الباثقة. وتُزوَّد الباثقة بصومعة احتجاز أسطوانية خاصة، ووحدة جرعات اهتزازية مع قمع لتغذية لولب البثق، وآلية البثق والقاطع، ولوحة كهربائية مستقلة."
+      },
+      {
+        "tr": "Ekstrüze edilen ürünler pnömatik taşıyıcıyla sürekli döner kurutucuya taşınır. Sürekli döner kurutucu, ürünün daha verimli ısınmasını sağlayan ve düşük elektrik gücü harcayan, brülörlü eşanjöre sahiptir.",
+        "en": "After extrusion the product is conveyed to the continuous rotary dryer by pneumatic conveyor. The continuous rotary dryer has a heat exchanger with gas burner that allows better heating of the product and is economical owing to the low electric power cost. The dried product is taken by the hoister to the mill's feeding silo, where it is ground by the friction of the hammers to obtain flour of the desired granulation. With a blender, a pre-mix of vitamins, minerals and milk can be added to make fortified blended foods. We have much experience in providing solutions for baby food, FBF, CSB, samaposha, etc.",
+        "ar": "بعد البثق يُنقل المنتج إلى المجفف الدوّار المستمر بواسطة ناقل هوائي. ويحتوي المجفف الدوّار المستمر على مبادل حراري بموقد غاز يتيح تسخينًا أفضل للمنتج، وهو اقتصادي بفضل انخفاض تكلفة الطاقة الكهربائية. ثم يأخذ الرافع المنتج المجفف إلى صومعة تغذية المطحنة، حيث يُطحن باحتكاك المطارق للحصول على دقيق بالحبيبات المطلوبة. وباستخدام خلاط يمكن إضافة خليط مسبق من الفيتامينات والمعادن والحليب لإنتاج أغذية مخلوطة مدعّمة. ولدينا خبرة واسعة في تقديم الحلول لأغذية الأطفال والأغذية المخلوطة المدعّمة (FBF) وخليط الذرة والصويا (CSB) والساماپوشا وغيرها."
+      }
+    ],
+    "components": [
+      {
+        "n": 1,
+        "name": {
+          "tr": "Karıştırıcı / mikser",
+          "en": "Mixer",
+          "ar": "خلاط"
+        },
+        "machineKey": "mixer"
+      },
+      {
+        "n": 2,
+        "name": {
+          "tr": "Helezonlu taşıyıcı",
+          "en": "Screw conveyor",
+          "ar": "ناقل لولبي"
+        },
+        "machineKey": "screw-conveyor"
+      },
+      {
+        "n": 3,
+        "name": {
+          "tr": "Çift vidalı ekstruder",
+          "en": "Double screw extruder",
+          "ar": "باثقة ثنائية اللولب"
+        },
+        "machineKey": "extruder",
+        "variant": "twin-screw"
+      },
+      {
+        "n": 4,
+        "name": {
+          "tr": "Havalı taşıyıcı",
+          "en": "Air conveyor",
+          "ar": "ناقل هوائي"
+        },
+        "machineKey": "pneumatic-conveyor"
+      },
+      {
+        "n": 5,
+        "name": {
+          "tr": "Kurutma fırını",
+          "en": "Dryer",
+          "ar": "مجفف"
+        },
+        "machineKey": "dryer"
+      },
+      {
+        "n": 6,
+        "name": {
+          "tr": "Bantlı taşıyıcı",
+          "en": "Hoister conveyor",
+          "ar": "ناقل رافع"
+        },
+        "machineKey": "belt-conveyor"
+      },
+      {
+        "n": 7,
+        "name": {
+          "tr": "Titreşimli elek",
+          "en": "Vibrating screen",
+          "ar": "غربال اهتزازي"
+        },
+        "machineKey": "vibrating-screen"
+      },
+      {
+        "n": 8,
+        "name": {
+          "tr": "Değirmen sistemi",
+          "en": "Milling system",
+          "ar": "نظام الطحن"
+        },
+        "machineKey": "mill"
+      }
+    ],
+    "products": [
+      {
+        "tr": "Başlangıç (bebek) maması",
+        "en": "Infant food",
+        "ar": "أغذية الرضّع"
+      },
+      {
+        "tr": "Hazır un ürünleri ve özel karışımlar",
+        "en": "Instant flour products and special blends",
+        "ar": "منتجات الدقيق سريعة التحضير والخلطات الخاصة"
+      }
+    ],
+    "specs": {
+      "models": [
+        "SP65-III",
+        "SP70-II",
+        "SP85-II"
+      ],
+      "rows": [
+        {
+          "key": "installedPower",
+          "label": {
+            "tr": "Kurulu güç",
+            "en": "Installed power",
+            "ar": "القدرة المركّبة"
+          },
+          "values": [
+            "103 kW",
+            "134 kW",
+            "200 kW"
+          ]
+        },
+        {
+          "key": "consumption",
+          "label": {
+            "tr": "Güç tüketimi",
+            "en": "Power consumption",
+            "ar": "استهلاك الطاقة"
+          },
+          "values": [
+            "76 kW",
+            "100 kW",
+            "153 kW"
+          ]
+        },
+        {
+          "key": "capacity",
+          "label": {
+            "tr": "Üretim kapasitesi",
+            "en": "Production capacity",
+            "ar": "الطاقة الإنتاجية"
+          },
+          "values": [
+            {
+              "tr": "120–150 kg/saat",
+              "en": "120–150 kg/h",
+              "ar": "120–150 كغ/ساعة"
+            },
+            {
+              "tr": "180–240 kg/saat",
+              "en": "180–240 kg/h",
+              "ar": "180–240 كغ/ساعة"
+            },
+            {
+              "tr": "400–500 kg/saat",
+              "en": "400–500 kg/h",
+              "ar": "400–500 كغ/ساعة"
+            }
+          ]
+        },
+        {
+          "key": "dimensions",
+          "label": {
+            "tr": "Boyutlar (U × G × Y)",
+            "en": "Dimensions (L × W × H)",
+            "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+          },
+          "values": [
+            "19000 × 1200 × 2200 mm",
+            "21000 × 1500 × 2200 mm",
+            "30000 × 3500 × 4300 mm"
+          ]
+        }
+      ],
+      "data": [
+        {
+          "model": "SP65-III",
+          "installedPowerKw": 103,
+          "consumptionKw": 76,
+          "capacityKgH": {
+            "min": 120,
+            "max": 150
+          },
+          "dimensionsMm": {
+            "l": 19000,
+            "w": 1200,
+            "h": 2200
+          }
+        },
+        {
+          "model": "SP70-II",
+          "installedPowerKw": 134,
+          "consumptionKw": 100,
+          "capacityKgH": {
+            "min": 180,
+            "max": 240
+          },
+          "dimensionsMm": {
+            "l": 21000,
+            "w": 1500,
+            "h": 2200
+          }
+        },
+        {
+          "model": "SP85-II",
+          "installedPowerKw": 200,
+          "consumptionKw": 153,
+          "capacityKgH": {
+            "min": 400,
+            "max": 500
+          },
+          "dimensionsMm": {
+            "l": 30000,
+            "w": 3500,
+            "h": 4300
+          }
+        }
+      ]
+    },
+    "capacityRange": {
+      "min": 120,
+      "max": 500,
+      "unit": "kg/h"
+    },
+    "installedPowerRange": {
+      "min": 103,
+      "max": 200,
+      "unit": "kW"
+    },
+    "lineLengthRange": {
+      "min": 19000,
+      "max": 30000,
+      "unit": "mm"
+    },
+    "relatedMachines": [
+      "sp65-iii",
+      "sp70-ii",
+      "sp85-ii"
+    ],
+    "catalogPage": 32,
+    "notes": [
+      "TR katalogdaki bozuk 'bekli eşanjöre' ifadesi EN metne ('heat exchanger with gas burner') göre 'brülörlü eşanjöre' olarak düzeltildi; teyit edilmeli.",
+      "EN metin TR'den uzun: öğütme, vitamin-mineral ön karışımı ve FBF/CSB/samaposha deneyimi yalnız EN katalogda geçiyor."
+    ]
+  },
+  {
+    "slug": "jelatinize-modifiye-nisasta",
+    "order": 13,
+    "category": "food",
+    "name": {
+      "tr": "Jelatinize / modifiye edilmiş nişasta üretim makinesi hattı",
+      "en": "Pre-gelatinized starch, modified starch production machinery line",
+      "ar": "خط آلات إنتاج النشا المُجلتن مسبقًا والنشا المعدّل"
+    },
+    "shortName": {
+      "tr": "Jelatinize ve modifiye nişasta",
+      "en": "Pre-gelatinized and modified starch",
+      "ar": "النشا المُجلتن مسبقًا والمعدّل"
+    },
+    "short": {
+      "tr": "Sondaj, tekstil, kâğıt ve gıda sanayisi için ön jelatinize ve modifiye nişasta üreten ekstrüzyon hattı.",
+      "en": "An extrusion line producing pre-gelatinized and modified starch for drilling, textile, paper and food industries.",
+      "ar": "خط بثق ينتج النشا المُجلتن مسبقًا والنشا المعدّل لصناعات الحفر والنسيج والورق والأغذية."
+    },
+    "description": [
+      {
+        "tr": "Ön jelatinlenmiş veya modifiye edilmiş nişasta yapım makineleri, denatüre nişastalardan üretilebilir. Bu makinelerde üretilen jelatinize nişasta etkili ve ekonomik, su kaybı önleyici ajan olarak kullanılabilir. Çevresel olarak toksik atık oluşturmaz ve zehirsizdir, 100°C'de antibakteriyel özellik gösterir. Modifiye nişasta ince, düzgün, tok filtre keki üretebilir ve sürtünme azaltıcı yardımıyla daha hızlı penetrasyon oranlarıyla ilerler. Bu, bütün delme sıvı sistemlerinde kullanılabilir. Modifiye nişasta petrol sondajı, tekstil, kâğıt ve yiyecek endüstrisinde yaygın olarak kullanılır. Ayrıca bazı tahıl ürünleri bu sistemle üretilebilir.",
+        "en": "Pre-gelatinized starch / modified starch making machinery can produce denatured starch. Pre-gelatinized starch is an effective and economical fluid-loss agent in water-based drilling fluids. It does not undergo bacterial degradation at 120°C, and it is environmentally acceptable and non-toxic. Modified starch can produce a thin, slick, tough filter cake and promotes faster penetration rates with reduced friction. It can be used in all kinds of drilling fluid systems. Pre-gelatinized starch is also used to make products easier to dissolve during manufacture. Modified starch is widely used in the oil drilling, textile, paper and food industries.",
+        "ar": "تستطيع آلات تصنيع النشا المُجلتن مسبقًا / النشا المعدّل إنتاج النشا المحوَّر. والنشا المُجلتن مسبقًا عامل فعّال واقتصادي للحد من فقد السوائل في سوائل الحفر المائية؛ فهو لا يتعرض للتحلل البكتيري عند 120°C، كما أنه مقبول بيئيًا وغير سام. ويمكن للنشا المعدّل تكوين كعكة ترشيح رقيقة وملساء ومتينة، ويُسهم في تسريع معدلات الاختراق مع تقليل الاحتكاك، ويمكن استخدامه في جميع أنواع أنظمة سوائل الحفر. ويُستخدم النشا المُجلتن مسبقًا أيضًا لتسهيل ذوبان المنتجات أثناء التصنيع. ويُستخدم النشا المعدّل على نطاق واسع في صناعات حفر آبار النفط والنسيج والورق والأغذية."
+      }
+    ],
+    "components": [],
+    "products": [
+      {
+        "tr": "Ön jelatinize nişasta",
+        "en": "Pre-gelatinized starch",
+        "ar": "النشا المُجلتن مسبقًا"
+      },
+      {
+        "tr": "Modifiye nişasta",
+        "en": "Modified starch",
+        "ar": "النشا المعدّل"
+      },
+      {
+        "tr": "Bazı tahıl ürünleri",
+        "en": "Some cereal products",
+        "ar": "بعض منتجات الحبوب"
+      }
+    ],
+    "specs": {
+      "models": [
+        "SP85-II",
+        "SP130"
+      ],
+      "rows": [
+        {
+          "key": "installedPower",
+          "label": {
+            "tr": "Kurulu güç",
+            "en": "Installed power",
+            "ar": "القدرة المركّبة"
+          },
+          "values": [
+            "145 kW",
+            "145 kW"
+          ]
+        },
+        {
+          "key": "consumption",
+          "label": {
+            "tr": "Güç tüketimi",
+            "en": "Power consumption",
+            "ar": "استهلاك الطاقة"
+          },
+          "values": [
+            "100 kW",
+            "100 kW"
+          ]
+        },
+        {
+          "key": "capacity",
+          "label": {
+            "tr": "Üretim kapasitesi",
+            "en": "Production capacity",
+            "ar": "الطاقة الإنتاجية"
+          },
+          "values": [
+            {
+              "tr": "300–500 kg/saat",
+              "en": "300–500 kg/h",
+              "ar": "300–500 كغ/ساعة"
+            },
+            {
+              "tr": "400–600 kg/saat",
+              "en": "400–600 kg/h",
+              "ar": "400–600 كغ/ساعة"
+            }
+          ]
+        },
+        {
+          "key": "dimensions",
+          "label": {
+            "tr": "Boyutlar (U × G × Y)",
+            "en": "Dimensions (L × W × H)",
+            "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+          },
+          "values": [
+            "20000 × 2000 × 3500 mm",
+            "30000 × 3500 × 4500 mm"
+          ]
+        }
+      ],
+      "data": [
+        {
+          "model": "SP85-II",
+          "installedPowerKw": 145,
+          "consumptionKw": 100,
+          "capacityKgH": {
+            "min": 300,
+            "max": 500
+          },
+          "dimensionsMm": {
+            "l": 20000,
+            "w": 2000,
+            "h": 3500
+          }
+        },
+        {
+          "model": "SP130",
+          "installedPowerKw": 145,
+          "consumptionKw": 100,
+          "capacityKgH": {
+            "min": 400,
+            "max": 600
+          },
+          "dimensionsMm": {
+            "l": 30000,
+            "w": 3500,
+            "h": 4500
+          }
+        }
+      ]
+    },
+    "capacityRange": {
+      "min": 300,
+      "max": 600,
+      "unit": "kg/h"
+    },
+    "installedPowerRange": {
+      "min": 145,
+      "max": 145,
+      "unit": "kW"
+    },
+    "lineLengthRange": {
+      "min": 20000,
+      "max": 30000,
+      "unit": "mm"
+    },
+    "relatedMachines": [
+      "sp85-ii",
+      "sp130"
+    ],
+    "catalogPage": 34,
+    "notes": [
+      "Bu sayfada numaralı hat şeması yok; yalnız SP85-II çift vidalı ve SP130 tek vidalı ekstruder görselleri var (featuredMachines).",
+      "Sıcaklık tutarsızlığı: TR '100°C'de antibakteriyel özellik', EN '120°C'de bakteriyel bozunmaya uğramaz'.",
+      "SP85-II ve SP130 için kurulu güç ve tüketim değerleri birebir aynı (145/100 kW) yazılmış; teyit edilmeli."
+    ],
+    "featuredMachines": [
+      "sp85-ii",
+      "sp130"
+    ]
+  },
+  {
+    "slug": "yapay-pirinc",
+    "order": 14,
+    "category": "food",
+    "name": {
+      "tr": "Pirinç şekillendirme / yapay pirinç işleme makineleri hattı",
+      "en": "Reconstituted rice, artificial rice processing machinery line",
+      "ar": "خط آلات معالجة الأرز المعاد تكوينه والأرز الصناعي"
+    },
+    "shortName": {
+      "tr": "Pirinç şekillendirme ve yapay pirinç",
+      "en": "Reconstituted and artificial rice",
+      "ar": "الأرز المعاد تكوينه والأرز الصناعي"
+    },
+    "short": {
+      "tr": "Kırık pirinci çift vidalı ekstrüzyonla doğal pirinçten ayırt edilemeyen, istenirse zenginleştirilmiş yeni tanelere dönüştüren hat.",
+      "en": "A twin-screw line that turns broken rice into new grains indistinguishable from natural rice, optionally fortified.",
+      "ar": "خط ثنائي اللولب يحوّل كسر الأرز إلى حبوب جديدة لا يمكن تمييزها عن الأرز الطبيعي، مع إمكانية تدعيمها."
+    },
+    "description": [
+      {
+        "tr": "Kırık pirinçler sulandırılmış yüksek kaliteli pirinçler halini alır. İşlem görmüş kırık pirinçler iki vidalı ekstrüderde yüksek teknoloji gerektiren özel bir ürün olan pirinç çekirdeklerine dönüşür. Ekstrüzyon prosesi doğal üründen farksız yüksek kalite sulandırılmış pirinç üretmek için kullanılabilir. Öğütme, karıştırma, şartlandırma, ekstrüzyon ve kurutmadan eleme, depolama ve paketlemeye kadar; istenen ürün özelliklerine bağlı olarak ürüne özgü ekstrüzyon parametreleri müşteri tarafından belirlenebilir. Öğütülmüş kırık pirinçler, iki vidalı ekstrüzyon sistemi ile doğal pirinç gibi olağanüstü görünen yeni tanelere dönüşür. İsteğe göre, sulandırılmış pirinç vitamin ve minerallerle kuvvetlendirilebilir. Renk, form, boyut ve doku gibi önemli özelliklerin yanı sıra pişirme karakteristiği ve pişirme süresi de hassas olarak belirlenebilir.",
+        "en": "Turning broken rice into high-quality reconstituted rice: processing broken rice into grains with specific product characteristics requires state-of-the-art twin-screw extruder technology. Sunpring extrusion processes can be used to produce top-quality reconstituted rice indistinguishable from the natural product. Sunpring's competence covers every stage of fortified rice production: from grinding, blending, conditioning, extrusion and drying through to sifting, storage and packing. Depending on the desired product properties, the precise product-specific extrusion parameters can be determined by the customer. Ground broken rice is transformed in Sunpring's twin-screw extrusion systems into new grains whose appearance is remarkably like that of natural rice. As desired, the reconstituted rice can be fortified with vitamins and minerals. Important properties such as colour, form, size and texture, as well as cooking characteristics and cooking time, can be determined precisely.",
+        "ar": "تحويل كسر الأرز إلى أرز معاد تكوينه عالي الجودة: تتطلب معالجة كسر الأرز إلى حبوب ذات خصائص منتج محددة أحدث تقنيات الباثقات ثنائية اللولب. ويمكن استخدام عمليات البثق من Sunpring لإنتاج أرز معاد تكوينه فائق الجودة لا يمكن تمييزه عن المنتج الطبيعي. وتغطي خبرة Sunpring جميع مراحل إنتاج الأرز المدعّم: من الطحن والخلط والتكييف والبثق والتجفيف وصولًا إلى الغربلة والتخزين والتعبئة. وبحسب خصائص المنتج المرغوبة، يمكن للعميل تحديد معايير البثق الدقيقة الخاصة بكل منتج. يتحول كسر الأرز المطحون في أنظمة البثق ثنائية اللولب من Sunpring إلى حبوب جديدة يشبه مظهرها الأرز الطبيعي إلى حد لافت. ويمكن حسب الرغبة تدعيم الأرز المعاد تكوينه بالفيتامينات والمعادن، كما يمكن تحديد الخصائص المهمة مثل اللون والشكل والحجم والقوام، فضلًا عن خصائص الطهي ومدته، بدقة."
+      },
+      {
+        "tr": "Demirle güçlendirilmiş pirinç, mikronize öğütülmüş ferrik pirofosfat (MGFP) ile güçlendirilerek ekstrüze edilebilir ve çocuklarda demir depolarını büyütür. Bu, demir eksikliği anemisini azaltmak için etkili bir stratejidir.",
+        "en": "Iron-fortified rice extruded with micronized ground ferric pyrophosphate (MGFP) can increase iron stores in children. This is an effective strategy for reducing iron deficiency anaemia.",
+        "ar": "يمكن للأرز المدعّم بالحديد والمبثوق باستخدام بيروفوسفات الحديديك المطحون إلى جزيئات دقيقة (MGFP) أن يزيد مخزون الحديد لدى الأطفال، وهو استراتيجية فعّالة للحد من فقر الدم الناجم عن نقص الحديد."
+      }
+    ],
+    "components": [
+      {
+        "n": 1,
+        "name": {
+          "tr": "Karıştırıcı / mikser",
+          "en": "Mixer",
+          "ar": "خلاط"
+        },
+        "machineKey": "mixer"
+      },
+      {
+        "n": 2,
+        "name": {
+          "tr": "Helezonlu taşıyıcı",
+          "en": "Screw conveyor",
+          "ar": "ناقل لولبي"
+        },
+        "machineKey": "screw-conveyor"
+      },
+      {
+        "n": 3,
+        "name": {
+          "tr": "Çift vidalı ekstruder",
+          "en": "Double screw extruder",
+          "ar": "باثقة ثنائية اللولب"
+        },
+        "machineKey": "extruder",
+        "variant": "twin-screw"
+      },
+      {
+        "n": 4,
+        "name": {
+          "tr": "Titreşimli soğutma makinesi",
+          "en": "Vibratory cooling machine",
+          "ar": "آلة تبريد اهتزازية"
+        },
+        "machineKey": "cooler",
+        "variant": "vibratory"
+      },
+      {
+        "n": 5,
+        "name": {
+          "tr": "Havalı taşıyıcı",
+          "en": "Air conveyor",
+          "ar": "ناقل هوائي"
+        },
+        "machineKey": "pneumatic-conveyor"
+      },
+      {
+        "n": 6,
+        "name": {
+          "tr": "Kurutma fırını",
+          "en": "Dryer",
+          "ar": "مجفف"
+        },
+        "machineKey": "dryer"
+      },
+      {
+        "n": 7,
+        "name": {
+          "tr": "Soğutmalı taşıyıcı",
+          "en": "Cooling conveyor",
+          "ar": "ناقل تبريد"
+        },
+        "machineKey": "cooling-conveyor"
+      }
+    ],
+    "products": [
+      {
+        "tr": "Yapay (yeniden yapılandırılmış) pirinç",
+        "en": "Reconstituted rice",
+        "ar": "الأرز المعاد تكوينه"
+      },
+      {
+        "tr": "Vitamin ve mineralle zenginleştirilmiş pirinç",
+        "en": "Vitamin and mineral fortified rice",
+        "ar": "أرز مدعّم بالفيتامينات والمعادن"
+      },
+      {
+        "tr": "Demirle güçlendirilmiş pirinç (MGFP)",
+        "en": "Iron-fortified rice (MGFP)",
+        "ar": "أرز مدعّم بالحديد (MGFP)"
+      }
+    ],
+    "specs": {
+      "models": [
+        "SP65-III",
+        "SP70-II",
+        "SP85-II"
+      ],
+      "rows": [
+        {
+          "key": "installedPower",
+          "label": {
+            "tr": "Kurulu güç",
+            "en": "Installed power",
+            "ar": "القدرة المركّبة"
+          },
+          "values": [
+            {
+              "tr": "68,5 kW",
+              "en": "68.5 kW",
+              "ar": "68.5 kW"
+            },
+            {
+              "tr": "96,5 kW",
+              "en": "96.5 kW",
+              "ar": "96.5 kW"
+            },
+            "165 kW"
+          ]
+        },
+        {
+          "key": "consumption",
+          "label": {
+            "tr": "Güç tüketimi",
+            "en": "Power consumption",
+            "ar": "استهلاك الطاقة"
+          },
+          "values": [
+            "43 kW",
+            {
+              "tr": "60,5 kW",
+              "en": "60.5 kW",
+              "ar": "60.5 kW"
+            },
+            "103 kW"
+          ]
+        },
+        {
+          "key": "capacity",
+          "label": {
+            "tr": "Üretim kapasitesi",
+            "en": "Production capacity",
+            "ar": "الطاقة الإنتاجية"
+          },
+          "values": [
+            {
+              "tr": "120–150 kg/saat",
+              "en": "120–150 kg/h",
+              "ar": "120–150 كغ/ساعة"
+            },
+            {
+              "tr": "180–240 kg/saat",
+              "en": "180–240 kg/h",
+              "ar": "180–240 كغ/ساعة"
+            },
+            {
+              "tr": "300–400 kg/saat",
+              "en": "300–400 kg/h",
+              "ar": "300–400 كغ/ساعة"
+            }
+          ]
+        },
+        {
+          "key": "dimensions",
+          "label": {
+            "tr": "Boyutlar (U × G × Y)",
+            "en": "Dimensions (L × W × H)",
+            "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+          },
+          "values": [
+            "18000 × 1200 × 2200 mm",
+            "20000 × 1500 × 2200 mm",
+            "22000 × 3500 × 4300 mm"
+          ]
+        }
+      ],
+      "data": [
+        {
+          "model": "SP65-III",
+          "installedPowerKw": 68.5,
+          "consumptionKw": 43,
+          "capacityKgH": {
+            "min": 120,
+            "max": 150
+          },
+          "dimensionsMm": {
+            "l": 18000,
+            "w": 1200,
+            "h": 2200
+          }
+        },
+        {
+          "model": "SP70-II",
+          "installedPowerKw": 96.5,
+          "consumptionKw": 60.5,
+          "capacityKgH": {
+            "min": 180,
+            "max": 240
+          },
+          "dimensionsMm": {
+            "l": 20000,
+            "w": 1500,
+            "h": 2200
+          }
+        },
+        {
+          "model": "SP85-II",
+          "installedPowerKw": 165,
+          "consumptionKw": 103,
+          "capacityKgH": {
+            "min": 300,
+            "max": 400
+          },
+          "dimensionsMm": {
+            "l": 22000,
+            "w": 3500,
+            "h": 4300
+          }
+        }
+      ]
+    },
+    "capacityRange": {
+      "min": 120,
+      "max": 400,
+      "unit": "kg/h"
+    },
+    "installedPowerRange": {
+      "min": 68.5,
+      "max": 165,
+      "unit": "kW"
+    },
+    "lineLengthRange": {
+      "min": 18000,
+      "max": 22000,
+      "unit": "mm"
+    },
+    "relatedMachines": [
+      "sp65-iii",
+      "sp70-ii",
+      "sp85-ii"
+    ],
+    "catalogPage": 36,
+    "notes": [
+      "EN katalog bu hatta Sunpring adını açıkça kullanıyor (Jinan Sunpring ortaklığının katalogdaki tek doğrudan izi).",
+      "TR katalogdaki bozuk cümle ('Taşlama, karıştırma, soğutma, ekstrüzyon ve kurutma yoluyla eleme...') EN metne göre yeniden kuruldu.",
+      "Demirle güçlendirilmiş pirinç paragrafı bir sağlık beyanı içeriyor (spirulina dışı, kaynak metin); yayın öncesi gözden geçirilmesi önerilir."
+    ]
+  },
+  {
+    "slug": "bitkisel-protein-dokusu",
+    "order": 15,
+    "category": "food",
+    "name": {
+      "tr": "Bitkisel protein dokusu / soya proteini / et benzeri dokuları işleme makineleri hattı",
+      "en": "TVP, TSP, meat analogue processing machinery line",
+      "ar": "خط آلات معالجة البروتين النباتي المُنسَّج (TVP) وبروتين الصويا المُنسَّج (TSP) وبدائل اللحوم"
+    },
+    "shortName": {
+      "tr": "Bitkisel protein dokusu",
+      "en": "Textured vegetable protein",
+      "ar": "البروتين النباتي المُنسَّج"
+    },
+    "short": {
+      "tr": "Yağsız soya unundan et benzeri dokulu soya proteini üreten çift vidalı ekstrüzyon hattı.",
+      "en": "A twin-screw extrusion line producing meat-like textured soy protein from defatted soy flour.",
+      "ar": "خط بثق ثنائي اللولب ينتج بروتين صويا مُنسَّجًا شبيهًا باللحم من دقيق الصويا منزوع الدهن."
+    },
+    "description": [
+      {
+        "tr": "Dokulu soya proteinleri soya fasulyesi yağının yan ürünü olan yağsız soya unundan elde edilir, bu sayede tedariki çok kolaydır. Ayrıca pişirmesi de hızlı olan soya proteini yağsız bitkisel protein kaynağıdır. Dokulu soya proteini oldukça kuru küçük sebze parçalarıyla ya da ince öğütülmüş formdan elde edilir. Soya proteini tatsızdır ancak rehidre edildiğinde istenilen tatlar eklenebilir, bu kusursuz protein içeriği kıymalı yiyecekler için iyi bir içeriktir. Çeşitli dokularda olması sayesinde çok yönlüdür ve birçok yiyeceğin yerini alabilir. Örneğin kırmızı biber, tako, vejetaryen burger ve çorbalar için uygundur.",
+        "en": "Textured soy protein comes from defatted soy flour, a by-product of soybean oil, so it is plentiful in supply. It is also quick to cook and a great source of vegetable protein without the fat. Textured soy protein comes in small dry chunks resembling dried vegetables, or in a finely ground form. It is flavourless, but when rehydrated you can add your own flavours, making it a great protein-filled addition to many dishes calling for ground meat. Because of its varying texture it is versatile and can take on the texture of many meats; for instance, it is excellent in chili, tacos, veggie burgers and soups.",
+        "ar": "يُستخلص بروتين الصويا المُنسَّج من دقيق الصويا منزوع الدهن، وهو منتج ثانوي لصناعة زيت فول الصويا، ولذلك يتوفر بكميات وفيرة. كما أنه سريع الطهي ومصدر ممتاز للبروتين النباتي الخالي من الدهون. ويأتي على شكل قطع جافة صغيرة تشبه الخضروات المجففة أو على شكل مطحون ناعم. وهو عديم النكهة، لكن يمكن إضافة النكهات المرغوبة إليه بعد إعادة ترطيبه، مما يجعله إضافة غنية بالبروتين للعديد من الأطباق التي تتطلب اللحم المفروم. وبفضل تنوع قوامه فهو متعدد الاستخدامات ويمكنه محاكاة قوام أنواع كثيرة من اللحوم؛ فهو مثالي مثلًا في أطباق التشيلي والتاكو والبرغر النباتي والحساء."
+      },
+      {
+        "tr": "Kas benzeri yapısıyla emiciliği yüksektir ve kolesterol içermez. Yüksek sıcaklıklarda değişik tatlarla veya yardımcı gıda ürünleriyle kaynatılabilir. Yahni ve çorbalardaki et yerine kullanıldığında, tadının farklı olduğunu söylemek oldukça zordur. Çünkü aynı ette olduğu gibi farklı soslarla marine edilebilir ve etin tadını kolaylıkla verebilir.",
+        "en": "With its muscle-like structure it has good absorbency and contains no cholesterol. It can be boiled at high temperature with different flavours, or added to meal products as stuffing. When it is used to replace meat in stews and soups, it is hard to tell the difference, and since it can be marinated in many of the same sauces as meat, it can take on many of meat's flavours.",
+        "ar": "يتمتع ببنية شبيهة بالألياف العضلية وقدرة جيدة على الامتصاص، ولا يحتوي على الكوليسترول. ويمكن غليه على درجات حرارة عالية مع نكهات مختلفة، أو إضافته إلى الوجبات حشوةً. وعند استخدامه بديلًا للحم في اليخنات والحساء يصعب تمييز الفرق، وبما أنه يمكن نقعه في كثير من الصلصات نفسها المستخدمة مع اللحوم، فإنه يكتسب الكثير من نكهاتها."
+      }
+    ],
+    "components": [
+      {
+        "n": 1,
+        "name": {
+          "tr": "Karıştırıcı / mikser",
+          "en": "Mixer",
+          "ar": "خلاط"
+        },
+        "machineKey": "mixer"
+      },
+      {
+        "n": 2,
+        "name": {
+          "tr": "Helezonlu taşıyıcı",
+          "en": "Screw conveyor",
+          "ar": "ناقل لولبي"
+        },
+        "machineKey": "screw-conveyor"
+      },
+      {
+        "n": 3,
+        "name": {
+          "tr": "Çift vidalı ekstruder",
+          "en": "Double screw extruder",
+          "ar": "باثقة ثنائية اللولب"
+        },
+        "machineKey": "extruder",
+        "variant": "twin-screw"
+      },
+      {
+        "n": 4,
+        "name": {
+          "tr": "Havalı taşıyıcı",
+          "en": "Air conveyor",
+          "ar": "ناقل هوائي"
+        },
+        "machineKey": "pneumatic-conveyor"
+      },
+      {
+        "n": 5,
+        "name": {
+          "tr": "Kurutma fırını",
+          "en": "Dryer",
+          "ar": "مجفف"
+        },
+        "machineKey": "dryer"
+      },
+      {
+        "n": 6,
+        "name": {
+          "tr": "Soğutmalı taşıyıcı",
+          "en": "Cooling conveyor",
+          "ar": "ناقل تبريد"
+        },
+        "machineKey": "cooling-conveyor"
+      }
+    ],
+    "products": [
+      {
+        "tr": "Dokulu soya proteini (TSP)",
+        "en": "Textured soy protein (TSP)",
+        "ar": "بروتين الصويا المُنسَّج (TSP)"
+      },
+      {
+        "tr": "Bitkisel protein dokusu (TVP)",
+        "en": "Textured vegetable protein (TVP)",
+        "ar": "البروتين النباتي المُنسَّج (TVP)"
+      },
+      {
+        "tr": "Et benzeri ürünler",
+        "en": "Meat analogues",
+        "ar": "بدائل اللحوم"
+      },
+      {
+        "tr": "İnce öğütülmüş (kıyma) form",
+        "en": "Finely ground form",
+        "ar": "شكل مطحون ناعم"
+      }
+    ],
+    "specs": {
+      "models": [
+        "SP65-IV",
+        "SP85-III"
+      ],
+      "rows": [
+        {
+          "key": "installedPower",
+          "label": {
+            "tr": "Kurulu güç",
+            "en": "Installed power",
+            "ar": "القدرة المركّبة"
+          },
+          "values": [
+            {
+              "tr": "68,5 kW",
+              "en": "68.5 kW",
+              "ar": "68.5 kW"
+            },
+            "165 kW"
+          ]
+        },
+        {
+          "key": "consumption",
+          "label": {
+            "tr": "Güç tüketimi",
+            "en": "Power consumption",
+            "ar": "استهلاك الطاقة"
+          },
+          "values": [
+            "43 kW",
+            "103 kW"
+          ]
+        },
+        {
+          "key": "capacity",
+          "label": {
+            "tr": "Üretim kapasitesi",
+            "en": "Production capacity",
+            "ar": "الطاقة الإنتاجية"
+          },
+          "values": [
+            {
+              "tr": "240–280 kg/saat",
+              "en": "240–280 kg/h",
+              "ar": "240–280 كغ/ساعة"
+            },
+            {
+              "tr": "400–500 kg/saat",
+              "en": "400–500 kg/h",
+              "ar": "400–500 كغ/ساعة"
+            }
+          ]
+        },
+        {
+          "key": "dimensions",
+          "label": {
+            "tr": "Boyutlar (U × G × Y)",
+            "en": "Dimensions (L × W × H)",
+            "ar": "الأبعاد (الطول × العرض × الارتفاع)"
+          },
+          "values": [
+            "18000 × 1200 × 2200 mm",
+            "22000 × 3500 × 4300 mm"
+          ]
+        }
+      ],
+      "data": [
+        {
+          "model": "SP65-IV",
+          "installedPowerKw": 68.5,
+          "consumptionKw": 43,
+          "capacityKgH": {
+            "min": 240,
+            "max": 280
+          },
+          "dimensionsMm": {
+            "l": 18000,
+            "w": 1200,
+            "h": 2200
+          }
+        },
+        {
+          "model": "SP85-III",
+          "installedPowerKw": 165,
+          "consumptionKw": 103,
+          "capacityKgH": {
+            "min": 400,
+            "max": 500
+          },
+          "dimensionsMm": {
+            "l": 22000,
+            "w": 3500,
+            "h": 4300
+          }
+        }
+      ]
+    },
+    "capacityRange": {
+      "min": 240,
+      "max": 500,
+      "unit": "kg/h"
+    },
+    "installedPowerRange": {
+      "min": 68.5,
+      "max": 165,
+      "unit": "kW"
+    },
+    "lineLengthRange": {
+      "min": 18000,
+      "max": 22000,
+      "unit": "mm"
+    },
+    "relatedMachines": [],
+    "catalogPage": 38,
+    "notes": [
+      "SP65-IV ve SP85-III modelleri yalnız bu sayfada geçiyor; makine serisi sayfalarında (s.40–42) yer almıyorlar.",
+      "SP65-IV'ün güç ve boyut değerleri yapay pirinç hattındaki SP65-III ile aynı ama kapasitesi (240–280 kg/saat) daha yüksek; teyit edilmeli.",
+      "TR katalogdaki bozuk 'Soya proteini, kaslarda, emilimi yüksektir ve kolestrolsüzdür' cümlesi EN metne göre düzeltildi."
+    ]
+  }
+]

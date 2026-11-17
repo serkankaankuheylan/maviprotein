@@ -1,0 +1,213 @@
+---
+import Base from '../layouts/Base.astro';
+import Asset from '../components/Asset.astro';
+import Arrow from '../components/Arrow.astro';
+import Microscope from '../components/Microscope.astro';
+import SpirulinaField from '../components/SpirulinaField.astro';
+import ClosingCta from '../components/ClosingCta.astro';
+import { pagesCopy } from '../i18n/pages';
+import { pick, t, num, type Lang } from '../lib/i18n';
+import { href } from '../lib/routes';
+import { company, postsSorted } from '../lib/data';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = pick(pagesCopy, lang).algophyco;
+const a = company.algophyco ?? {};
+const comp = a.composition ?? {};
+const macros = comp.macros ?? [];
+const micros = comp.micros?.items ?? [];
+const maxMicro = Math.max(...micros.map((m: any) => m.value), 1);
+const packAsset: Record<string, string> = { '100 g': 'pk-algophyco-doypack', '250 g': 'pk-algophyco-doypack', '900 g': 'pk-algophyco-jar' };
+/* relative heights so the three packs read as small / medium / large on one baseline */
+const packScale: Record<string, number> = { '100 g': 0.7, '250 g': 0.88 };
+const post65 = postsSorted.find((p) => p.id === 65);
+const productJson = { '@context': 'https://schema.org', '@type': 'Product', name: 'ALGOPHYCO™ Spirulina', description: t(a.product, lang), brand: { '@type': 'Brand', name: 'ALGOPHYCO' } };
+---
+<Base lang={lang} title={c.meta.title} description={c.meta.description} route="algophyco" jsonLd={[productJson]} gaugeMax={60}>
+  <!-- intro (signature): filaments turning in green-blue water -->
+  <section class="ah s-dark" data-surface="dark" aria-labelledby="ah-title">
+    <Microscope hero />
+    <div class="wrap ah__grid">
+      <div class="ah__words">
+        <p class="label">{c.kicker}</p>
+        <h1 id="ah-title" class="ah__brand">ALGOPHYCO<sup>™</sup></h1>
+        <p class="ah__slogan serif">{t(a.slogan, lang)}</p>
+        <p class="ah__lead">{t(a.product, lang)}</p>
+        <p class="label ah__role">{t(a.role, lang)}</p>
+      </div>
+      <div class="ah__art">
+        <Asset name="b-spirulina-powder" alt="" class="ah__powder" sizes="(max-width: 960px) 80vw, 40vw" loading="eager" fetchpriority="high" />
+        <Asset name="pk-algophyco-doypack" alt="ALGOPHYCO doypack" class="ah__pack" sizes="(max-width: 960px) 40vw, 18vw" loading="eager" />
+      </div>
+    </div>
+  </section>
+
+  <!-- story -->
+  <section class="st s-light grain section" data-surface="light" aria-labelledby="st-title">
+    <div class="wrap st__grid">
+      <div class="st__words">
+        <p class="label">{c.storyLabel}</p>
+        <h2 id="st-title" class="t-h1" set:html={c.storyTitle} />
+        {c.story.map((p) => <p class="st__p">{p}</p>)}
+        <p class="st__def muted">{t(a.description, lang)}</p>
+        {post65 && <a class="link" href={href('note', lang, post65.slug)}>{t(post65.title, lang)}</a>}
+      </div>
+      <figure class="st__micro" aria-label={c.micro}>
+        <SpirulinaField />
+        <figcaption class="label" set:html={c.micro.replace(/µm/g, '<span class="st__unit">µm</span>')} />
+      </figure>
+    </div>
+  </section>
+
+  <!-- composition -->
+  <section class="nut s-sand grain section" data-surface="light" aria-labelledby="nut-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="label">{c.compLabel} · {t(comp.basis, lang)}</p>
+        <h2 id="nut-title" class="t-h1" set:html={c.compTitle} />
+      </header>
+      <dl class="nut__macros">
+        {macros.map((m: any) => (
+          <div class="nut__m">
+            <dt class="label">{t(m.label, lang)}</dt>
+            <dd>
+              <span class="figure">{m.min === m.max ? m.min : `${m.min}–${m.max}`}<small>%</small></span>
+              <span class="nut__bar" style={`--a:${m.min}%;--b:${m.max}%`} aria-hidden="true"><i></i></span>
+            </dd>
+          </div>
+        ))}
+      </dl>
+      <div class="nut__micro">
+        <div>
+          <p class="label">{t(comp.micros?.title, lang)} <span class="faint">({c.perKg})</span></p>
+          <ul role="list" class="nut__list">
+            {micros.map((m: any) => (
+              <li><span>{t(m.label, lang)}</span><span class="nut__mbar" style={`--w:${Math.max(2, Math.sqrt(m.value / maxMicro) * 100)}%`} aria-hidden="true"></span><span class="mono">{num(m.value, lang)}</span></li>
+            ))}
+          </ul>
+        </div>
+        <div class="nut__lists">
+          <div><p class="label">{c.vitamins}</p><p class="muted">{(comp.vitaminsListed ?? []).join(' · ')}</p></div>
+          <div><p class="label">{c.minerals}</p><p class="muted">{t(comp.mineralsListed, lang)}</p></div>
+          <div><p class="label">{c.pigments}</p><p class="muted">{t(comp.pigments, lang)}</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- local + packs -->
+  <section class="loc s-light section" data-surface="light" aria-labelledby="loc-title">
+    <div class="wrap loc__grid">
+      <div class="loc__photo">
+        {(a.images ?? []).slice(0, 2).map((src: string) => <figure class="duo"><img src={src} alt="" loading="lazy" /></figure>)}
+      </div>
+      <div class="loc__words">
+        <p class="label">{c.localLabel}</p>
+        <h2 id="loc-title" class="t-h2">{t(a.origin, lang)}</h2>
+      </div>
+    </div>
+    <div class="wrap">
+      <p class="label packs__label">{c.packsLabel}</p>
+      <ul class="packs" role="list">
+        {(a.packs ?? []).map((p: any) => (
+          <li>
+            <span class="packs__img"><Asset name={packAsset[p.size] ?? 'pk-algophyco-doypack'} alt={`ALGOPHYCO ${p.size}`} sizes="(max-width: 760px) 40vw, 18vw" style={packScale[p.size] ? `transform:scale(${packScale[p.size]})` : undefined} /></span>
+            <span class="packs__size serif">{p.size}</span>
+            <span class="label">{t(p.type, lang)}</span>
+          </li>
+        ))}
+      </ul>
+      <div class="buy">
+        <span class="label">{c.buy}</span>
+        {(a.purchaseLinks ?? []).map((l: any) => <a class="btn btn--ghost btn--sm" href={l.url} rel="noopener" target="_blank">{l.name}<Arrow dir="out" /></a>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- uses -->
+  <section class="uses s-dark section" data-surface="dark" aria-labelledby="uses-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="label">{c.usesLabel}</p>
+        <h2 id="uses-title" class="t-h1" set:html={c.usesTitle} />
+      </header>
+      <ol class="uses__list" role="list">
+        {(a.usageAreas ?? []).map((u: any, i: number) => <li class="rise" style={`--d:${(i % 4) * 60}ms`}><span class="mono">{String(i + 1).padStart(2, '0')}</span><span class="serif">{t(u.title, lang)}</span></li>)}
+      </ol>
+      <aside class="legal">
+        <p class="label">{c.legal}</p>
+        <p>{t(a.legalNote, lang)}</p>
+      </aside>
+    </div>
+  </section>
+
+  <ClosingCta lang={lang} title={c.close} primaryHref={`${href('contact', lang)}`} />
+</Base>
+
+<style>
+  .ah { position: relative; min-height: max(100svh, 700px); display: grid; align-items: center; overflow: clip; isolation: isolate; background: #06231f; padding-top: var(--header-h); } /* clip, not hidden: keeps the page as the microscope view timeline scroller */
+  .ah__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); align-items: center; padding-block: 4rem; }
+  .ah__words { grid-column: 1 / span 6; display: grid; gap: 1.3rem; justify-items: start; }
+  .ah__words .label { color: #bfe7dd; }
+  .ah__brand { font-family: var(--f-mono); font-weight: 500; font-size: clamp(2.8rem, 1.4rem + 6vw, 7.4rem); letter-spacing: -0.04em; line-height: 0.9; color: #eafaf5; }
+  .ah__brand sup { font-size: 0.3em; vertical-align: 1.6em; letter-spacing: 0; }
+  .ah__slogan { font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.6rem); font-style: italic; color: #7fd3f5; line-height: 1.1; }
+  .ah__lead { color: rgba(234, 250, 245, 0.82); font-size: 1.12rem; max-width: 46ch; }
+  .ah__role { color: rgba(234, 250, 245, 0.6) !important; }
+  .ah__art { grid-column: 7 / -1; position: relative; min-height: 520px; }
+  .ah__art :global(.ah__powder) { position: absolute; width: 86%; left: 0; bottom: 4%; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.45)); animation: algae-settle 1800ms var(--ease-water) both; }
+  .ah__art :global(.ah__pack) { position: absolute; width: 40%; right: 2%; top: 0; transform: rotate(-5deg); filter: drop-shadow(0 30px 30px rgba(0, 0, 0, 0.45)); animation: algae-settle 1800ms 200ms var(--ease-water) both; }
+  @keyframes algae-settle { from { opacity: 0; translate: 0 -30px; } }
+  @media (max-width: 960px) { .ah__words, .ah__art { grid-column: 1 / -1; } .ah__art { min-height: 380px; } }
+
+  .st__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); align-items: center; }
+  .st__words { grid-column: 1 / span 6; display: grid; gap: 1.2rem; justify-items: start; }
+  .st__p { font-size: 1.2rem; line-height: 1.6; color: var(--ink-2); max-width: 52ch; }
+  .st__p:first-of-type { font-family: var(--f-serif); font-size: 1.6rem; line-height: 1.35; color: var(--ink); }
+  .st__def { max-width: 52ch; }
+  .st__micro { grid-column: 8 / -1; display: grid; gap: 1rem; justify-items: center; }
+  .st__micro :global(.sf) { max-width: 480px; }
+  .st__micro figcaption { display: block; text-align: center; }
+  .st__micro :global(.st__unit) { text-transform: none; } /* uppercase would turn µ into Greek capital Mu, "µm" read as "MM" */
+  @media (max-width: 960px) { .st__words, .st__micro { grid-column: 1 / -1; } }
+
+  .nut__macros { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--rule-strong); }
+  .nut__m { padding: 1.6rem 1.2rem 1.6rem 0; display: grid; gap: 1rem; }
+  .nut__m + .nut__m { border-inline-start: 1px solid var(--rule); padding-inline-start: 1.2rem; }
+  .nut__m:first-child .figure { color: var(--alg); }
+  .nut__m dd { margin: 0; display: grid; gap: 1rem; }
+  .nut__bar { height: 6px; background: var(--rule); position: relative; border-radius: 3px; }
+  .nut__bar i { position: absolute; inset-block: 0; inset-inline-start: 0; width: var(--b); background: linear-gradient(90deg, var(--alg) var(--a), color-mix(in srgb, var(--alg) 45%, transparent) var(--a)); border-radius: 3px; }
+  .nut__micro { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); margin-top: clamp(3rem, 6vw, 5rem); }
+  .nut__micro > div:first-child { grid-column: 1 / span 7; }
+  .nut__lists { grid-column: 9 / -1; display: grid; gap: 1.6rem; align-content: start; }
+  .nut__lists .muted { margin-top: 0.5rem; }
+  .nut__list { margin-top: 1rem; border-top: 1px solid var(--rule-strong); }
+  .nut__list li { display: grid; grid-template-columns: minmax(10rem, 1.2fr) 2fr 5rem; gap: 1rem; align-items: center; padding-block: 0.7rem; border-bottom: 1px solid var(--rule); font-size: 0.95rem; }
+  .nut__mbar { height: 4px; width: var(--w); background: var(--phyco); border-radius: 2px; }
+  .nut__list .mono { text-align: end; }
+  @media (max-width: 900px) { .nut__macros { grid-template-columns: 1fr 1fr; } .nut__m:nth-child(3) { border-inline-start: 0; padding-inline-start: 0; } .nut__micro > div:first-child, .nut__lists { grid-column: 1 / -1; } .nut__list li { grid-template-columns: 1fr 4rem; } .nut__mbar { display: none; } }
+
+  .loc__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); align-items: end; margin-bottom: clamp(3rem, 6vw, 5rem); }
+  .loc__photo { grid-column: 1 / span 7; display: grid; grid-template-columns: 1.4fr 1fr; gap: 0.6rem; }
+  .duo { aspect-ratio: 4 / 3; overflow: hidden; background: var(--alg); border-radius: 2px; }
+  .duo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.15); mix-blend-mode: screen; opacity: 0.9; }
+  .loc__words { grid-column: 9 / -1; display: grid; gap: 1rem; }
+  .packs__label { margin-bottom: 1.2rem; }
+  .packs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--rule-strong); border: 1px solid var(--rule-strong); }
+  .packs li { background: var(--foam); padding: 1.6rem; display: grid; gap: 0.4rem; justify-items: center; text-align: center; }
+  .packs__img { position: relative; display: block; width: 100%; height: 300px; }
+  .packs__img :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%; filter: drop-shadow(0 24px 24px rgba(13, 27, 44, 0.24)); transform-origin: 50% 100%; }
+  .packs__size { font-size: 2rem; margin-top: 1rem; }
+  .buy { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1rem; margin-top: 1.6rem; }
+  @media (max-width: 900px) { .loc__photo, .loc__words { grid-column: 1 / -1; } .packs__img { height: 200px; } }
+  @media (max-width: 560px) { .packs { grid-template-columns: 1fr; } }
+
+  .uses__list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 var(--col-gap); border-top: 1px solid var(--line-strong); }
+  .uses__list li { display: grid; gap: 0.6rem; padding-block: 1.4rem; border-bottom: 1px solid var(--line); }
+  .uses__list .mono { font-size: 0.72rem; color: #7ee0c2; }
+  .uses__list .serif { font-size: 1.3rem; line-height: 1.2; }
+  .legal { margin-top: 3rem; max-width: 70ch; padding: 1.2rem 1.4rem; border: 1px solid var(--line-strong); border-radius: 2px; display: grid; gap: 0.5rem; color: var(--fg-2); }
+  @media (max-width: 900px) { .uses__list { grid-template-columns: 1fr 1fr; } }
+</style>

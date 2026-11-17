@@ -1,0 +1,3392 @@
+{
+ "ag-cattle": [
+  {
+   "src": "/assets/ag-cattle-320.webp",
+   "w": 320,
+   "h": 203
+  },
+  {
+   "src": "/assets/ag-cattle-480.webp",
+   "w": 480,
+   "h": 305
+  }
+ ],
+ "ag-compost": [
+  {
+   "src": "/assets/ag-compost-320.webp",
+   "w": 320,
+   "h": 152
+  },
+  {
+   "src": "/assets/ag-compost-480.webp",
+   "w": 480,
+   "h": 228
+  }
+ ],
+ "ag-em-micro": [
+  {
+   "src": "/assets/ag-em-micro-400.webp",
+   "w": 400,
+   "h": 400
+  },
+  {
+   "src": "/assets/ag-em-micro-720.webp",
+   "w": 720,
+   "h": 720
+  }
+ ],
+ "ag-greenhouse": [
+  {
+   "src": "/assets/ag-greenhouse-600.webp",
+   "w": 600,
+   "h": 304
+  },
+  {
+   "src": "/assets/ag-greenhouse-1200.webp",
+   "w": 1200,
+   "h": 608
+  }
+ ],
+ "ag-imhoff": [
+  {
+   "src": "/assets/ag-imhoff-200.webp",
+   "w": 200,
+   "h": 488
+  },
+  {
+   "src": "/assets/ag-imhoff-300.webp",
+   "w": 300,
+   "h": 731
+  }
+ ],
+ "ag-silage": [
+  {
+   "src": "/assets/ag-silage-360.webp",
+   "w": 360,
+   "h": 180
+  },
+  {
+   "src": "/assets/ag-silage-600.webp",
+   "w": 600,
+   "h": 299
+  },
+  {
+   "src": "/assets/ag-silage-1200.webp",
+   "w": 1200,
+   "h": 599
+  }
+ ],
+ "ag-soil": [
+  {
+   "src": "/assets/ag-soil-320.webp",
+   "w": 320,
+   "h": 379
+  },
+  {
+   "src": "/assets/ag-soil-480.webp",
+   "w": 480,
+   "h": 569
+  }
+ ],
+ "aq-coated": [
+  {
+   "src": "/assets/aq-coated-500.webp",
+   "w": 500,
+   "h": 304
+  },
+  {
+   "src": "/assets/aq-coated-1000.webp",
+   "w": 1000,
+   "h": 609
+  }
+ ],
+ "aq-dry": [
+  {
+   "src": "/assets/aq-dry-500.webp",
+   "w": 500,
+   "h": 346
+  },
+  {
+   "src": "/assets/aq-dry-1000.webp",
+   "w": 1000,
+   "h": 692
+  }
+ ],
+ "aq-hatchery-tank": [
+  {
+   "src": "/assets/aq-hatchery-tank-600.webp",
+   "w": 600,
+   "h": 740
+  },
+  {
+   "src": "/assets/aq-hatchery-tank-890.webp",
+   "w": 890,
+   "h": 1097
+  }
+ ],
+ "aq-premix": [
+  {
+   "src": "/assets/aq-premix-500.webp",
+   "w": 500,
+   "h": 340
+  },
+  {
+   "src": "/assets/aq-premix-1000.webp",
+   "w": 1000,
+   "h": 679
+  }
+ ],
+ "aq-ras-unit": [
+  {
+   "src": "/assets/aq-ras-unit-600.webp",
+   "w": 600,
+   "h": 367
+  },
+  {
+   "src": "/assets/aq-ras-unit-1200.webp",
+   "w": 1200,
+   "h": 733
+  }
+ ],
+ "aq-sea-cage": [
+  {
+   "src": "/assets/aq-sea-cage-600.webp",
+   "w": 600,
+   "h": 340
+  },
+  {
+   "src": "/assets/aq-sea-cage-1200.webp",
+   "w": 1200,
+   "h": 681
+  }
+ ],
+ "aq-wet": [
+  {
+   "src": "/assets/aq-wet-500.webp",
+   "w": 500,
+   "h": 326
+  },
+  {
+   "src": "/assets/aq-wet-1000.webp",
+   "w": 1000,
+   "h": 652
+  }
+ ],
+ "ar-flour": [
+  {
+   "src": "/assets/ar-flour-500.webp",
+   "w": 500,
+   "h": 335
+  },
+  {
+   "src": "/assets/ar-flour-1000.webp",
+   "w": 1000,
+   "h": 670
+  }
+ ],
+ "ar-wet": [
+  {
+   "src": "/assets/ar-wet-500.webp",
+   "w": 500,
+   "h": 351
+  },
+  {
+   "src": "/assets/ar-wet-1000.webp",
+   "w": 1000,
+   "h": 702
+  }
+ ],
+ "b-algae-culture": [
+  {
+   "src": "/assets/b-algae-culture-600.webp",
+   "w": 600,
+   "h": 374
+  },
+  {
+   "src": "/assets/b-algae-culture-1200.webp",
+   "w": 1200,
+   "h": 747
+  }
+ ],
+ "b-fish-eggs": [
+  {
+   "src": "/assets/b-fish-eggs-500.webp",
+   "w": 500,
+   "h": 387
+  },
+  {
+   "src": "/assets/b-fish-eggs-1000.webp",
+   "w": 1000,
+   "h": 774
+  }
+ ],
+ "b-juvenile": [
+  {
+   "src": "/assets/b-juvenile-500.webp",
+   "w": 500,
+   "h": 237
+  },
+  {
+   "src": "/assets/b-juvenile-1000.webp",
+   "w": 1000,
+   "h": 473
+  }
+ ],
+ "b-larva": [
+  {
+   "src": "/assets/b-larva-500.webp",
+   "w": 500,
+   "h": 140
+  },
+  {
+   "src": "/assets/b-larva-1000.webp",
+   "w": 1000,
+   "h": 281
+  }
+ ],
+ "b-sea-bass": [
+  {
+   "src": "/assets/b-sea-bass-600.webp",
+   "w": 600,
+   "h": 244
+  },
+  {
+   "src": "/assets/b-sea-bass-1200.webp",
+   "w": 1200,
+   "h": 488
+  }
+ ],
+ "b-sea-bream": [
+  {
+   "src": "/assets/b-sea-bream-500.webp",
+   "w": 500,
+   "h": 263
+  },
+  {
+   "src": "/assets/b-sea-bream-1000.webp",
+   "w": 1000,
+   "h": 527
+  }
+ ],
+ "b-spirulina-powder": [
+  {
+   "src": "/assets/b-spirulina-powder-500.webp",
+   "w": 500,
+   "h": 316
+  },
+  {
+   "src": "/assets/b-spirulina-powder-1000.webp",
+   "w": 1000,
+   "h": 632
+  }
+ ],
+ "bb-flour": [
+  {
+   "src": "/assets/bb-flour-500.webp",
+   "w": 500,
+   "h": 338
+  },
+  {
+   "src": "/assets/bb-flour-1000.webp",
+   "w": 1000,
+   "h": 676
+  }
+ ],
+ "bb-puff": [
+  {
+   "src": "/assets/bb-puff-500.webp",
+   "w": 500,
+   "h": 366
+  },
+  {
+   "src": "/assets/bb-puff-1000.webp",
+   "w": 1000,
+   "h": 732
+  }
+ ],
+ "bg-spirulina-field-soft": [
+  {
+   "src": "/assets/bg-spirulina-field-soft-512.webp",
+   "w": 512,
+   "h": 341
+  }
+ ],
+ "bg-spirulina-field": [
+  {
+   "src": "/assets/bg-spirulina-field-960.webp",
+   "w": 960,
+   "h": 640
+  },
+  {
+   "src": "/assets/bg-spirulina-field-1536.webp",
+   "w": 1536,
+   "h": 1024
+  }
+ ],
+ "bg-spirulina-macro-soft": [
+  {
+   "src": "/assets/bg-spirulina-macro-soft-512.webp",
+   "w": 512,
+   "h": 341
+  }
+ ],
+ "bg-spirulina-macro": [
+  {
+   "src": "/assets/bg-spirulina-macro-960.webp",
+   "w": 960,
+   "h": 640
+  },
+  {
+   "src": "/assets/bg-spirulina-macro-1536.webp",
+   "w": 1536,
+   "h": 1024
+  }
+ ],
+ "brand-emblem-parlak": [
+  {
+   "src": "/assets/brand-emblem-parlak-96.webp",
+   "w": 96,
+   "h": 98
+  },
+  {
+   "src": "/assets/brand-emblem-parlak-144.webp",
+   "w": 144,
+   "h": 146
+  },
+  {
+   "src": "/assets/brand-emblem-parlak-192.webp",
+   "w": 192,
+   "h": 195
+  },
+  {
+   "src": "/assets/brand-emblem-parlak-320.webp",
+   "w": 320,
+   "h": 325
+  }
+ ],
+ "brand-emblem-yumusak": [
+  {
+   "src": "/assets/brand-emblem-yumusak-96.webp",
+   "w": 96,
+   "h": 100
+  },
+  {
+   "src": "/assets/brand-emblem-yumusak-144.webp",
+   "w": 144,
+   "h": 150
+  },
+  {
+   "src": "/assets/brand-emblem-yumusak-192.webp",
+   "w": 192,
+   "h": 201
+  },
+  {
+   "src": "/assets/brand-emblem-yumusak-320.webp",
+   "w": 320,
+   "h": 334
+  }
+ ],
+ "brand-logo-en": [
+  {
+   "src": "/assets/brand-logo-en-96.webp",
+   "w": 96,
+   "h": 91
+  },
+  {
+   "src": "/assets/brand-logo-en-160.webp",
+   "w": 160,
+   "h": 151
+  },
+  {
+   "src": "/assets/brand-logo-en-640.webp",
+   "w": 640,
+   "h": 605
+  }
+ ],
+ "brand-logo-tr": [
+  {
+   "src": "/assets/brand-logo-tr-96.webp",
+   "w": 96,
+   "h": 91
+  },
+  {
+   "src": "/assets/brand-logo-tr-160.webp",
+   "w": 160,
+   "h": 151
+  },
+  {
+   "src": "/assets/brand-logo-tr-640.webp",
+   "w": 640,
+   "h": 604
+  }
+ ],
+ "cc-cut": [
+  {
+   "src": "/assets/cc-cut-500.webp",
+   "w": 500,
+   "h": 355
+  },
+  {
+   "src": "/assets/cc-cut-1000.webp",
+   "w": 1000,
+   "h": 710
+  }
+ ],
+ "cc-fried": [
+  {
+   "src": "/assets/cc-fried-500.webp",
+   "w": 500,
+   "h": 360
+  },
+  {
+   "src": "/assets/cc-fried-1000.webp",
+   "w": 1000,
+   "h": 721
+  }
+ ],
+ "cc-mix": [
+  {
+   "src": "/assets/cc-mix-500.webp",
+   "w": 500,
+   "h": 345
+  },
+  {
+   "src": "/assets/cc-mix-1000.webp",
+   "w": 1000,
+   "h": 690
+  }
+ ],
+ "cc-shaped": [
+  {
+   "src": "/assets/cc-shaped-500.webp",
+   "w": 500,
+   "h": 359
+  },
+  {
+   "src": "/assets/cc-shaped-1000.webp",
+   "w": 1000,
+   "h": 718
+  }
+ ],
+ "cc-sheet": [
+  {
+   "src": "/assets/cc-sheet-500.webp",
+   "w": 500,
+   "h": 373
+  },
+  {
+   "src": "/assets/cc-sheet-1000.webp",
+   "w": 1000,
+   "h": 746
+  }
+ ],
+ "cf-flake-dry": [
+  {
+   "src": "/assets/cf-flake-dry-500.webp",
+   "w": 500,
+   "h": 341
+  },
+  {
+   "src": "/assets/cf-flake-dry-1000.webp",
+   "w": 1000,
+   "h": 681
+  }
+ ],
+ "cf-flake-raw": [
+  {
+   "src": "/assets/cf-flake-raw-500.webp",
+   "w": 500,
+   "h": 341
+  },
+  {
+   "src": "/assets/cf-flake-raw-1000.webp",
+   "w": 1000,
+   "h": 683
+  }
+ ],
+ "cf-frosted": [
+  {
+   "src": "/assets/cf-frosted-500.webp",
+   "w": 500,
+   "h": 345
+  },
+  {
+   "src": "/assets/cf-frosted-1000.webp",
+   "w": 1000,
+   "h": 691
+  }
+ ],
+ "cf-grits": [
+  {
+   "src": "/assets/cf-grits-500.webp",
+   "w": 500,
+   "h": 344
+  },
+  {
+   "src": "/assets/cf-grits-1000.webp",
+   "w": 1000,
+   "h": 687
+  }
+ ],
+ "cf-pellet": [
+  {
+   "src": "/assets/cf-pellet-500.webp",
+   "w": 500,
+   "h": 358
+  },
+  {
+   "src": "/assets/cf-pellet-1000.webp",
+   "w": 1000,
+   "h": 716
+  }
+ ],
+ "ch-biology": [
+  {
+   "src": "/assets/ch-biology-600.webp",
+   "w": 600,
+   "h": 827
+  },
+  {
+   "src": "/assets/ch-biology-743.webp",
+   "w": 743,
+   "h": 1024
+  }
+ ],
+ "ch-feasibility": [
+  {
+   "src": "/assets/ch-feasibility-600.webp",
+   "w": 600,
+   "h": 550
+  },
+  {
+   "src": "/assets/ch-feasibility-1174.webp",
+   "w": 1174,
+   "h": 1076
+  }
+ ],
+ "ch-funding-kelp-a": [
+  {
+   "src": "/assets/ch-funding-kelp-a-571.webp",
+   "w": 571,
+   "h": 994
+  },
+  {
+   "src": "/assets/ch-funding-kelp-a-571.webp",
+   "w": 571,
+   "h": 994
+  }
+ ],
+ "ch-funding-kelp-b": [
+  {
+   "src": "/assets/ch-funding-kelp-b-416.webp",
+   "w": 416,
+   "h": 1077
+  },
+  {
+   "src": "/assets/ch-funding-kelp-b-416.webp",
+   "w": 416,
+   "h": 1077
+  }
+ ],
+ "ch-funding": [
+  {
+   "src": "/assets/ch-funding-433.webp",
+   "w": 433,
+   "h": 967
+  },
+  {
+   "src": "/assets/ch-funding-433.webp",
+   "w": 433,
+   "h": 967
+  }
+ ],
+ "ch-idea": [
+  {
+   "src": "/assets/ch-idea-600.webp",
+   "w": 600,
+   "h": 366
+  },
+  {
+   "src": "/assets/ch-idea-991.webp",
+   "w": 991,
+   "h": 604
+  }
+ ],
+ "ch-install": [
+  {
+   "src": "/assets/ch-install-600.webp",
+   "w": 600,
+   "h": 413
+  },
+  {
+   "src": "/assets/ch-install-935.webp",
+   "w": 935,
+   "h": 643
+  }
+ ],
+ "ch-machine": [
+  {
+   "src": "/assets/ch-machine-600.webp",
+   "w": 600,
+   "h": 578
+  },
+  {
+   "src": "/assets/ch-machine-1195.webp",
+   "w": 1195,
+   "h": 1151
+  }
+ ],
+ "ch-production": [
+  {
+   "src": "/assets/ch-production-600.webp",
+   "w": 600,
+   "h": 401
+  },
+  {
+   "src": "/assets/ch-production-957.webp",
+   "w": 957,
+   "h": 640
+  }
+ ],
+ "ch-recipe": [
+  {
+   "src": "/assets/ch-recipe-600.webp",
+   "w": 600,
+   "h": 431
+  },
+  {
+   "src": "/assets/ch-recipe-1119.webp",
+   "w": 1119,
+   "h": 804
+  }
+ ],
+ "cr-fried": [
+  {
+   "src": "/assets/cr-fried-500.webp",
+   "w": 500,
+   "h": 376
+  },
+  {
+   "src": "/assets/cr-fried-1000.webp",
+   "w": 1000,
+   "h": 752
+  }
+ ],
+ "cr-grits": [
+  {
+   "src": "/assets/cr-grits-500.webp",
+   "w": 500,
+   "h": 347
+  },
+  {
+   "src": "/assets/cr-grits-1000.webp",
+   "w": 1000,
+   "h": 694
+  }
+ ],
+ "cr-raw": [
+  {
+   "src": "/assets/cr-raw-500.webp",
+   "w": 500,
+   "h": 375
+  },
+  {
+   "src": "/assets/cr-raw-1000.webp",
+   "w": 1000,
+   "h": 749
+  }
+ ],
+ "eq-drum-filter": [
+  {
+   "src": "/assets/eq-drum-filter-600.webp",
+   "w": 600,
+   "h": 479
+  },
+  {
+   "src": "/assets/eq-drum-filter-1200.webp",
+   "w": 1200,
+   "h": 957
+  }
+ ],
+ "eq-lab-microscope": [
+  {
+   "src": "/assets/eq-lab-microscope-600.webp",
+   "w": 600,
+   "h": 446
+  },
+  {
+   "src": "/assets/eq-lab-microscope-1060.webp",
+   "w": 1060,
+   "h": 788
+  }
+ ],
+ "eq-oxygen-meter": [
+  {
+   "src": "/assets/eq-oxygen-meter-600.webp",
+   "w": 600,
+   "h": 647
+  },
+  {
+   "src": "/assets/eq-oxygen-meter-1043.webp",
+   "w": 1043,
+   "h": 1125
+  }
+ ],
+ "eq-ozone-generator": [
+  {
+   "src": "/assets/eq-ozone-generator-600.webp",
+   "w": 600,
+   "h": 750
+  },
+  {
+   "src": "/assets/eq-ozone-generator-1039.webp",
+   "w": 1039,
+   "h": 1298
+  }
+ ],
+ "eq-uv-sterilizer": [
+  {
+   "src": "/assets/eq-uv-sterilizer-600.webp",
+   "w": 600,
+   "h": 259
+  },
+  {
+   "src": "/assets/eq-uv-sterilizer-1200.webp",
+   "w": 1200,
+   "h": 518
+  }
+ ],
+ "fish-feed-pellets": [
+  {
+   "src": "/assets/fish-feed-pellets-800.webp",
+   "w": 800,
+   "h": 519
+  },
+  {
+   "src": "/assets/fish-feed-pellets-1333.webp",
+   "w": 1333,
+   "h": 865
+  }
+ ],
+ "fs-crumble": [
+  {
+   "src": "/assets/fs-crumble-500.webp",
+   "w": 500,
+   "h": 335
+  },
+  {
+   "src": "/assets/fs-crumble-1000.webp",
+   "w": 1000,
+   "h": 671
+  }
+ ],
+ "fs-raw": [
+  {
+   "src": "/assets/fs-raw-500.webp",
+   "w": 500,
+   "h": 357
+  },
+  {
+   "src": "/assets/fs-raw-1000.webp",
+   "w": 1000,
+   "h": 713
+  }
+ ],
+ "lv-coated": [
+  {
+   "src": "/assets/lv-coated-500.webp",
+   "w": 500,
+   "h": 351
+  },
+  {
+   "src": "/assets/lv-coated-1000.webp",
+   "w": 1000,
+   "h": 701
+  }
+ ],
+ "lv-dry": [
+  {
+   "src": "/assets/lv-dry-500.webp",
+   "w": 500,
+   "h": 350
+  },
+  {
+   "src": "/assets/lv-dry-1000.webp",
+   "w": 1000,
+   "h": 701
+  }
+ ],
+ "lv-mash": [
+  {
+   "src": "/assets/lv-mash-500.webp",
+   "w": 500,
+   "h": 360
+  },
+  {
+   "src": "/assets/lv-mash-1000.webp",
+   "w": 1000,
+   "h": 720
+  }
+ ],
+ "lv-mix": [
+  {
+   "src": "/assets/lv-mix-500.webp",
+   "w": 500,
+   "h": 353
+  },
+  {
+   "src": "/assets/lv-mix-1000.webp",
+   "w": 1000,
+   "h": 707
+  }
+ ],
+ "lv-wet": [
+  {
+   "src": "/assets/lv-wet-500.webp",
+   "w": 500,
+   "h": 359
+  },
+  {
+   "src": "/assets/lv-wet-1000.webp",
+   "w": 1000,
+   "h": 718
+  }
+ ],
+ "m-bar-conveyor": [
+  {
+   "src": "/assets/m-bar-conveyor-800.webp",
+   "w": 800,
+   "h": 427
+  },
+  {
+   "src": "/assets/m-bar-conveyor-1529.webp",
+   "w": 1529,
+   "h": 816
+  }
+ ],
+ "m-bar-cooler": [
+  {
+   "src": "/assets/m-bar-cooler-800.webp",
+   "w": 800,
+   "h": 411
+  },
+  {
+   "src": "/assets/m-bar-cooler-1600.webp",
+   "w": 1600,
+   "h": 821
+  }
+ ],
+ "m-bar-former": [
+  {
+   "src": "/assets/m-bar-former-800.webp",
+   "w": 800,
+   "h": 280
+  },
+  {
+   "src": "/assets/m-bar-former-1600.webp",
+   "w": 1600,
+   "h": 561
+  }
+ ],
+ "m-cooler-box": [
+  {
+   "src": "/assets/m-cooler-box-800.webp",
+   "w": 800,
+   "h": 358
+  },
+  {
+   "src": "/assets/m-cooler-box-1451.webp",
+   "w": 1451,
+   "h": 649
+  }
+ ],
+ "m-cooling-belt": [
+  {
+   "src": "/assets/m-cooling-belt-800.webp",
+   "w": 800,
+   "h": 252
+  },
+  {
+   "src": "/assets/m-cooling-belt-1600.webp",
+   "w": 1600,
+   "h": 505
+  }
+ ],
+ "m-cooling-bin": [
+  {
+   "src": "/assets/m-cooling-bin-800.webp",
+   "w": 800,
+   "h": 306
+  },
+  {
+   "src": "/assets/m-cooling-bin-1600.webp",
+   "w": 1600,
+   "h": 612
+  }
+ ],
+ "m-cooling-conveyor": [
+  {
+   "src": "/assets/m-cooling-conveyor-800.webp",
+   "w": 800,
+   "h": 267
+  },
+  {
+   "src": "/assets/m-cooling-conveyor-1600.webp",
+   "w": 1600,
+   "h": 533
+  }
+ ],
+ "m-cutter": [
+  {
+   "src": "/assets/m-cutter-800.webp",
+   "w": 800,
+   "h": 713
+  },
+  {
+   "src": "/assets/m-cutter-1193.webp",
+   "w": 1193,
+   "h": 1064
+  }
+ ],
+ "m-cxj": [
+  {
+   "src": "/assets/m-cxj-800.webp",
+   "w": 800,
+   "h": 790
+  },
+  {
+   "src": "/assets/m-cxj-1130.webp",
+   "w": 1130,
+   "h": 1116
+  }
+ ],
+ "m-deoiler": [
+  {
+   "src": "/assets/m-deoiler-800.webp",
+   "w": 800,
+   "h": 420
+  },
+  {
+   "src": "/assets/m-deoiler-1600.webp",
+   "w": 1600,
+   "h": 839
+  }
+ ],
+ "m-drum-sieve": [
+  {
+   "src": "/assets/m-drum-sieve-800.webp",
+   "w": 800,
+   "h": 801
+  },
+  {
+   "src": "/assets/m-drum-sieve-1083.webp",
+   "w": 1083,
+   "h": 1084
+  }
+ ],
+ "m-dryer-okx": [
+  {
+   "src": "/assets/m-dryer-okx-800.webp",
+   "w": 800,
+   "h": 356
+  },
+  {
+   "src": "/assets/m-dryer-okx-1600.webp",
+   "w": 1600,
+   "h": 711
+  }
+ ],
+ "m-dryer-steam": [
+  {
+   "src": "/assets/m-dryer-steam-800.webp",
+   "w": 800,
+   "h": 308
+  },
+  {
+   "src": "/assets/m-dryer-steam-1600.webp",
+   "w": 1600,
+   "h": 616
+  }
+ ],
+ "m-dryer": [
+  {
+   "src": "/assets/m-dryer-800.webp",
+   "w": 800,
+   "h": 356
+  },
+  {
+   "src": "/assets/m-dryer-1600.webp",
+   "w": 1600,
+   "h": 713
+  }
+ ],
+ "m-extruder-dies": [
+  {
+   "src": "/assets/m-extruder-dies-600.webp",
+   "w": 600,
+   "h": 407
+  },
+  {
+   "src": "/assets/m-extruder-dies-1200.webp",
+   "w": 1200,
+   "h": 814
+  }
+ ],
+ "m-factory-bg": [
+  {
+   "src": "/assets/m-factory-bg-560.webp",
+   "w": 560,
+   "h": 245
+  },
+  {
+   "src": "/assets/m-factory-bg-1024.webp",
+   "w": 1024,
+   "h": 448
+  }
+ ],
+ "m-field-bg": [
+  {
+   "src": "/assets/m-field-bg-560.webp",
+   "w": 560,
+   "h": 245
+  },
+  {
+   "src": "/assets/m-field-bg-1024.webp",
+   "w": 1024,
+   "h": 448
+  }
+ ],
+ "m-flaker": [
+  {
+   "src": "/assets/m-flaker-800.webp",
+   "w": 800,
+   "h": 866
+  },
+  {
+   "src": "/assets/m-flaker-1001.webp",
+   "w": 1001,
+   "h": 1084
+  }
+ ],
+ "m-flavoring-drum": [
+  {
+   "src": "/assets/m-flavoring-drum-800.webp",
+   "w": 800,
+   "h": 389
+  },
+  {
+   "src": "/assets/m-flavoring-drum-1600.webp",
+   "w": 1600,
+   "h": 778
+  }
+ ],
+ "m-fryer-batch": [
+  {
+   "src": "/assets/m-fryer-batch-800.webp",
+   "w": 800,
+   "h": 721
+  },
+  {
+   "src": "/assets/m-fryer-batch-1095.webp",
+   "w": 1095,
+   "h": 987
+  }
+ ],
+ "m-fryer-lxy": [
+  {
+   "src": "/assets/m-fryer-lxy-800.webp",
+   "w": 800,
+   "h": 653
+  },
+  {
+   "src": "/assets/m-fryer-lxy-1042.webp",
+   "w": 1042,
+   "h": 851
+  }
+ ],
+ "m-hammer-mill": [
+  {
+   "src": "/assets/m-hammer-mill-800.webp",
+   "w": 800,
+   "h": 619
+  },
+  {
+   "src": "/assets/m-hammer-mill-1386.webp",
+   "w": 1386,
+   "h": 1073
+  }
+ ],
+ "m-hoister": [
+  {
+   "src": "/assets/m-hoister-800.webp",
+   "w": 800,
+   "h": 634
+  },
+  {
+   "src": "/assets/m-hoister-1358.webp",
+   "w": 1358,
+   "h": 1077
+  }
+ ],
+ "m-hot-air-dryer": [
+  {
+   "src": "/assets/m-hot-air-dryer-800.webp",
+   "w": 800,
+   "h": 356
+  },
+  {
+   "src": "/assets/m-hot-air-dryer-1600.webp",
+   "w": 1600,
+   "h": 713
+  }
+ ],
+ "m-jxj-ii": [
+  {
+   "src": "/assets/m-jxj-ii-800.webp",
+   "w": 800,
+   "h": 1368
+  },
+  {
+   "src": "/assets/m-jxj-ii-844.webp",
+   "w": 844,
+   "h": 1443
+  }
+ ],
+ "m-mill-system": [
+  {
+   "src": "/assets/m-mill-system-800.webp",
+   "w": 800,
+   "h": 900
+  },
+  {
+   "src": "/assets/m-mill-system-1115.webp",
+   "w": 1115,
+   "h": 1254
+  }
+ ],
+ "m-mixer": [
+  {
+   "src": "/assets/m-mixer-800.webp",
+   "w": 800,
+   "h": 951
+  },
+  {
+   "src": "/assets/m-mixer-835.webp",
+   "w": 835,
+   "h": 993
+  }
+ ],
+ "m-packaging": [
+  {
+   "src": "/assets/m-packaging-800.webp",
+   "w": 800,
+   "h": 805
+  },
+  {
+   "src": "/assets/m-packaging-1029.webp",
+   "w": 1029,
+   "h": 1036
+  }
+ ],
+ "m-pan-shaper": [
+  {
+   "src": "/assets/m-pan-shaper-800.webp",
+   "w": 800,
+   "h": 643
+  },
+  {
+   "src": "/assets/m-pan-shaper-1380.webp",
+   "w": 1380,
+   "h": 1109
+  }
+ ],
+ "m-pillow-shaper": [
+  {
+   "src": "/assets/m-pillow-shaper-800.webp",
+   "w": 800,
+   "h": 831
+  },
+  {
+   "src": "/assets/m-pillow-shaper-982.webp",
+   "w": 982,
+   "h": 1020
+  }
+ ],
+ "m-pneumatic-conveyor": [
+  {
+   "src": "/assets/m-pneumatic-conveyor-800.webp",
+   "w": 800,
+   "h": 715
+  },
+  {
+   "src": "/assets/m-pneumatic-conveyor-1120.webp",
+   "w": 1120,
+   "h": 1001
+  }
+ ],
+ "m-puffing-oven": [
+  {
+   "src": "/assets/m-puffing-oven-800.webp",
+   "w": 800,
+   "h": 316
+  },
+  {
+   "src": "/assets/m-puffing-oven-1600.webp",
+   "w": 1600,
+   "h": 633
+  }
+ ],
+ "m-pyj-iii": [
+  {
+   "src": "/assets/m-pyj-iii-800.webp",
+   "w": 800,
+   "h": 791
+  },
+  {
+   "src": "/assets/m-pyj-iii-952.webp",
+   "w": 952,
+   "h": 941
+  }
+ ],
+ "m-qdj-ii": [
+  {
+   "src": "/assets/m-qdj-ii-800.webp",
+   "w": 800,
+   "h": 474
+  },
+  {
+   "src": "/assets/m-qdj-ii-1558.webp",
+   "w": 1558,
+   "h": 923
+  }
+ ],
+ "m-screw-conveyor": [
+  {
+   "src": "/assets/m-screw-conveyor-800.webp",
+   "w": 800,
+   "h": 552
+  },
+  {
+   "src": "/assets/m-screw-conveyor-1428.webp",
+   "w": 1428,
+   "h": 986
+  }
+ ],
+ "m-sea-bg": [
+  {
+   "src": "/assets/m-sea-bg-560.webp",
+   "w": 560,
+   "h": 245
+  },
+  {
+   "src": "/assets/m-sea-bg-1024.webp",
+   "w": 1024,
+   "h": 448
+  }
+ ],
+ "m-seasoning-drum": [
+  {
+   "src": "/assets/m-seasoning-drum-800.webp",
+   "w": 800,
+   "h": 402
+  },
+  {
+   "src": "/assets/m-seasoning-drum-1560.webp",
+   "w": 1560,
+   "h": 783
+  }
+ ],
+ "m-sp-350": [
+  {
+   "src": "/assets/m-sp-350-800.webp",
+   "w": 800,
+   "h": 369
+  },
+  {
+   "src": "/assets/m-sp-350-1600.webp",
+   "w": 1600,
+   "h": 737
+  }
+ ],
+ "m-sp-50": [
+  {
+   "src": "/assets/m-sp-50-800.webp",
+   "w": 800,
+   "h": 1141
+  },
+  {
+   "src": "/assets/m-sp-50-931.webp",
+   "w": 931,
+   "h": 1328
+  }
+ ],
+ "m-sp-tfx": [
+  {
+   "src": "/assets/m-sp-tfx-800.webp",
+   "w": 800,
+   "h": 736
+  },
+  {
+   "src": "/assets/m-sp-tfx-1181.webp",
+   "w": 1181,
+   "h": 1086
+  }
+ ],
+ "m-sp100": [
+  {
+   "src": "/assets/m-sp100-800.webp",
+   "w": 800,
+   "h": 444
+  },
+  {
+   "src": "/assets/m-sp100-1258.webp",
+   "w": 1258,
+   "h": 698
+  }
+ ],
+ "m-sp130": [
+  {
+   "src": "/assets/m-sp130-800.webp",
+   "w": 800,
+   "h": 479
+  },
+  {
+   "src": "/assets/m-sp130-1501.webp",
+   "w": 1501,
+   "h": 899
+  }
+ ],
+ "m-sp65-iii": [
+  {
+   "src": "/assets/m-sp65-iii-800.webp",
+   "w": 800,
+   "h": 536
+  },
+  {
+   "src": "/assets/m-sp65-iii-1438.webp",
+   "w": 1438,
+   "h": 963
+  }
+ ],
+ "m-sp70-ii": [
+  {
+   "src": "/assets/m-sp70-ii-800.webp",
+   "w": 800,
+   "h": 384
+  },
+  {
+   "src": "/assets/m-sp70-ii-1570.webp",
+   "w": 1570,
+   "h": 753
+  }
+ ],
+ "m-sp76": [
+  {
+   "src": "/assets/m-sp76-800.webp",
+   "w": 800,
+   "h": 740
+  },
+  {
+   "src": "/assets/m-sp76-1055.webp",
+   "w": 1055,
+   "h": 976
+  }
+ ],
+ "m-sp95-ii": [
+  {
+   "src": "/assets/m-sp95-ii-800.webp",
+   "w": 800,
+   "h": 455
+  },
+  {
+   "src": "/assets/m-sp95-ii-1600.webp",
+   "w": 1600,
+   "h": 910
+  }
+ ],
+ "m-spf-398": [
+  {
+   "src": "/assets/m-spf-398-800.webp",
+   "w": 800,
+   "h": 661
+  },
+  {
+   "src": "/assets/m-spf-398-1187.webp",
+   "w": 1187,
+   "h": 981
+  }
+ ],
+ "m-spk-500": [
+  {
+   "src": "/assets/m-spk-500-729.webp",
+   "w": 729,
+   "h": 1448
+  }
+ ],
+ "m-sugar-coater": [
+  {
+   "src": "/assets/m-sugar-coater-800.webp",
+   "w": 800,
+   "h": 406
+  },
+  {
+   "src": "/assets/m-sugar-coater-1600.webp",
+   "w": 1600,
+   "h": 813
+  }
+ ],
+ "m-tjj-ii": [
+  {
+   "src": "/assets/m-tjj-ii-800.webp",
+   "w": 800,
+   "h": 1080
+  },
+  {
+   "src": "/assets/m-tjj-ii-923.webp",
+   "w": 923,
+   "h": 1246
+  }
+ ],
+ "m-vertical-mixer": [
+  {
+   "src": "/assets/m-vertical-mixer-775.webp",
+   "w": 775,
+   "h": 1435
+  },
+  {
+   "src": "/assets/m-vertical-mixer-775.webp",
+   "w": 775,
+   "h": 1435
+  }
+ ],
+ "m-vibro-cooler": [
+  {
+   "src": "/assets/m-vibro-cooler-800.webp",
+   "w": 800,
+   "h": 354
+  },
+  {
+   "src": "/assets/m-vibro-cooler-1600.webp",
+   "w": 1600,
+   "h": 709
+  }
+ ],
+ "m-vibro-feeder": [
+  {
+   "src": "/assets/m-vibro-feeder-800.webp",
+   "w": 800,
+   "h": 603
+  },
+  {
+   "src": "/assets/m-vibro-feeder-1371.webp",
+   "w": 1371,
+   "h": 1034
+  }
+ ],
+ "mat-mash": [
+  {
+   "src": "/assets/mat-mash-500.webp",
+   "w": 500,
+   "h": 343
+  },
+  {
+   "src": "/assets/mat-mash-1000.webp",
+   "w": 1000,
+   "h": 686
+  }
+ ],
+ "mat-mix": [
+  {
+   "src": "/assets/mat-mix-500.webp",
+   "w": 500,
+   "h": 325
+  },
+  {
+   "src": "/assets/mat-mix-1000.webp",
+   "w": 1000,
+   "h": 651
+  }
+ ],
+ "mat-pellet-coated": [
+  {
+   "src": "/assets/mat-pellet-coated-500.webp",
+   "w": 500,
+   "h": 365
+  },
+  {
+   "src": "/assets/mat-pellet-coated-1000.webp",
+   "w": 1000,
+   "h": 730
+  }
+ ],
+ "mat-pellet-dry": [
+  {
+   "src": "/assets/mat-pellet-dry-500.webp",
+   "w": 500,
+   "h": 386
+  },
+  {
+   "src": "/assets/mat-pellet-dry-1000.webp",
+   "w": 1000,
+   "h": 771
+  }
+ ],
+ "mat-pellet-wet": [
+  {
+   "src": "/assets/mat-pellet-wet-500.webp",
+   "w": 500,
+   "h": 372
+  },
+  {
+   "src": "/assets/mat-pellet-wet-1000.webp",
+   "w": 1000,
+   "h": 744
+  }
+ ],
+ "mat-powder": [
+  {
+   "src": "/assets/mat-powder-500.webp",
+   "w": 500,
+   "h": 307
+  },
+  {
+   "src": "/assets/mat-powder-1000.webp",
+   "w": 1000,
+   "h": 615
+  }
+ ],
+ "mb-formed": [
+  {
+   "src": "/assets/mb-formed-500.webp",
+   "w": 500,
+   "h": 357
+  },
+  {
+   "src": "/assets/mb-formed-1000.webp",
+   "w": 1000,
+   "h": 713
+  }
+ ],
+ "mb-mix": [
+  {
+   "src": "/assets/mb-mix-500.webp",
+   "w": 500,
+   "h": 356
+  },
+  {
+   "src": "/assets/mb-mix-1000.webp",
+   "w": 1000,
+   "h": 713
+  }
+ ],
+ "n-crumbler": [
+  {
+   "src": "/assets/n-crumbler-640.webp",
+   "w": 640,
+   "h": 461
+  },
+  {
+   "src": "/assets/n-crumbler-1200.webp",
+   "w": 1200,
+   "h": 864
+  }
+ ],
+ "n-dosing-pump": [
+  {
+   "src": "/assets/n-dosing-pump-640.webp",
+   "w": 640,
+   "h": 462
+  },
+  {
+   "src": "/assets/n-dosing-pump-1200.webp",
+   "w": 1200,
+   "h": 866
+  }
+ ],
+ "n-fine-mill": [
+  {
+   "src": "/assets/n-fine-mill-640.webp",
+   "w": 640,
+   "h": 751
+  },
+  {
+   "src": "/assets/n-fine-mill-729.webp",
+   "w": 729,
+   "h": 856
+  }
+ ],
+ "n-micro-mill": [
+  {
+   "src": "/assets/n-micro-mill-640.webp",
+   "w": 640,
+   "h": 841
+  },
+  {
+   "src": "/assets/n-micro-mill-1081.webp",
+   "w": 1081,
+   "h": 1420
+  }
+ ],
+ "n-raw-silo": [
+  {
+   "src": "/assets/n-raw-silo-500.webp",
+   "w": 500,
+   "h": 1302
+  },
+  {
+   "src": "/assets/n-raw-silo-500.webp",
+   "w": 500,
+   "h": 1302
+  }
+ ],
+ "n-stock-silo": [
+  {
+   "src": "/assets/n-stock-silo-502.webp",
+   "w": 502,
+   "h": 1507
+  },
+  {
+   "src": "/assets/n-stock-silo-502.webp",
+   "w": 502,
+   "h": 1507
+  }
+ ],
+ "n-vibro-sieve": [
+  {
+   "src": "/assets/n-vibro-sieve-640.webp",
+   "w": 640,
+   "h": 909
+  },
+  {
+   "src": "/assets/n-vibro-sieve-974.webp",
+   "w": 974,
+   "h": 1384
+  }
+ ],
+ "n64-cover": [
+  {
+   "src": "/assets/n64-cover-900.webp",
+   "w": 900,
+   "h": 442
+  },
+  {
+   "src": "/assets/n64-cover-1650.webp",
+   "w": 1650,
+   "h": 810
+  }
+ ],
+ "n65-cover": [
+  {
+   "src": "/assets/n65-cover-900.webp",
+   "w": 900,
+   "h": 505
+  },
+  {
+   "src": "/assets/n65-cover-1594.webp",
+   "w": 1594,
+   "h": 894
+  }
+ ],
+ "p-3d-pellets": [
+  {
+   "src": "/assets/p-3d-pellets-500.webp",
+   "w": 500,
+   "h": 336
+  },
+  {
+   "src": "/assets/p-3d-pellets-1000.webp",
+   "w": 1000,
+   "h": 672
+  }
+ ],
+ "p-aquarium-feed": [
+  {
+   "src": "/assets/p-aquarium-feed-500.webp",
+   "w": 500,
+   "h": 325
+  },
+  {
+   "src": "/assets/p-aquarium-feed-1000.webp",
+   "w": 1000,
+   "h": 649
+  }
+ ],
+ "p-artificial-rice": [
+  {
+   "src": "/assets/p-artificial-rice-500.webp",
+   "w": 500,
+   "h": 325
+  },
+  {
+   "src": "/assets/p-artificial-rice-1000.webp",
+   "w": 1000,
+   "h": 650
+  }
+ ],
+ "p-baby-food": [
+  {
+   "src": "/assets/p-baby-food-500.webp",
+   "w": 500,
+   "h": 319
+  },
+  {
+   "src": "/assets/p-baby-food-1000.webp",
+   "w": 1000,
+   "h": 637
+  }
+ ],
+ "p-chips-crackers": [
+  {
+   "src": "/assets/p-chips-crackers-500.webp",
+   "w": 500,
+   "h": 357
+  },
+  {
+   "src": "/assets/p-chips-crackers-1000.webp",
+   "w": 1000,
+   "h": 714
+  }
+ ],
+ "p-corn-flakes": [
+  {
+   "src": "/assets/p-corn-flakes-500.webp",
+   "w": 500,
+   "h": 334
+  },
+  {
+   "src": "/assets/p-corn-flakes-1000.webp",
+   "w": 1000,
+   "h": 667
+  }
+ ],
+ "p-livestock-feed": [
+  {
+   "src": "/assets/p-livestock-feed-500.webp",
+   "w": 500,
+   "h": 345
+  },
+  {
+   "src": "/assets/p-livestock-feed-1000.webp",
+   "w": 1000,
+   "h": 690
+  }
+ ],
+ "p-modified-starch": [
+  {
+   "src": "/assets/p-modified-starch-500.webp",
+   "w": 500,
+   "h": 325
+  },
+  {
+   "src": "/assets/p-modified-starch-1000.webp",
+   "w": 1000,
+   "h": 650
+  }
+ ],
+ "p-muesli-bar": [
+  {
+   "src": "/assets/p-muesli-bar-500.webp",
+   "w": 500,
+   "h": 328
+  },
+  {
+   "src": "/assets/p-muesli-bar-1000.webp",
+   "w": 1000,
+   "h": 657
+  }
+ ],
+ "p-pet-food": [
+  {
+   "src": "/assets/p-pet-food-500.webp",
+   "w": 500,
+   "h": 347
+  },
+  {
+   "src": "/assets/p-pet-food-1000.webp",
+   "w": 1000,
+   "h": 694
+  }
+ ],
+ "p-pet-treats": [
+  {
+   "src": "/assets/p-pet-treats-500.webp",
+   "w": 500,
+   "h": 291
+  },
+  {
+   "src": "/assets/p-pet-treats-1000.webp",
+   "w": 1000,
+   "h": 583
+  }
+ ],
+ "p-pofidik": [
+  {
+   "src": "/assets/p-pofidik-500.webp",
+   "w": 500,
+   "h": 336
+  },
+  {
+   "src": "/assets/p-pofidik-1000.webp",
+   "w": 1000,
+   "h": 671
+  }
+ ],
+ "p-puffed-snacks": [
+  {
+   "src": "/assets/p-puffed-snacks-500.webp",
+   "w": 500,
+   "h": 372
+  },
+  {
+   "src": "/assets/p-puffed-snacks-1000.webp",
+   "w": 1000,
+   "h": 743
+  }
+ ],
+ "p-tvp": [
+  {
+   "src": "/assets/p-tvp-500.webp",
+   "w": 500,
+   "h": 341
+  },
+  {
+   "src": "/assets/p-tvp-1000.webp",
+   "w": 1000,
+   "h": 682
+  }
+ ],
+ "pf-dry": [
+  {
+   "src": "/assets/pf-dry-500.webp",
+   "w": 500,
+   "h": 365
+  },
+  {
+   "src": "/assets/pf-dry-893.webp",
+   "w": 893,
+   "h": 651
+  }
+ ],
+ "pf-mix": [
+  {
+   "src": "/assets/pf-mix-500.webp",
+   "w": 500,
+   "h": 346
+  },
+  {
+   "src": "/assets/pf-mix-1000.webp",
+   "w": 1000,
+   "h": 692
+  }
+ ],
+ "pf-wet": [
+  {
+   "src": "/assets/pf-wet-500.webp",
+   "w": 500,
+   "h": 364
+  },
+  {
+   "src": "/assets/pf-wet-1000.webp",
+   "w": 1000,
+   "h": 727
+  }
+ ],
+ "pk-3d-pellets": [
+  {
+   "src": "/assets/pk-3d-pellets-500.webp",
+   "w": 500,
+   "h": 632
+  },
+  {
+   "src": "/assets/pk-3d-pellets-642.webp",
+   "w": 642,
+   "h": 811
+  }
+ ],
+ "pk-algophyco-doypack": [
+  {
+   "src": "/assets/pk-algophyco-doypack-500.webp",
+   "w": 500,
+   "h": 781
+  },
+  {
+   "src": "/assets/pk-algophyco-doypack-874.webp",
+   "w": 874,
+   "h": 1365
+  }
+ ],
+ "pk-algophyco-jar": [
+  {
+   "src": "/assets/pk-algophyco-jar-500.webp",
+   "w": 500,
+   "h": 1397
+  },
+  {
+   "src": "/assets/pk-algophyco-jar-518.webp",
+   "w": 518,
+   "h": 1447
+  }
+ ],
+ "pk-aquarium-feed": [
+  {
+   "src": "/assets/pk-aquarium-feed-500.webp",
+   "w": 500,
+   "h": 619
+  },
+  {
+   "src": "/assets/pk-aquarium-feed-789.webp",
+   "w": 789,
+   "h": 977
+  }
+ ],
+ "pk-artificial-rice": [
+  {
+   "src": "/assets/pk-artificial-rice-500.webp",
+   "w": 500,
+   "h": 529
+  },
+  {
+   "src": "/assets/pk-artificial-rice-1000.webp",
+   "w": 1000,
+   "h": 1058
+  }
+ ],
+ "pk-baby-food": [
+  {
+   "src": "/assets/pk-baby-food-500.webp",
+   "w": 500,
+   "h": 563
+  },
+  {
+   "src": "/assets/pk-baby-food-949.webp",
+   "w": 949,
+   "h": 1068
+  }
+ ],
+ "pk-chips-crackers": [
+  {
+   "src": "/assets/pk-chips-crackers-500.webp",
+   "w": 500,
+   "h": 503
+  },
+  {
+   "src": "/assets/pk-chips-crackers-1000.webp",
+   "w": 1000,
+   "h": 1007
+  }
+ ],
+ "pk-corn-flakes": [
+  {
+   "src": "/assets/pk-corn-flakes-500.webp",
+   "w": 500,
+   "h": 541
+  },
+  {
+   "src": "/assets/pk-corn-flakes-1000.webp",
+   "w": 1000,
+   "h": 1083
+  }
+ ],
+ "pk-feed-pouch": [
+  {
+   "src": "/assets/pk-feed-pouch-500.webp",
+   "w": 500,
+   "h": 472
+  },
+  {
+   "src": "/assets/pk-feed-pouch-1000.webp",
+   "w": 1000,
+   "h": 944
+  }
+ ],
+ "pk-livestock-feed": [
+  {
+   "src": "/assets/pk-livestock-feed-500.webp",
+   "w": 500,
+   "h": 489
+  },
+  {
+   "src": "/assets/pk-livestock-feed-1000.webp",
+   "w": 1000,
+   "h": 977
+  }
+ ],
+ "pk-modified-starch": [
+  {
+   "src": "/assets/pk-modified-starch-500.webp",
+   "w": 500,
+   "h": 633
+  },
+  {
+   "src": "/assets/pk-modified-starch-839.webp",
+   "w": 839,
+   "h": 1063
+  }
+ ],
+ "pk-muesli-bar": [
+  {
+   "src": "/assets/pk-muesli-bar-500.webp",
+   "w": 500,
+   "h": 244
+  },
+  {
+   "src": "/assets/pk-muesli-bar-1000.webp",
+   "w": 1000,
+   "h": 488
+  }
+ ],
+ "pk-pet-food": [
+  {
+   "src": "/assets/pk-pet-food-500.webp",
+   "w": 500,
+   "h": 547
+  },
+  {
+   "src": "/assets/pk-pet-food-1000.webp",
+   "w": 1000,
+   "h": 1094
+  }
+ ],
+ "pk-pet-treats": [
+  {
+   "src": "/assets/pk-pet-treats-500.webp",
+   "w": 500,
+   "h": 470
+  },
+  {
+   "src": "/assets/pk-pet-treats-1000.webp",
+   "w": 1000,
+   "h": 940
+  }
+ ],
+ "pk-pofidik": [
+  {
+   "src": "/assets/pk-pofidik-500.webp",
+   "w": 500,
+   "h": 500
+  },
+  {
+   "src": "/assets/pk-pofidik-1000.webp",
+   "w": 1000,
+   "h": 999
+  }
+ ],
+ "pk-puffed-snacks": [
+  {
+   "src": "/assets/pk-puffed-snacks-500.webp",
+   "w": 500,
+   "h": 517
+  },
+  {
+   "src": "/assets/pk-puffed-snacks-1000.webp",
+   "w": 1000,
+   "h": 1035
+  }
+ ],
+ "pk-tvp": [
+  {
+   "src": "/assets/pk-tvp-500.webp",
+   "w": 500,
+   "h": 532
+  },
+  {
+   "src": "/assets/pk-tvp-1000.webp",
+   "w": 1000,
+   "h": 1064
+  }
+ ],
+ "pr-filled": [
+  {
+   "src": "/assets/pr-filled-500.webp",
+   "w": 500,
+   "h": 382
+  },
+  {
+   "src": "/assets/pr-filled-1000.webp",
+   "w": 1000,
+   "h": 764
+  }
+ ],
+ "pr-mix": [
+  {
+   "src": "/assets/pr-mix-500.webp",
+   "w": 500,
+   "h": 329
+  },
+  {
+   "src": "/assets/pr-mix-1000.webp",
+   "w": 1000,
+   "h": 659
+  }
+ ],
+ "pr-pillow": [
+  {
+   "src": "/assets/pr-pillow-500.webp",
+   "w": 500,
+   "h": 342
+  },
+  {
+   "src": "/assets/pr-pillow-1000.webp",
+   "w": 1000,
+   "h": 684
+  }
+ ],
+ "pr-tube": [
+  {
+   "src": "/assets/pr-tube-500.webp",
+   "w": 500,
+   "h": 381
+  },
+  {
+   "src": "/assets/pr-tube-1000.webp",
+   "w": 1000,
+   "h": 762
+  }
+ ],
+ "pt-cut": [
+  {
+   "src": "/assets/pt-cut-500.webp",
+   "w": 500,
+   "h": 353
+  },
+  {
+   "src": "/assets/pt-cut-1000.webp",
+   "w": 1000,
+   "h": 706
+  }
+ ],
+ "pt-mix": [
+  {
+   "src": "/assets/pt-mix-500.webp",
+   "w": 500,
+   "h": 352
+  },
+  {
+   "src": "/assets/pt-mix-1000.webp",
+   "w": 1000,
+   "h": 703
+  }
+ ],
+ "pt-rope": [
+  {
+   "src": "/assets/pt-rope-500.webp",
+   "w": 500,
+   "h": 311
+  },
+  {
+   "src": "/assets/pt-rope-1000.webp",
+   "w": 1000,
+   "h": 622
+  }
+ ],
+ "sp-3d-02": [
+  {
+   "src": "/assets/sp-3d-02-96.webp",
+   "w": 96,
+   "h": 66
+  },
+  {
+   "src": "/assets/sp-3d-02-160.webp",
+   "w": 160,
+   "h": 109
+  },
+  {
+   "src": "/assets/sp-3d-02-240.webp",
+   "w": 240,
+   "h": 164
+  }
+ ],
+ "sp-3d-03": [
+  {
+   "src": "/assets/sp-3d-03-96.webp",
+   "w": 87,
+   "h": 96
+  },
+  {
+   "src": "/assets/sp-3d-03-160.webp",
+   "w": 145,
+   "h": 160
+  },
+  {
+   "src": "/assets/sp-3d-03-240.webp",
+   "w": 217,
+   "h": 240
+  }
+ ],
+ "sp-3d-04": [
+  {
+   "src": "/assets/sp-3d-04-96.webp",
+   "w": 96,
+   "h": 85
+  },
+  {
+   "src": "/assets/sp-3d-04-160.webp",
+   "w": 160,
+   "h": 141
+  },
+  {
+   "src": "/assets/sp-3d-04-240.webp",
+   "w": 240,
+   "h": 212
+  }
+ ],
+ "sp-babyfood-01": [
+  {
+   "src": "/assets/sp-babyfood-01-96.webp",
+   "w": 96,
+   "h": 82
+  },
+  {
+   "src": "/assets/sp-babyfood-01-160.webp",
+   "w": 160,
+   "h": 137
+  },
+  {
+   "src": "/assets/sp-babyfood-01-240.webp",
+   "w": 236,
+   "h": 202
+  }
+ ],
+ "sp-babyfood-03": [
+  {
+   "src": "/assets/sp-babyfood-03-96.webp",
+   "w": 96,
+   "h": 69
+  },
+  {
+   "src": "/assets/sp-babyfood-03-160.webp",
+   "w": 160,
+   "h": 115
+  },
+  {
+   "src": "/assets/sp-babyfood-03-240.webp",
+   "w": 233,
+   "h": 167
+  }
+ ],
+ "sp-babyfood-05": [
+  {
+   "src": "/assets/sp-babyfood-05-96.webp",
+   "w": 96,
+   "h": 65
+  },
+  {
+   "src": "/assets/sp-babyfood-05-160.webp",
+   "w": 160,
+   "h": 108
+  },
+  {
+   "src": "/assets/sp-babyfood-05-240.webp",
+   "w": 240,
+   "h": 162
+  }
+ ],
+ "sp-babyfood-07": [
+  {
+   "src": "/assets/sp-babyfood-07-96.webp",
+   "w": 96,
+   "h": 71
+  },
+  {
+   "src": "/assets/sp-babyfood-07-160.webp",
+   "w": 160,
+   "h": 119
+  },
+  {
+   "src": "/assets/sp-babyfood-07-240.webp",
+   "w": 240,
+   "h": 178
+  }
+ ],
+ "sp-babyfood-11": [
+  {
+   "src": "/assets/sp-babyfood-11-96.webp",
+   "w": 96,
+   "h": 75
+  },
+  {
+   "src": "/assets/sp-babyfood-11-160.webp",
+   "w": 160,
+   "h": 126
+  },
+  {
+   "src": "/assets/sp-babyfood-11-240.webp",
+   "w": 238,
+   "h": 187
+  }
+ ],
+ "sp-chips-02": [
+  {
+   "src": "/assets/sp-chips-02-96.webp",
+   "w": 96,
+   "h": 96
+  },
+  {
+   "src": "/assets/sp-chips-02-160.webp",
+   "w": 160,
+   "h": 159
+  },
+  {
+   "src": "/assets/sp-chips-02-240.webp",
+   "w": 240,
+   "h": 239
+  }
+ ],
+ "sp-chips-06": [
+  {
+   "src": "/assets/sp-chips-06-96.webp",
+   "w": 96,
+   "h": 77
+  },
+  {
+   "src": "/assets/sp-chips-06-160.webp",
+   "w": 160,
+   "h": 129
+  },
+  {
+   "src": "/assets/sp-chips-06-240.webp",
+   "w": 240,
+   "h": 193
+  }
+ ],
+ "sp-chips-10": [
+  {
+   "src": "/assets/sp-chips-10-96.webp",
+   "w": 96,
+   "h": 81
+  },
+  {
+   "src": "/assets/sp-chips-10-160.webp",
+   "w": 160,
+   "h": 135
+  },
+  {
+   "src": "/assets/sp-chips-10-240.webp",
+   "w": 240,
+   "h": 203
+  }
+ ],
+ "sp-cornflakes-01": [
+  {
+   "src": "/assets/sp-cornflakes-01-96.webp",
+   "w": 96,
+   "h": 75
+  },
+  {
+   "src": "/assets/sp-cornflakes-01-160.webp",
+   "w": 160,
+   "h": 124
+  },
+  {
+   "src": "/assets/sp-cornflakes-01-240.webp",
+   "w": 240,
+   "h": 187
+  }
+ ],
+ "sp-cornflakes-06": [
+  {
+   "src": "/assets/sp-cornflakes-06-96.webp",
+   "w": 96,
+   "h": 64
+  },
+  {
+   "src": "/assets/sp-cornflakes-06-160.webp",
+   "w": 160,
+   "h": 107
+  },
+  {
+   "src": "/assets/sp-cornflakes-06-240.webp",
+   "w": 240,
+   "h": 160
+  }
+ ],
+ "sp-cornflakes-09": [
+  {
+   "src": "/assets/sp-cornflakes-09-96.webp",
+   "w": 96,
+   "h": 34
+  },
+  {
+   "src": "/assets/sp-cornflakes-09-160.webp",
+   "w": 160,
+   "h": 57
+  },
+  {
+   "src": "/assets/sp-cornflakes-09-240.webp",
+   "w": 240,
+   "h": 86
+  }
+ ],
+ "sp-fish-pellets-05": [
+  {
+   "src": "/assets/sp-fish-pellets-05-96.webp",
+   "w": 96,
+   "h": 69
+  },
+  {
+   "src": "/assets/sp-fish-pellets-05-160.webp",
+   "w": 160,
+   "h": 115
+  },
+  {
+   "src": "/assets/sp-fish-pellets-05-240.webp",
+   "w": 240,
+   "h": 173
+  }
+ ],
+ "sp-fish-pellets-11": [
+  {
+   "src": "/assets/sp-fish-pellets-11-96.webp",
+   "w": 96,
+   "h": 90
+  },
+  {
+   "src": "/assets/sp-fish-pellets-11-160.webp",
+   "w": 160,
+   "h": 150
+  },
+  {
+   "src": "/assets/sp-fish-pellets-11-240.webp",
+   "w": 240,
+   "h": 225
+  }
+ ],
+ "sp-fish-pellets-14": [
+  {
+   "src": "/assets/sp-fish-pellets-14-96.webp",
+   "w": 96,
+   "h": 96
+  },
+  {
+   "src": "/assets/sp-fish-pellets-14-160.webp",
+   "w": 160,
+   "h": 160
+  },
+  {
+   "src": "/assets/sp-fish-pellets-14-240.webp",
+   "w": 220,
+   "h": 220
+  }
+ ],
+ "sp-flakes-02": [
+  {
+   "src": "/assets/sp-flakes-02-96.webp",
+   "w": 96,
+   "h": 53
+  },
+  {
+   "src": "/assets/sp-flakes-02-160.webp",
+   "w": 160,
+   "h": 88
+  },
+  {
+   "src": "/assets/sp-flakes-02-240.webp",
+   "w": 240,
+   "h": 132
+  }
+ ],
+ "sp-flakes-04": [
+  {
+   "src": "/assets/sp-flakes-04-96.webp",
+   "w": 96,
+   "h": 63
+  },
+  {
+   "src": "/assets/sp-flakes-04-160.webp",
+   "w": 160,
+   "h": 106
+  },
+  {
+   "src": "/assets/sp-flakes-04-240.webp",
+   "w": 240,
+   "h": 159
+  }
+ ],
+ "sp-flakes-05": [
+  {
+   "src": "/assets/sp-flakes-05-96.webp",
+   "w": 96,
+   "h": 57
+  },
+  {
+   "src": "/assets/sp-flakes-05-160.webp",
+   "w": 160,
+   "h": 96
+  },
+  {
+   "src": "/assets/sp-flakes-05-240.webp",
+   "w": 240,
+   "h": 144
+  }
+ ],
+ "sp-flakes-09": [
+  {
+   "src": "/assets/sp-flakes-09-96.webp",
+   "w": 96,
+   "h": 51
+  },
+  {
+   "src": "/assets/sp-flakes-09-160.webp",
+   "w": 160,
+   "h": 85
+  },
+  {
+   "src": "/assets/sp-flakes-09-240.webp",
+   "w": 240,
+   "h": 128
+  }
+ ],
+ "sp-flakes-12": [
+  {
+   "src": "/assets/sp-flakes-12-96.webp",
+   "w": 96,
+   "h": 36
+  },
+  {
+   "src": "/assets/sp-flakes-12-160.webp",
+   "w": 160,
+   "h": 60
+  },
+  {
+   "src": "/assets/sp-flakes-12-240.webp",
+   "w": 240,
+   "h": 90
+  }
+ ],
+ "sp-flakes-15": [
+  {
+   "src": "/assets/sp-flakes-15-96.webp",
+   "w": 96,
+   "h": 85
+  },
+  {
+   "src": "/assets/sp-flakes-15-160.webp",
+   "w": 160,
+   "h": 142
+  },
+  {
+   "src": "/assets/sp-flakes-15-240.webp",
+   "w": 180,
+   "h": 160
+  }
+ ],
+ "sp-kibble-01": [
+  {
+   "src": "/assets/sp-kibble-01-96.webp",
+   "w": 94,
+   "h": 96
+  },
+  {
+   "src": "/assets/sp-kibble-01-160.webp",
+   "w": 157,
+   "h": 160
+  },
+  {
+   "src": "/assets/sp-kibble-01-240.webp",
+   "w": 235,
+   "h": 240
+  }
+ ],
+ "sp-kibble-02": [
+  {
+   "src": "/assets/sp-kibble-02-96.webp",
+   "w": 96,
+   "h": 91
+  },
+  {
+   "src": "/assets/sp-kibble-02-160.webp",
+   "w": 160,
+   "h": 151
+  },
+  {
+   "src": "/assets/sp-kibble-02-240.webp",
+   "w": 240,
+   "h": 227
+  }
+ ],
+ "sp-kibble-03": [
+  {
+   "src": "/assets/sp-kibble-03-96.webp",
+   "w": 96,
+   "h": 63
+  },
+  {
+   "src": "/assets/sp-kibble-03-160.webp",
+   "w": 160,
+   "h": 105
+  },
+  {
+   "src": "/assets/sp-kibble-03-240.webp",
+   "w": 240,
+   "h": 157
+  }
+ ],
+ "sp-kibble-04": [
+  {
+   "src": "/assets/sp-kibble-04-96.webp",
+   "w": 95,
+   "h": 96
+  },
+  {
+   "src": "/assets/sp-kibble-04-160.webp",
+   "w": 159,
+   "h": 160
+  },
+  {
+   "src": "/assets/sp-kibble-04-240.webp",
+   "w": 232,
+   "h": 234
+  }
+ ],
+ "sp-kibble-06": [
+  {
+   "src": "/assets/sp-kibble-06-96.webp",
+   "w": 50,
+   "h": 96
+  },
+  {
+   "src": "/assets/sp-kibble-06-160.webp",
+   "w": 84,
+   "h": 160
+  },
+  {
+   "src": "/assets/sp-kibble-06-240.webp",
+   "w": 126,
+   "h": 240
+  }
+ ],
+ "sp-kibble-07": [
+  {
+   "src": "/assets/sp-kibble-07-96.webp",
+   "w": 96,
+   "h": 84
+  },
+  {
+   "src": "/assets/sp-kibble-07-160.webp",
+   "w": 160,
+   "h": 140
+  },
+  {
+   "src": "/assets/sp-kibble-07-240.webp",
+   "w": 240,
+   "h": 211
+  }
+ ],
+ "sp-kibble-08": [
+  {
+   "src": "/assets/sp-kibble-08-96.webp",
+   "w": 96,
+   "h": 96
+  },
+  {
+   "src": "/assets/sp-kibble-08-160.webp",
+   "w": 160,
+   "h": 159
+  },
+  {
+   "src": "/assets/sp-kibble-08-240.webp",
+   "w": 240,
+   "h": 239
+  }
+ ],
+ "sp-kibble-09": [
+  {
+   "src": "/assets/sp-kibble-09-96.webp",
+   "w": 96,
+   "h": 81
+  },
+  {
+   "src": "/assets/sp-kibble-09-160.webp",
+   "w": 160,
+   "h": 135
+  },
+  {
+   "src": "/assets/sp-kibble-09-240.webp",
+   "w": 240,
+   "h": 203
+  }
+ ],
+ "sp-kibble-11": [
+  {
+   "src": "/assets/sp-kibble-11-96.webp",
+   "w": 96,
+   "h": 73
+  },
+  {
+   "src": "/assets/sp-kibble-11-160.webp",
+   "w": 160,
+   "h": 121
+  },
+  {
+   "src": "/assets/sp-kibble-11-240.webp",
+   "w": 240,
+   "h": 181
+  }
+ ],
+ "sp-kibble-12": [
+  {
+   "src": "/assets/sp-kibble-12-96.webp",
+   "w": 96,
+   "h": 92
+  },
+  {
+   "src": "/assets/sp-kibble-12-160.webp",
+   "w": 160,
+   "h": 153
+  },
+  {
+   "src": "/assets/sp-kibble-12-240.webp",
+   "w": 240,
+   "h": 230
+  }
+ ],
+ "sp-kibble-13": [
+  {
+   "src": "/assets/sp-kibble-13-96.webp",
+   "w": 96,
+   "h": 89
+  },
+  {
+   "src": "/assets/sp-kibble-13-160.webp",
+   "w": 160,
+   "h": 148
+  },
+  {
+   "src": "/assets/sp-kibble-13-240.webp",
+   "w": 240,
+   "h": 222
+  }
+ ],
+ "sp-kibble-14": [
+  {
+   "src": "/assets/sp-kibble-14-96.webp",
+   "w": 96,
+   "h": 85
+  },
+  {
+   "src": "/assets/sp-kibble-14-160.webp",
+   "w": 160,
+   "h": 141
+  },
+  {
+   "src": "/assets/sp-kibble-14-240.webp",
+   "w": 239,
+   "h": 211
+  }
+ ],
+ "sp-livestock-03": [
+  {
+   "src": "/assets/sp-livestock-03-96.webp",
+   "w": 96,
+   "h": 63
+  },
+  {
+   "src": "/assets/sp-livestock-03-160.webp",
+   "w": 160,
+   "h": 105
+  },
+  {
+   "src": "/assets/sp-livestock-03-240.webp",
+   "w": 240,
+   "h": 158
+  }
+ ],
+ "sp-livestock-09": [
+  {
+   "src": "/assets/sp-livestock-09-96.webp",
+   "w": 96,
+   "h": 55
+  },
+  {
+   "src": "/assets/sp-livestock-09-160.webp",
+   "w": 160,
+   "h": 92
+  },
+  {
+   "src": "/assets/sp-livestock-09-240.webp",
+   "w": 240,
+   "h": 138
+  }
+ ],
+ "sp-livestock-11": [
+  {
+   "src": "/assets/sp-livestock-11-96.webp",
+   "w": 96,
+   "h": 77
+  },
+  {
+   "src": "/assets/sp-livestock-11-160.webp",
+   "w": 160,
+   "h": 128
+  },
+  {
+   "src": "/assets/sp-livestock-11-240.webp",
+   "w": 240,
+   "h": 192
+  }
+ ],
+ "sp-pofidik-02": [
+  {
+   "src": "/assets/sp-pofidik-02-96.webp",
+   "w": 95,
+   "h": 96
+  },
+  {
+   "src": "/assets/sp-pofidik-02-160.webp",
+   "w": 159,
+   "h": 160
+  },
+  {
+   "src": "/assets/sp-pofidik-02-240.webp",
+   "w": 238,
+   "h": 240
+  }
+ ],
+ "sp-pofidik-04": [
+  {
+   "src": "/assets/sp-pofidik-04-96.webp",
+   "w": 96,
+   "h": 65
+  },
+  {
+   "src": "/assets/sp-pofidik-04-160.webp",
+   "w": 160,
+   "h": 108
+  },
+  {
+   "src": "/assets/sp-pofidik-04-240.webp",
+   "w": 240,
+   "h": 162
+  }
+ ],
+ "sp-pofidik-09": [
+  {
+   "src": "/assets/sp-pofidik-09-96.webp",
+   "w": 96,
+   "h": 92
+  },
+  {
+   "src": "/assets/sp-pofidik-09-160.webp",
+   "w": 160,
+   "h": 153
+  },
+  {
+   "src": "/assets/sp-pofidik-09-240.webp",
+   "w": 240,
+   "h": 229
+  }
+ ],
+ "sp-puffs-01": [
+  {
+   "src": "/assets/sp-puffs-01-96.webp",
+   "w": 96,
+   "h": 80
+  },
+  {
+   "src": "/assets/sp-puffs-01-160.webp",
+   "w": 160,
+   "h": 134
+  },
+  {
+   "src": "/assets/sp-puffs-01-240.webp",
+   "w": 240,
+   "h": 200
+  }
+ ],
+ "sp-puffs-02": [
+  {
+   "src": "/assets/sp-puffs-02-96.webp",
+   "w": 87,
+   "h": 96
+  },
+  {
+   "src": "/assets/sp-puffs-02-160.webp",
+   "w": 144,
+   "h": 160
+  },
+  {
+   "src": "/assets/sp-puffs-02-240.webp",
+   "w": 216,
+   "h": 240
+  }
+ ],
+ "sp-puffs-05": [
+  {
+   "src": "/assets/sp-puffs-05-96.webp",
+   "w": 96,
+   "h": 67
+  },
+  {
+   "src": "/assets/sp-puffs-05-160.webp",
+   "w": 160,
+   "h": 111
+  },
+  {
+   "src": "/assets/sp-puffs-05-240.webp",
+   "w": 240,
+   "h": 167
+  }
+ ],
+ "sp-rice-01": [
+  {
+   "src": "/assets/sp-rice-01-96.webp",
+   "w": 96,
+   "h": 84
+  },
+  {
+   "src": "/assets/sp-rice-01-160.webp",
+   "w": 160,
+   "h": 139
+  },
+  {
+   "src": "/assets/sp-rice-01-240.webp",
+   "w": 232,
+   "h": 202
+  }
+ ],
+ "sp-rice-03": [
+  {
+   "src": "/assets/sp-rice-03-96.webp",
+   "w": 75,
+   "h": 96
+  },
+  {
+   "src": "/assets/sp-rice-03-160.webp",
+   "w": 125,
+   "h": 160
+  },
+  {
+   "src": "/assets/sp-rice-03-240.webp",
+   "w": 188,
+   "h": 240
+  }
+ ],
+ "sp-rice-05": [
+  {
+   "src": "/assets/sp-rice-05-96.webp",
+   "w": 96,
+   "h": 65
+  },
+  {
+   "src": "/assets/sp-rice-05-160.webp",
+   "w": 160,
+   "h": 108
+  },
+  {
+   "src": "/assets/sp-rice-05-240.webp",
+   "w": 240,
+   "h": 162
+  }
+ ],
+ "sp-rice-07": [
+  {
+   "src": "/assets/sp-rice-07-96.webp",
+   "w": 72,
+   "h": 96
+  },
+  {
+   "src": "/assets/sp-rice-07-160.webp",
+   "w": 121,
+   "h": 160
+  },
+  {
+   "src": "/assets/sp-rice-07-240.webp",
+   "w": 174,
+   "h": 231
+  }
+ ],
+ "sp-rice-10": [
+  {
+   "src": "/assets/sp-rice-10-96.webp",
+   "w": 96,
+   "h": 71
+  },
+  {
+   "src": "/assets/sp-rice-10-160.webp",
+   "w": 160,
+   "h": 119
+  },
+  {
+   "src": "/assets/sp-rice-10-240.webp",
+   "w": 228,
+   "h": 169
+  }
+ ],
+ "sp-rice-14": [
+  {
+   "src": "/assets/sp-rice-14-96.webp",
+   "w": 96,
+   "h": 59
+  },
+  {
+   "src": "/assets/sp-rice-14-160.webp",
+   "w": 160,
+   "h": 99
+  },
+  {
+   "src": "/assets/sp-rice-14-240.webp",
+   "w": 240,
+   "h": 148
+  }
+ ],
+ "sp-starch-04": [
+  {
+   "src": "/assets/sp-starch-04-96.webp",
+   "w": 96,
+   "h": 57
+  },
+  {
+   "src": "/assets/sp-starch-04-160.webp",
+   "w": 160,
+   "h": 96
+  },
+  {
+   "src": "/assets/sp-starch-04-240.webp",
+   "w": 240,
+   "h": 144
+  }
+ ],
+ "sp-starch-05": [
+  {
+   "src": "/assets/sp-starch-05-96.webp",
+   "w": 96,
+   "h": 74
+  },
+  {
+   "src": "/assets/sp-starch-05-160.webp",
+   "w": 160,
+   "h": 124
+  },
+  {
+   "src": "/assets/sp-starch-05-240.webp",
+   "w": 240,
+   "h": 185
+  }
+ ],
+ "sp-starch-07": [
+  {
+   "src": "/assets/sp-starch-07-96.webp",
+   "w": 96,
+   "h": 77
+  },
+  {
+   "src": "/assets/sp-starch-07-160.webp",
+   "w": 160,
+   "h": 129
+  },
+  {
+   "src": "/assets/sp-starch-07-240.webp",
+   "w": 240,
+   "h": 194
+  }
+ ],
+ "sp-starch-09": [
+  {
+   "src": "/assets/sp-starch-09-96.webp",
+   "w": 96,
+   "h": 85
+  },
+  {
+   "src": "/assets/sp-starch-09-160.webp",
+   "w": 160,
+   "h": 141
+  },
+  {
+   "src": "/assets/sp-starch-09-240.webp",
+   "w": 224,
+   "h": 198
+  }
+ ],
+ "sp-starch-11": [
+  {
+   "src": "/assets/sp-starch-11-96.webp",
+   "w": 96,
+   "h": 66
+  },
+  {
+   "src": "/assets/sp-starch-11-160.webp",
+   "w": 160,
+   "h": 110
+  },
+  {
+   "src": "/assets/sp-starch-11-240.webp",
+   "w": 240,
+   "h": 165
+  }
+ ],
+ "sp-treats-02": [
+  {
+   "src": "/assets/sp-treats-02-96.webp",
+   "w": 96,
+   "h": 53
+  },
+  {
+   "src": "/assets/sp-treats-02-160.webp",
+   "w": 160,
+   "h": 88
+  },
+  {
+   "src": "/assets/sp-treats-02-240.webp",
+   "w": 240,
+   "h": 131
+  }
+ ],
+ "sp-treats-03": [
+  {
+   "src": "/assets/sp-treats-03-96.webp",
+   "w": 96,
+   "h": 66
+  },
+  {
+   "src": "/assets/sp-treats-03-160.webp",
+   "w": 160,
+   "h": 111
+  },
+  {
+   "src": "/assets/sp-treats-03-240.webp",
+   "w": 240,
+   "h": 166
+  }
+ ],
+ "sp-treats-05": [
+  {
+   "src": "/assets/sp-treats-05-96.webp",
+   "w": 96,
+   "h": 58
+  },
+  {
+   "src": "/assets/sp-treats-05-160.webp",
+   "w": 160,
+   "h": 96
+  },
+  {
+   "src": "/assets/sp-treats-05-240.webp",
+   "w": 240,
+   "h": 144
+  }
+ ],
+ "sp-tvp-05": [
+  {
+   "src": "/assets/sp-tvp-05-96.webp",
+   "w": 96,
+   "h": 73
+  },
+  {
+   "src": "/assets/sp-tvp-05-160.webp",
+   "w": 160,
+   "h": 121
+  },
+  {
+   "src": "/assets/sp-tvp-05-240.webp",
+   "w": 240,
+   "h": 182
+  }
+ ],
+ "sp-tvp-06": [
+  {
+   "src": "/assets/sp-tvp-06-96.webp",
+   "w": 96,
+   "h": 77
+  },
+  {
+   "src": "/assets/sp-tvp-06-160.webp",
+   "w": 160,
+   "h": 128
+  },
+  {
+   "src": "/assets/sp-tvp-06-240.webp",
+   "w": 240,
+   "h": 192
+  }
+ ],
+ "sp-tvp-10": [
+  {
+   "src": "/assets/sp-tvp-10-96.webp",
+   "w": 96,
+   "h": 83
+  },
+  {
+   "src": "/assets/sp-tvp-10-240.webp",
+   "w": 106,
+   "h": 92
+  },
+  {
+   "src": "/assets/sp-tvp-10-160.webp",
+   "w": 106,
+   "h": 92
+  }
+ ],
+ "sp-tvp-12": [
+  {
+   "src": "/assets/sp-tvp-12-96.webp",
+   "w": 96,
+   "h": 79
+  },
+  {
+   "src": "/assets/sp-tvp-12-240.webp",
+   "w": 113,
+   "h": 93
+  },
+  {
+   "src": "/assets/sp-tvp-12-160.webp",
+   "w": 113,
+   "h": 93
+  }
+ ],
+ "sp85-ii-extruder": [
+  {
+   "src": "/assets/sp85-ii-extruder-800.webp",
+   "w": 800,
+   "h": 366
+  },
+  {
+   "src": "/assets/sp85-ii-extruder-1510.webp",
+   "w": 1510,
+   "h": 690
+  }
+ ],
+ "st-extrudate": [
+  {
+   "src": "/assets/st-extrudate-500.webp",
+   "w": 500,
+   "h": 348
+  },
+  {
+   "src": "/assets/st-extrudate-1000.webp",
+   "w": 1000,
+   "h": 696
+  }
+ ],
+ "st-raw": [
+  {
+   "src": "/assets/st-raw-500.webp",
+   "w": 500,
+   "h": 343
+  },
+  {
+   "src": "/assets/st-raw-1000.webp",
+   "w": 1000,
+   "h": 686
+  }
+ ],
+ "td-cut": [
+  {
+   "src": "/assets/td-cut-500.webp",
+   "w": 500,
+   "h": 343
+  },
+  {
+   "src": "/assets/td-cut-1000.webp",
+   "w": 1000,
+   "h": 687
+  }
+ ],
+ "td-dry": [
+  {
+   "src": "/assets/td-dry-500.webp",
+   "w": 500,
+   "h": 351
+  },
+  {
+   "src": "/assets/td-dry-1000.webp",
+   "w": 1000,
+   "h": 701
+  }
+ ],
+ "td-mix": [
+  {
+   "src": "/assets/td-mix-500.webp",
+   "w": 500,
+   "h": 333
+  },
+  {
+   "src": "/assets/td-mix-1000.webp",
+   "w": 1000,
+   "h": 666
+  }
+ ],
+ "td-seasoned": [
+  {
+   "src": "/assets/td-seasoned-500.webp",
+   "w": 500,
+   "h": 365
+  },
+  {
+   "src": "/assets/td-seasoned-1000.webp",
+   "w": 1000,
+   "h": 731
+  }
+ ],
+ "td-sheet": [
+  {
+   "src": "/assets/td-sheet-500.webp",
+   "w": 500,
+   "h": 351
+  },
+  {
+   "src": "/assets/td-sheet-1000.webp",
+   "w": 1000,
+   "h": 702
+  }
+ ],
+ "tvp-flour": [
+  {
+   "src": "/assets/tvp-flour-500.webp",
+   "w": 500,
+   "h": 343
+  },
+  {
+   "src": "/assets/tvp-flour-1000.webp",
+   "w": 1000,
+   "h": 685
+  }
+ ],
+ "tvp-wet": [
+  {
+   "src": "/assets/tvp-wet-500.webp",
+   "w": 500,
+   "h": 355
+  },
+  {
+   "src": "/assets/tvp-wet-1000.webp",
+   "w": 1000,
+   "h": 711
+  }
+ ],
+ "w-factory-bg": [
+  {
+   "src": "/assets/w-factory-bg-700.webp",
+   "w": 700,
+   "h": 1050
+  },
+  {
+   "src": "/assets/w-factory-bg-1024.webp",
+   "w": 1024,
+   "h": 1536
+  }
+ ],
+ "w-field-bg": [
+  {
+   "src": "/assets/w-field-bg-700.webp",
+   "w": 700,
+   "h": 1050
+  },
+  {
+   "src": "/assets/w-field-bg-1024.webp",
+   "w": 1024,
+   "h": 1536
+  }
+ ],
+ "w-sea-bg": [
+  {
+   "src": "/assets/w-sea-bg-700.webp",
+   "w": 700,
+   "h": 1050
+  },
+  {
+   "src": "/assets/w-sea-bg-1024.webp",
+   "w": 1024,
+   "h": 1536
+  }
+ ]
+}

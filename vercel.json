@@ -1,0 +1,740 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "astro",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "redirects": [
+    {
+      "source": "/default.aspx",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-US/default.aspx",
+      "destination": "/en/",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/default.aspx",
+      "destination": "/en/",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/default.aspx",
+      "destination": "/ar/",
+      "statusCode": 301
+    },
+    {
+      "source": "/hakkimizda.aspx",
+      "destination": "/hakkimizda",
+      "statusCode": 301
+    },
+    {
+      "source": "/hizmetlerimiz/lojistik-tedarik.aspx",
+      "destination": "/hizmetler/tedarik-lojistik",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog.aspx",
+      "destination": "/notlar",
+      "statusCode": 301
+    },
+    {
+      "source": "/referanslar.aspx",
+      "destination": "/projeler",
+      "statusCode": 301
+    },
+    {
+      "source": "/galeri.aspx",
+      "destination": "/arsiv",
+      "statusCode": 301
+    },
+    {
+      "source": "/mavikatalog.aspx",
+      "destination": "/katalog",
+      "statusCode": 301
+    },
+    {
+      "source": "/iletisim.aspx",
+      "destination": "/iletisim",
+      "statusCode": 301
+    },
+    {
+      "source": "/hizmetlerimiz/proje.aspx",
+      "destination": "/hizmetler/proje-ve-fon",
+      "statusCode": 301
+    },
+    {
+      "source": "/hizmetlerimiz/yem-gida.aspx",
+      "destination": "/cozumler/yem-gida-hatlari",
+      "statusCode": 301
+    },
+    {
+      "source": "/hizmetlerimiz/makina-sistemleri.aspx",
+      "destination": "/makineler",
+      "statusCode": 301
+    },
+    {
+      "source": "/hizmetlerimiz/Su-Urunleri.aspx",
+      "destination": "/cozumler/su-urunleri",
+      "statusCode": 301
+    },
+    {
+      "source": "/hizmetlerimiz/su-urunleri.aspx",
+      "destination": "/cozumler/su-urunleri",
+      "statusCode": 301
+    },
+    {
+      "source": "/hizmetlerimiz/tarim-hayvancilik.aspx",
+      "destination": "/cozumler/tarim-hayvancilik",
+      "statusCode": 301
+    },
+    {
+      "source": "/FIRMAMIZIN-KEDI-KOPEK-MAMALARI-FORMULASYON-VE-URETIM-DANISMANLIGI/67",
+      "destination": "/notlar/kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi",
+      "statusCode": 301
+    },
+    {
+      "source": "/firmamizin-kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi/67",
+      "destination": "/notlar/kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi",
+      "statusCode": 301
+    },
+    {
+      "source": "/MAVI-YESIL-ALGLERIN-GEZEGENIMIZ-ICIN-ONEMI/65",
+      "destination": "/notlar/mavi-yesil-alglerin-gezegenimiz-icin-onemi",
+      "statusCode": 301
+    },
+    {
+      "source": "/mavi-yesil-alglerin-gezegenimiz-icin-onemi/65",
+      "destination": "/notlar/mavi-yesil-alglerin-gezegenimiz-icin-onemi",
+      "statusCode": 301
+    },
+    {
+      "source": "/AKUAKULTUR-EKTRUDE-YEMLERININ-URETIMI/64",
+      "destination": "/notlar/akuakultur-ekstrude-yemlerinin-uretimi",
+      "statusCode": 301
+    },
+    {
+      "source": "/akuakultur-ektrude-yemlerinin-uretimi/64",
+      "destination": "/notlar/akuakultur-ekstrude-yemlerinin-uretimi",
+      "statusCode": 301
+    },
+    {
+      "source": "/Future-Fish-Eurasia-Izmir-Fuarini-basari-ile-tamamladik/63",
+      "destination": "/notlar/future-fish-eurasia-izmir-fuari-tamamlandi",
+      "statusCode": 301
+    },
+    {
+      "source": "/future-fish-eurasia-izmir-fuarini-basari-ile-tamamladik/63",
+      "destination": "/notlar/future-fish-eurasia-izmir-fuari-tamamlandi",
+      "statusCode": 301
+    },
+    {
+      "source": "/FUTURE-FISH-EURASIA-2-4-HAZIRAN-2016-FUARINDAYIZ/62",
+      "destination": "/notlar/future-fish-eurasia-2016-fuarindayiz",
+      "statusCode": 301
+    },
+    {
+      "source": "/future-fish-eurasia-2-4-haziran-2016-fuarindayiz/62",
+      "destination": "/notlar/future-fish-eurasia-2016-fuarindayiz",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-US/About-us.aspx",
+      "destination": "/en/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/about-us.aspx",
+      "destination": "/en/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-US/services/logistics.aspx",
+      "destination": "/en/services/supply-logistics",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/services/logistics.aspx",
+      "destination": "/en/services/supply-logistics",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-US/blog.aspx",
+      "destination": "/en/notes",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/blog.aspx",
+      "destination": "/en/notes",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-US/references.aspx",
+      "destination": "/en/projects",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/references.aspx",
+      "destination": "/en/projects",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-US/gallery.aspx",
+      "destination": "/en/archive",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/gallery.aspx",
+      "destination": "/en/archive",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-US/catalog.aspx",
+      "destination": "/en/catalog",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/catalog.aspx",
+      "destination": "/en/catalog",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-US/contact.aspx",
+      "destination": "/en/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/contact.aspx",
+      "destination": "/en/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/services/projects.aspx",
+      "destination": "/en/services/projects-funding",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/services/feed.aspx",
+      "destination": "/en/solutions/feed-food-lines",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/services/machine-systems.aspx",
+      "destination": "/en/machines",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/services/Aquaculture.aspx",
+      "destination": "/en/solutions/aquaculture",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/services/aquaculture.aspx",
+      "destination": "/en/solutions/aquaculture",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/services/animal-husbandry.aspx",
+      "destination": "/en/solutions/agriculture-livestock",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-US/blogicerik.aspx",
+      "has": [
+        {
+          "type": "query",
+          "key": "MakaleID",
+          "value": "67"
+        }
+      ],
+      "destination": "/en/notes/kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/blogicerik.aspx",
+      "has": [
+        {
+          "type": "query",
+          "key": "MakaleID",
+          "value": "67"
+        }
+      ],
+      "destination": "/en/notes/kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-US/blogicerik.aspx",
+      "has": [
+        {
+          "type": "query",
+          "key": "MakaleID",
+          "value": "65"
+        }
+      ],
+      "destination": "/en/notes/mavi-yesil-alglerin-gezegenimiz-icin-onemi",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/blogicerik.aspx",
+      "has": [
+        {
+          "type": "query",
+          "key": "MakaleID",
+          "value": "65"
+        }
+      ],
+      "destination": "/en/notes/mavi-yesil-alglerin-gezegenimiz-icin-onemi",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-US/blogicerik.aspx",
+      "has": [
+        {
+          "type": "query",
+          "key": "MakaleID",
+          "value": "64"
+        }
+      ],
+      "destination": "/en/notes/akuakultur-ekstrude-yemlerinin-uretimi",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/blogicerik.aspx",
+      "has": [
+        {
+          "type": "query",
+          "key": "MakaleID",
+          "value": "64"
+        }
+      ],
+      "destination": "/en/notes/akuakultur-ekstrude-yemlerinin-uretimi",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-US/blogicerik.aspx",
+      "has": [
+        {
+          "type": "query",
+          "key": "MakaleID",
+          "value": "63"
+        }
+      ],
+      "destination": "/en/notes/future-fish-eurasia-izmir-fuari-tamamlandi",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/blogicerik.aspx",
+      "has": [
+        {
+          "type": "query",
+          "key": "MakaleID",
+          "value": "63"
+        }
+      ],
+      "destination": "/en/notes/future-fish-eurasia-izmir-fuari-tamamlandi",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-US/blogicerik.aspx",
+      "has": [
+        {
+          "type": "query",
+          "key": "MakaleID",
+          "value": "62"
+        }
+      ],
+      "destination": "/en/notes/future-fish-eurasia-2016-fuarindayiz",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/blogicerik.aspx",
+      "has": [
+        {
+          "type": "query",
+          "key": "MakaleID",
+          "value": "62"
+        }
+      ],
+      "destination": "/en/notes/future-fish-eurasia-2016-fuarindayiz",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/About.aspx",
+      "destination": "/ar/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/about.aspx",
+      "destination": "/ar/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/services/logistics.aspx",
+      "destination": "/ar/services/supply-logistics",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/references.aspx",
+      "destination": "/ar/projects",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/gallery.aspx",
+      "destination": "/ar/archive",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/catalog.aspx",
+      "destination": "/ar/catalog",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/contact.aspx",
+      "destination": "/ar/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/services/feed.aspx",
+      "destination": "/ar/solutions/feed-food-lines",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/services/machine-systems.aspx",
+      "destination": "/ar/machines",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/blog.aspx",
+      "destination": "/ar/notes",
+      "statusCode": 301
+    },
+    {
+      "source": "/services/lojistik-tedarik.aspx",
+      "destination": "/hizmetler/tedarik-lojistik",
+      "statusCode": 301
+    },
+    {
+      "source": "/katalog/samples/magazine/index.html",
+      "destination": "/katalog",
+      "statusCode": 301
+    },
+    {
+      "source": "/AGRA-ME-2016-FUARIMIZ-BASARI-ILE-TAMAMLANMISTIR/55",
+      "destination": "/notlar/agra-me-2016-fuari-tamamlandi",
+      "statusCode": 301
+    },
+    {
+      "source": "/agra-me-2016-fuarimiz-basari-ile-tamamlanmistir/55",
+      "destination": "/notlar/agra-me-2016-fuari-tamamlandi",
+      "statusCode": 301
+    },
+    {
+      "source": "/Dubai-Agra-ME-Fuarindayiz/61",
+      "destination": "/notlar/dubai-agra-me-fuarindayiz",
+      "statusCode": 301
+    },
+    {
+      "source": "/dubai-agra-me-fuarindayiz/61",
+      "destination": "/notlar/dubai-agra-me-fuarindayiz",
+      "statusCode": 301
+    },
+    {
+      "source": "/FIRMAMIZIN-KEDI-KOPEK-MAMALARI-FORMULASYON-VE-URETIM-DANISMANLIGI/default.aspx",
+      "destination": "/notlar/kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi",
+      "statusCode": 301
+    },
+    {
+      "source": "/firmamizin-kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi/default.aspx",
+      "destination": "/notlar/kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi",
+      "statusCode": 301
+    },
+    {
+      "source": "/MAVI-YESIL-ALGLERIN-GEZEGENIMIZ-ICIN-ONEMI/default.aspx",
+      "destination": "/notlar/mavi-yesil-alglerin-gezegenimiz-icin-onemi",
+      "statusCode": 301
+    },
+    {
+      "source": "/mavi-yesil-alglerin-gezegenimiz-icin-onemi/default.aspx",
+      "destination": "/notlar/mavi-yesil-alglerin-gezegenimiz-icin-onemi",
+      "statusCode": 301
+    },
+    {
+      "source": "/AKUAKULTUR-EKTRUDE-YEMLERININ-URETIMI/default.aspx",
+      "destination": "/notlar/akuakultur-ekstrude-yemlerinin-uretimi",
+      "statusCode": 301
+    },
+    {
+      "source": "/akuakultur-ektrude-yemlerinin-uretimi/default.aspx",
+      "destination": "/notlar/akuakultur-ekstrude-yemlerinin-uretimi",
+      "statusCode": 301
+    },
+    {
+      "source": "/Future-Fish-Eurasia-Izmir-Fuarini-basari-ile-tamamladik/default.aspx",
+      "destination": "/notlar/future-fish-eurasia-izmir-fuari-tamamlandi",
+      "statusCode": 301
+    },
+    {
+      "source": "/future-fish-eurasia-izmir-fuarini-basari-ile-tamamladik/default.aspx",
+      "destination": "/notlar/future-fish-eurasia-izmir-fuari-tamamlandi",
+      "statusCode": 301
+    },
+    {
+      "source": "/FUTURE-FISH-EURASIA-2-4-HAZIRAN-2016-FUARINDAYIZ/default.aspx",
+      "destination": "/notlar/future-fish-eurasia-2016-fuarindayiz",
+      "statusCode": 301
+    },
+    {
+      "source": "/future-fish-eurasia-2-4-haziran-2016-fuarindayiz/default.aspx",
+      "destination": "/notlar/future-fish-eurasia-2016-fuarindayiz",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-US/services/About-us.aspx",
+      "destination": "/en/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/services/about-us.aspx",
+      "destination": "/en/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-US/blogicerik.aspx",
+      "has": [
+        {
+          "type": "query",
+          "key": "MakaleID",
+          "value": "55"
+        }
+      ],
+      "destination": "/en/notes/agra-me-2016-fuari-tamamlandi",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/blogicerik.aspx",
+      "has": [
+        {
+          "type": "query",
+          "key": "MakaleID",
+          "value": "55"
+        }
+      ],
+      "destination": "/en/notes/agra-me-2016-fuari-tamamlandi",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-US/blogicerik.aspx",
+      "has": [
+        {
+          "type": "query",
+          "key": "MakaleID",
+          "value": "61"
+        }
+      ],
+      "destination": "/en/notes/dubai-agra-me-fuarindayiz",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/blogicerik.aspx",
+      "has": [
+        {
+          "type": "query",
+          "key": "MakaleID",
+          "value": "61"
+        }
+      ],
+      "destination": "/en/notes/dubai-agra-me-fuarindayiz",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/catalog/samples/magazine/index.html",
+      "destination": "/en/catalog",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/catalog/samples/magazine/index.html",
+      "destination": "/ar/catalog",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/services/projects.aspx",
+      "destination": "/ar/services/projects-funding",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/services/Aquaculture.aspx",
+      "destination": "/ar/solutions/aquaculture",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/services/aquaculture.aspx",
+      "destination": "/ar/solutions/aquaculture",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/services/animal-husbandry.aspx",
+      "destination": "/ar/solutions/agriculture-livestock",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/mavikatalog.aspx",
+      "destination": "/ar/catalog",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/hakkimizda.aspx",
+      "destination": "/ar/about",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/galeri.aspx",
+      "destination": "/ar/archive",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/services/lojistik-tedarik.aspx",
+      "destination": "/ar/services/supply-logistics",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/iletisim.aspx",
+      "destination": "/ar/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/referanslar.aspx",
+      "destination": "/ar/projects",
+      "statusCode": 301
+    },
+    {
+      "source": "/AGRA-ME-2016-FUARIMIZ-BASARI-ILE-TAMAMLANMISTIR/default.aspx",
+      "destination": "/notlar/agra-me-2016-fuari-tamamlandi",
+      "statusCode": 301
+    },
+    {
+      "source": "/agra-me-2016-fuarimiz-basari-ile-tamamlanmistir/default.aspx",
+      "destination": "/notlar/agra-me-2016-fuari-tamamlandi",
+      "statusCode": 301
+    },
+    {
+      "source": "/Dubai-Agra-ME-Fuarindayiz/default.aspx",
+      "destination": "/notlar/dubai-agra-me-fuarindayiz",
+      "statusCode": 301
+    },
+    {
+      "source": "/dubai-agra-me-fuarindayiz/default.aspx",
+      "destination": "/notlar/dubai-agra-me-fuarindayiz",
+      "statusCode": 301
+    },
+    {
+      "source": "/katalog/MaviProtein_Katalog_TR_WEB.pdf",
+      "destination": "/docs/MaviProtein_Katalog_TR.pdf",
+      "statusCode": 301
+    },
+    {
+      "source": "/katalog/maviprotein_katalog_tr_web.pdf",
+      "destination": "/docs/MaviProtein_Katalog_TR.pdf",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-US/catalog.pdf",
+      "destination": "/docs/MaviProtein_Catalogue_EN.pdf",
+      "statusCode": 301
+    },
+    {
+      "source": "/en-us/catalog.pdf",
+      "destination": "/docs/MaviProtein_Catalogue_EN.pdf",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/catalog.pdf",
+      "destination": "/ar/catalog",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/blogicerik.aspx",
+      "has": [
+        {
+          "type": "query",
+          "key": "MakaleID",
+          "value": "55"
+        }
+      ],
+      "destination": "/ar/notes/agra-me-2016-fuari-tamamlandi",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/blogicerik.aspx",
+      "has": [
+        {
+          "type": "query",
+          "key": "MakaleID",
+          "value": "61"
+        }
+      ],
+      "destination": "/ar/notes/dubai-agra-me-fuarindayiz",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/blogicerik.aspx",
+      "has": [
+        {
+          "type": "query",
+          "key": "MakaleID",
+          "value": "62"
+        }
+      ],
+      "destination": "/ar/notes/future-fish-eurasia-2016-fuarindayiz",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/blogicerik.aspx",
+      "has": [
+        {
+          "type": "query",
+          "key": "MakaleID",
+          "value": "63"
+        }
+      ],
+      "destination": "/ar/notes/future-fish-eurasia-izmir-fuari-tamamlandi",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/blogicerik.aspx",
+      "has": [
+        {
+          "type": "query",
+          "key": "MakaleID",
+          "value": "64"
+        }
+      ],
+      "destination": "/ar/notes/akuakultur-ekstrude-yemlerinin-uretimi",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/blogicerik.aspx",
+      "has": [
+        {
+          "type": "query",
+          "key": "MakaleID",
+          "value": "65"
+        }
+      ],
+      "destination": "/ar/notes/mavi-yesil-alglerin-gezegenimiz-icin-onemi",
+      "statusCode": 301
+    },
+    {
+      "source": "/arb/blogicerik.aspx",
+      "has": [
+        {
+          "type": "query",
+          "key": "MakaleID",
+          "value": "67"
+        }
+      ],
+      "destination": "/ar/notes/kedi-kopek-mamalari-formulasyon-ve-uretim-danismanligi",
+      "statusCode": 301
+    }
+  ]
+}

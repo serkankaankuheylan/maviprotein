@@ -1,0 +1,91 @@
+---
+/**
+ * Inner-page intro: context (breadcrumb + kicker) → title → promise → contents.
+ * `surface` picks the material. Put art in the default slot (right column).
+ */
+import { href, type RouteKey } from '../lib/routes';
+import type { Lang } from '../lib/i18n';
+interface Props {
+  lang: Lang;
+  kicker: string;
+  title: string;
+  lead?: string;
+  surface?: 'dark' | 'light' | 'sand' | 'steel';
+  toc?: [string, string][];
+  crumbs?: [string, RouteKey | string][];
+  tall?: boolean;
+  /** service pages: no empty band under the header, so the whole hero sits on the first screen */
+  snug?: boolean;
+  id?: string;
+}
+const { lang, kicker, title, lead, surface = 'light', toc, crumbs, tall = false, snug = false, id = 'intro-title' } = Astro.props;
+const dark = surface === 'dark' || surface === 'steel';
+const homeLabel = { tr: 'Anasayfa', en: 'Home', ar: 'الرئيسية' }[lang];
+const tocLabel = { tr: 'Bu sayfada', en: 'On this page', ar: 'في هذه الصفحة' }[lang];
+const hasArt = Astro.slots.has('default');
+---
+<section class:list={['intro', `s-${surface}`, { grain: !dark || surface === 'dark', 'intro--tall': tall, 'intro--snug': snug, 'intro--art': hasArt }]} data-surface={dark ? 'dark' : 'light'} aria-labelledby={id}>
+  <slot name="bg" />
+  <div class="wrap intro__grid">
+    <div class="intro__words">
+      <nav class="intro__crumbs label" aria-label="breadcrumb">
+        <a href={href('home', lang)}>{homeLabel}</a>
+        {crumbs?.map(([label, to]) => (<><span class="sep">/</span><a href={to.startsWith('/') ? to : href(to as RouteKey, lang)}>{label}</a></>))}
+      </nav>
+      <p class="label intro__kicker"><span class="dot"></span>{kicker}</p>
+      <h1 id={id} class="t-display intro__title" set:html={title} />
+      {lead && <p class="t-lead intro__lead">{lead}</p>}
+      <slot name="after" />
+      {toc && (
+        <nav class="intro__toc" aria-label={tocLabel}>
+          <ol role="list">
+            {toc.map(([hash, label], i) => <li><a href={`#${hash}`}><span class="mono">{String(i + 1).padStart(2, '0')}</span>{label}</a></li>)}
+          </ol>
+        </nav>
+      )}
+    </div>
+    {hasArt && <div class="intro__art"><slot /></div>}
+  </div>
+</section>
+<style>
+  .intro { position: relative; padding-block: calc(var(--header-h) + clamp(48px, 8vw, 120px)) clamp(56px, 7vw, 112px); overflow: hidden; isolation: isolate; }
+  /* service pages: the hero fills the screen (up to --hero-max on tall monitors); the paddings are its minimum,
+     a taller screen adds the room around the centred content and lets the art grow with it */
+  .intro--snug {
+    --hero-max: 1080px;
+    --hero-h: min(100svh, var(--hero-max));
+    --pad-t: clamp(12px, 1.6vw, 28px);
+    --pad-b: clamp(36px, 4vw, 64px);
+    /* the height the art may take; each view sizes its art from it */
+    --art-h: calc(var(--hero-h) - var(--header-h) - var(--pad-t) - var(--pad-b));
+    --art-w: 100%;
+    min-height: var(--hero-h);
+    display: grid; align-content: center;
+    padding-block: calc(var(--header-h) + var(--pad-t)) var(--pad-b);
+  }
+  .intro--tall { min-height: min(100svh, 980px); display: grid; align-items: end; }
+  .intro__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); align-items: end; position: relative; }
+  .intro__words { grid-column: 1 / span 8; display: grid; gap: 1.4rem; justify-items: start; }
+  .intro--art .intro__words { grid-column: 1 / span 6; }
+  .intro__art { grid-column: 7 / -1; position: relative; align-self: center; }
+  .intro__crumbs { gap: 0.55rem; color: var(--fg-3); }
+  .intro__crumbs a:hover { color: var(--fg); }
+  .intro__kicker { color: var(--fg-2); }
+  .s-dark .intro__kicker, .s-steel .intro__kicker { color: var(--aegean); }
+  .intro__title { max-width: 14ch; }
+  .intro__title :global(em) { color: var(--phyco); }
+  .s-dark .intro__title :global(em), .s-steel .intro__title :global(em) { color: var(--aegean); }
+  .intro__lead { max-width: 52ch; }
+  .intro__toc { margin-top: 1.4rem; width: 100%; border-top: 1px solid var(--line-strong); }
+  .intro__toc ol { display: flex; flex-wrap: wrap; }
+  .intro__toc li { flex: 1 1 auto; }
+  .intro__toc a { display: flex; gap: 0.7rem; align-items: baseline; padding: 0.9rem 1.2rem 0.9rem 0; font-size: 0.95rem; font-weight: 500; transition: color 300ms; }
+  .intro__toc a:hover { color: var(--phyco); }
+  .intro__toc .mono { font-size: 0.7rem; color: var(--brass); }
+  @media (max-width: 960px) {
+    .intro__words, .intro--art .intro__words, .intro__art { grid-column: 1 / -1; }
+    .intro__art { order: -1; }
+    /* phones: the art leaves room for the title and lead under it */
+    .intro--snug { --art-h: min(44svh, 400px); }
+  }
+</style>
