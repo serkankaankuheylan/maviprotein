@@ -3,7 +3,7 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   // Preview builds (scripts/deploy-preview.mjs) pass their own address in SITE_URL.
-  site: process.env.SITE_URL || 'https://www.maviprotein.com.tr',
+  site: process.env.SITE_URL || 'https://theblueprotein.com',
   trailingSlash: 'ignore',
   build: { format: 'directory' },
   integrations: [

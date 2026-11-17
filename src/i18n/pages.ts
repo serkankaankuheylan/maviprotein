@@ -204,7 +204,7 @@ export const pagesCopy = {
     },
     legal: {
       privacy: { meta: { title: 'KVKK Aydınlatma Metni', description: '6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında aydınlatma metni.' }, kicker: 'Yasal', title: 'KVKK aydınlatma metni' },
-      cookies: { meta: { title: 'Çerez Politikası', description: 'maviprotein.com.tr çerez politikası.' }, kicker: 'Yasal', title: 'Çerez politikası' },
+      cookies: { meta: { title: 'Çerez Politikası', description: 'theblueprotein.com çerez politikası.' }, kicker: 'Yasal', title: 'Çerez politikası' },
       updated: 'Son güncelleme',
     },
     notFound: {
@@ -416,7 +416,7 @@ export const pagesCopy = {
     },
     legal: {
       privacy: { meta: { title: 'Privacy Notice (KVKK)', description: 'Privacy notice under Turkish Law No. 6698 on the Protection of Personal Data (KVKK).' }, kicker: 'Legal', title: 'Privacy notice' },
-      cookies: { meta: { title: 'Cookie Policy', description: 'Cookie policy of maviprotein.com.tr.' }, kicker: 'Legal', title: 'Cookie policy' },
+      cookies: { meta: { title: 'Cookie Policy', description: 'Cookie policy of theblueprotein.com.' }, kicker: 'Legal', title: 'Cookie policy' },
       updated: 'Last updated',
     },
     notFound: {
@@ -628,7 +628,7 @@ export const pagesCopy = {
     },
     legal: {
       privacy: { meta: { title: 'إشعار الخصوصية (KVKK)', description: 'إشعار الخصوصية بموجب القانون التركي رقم 6698 بشأن حماية البيانات الشخصية (KVKK).' }, kicker: 'قانوني', title: 'إشعار الخصوصية' },
-      cookies: { meta: { title: 'سياسة ملفات الارتباط', description: 'سياسة ملفات الارتباط لموقع maviprotein.com.tr.' }, kicker: 'قانوني', title: 'سياسة ملفات الارتباط' },
+      cookies: { meta: { title: 'سياسة ملفات الارتباط', description: 'سياسة ملفات الارتباط لموقع theblueprotein.com.' }, kicker: 'قانوني', title: 'سياسة ملفات الارتباط' },
       updated: 'آخر تحديث',
     },
     notFound: {
